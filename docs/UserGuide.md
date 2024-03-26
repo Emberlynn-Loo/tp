@@ -369,20 +369,20 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Command summary
 
-| Action              | Format, Examples                                                                                                                                                      |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**           | `clear`                                                                                                                                                               |
-| **Delete**          | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
-| **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           |
-| **addAttribute**    | `addAttribute UUID ATTRIBUTE_NAME ATTRIBUTE_VALUE`<br> e.g., `addAttribute 12db Pet Dog`                                                                              |
-| **deleteAttribute** | `deleteAttribute UUID ATTRIBUTE_NAME`<br> e.g., `deleteAttribute 12db Pet`                                                                                            |
-| **addRelation**     | `addRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `addRelation 12db 3dab family`                                                                                      |
-| **editRelation**    | `editRelation UUID1 UUID2 OLD_RELATION_TYPE NEW_RELATION_TYPE`<br> e.g., `editRelation 12db 3dab family friend`                                                       |
-| **deleteRelation**  | `deleteRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `deleteRelation 12db 3dab family`                                                                                |
-| **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
-| **anySearch**       | `anySearch [originUUID] [targetUUID]`<br> e.g., `anySearch 10cb 987d`                                                                                                 |
-| **List**            | `list`                                                                                                                                                                |
-| **Help**            | `help`                                                                                                                                                                |
+| Action               | Format, Examples                                                                                                                                |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**       | `add /ATTRUBUTE_NAME ATTRIBUTE_VALUE [MORE_ATTRIBUTE_NAME_VALUE_PAIRS]` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
+| **Delete Person**    | `delete UUID`<br> e.g., `delete 3k83`                                                                                                           |
+| **Add Attribute**    | `addAttribute UUID ATTRIBUTE_NAME ATTRIBUTE_VALUE`<br> e.g., `addAttribute 12db Pet Dog`                                                        |
+| **Delete Attribute** | `deleteAttribute UUID ATTRIBUTE_NAME`<br> e.g., `deleteAttribute 12db Pet`                                                                      |
+| **Add Relation**     | `addRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `addRelation 12db 3dab family`                                                                |
+| **Edit Relation**    | `editRelation UUID1 UUID2 OLD_RELATION_TYPE NEW_RELATION_TYPE`<br> e.g., `editRelation 12db 3dab family friend`                                 |
+| **Delete Relation**  | `deleteRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `deleteRelation 12db 3dab family`                                                          |
+| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                      |
+| **List All Persons** | `list`                                                                                                                                          |
+| **anySearch**        | `anySearch [originUUID] [targetUUID]`<br> e.g., `anySearch 10cb 987d`                                                                           |
+| **Help**             | `help`                                                                                                                                          |
+| **Exit App**         | `exit`                                                                                                                                          |
+| **Clear Data**       | `clear`                                                                                                                                         |
 
 [Back to Table of Contents](#table-of-contents)
