@@ -77,6 +77,10 @@ public class EditRelationshipCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
         }
+        if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
+            throw new CommandException("There's no need to edit the relationship "
+                    + "if the new relationship is the same as the old one.");
+        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);

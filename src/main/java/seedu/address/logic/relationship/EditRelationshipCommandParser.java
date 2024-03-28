@@ -48,7 +48,7 @@ public class EditRelationshipCommandParser {
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             if (!role1.matches("[a-zA-Z]+") || !role2.matches("[a-zA-Z]+")) {
-                throw new ParseException("Roles must contain only letters");
+                throw new ParseException("Roles must be all strings and one word only");
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor, role1, role2);
