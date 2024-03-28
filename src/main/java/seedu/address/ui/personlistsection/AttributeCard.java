@@ -6,7 +6,7 @@ import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
 public class AttributeCard extends UiPart<Region> {
-    private static final String FXML = "PersonListSection/AttributeCard.fxml";
+    private static final String FXML = "person-list-section/AttributeCard.fxml";
     @FXML
     private Label attributeKeyLabel;
     @FXML

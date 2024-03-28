@@ -12,7 +12,7 @@ import seedu.address.ui.personlistsection.AttributeCard;
  */
 public class PersonCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListSection/PersonCard.fxml";
+    private static final String FXML = "person-list-section/PersonCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -41,8 +41,10 @@ public class PersonCard extends UiPart<Region> {
     }
     private void fillAttributesBox() {
         personCardAttributes.getChildren().clear();
-        personCardAttributes.getChildren().add(new AttributeCard("Name", "SpongeBob").getRoot());
-        personCardAttributes.getChildren().add(new AttributeCard("Address", "Under the sea Spongebob squarepatns spongebob spoognebob spongendnenenene").getRoot());
+        String[][] attributeStrings = person.allAttributesAsPairs();
+        for (String[] strings: attributeStrings) {
+            personCardAttributes.getChildren().add(new AttributeCard(strings[0], strings[1]).getRoot());
+        }
     }
 }
 

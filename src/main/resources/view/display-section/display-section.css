@@ -1,6 +1,7 @@
 .display_section_container {
     -fx-min-width: 700;
     -fx-padding: 0 20;
+    -fx-background-color: #EFBC9B;
 }
 
 .display_section_header_deco {
@@ -15,7 +16,8 @@
 }
 
 .display_section_header_title {
-    -fx-text-fill: black;
+     -fx-text-fill: -black;
+     -fx-font-family: 'Raleway SemiBold Italic'; /* Specify just the family name */
 }
 
 .display_section_body {

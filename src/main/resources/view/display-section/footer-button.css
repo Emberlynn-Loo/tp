@@ -1,0 +1,17 @@
+.footer-button-container {
+    -fx-cursor: hand;
+}
+.footer-button {
+    -fx-font-family: 'Raleway SemiBold Italic';
+    -fx-text-fill: -black;
+    -fx-background-color: transparent;
+}
+.footer-button-selected {
+    -fx-text-fill: -rose-red;
+}
+.footer-button:hover {
+    -fx-opacity: 0.75;
+}
+.footer-button-selected-deco {
+    -fx-fill: -light-green;
+}

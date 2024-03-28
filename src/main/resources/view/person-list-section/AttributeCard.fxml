@@ -6,10 +6,10 @@
 
 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="40" minWidth="320" styleClass="attributeCard" stylesheets="@person-card.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" spacing="8">
    <children>
-      <Label fx:id="attributeKeyLabel" alignment="CENTER" minHeight="25.0" minWidth="80.0" prefWidth="80.0" styleClass="attributeCard_attributeLabel" stylesheets="@person-card.css" text="Label" wrapText="true">
+      <Label fx:id="attributeKeyLabel" alignment="CENTER" minHeight="25.0" minWidth="80.0" styleClass="attributeCard_attributeLabel, h2" stylesheets="@person-card.css" text="Label" wrapText="true">
          <font>
             <Font size="12.0" />
          </font></Label>
-      <Label fx:id="attributeValueLabel" alignment="CENTER_LEFT" minHeight="31.0" minWidth="240.0" styleClass="attributeCard_attributeInfo" stylesheets="@person-card.css" text="Label" wrapText="true" />
+      <Label fx:id="attributeValueLabel" alignment="CENTER_LEFT" minHeight="31.0" minWidth="240.0" styleClass="attributeCard_attributeInfo, h3" stylesheets="@person-card.css" text="Label" wrapText="true" />
    </children>
 </HBox>

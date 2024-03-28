@@ -1,9 +1,5 @@
 package seedu.address.ui.displaysection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,10 +10,12 @@ import seedu.address.logic.Logic;
 import seedu.address.model.person.Person;
 import seedu.address.ui.PersonList;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.personlistsection.AllContactsSection;
 
 public class DisplaySection extends UiPart<Region> {
     private static final String FXML = "display-section/DisplaySection.fxml";
-    private PersonList allContactsSection;
+    private AllContactsSection allContactsSection;
+    private FooterButtonSection footerButtonSection;
     @FXML
     private VBox displaySection;
     @FXML
@@ -27,16 +25,53 @@ public class DisplaySection extends UiPart<Region> {
 
     public DisplaySection(Logic logic) {
         super(FXML);
-        this.allContactsSection = new PersonList(logic.getFilteredPersonList());
-        displayAllContactsSection();
+        this.allContactsSection = new AllContactsSection(logic.getFilteredPersonList());
+        displayFooter("All Contacts", "Found Contacts", "Any List", () ->
+                displayAllContactsSection(logic.getFilteredPersonList()), () ->
+                displayFoundResultSection(logic.getFilteredPersonList()), () ->
+                displayAnyListSection(logic.getFilteredPersonList()));
+        displayAllContactsSection(logic.getFilteredPersonList());
+        displayAllContactsSection(logic.getFilteredPersonList());
     }
-    private void displayAllContactsSection() {
+    private void displayAllContactsSection(ObservableList<Person> personLists) {
+        footerButtonSection.selectAllContactButton();
         headerTitle.setText("All Contacts");
-        body.getChildren().clear();
-        body.getChildren().add(allContactsSection.getRoot());
+        allContactsSection.update(personLists);
+        renderSection(allContactsSection.getRoot());
+    }
+    private void displayFoundResultSection(ObservableList<Person> personLists) {
+        footerButtonSection.selectFindResultButton();
+        headerTitle.setText("Found Contacts");
+        allContactsSection.update(personLists);
+        renderSection(allContactsSection.getRoot());
+    }
+    private void displayAnyListSection(ObservableList<Person> personLists) {
+        footerButtonSection.selectAnyListButton();
+        headerTitle.setText("Any List");
+        allContactsSection.update(personLists);
+        renderSection(allContactsSection.getRoot());
+    }
+    /**
+     * Displays the footer buttons that enables user to toggle between different sections.
+     * @param allContactButtonLabel The text label of the all contacts button.
+     * @param findResultButtonLabel The text label of the find result button.
+     * @param anyListButtonLabel The text label of any list button.
+     * @param allContactButtonHandler The function to execute on clicking the all contacts button.
+     * @param findResultButtonHandler The function to execute on clicking the find result button.
+     * @param anyListButtonHandler The function to execute on clicking the anyList button.
+     */
+    private void displayFooter(String allContactButtonLabel, String findResultButtonLabel, String anyListButtonLabel,
+                              Runnable allContactButtonHandler, Runnable findResultButtonHandler,
+                              Runnable anyListButtonHandler) {
+        this.footerButtonSection = new FooterButtonSection(
+                allContactButtonLabel, findResultButtonLabel, anyListButtonLabel,
+                allContactButtonHandler, findResultButtonHandler, anyListButtonHandler);
+        displaySection.getChildren().remove(displaySection.lookup(".footer-button-section"));
+        displaySection.getChildren().add(footerButtonSection.getRoot());
     }
     private void renderSection(Node section) {
         body.getChildren().clear();
         body.getChildren().add(section);
     }
 }
+

@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,6 +14,7 @@ import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
 import static seedu.address.testutil.TypicalPersonsUuid.BOB;
 
 import java.time.LocalDate;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -252,6 +254,22 @@ public class PersonTest {
         assertEquals(
                 "Name: Alice Pauline\nBirthday: 1999-01-01",
                 aliceCopy.allAttributesAsString());
+    }
+    @Test
+    public void allAttributesAsPairs() {
+        NameAttribute name = new NameAttribute("Name", "Alice Pauline");
+        BirthdayAttribute birthday = new BirthdayAttribute(
+                "Birthday",
+                LocalDate.of(1999, 1, 1));
+        Person aliceCopy = new Person(new Attribute[]{name, birthday});
+        String[][] expected = new String[2][2];
+        expected[1] = new String[] {"Name:", "Alice Pauline"};
+        expected[0] = new String[] {"Birthday:", "1999-01-01"};
+        for (String[] p : aliceCopy.allAttributesAsPairs()) {
+            System.out.println(p[0]);
+            System.out.println(p[1]);
+        }
+        assertArrayEquals(expected, aliceCopy.allAttributesAsPairs());
     }
 
     @Test
