@@ -25,6 +25,21 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR = "You cannot delete this "
             + "relationship type.";
+    public static final String MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT = "Relationship format is invalid. "
+            + "\nPlease ensure that the relationship is in the format: "
+            + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+            + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>";;
+
+    public static final String MESSAGE_INVALID_DELETE_RELATIONSHIP_COMMAND_FORMAT = "Relationship format is invalid. "
+            + "\nPlease ensure that the relationship is in the format: "
+            + "\ndeleteRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+            + "\ndeleteRelation /<relationshipDescriptor>";
+
+    public static final String MESSAGE_INVALID_EDIT_RELATIONSHIP_COMMAND_FORMAT = "Relationship format is invalid. "
+            + "\nPlease ensure that the relationship is in the format: "
+            + "\neditRelation /<UUID1> /<UUID2> /<oldRelationshipDescriptor> /<newRelationshipDescriptor> "
+            + "\nor "
+            + "\neditRelation /<UUID1> <role1> /<UUID2> <role2> /<oldRelationshipDescriptor> /<newRelationshipDescriptor>";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
