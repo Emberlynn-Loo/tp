@@ -32,7 +32,7 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parse_validInputFamilyWithRoles_success() {
-        String userInput = "parent 0001 child 0003 bioparents";
+        String userInput = "/0001 parent /0003 child /bioparents";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001", "0003",
                 "bioParents", "parent", "child");
         assertParseSuccess(parser, userInput, expected);
@@ -40,7 +40,7 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parse_validInputWithRoles_success() {
-        String userInput = "Boss 0001 Subordinate 0003 Workbuddies";
+        String userInput = "/0001 Boss /0003 Subordinate /Workbuddies";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001", "0003",
                 "Workbuddies", "Boss", "Subordinate");
         assertParseSuccess(parser, userInput, expected);
@@ -48,44 +48,50 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parseInvalidInputWithRoles_throwsParseException() {
-        String userInput = "parent 0001 child 19000 bioparents";
+        String userInput = "/0001 parent /19000 child /bioparents";
         assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
 
-        String userInput2 = "parent 00010 child 0003 bioparents";
+        String userInput2 = "/00010 parent /0003 child /bioparents";
         assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
     }
     @Test
     void parse_invalidInputMissingPartsWithRoles_throwsIllegalArgumentException() {
-        String userInput = "parent child 0002 bioparents";
-        assertParseFailure(parser, userInput, "Invalid command format! \n%1$s");
+        String userInput = "/ parent /0002 child /bioparents";
+        assertParseFailure(parser, userInput, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
 
-        String userInput2 = "parent 0001 0003 bioparents";
-        assertParseFailure(parser, userInput2, "Invalid command format! \n%1$s");
+        String userInput2 = "/0001 parent /0003 /bioparents";
+        assertParseFailure(parser, userInput2, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
     }
 
     @Test
     void parse_upperAndLowerCaseInputs_success() {
-        String userInput = "parent 0001 child 0003 Bioparents";
+        String userInput = "/0001 parent /0003 child /Bioparents";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001", "0003",
                 "bioparents", "parent", "child");
         assertParseSuccess(parser, userInput, expected);
 
-        String userInput2 = "0001 0003 Siblings";
+        String userInput2 = "/0001 /0003 /Siblings";
         AddRelationshipCommand expected2 = new AddRelationshipCommand("0001", "0003",
                 "siblings");
         assertParseSuccess(parser, userInput2, expected2);
 
-        String userInput3 = "0001 0003 Spouses";
+        String userInput3 = "/0001 /0003 /Spouses";
         AddRelationshipCommand expected3 = new AddRelationshipCommand("0001", "0003",
                 "spouses");
         assertParseSuccess(parser, userInput3, expected3);
 
-        String userInput4 = "Parent 0001 child 0005 Bioparents";
+        String userInput4 = "/0001 Parent /0005 child /Bioparents";
         AddRelationshipCommand expected4 = new AddRelationshipCommand("0001", "0005",
                 "bioparents", "parent", "child");
         assertParseSuccess(parser, userInput4, expected4);
 
-        String userInput5 = "parent 0001 Child 0006 Bioparents";
+        String userInput5 = "/0001 parent /0006 CHILd /Bioparents";
         AddRelationshipCommand expected5 = new AddRelationshipCommand("0001", "0006",
                 "bioparents", "parent", "child");
         assertParseSuccess(parser, userInput5, expected5);
@@ -155,7 +161,7 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parse_validInput_success() {
-        String userInput = "0001 0003 siblings";
+        String userInput = "/0001 /0003 /siblings";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001",
                 "0003", "siblings");
         assertParseSuccess(parser, userInput, expected);
@@ -163,10 +169,10 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parseInvalidInput_throwsParseException() {
-        String userInput = "0001 19000 siblings";
+        String userInput = "/0001 /19000 /siblings";
         assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
 
-        String userInput2 = "00010 0003 siblings";
+        String userInput2 = "/00010 /0003 /siblings";
         assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
     }
     @Test
@@ -174,15 +180,21 @@ class AddRelationshipCommandParserTest {
         String targetUuid = "0001";
         String originUuid = "0003";
         String userInput = targetUuid + "siblings";
-        assertParseFailure(parser, userInput, "Invalid command format! \n%1$s");
+        assertParseFailure(parser, userInput, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
 
         String userInput2 = originUuid + "siblings";
-        assertParseFailure(parser, userInput2, "Invalid command format! \n%1$s");
+        assertParseFailure(parser, userInput2, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
     }
 
     @Test
     void parse_invalidInputFamilyWithRoles_throwsParseException() {
-        String userInput = "parent 0001 child 0003 family";
+        String userInput = "/0001 parent /0003 child /family";
         assertParseFailure(parser, userInput, "Please specify the type of familial relationship "
                 + "instead of 'Family'.\n"
                 + " Valid familial relations are: [bioParents, siblings, spouses]");
@@ -190,7 +202,7 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parse_invalidInputFamily_throwsParseException() {
-        String userInput = "0001 0003 family";
+        String userInput = "/0001 /0003 /family";
         assertParseFailure(parser, userInput, "Please specify the type of "
                 + "familial relationship instead of 'Family'.\n"
                 + " Valid familial relations are: [bioParents, siblings, spouses]");

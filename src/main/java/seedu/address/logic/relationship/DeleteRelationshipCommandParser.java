@@ -41,7 +41,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
                 String relationshipDescriptor = relationKeysAndValues(relationshipMap,
                         2, false).toLowerCase();
 
-                if (relationshipDescriptor == "family") {
+                if (relationshipDescriptor.equals("family")) {
                     throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                             + " Valid familial relations are: [bioParents, siblings, spouses]");
                 }
@@ -57,7 +57,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             try {
                 String relationshipDescriptor = relationKeysAndValues(relationshipMap,
                         0, false).toLowerCase();
-                if (relationshipDescriptor.equalsIgnoreCase("family")) {
+                if (relationshipDescriptor.equals("family")) {
                     throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                             + " Valid familial relations are: [bioParents, siblings, spouses]");
                 }

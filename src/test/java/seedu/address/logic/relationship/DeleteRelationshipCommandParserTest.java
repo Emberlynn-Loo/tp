@@ -81,6 +81,13 @@ class DeleteRelationshipCommandParserTest {
     }
 
     @Test
+    void execute_sameOriginAndTargetUuidsButNotTestUuids_throwsCommandException() {
+        String userInput = "/0001 /0001 /siblings";
+
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
     void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
         String userInput = "friend";
         assertThrows(ParseException.class, () -> parser.parse(userInput));

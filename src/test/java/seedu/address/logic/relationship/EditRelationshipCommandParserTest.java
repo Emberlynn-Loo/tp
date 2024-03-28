@@ -39,9 +39,9 @@ public class EditRelationshipCommandParserTest {
     @Test
     public void parse_validInputWithoutRoles_success() {
         // Valid input with UUIDs and relationship descriptors
-        String userInput = "1234 "
-                + "5432 "
-                + "siblings friend";
+        String userInput = "/1234 "
+                + "/5432 "
+                + "/siblings /friend";
 
         EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
 
@@ -56,18 +56,14 @@ public class EditRelationshipCommandParserTest {
     @Test
     public void parse_validInputWithRoles_success() {
         // Valid input with UUIDs and relationship descriptors
-        String userInput = "Boss 1234 "
-                + "subordinate 5432 "
-                + "siblings workbuddies";
+        String userInput = "/Boss 1234 "
+                + "/subordinate 5432 "
+                + "/siblings /workbuddies";
 
         EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
 
-        try {
-            EditRelationshipCommand command = parser.parse(userInput);
-            assertNotNull(command);
-        } catch (ParseException e) {
-            fail("Unexpected ParseException thrown");
-        }
+        assertThrows(ParseException.class, () -> parser.parse(userInput),
+                "Expected a ParseException to be thrown");
     }
 
     @Test

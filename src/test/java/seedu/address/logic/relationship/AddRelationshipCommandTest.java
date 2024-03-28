@@ -89,7 +89,8 @@ class AddRelationshipCommandTest {
         String relationshipDescriptor = "123";
         AddRelationshipCommand addRelationshipCommand =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        assertCommandFailure(addRelationshipCommand, model, "Invalid Relationship type");
+        assertCommandFailure(addRelationshipCommand, model,
+                "Invalid Relationship type. Must only consist of letters.");
     }
     @Test
     void testEqualsMethodWithSameArguments() {

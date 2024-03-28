@@ -186,7 +186,7 @@ public class EditRelationshipCommandTest {
         CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Invalid Relationship type");
         // Check the exception message
-        assertEquals("Invalid Relationship type",
+        assertEquals("Invalid Relationship type. Must only consist of letters.",
                 exception.getMessage());
     }
 

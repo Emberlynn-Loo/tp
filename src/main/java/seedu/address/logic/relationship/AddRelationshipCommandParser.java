@@ -47,7 +47,7 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
             originUuid = ParserUtil.parseUuid(originUuid);
             targetUuid = ParserUtil.parseUuid(targetUuid);
             relationshipDescriptor = relationshipDescriptor.toLowerCase();
-            if (relationshipDescriptor == "family") {
+            if (relationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
@@ -56,7 +56,7 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
             originUuid = ParserUtil.parseUuid(originUuid);
             targetUuid = ParserUtil.parseUuid(targetUuid);
             relationshipDescriptor = relationshipDescriptor.toLowerCase();
-            if (relationshipDescriptor == "family") {
+            if (relationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
