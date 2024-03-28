@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -9,10 +12,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -61,7 +66,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -84,7 +89,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
 
     @Test
@@ -107,7 +112,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
@@ -130,7 +135,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
     }
 
     @Test
@@ -192,7 +197,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
@@ -241,5 +246,88 @@ public class ParserUtilTest {
     public void removeFirstItemFromStringList_emptyArray_throwsIllegalArgumentException() {
         String[] parts = {};
         assertThrows(IllegalArgumentException.class, () -> ParserUtil.removeFirstItemFromStringList(parts));
+    }
+
+    @Test
+    public void separateUuidAndValues_invalidInput_throwsParseException() {
+        String parts = "1234 role something";
+        assertThrows(ParseException.class, () -> ParserUtil.separateUuidAndValues(parts));
+    }
+
+    @Test
+    public void separateUuidAndValues_validInputWithRole_success() throws Exception {
+        String parts = "1234 role";
+        String[] expected = {"1234", "role"};
+        String[] actual = ParserUtil.separateUuidAndValues(parts);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void getRelationshipHashMapFromRelationshipStrings_invalidRoles_throwsParseException() {
+        String[] parts = {"1234 role1", "1235 role1", "relationshipType"};
+        assertThrows(ParseException.class, () -> ParserUtil.getRelationshipHashMapFromRelationshipStrings(parts));
+    }
+
+    @Test
+    public void getRelationshipHashMapFromRelationshipDelete_invalidPeople_throwsParseException() {
+        String[] parts = {"1234", "1234", "relationshipType"};
+        assertThrows(CommandException.class, () -> ParserUtil.getRelationshipHashMapDelete(parts, true));
+    }
+
+    @Test
+    public void getRelationshipHashMapDelete_nullParts_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.getRelationshipHashMapDelete(null, true));
+    }
+
+    @Test
+    public void getRelationshipHashMapDelete_emptyParts_returnsEmptyMap() throws ParseException, CommandException {
+        LinkedHashMap<String, String> map = ParserUtil.getRelationshipHashMapDelete(new String[]{}, true);
+        assertTrue(map.isEmpty());
+    }
+
+    @Test
+    public void getRelationshipHashMapDelete_singleElementParts_returnsMapWithRelationshipTypeKey() throws
+            ParseException, CommandException {
+        String[] parts = {"type"};
+        LinkedHashMap<String, String> map = ParserUtil.getRelationshipHashMapDelete(parts, true);
+        assertEquals(1, map.size());
+        assertTrue(map.containsKey("type"));
+        assertNull(map.get("type"));
+    }
+
+    @Test
+    public void separateUuidAndValuesDelete_validInput_noExceptionThrown() {
+        String input = "1234";
+        assertDoesNotThrow(() -> ParserUtil.separateUuidAndValuesDelete(input));
+    }
+
+    @Test
+    public void separateUuidAndValuesDelete_invalidLength_throwsParseException() {
+        String invalidInput = "uuid role";
+        assertThrows(ParseException.class, () -> ParserUtil.separateUuidAndValuesDelete(invalidInput));
+    }
+
+    @Test
+    public void getRelationshipHashMapEdit_validInput_returnsHashMap() throws ParseException {
+        String[] parts = {"1234 Rachel", "5678 Jack", "parent", "sibling"};
+        LinkedHashMap<String, String> expectedMap = new LinkedHashMap<>();
+        expectedMap.put("1234", "Rachel");
+        expectedMap.put("5678", "Jack");
+        expectedMap.put("parent", null);
+        expectedMap.put("sibling", null);
+
+        assertEquals(expectedMap, ParserUtil.getRelationshipHashMapEdit(parts));
+    }
+
+    @Test
+    public void getRelationshipHashMapEdit_samePerson_throwsParseException() {
+        String[] parts = {"1234 parent", "1234 child", "friend", "bioparents"};
+        assertThrows(ParseException.class, () -> ParserUtil.getRelationshipHashMapEdit(parts));
+    }
+
+    @Test
+    public void getRelationshipHashMapEdit_sameRole_throwsParseException() {
+        String[] parts = {"1234 parent", "5678 parent", "friend", "bioparents"};
+        assertThrows(ParseException.class, () -> ParserUtil.getRelationshipHashMapEdit(parts));
     }
 }

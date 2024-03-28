@@ -62,7 +62,7 @@ public class EditRelationshipCommandParser {
         }
     }
 
-    private String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap, int index, boolean value) {
+    String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap, int index, boolean value) {
         if (index >= relationshipMap.size()) {
             throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         }

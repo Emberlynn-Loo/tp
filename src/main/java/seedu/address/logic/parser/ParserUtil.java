@@ -196,7 +196,7 @@ public class ParserUtil {
         return result;
     }
 
-    private static String[] separateUuidAndValues(String parts) throws ParseException {
+    static String[] separateUuidAndValues(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length == 1) {
             result[0] = result[0].trim();
@@ -215,9 +215,6 @@ public class ParserUtil {
 
     private static String[] separateRelationshipTypes(String parts) throws ParseException {
         String[] result = parts.trim().split(" ", 1);
-        if (result.length < 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_RELATIONSHIP_FORMAT));
-        }
         result[0] = result[0].trim();
         return result;
     }
@@ -311,7 +308,7 @@ public class ParserUtil {
         return relationshipMap;
     }
 
-    private static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
+    static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_ROLE_DELETE));
@@ -355,8 +352,9 @@ public class ParserUtil {
                 relationshipMap.put(relationshipTypeKey, null);
             } else if (i == 3) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
-                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
-                    throw new ParseException("Relationship types must be different.");
+                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[2])) {
+                    throw new ParseException("There's no need to edit the relationship "
+                            + "if the new relationship is the same as the old one.");
                 }
                 String relationshipTypeKey = relationshipType[0];
                 relationshipMap.put(relationshipTypeKey, null);
