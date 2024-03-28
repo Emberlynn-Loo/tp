@@ -25,13 +25,9 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
     public static final String MESSAGE_MALFORMED_ATTRIBUTE_PAIR = "Attributes must be of the format: "
             + "/attributeName value";
-
-    public static final String MESSAGE_INVALID_RELATIONSHIP_FORMAT = "Relationship format is invalid. "
-            + "\nPlease ensure that the relationship is in the format: "
-            + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
-            + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>";
 
     public static final String MESSAGE_INVALID_ROLE = "Roles must be all strings and one word only";
 
