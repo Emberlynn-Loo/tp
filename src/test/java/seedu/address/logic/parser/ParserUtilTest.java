@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -251,7 +252,9 @@ public class ParserUtilTest {
     @Test
     public void separateUuidAndValues_invalidInput_throwsParseException() {
         String parts = "1234 role something";
-        assertThrows(ParseException.class, () -> ParserUtil.separateUuidAndValues(parts));
+
+        Assertions.assertThrows(ParseException.class, () -> ParserUtil.separateUuidAndValues(parts),
+                ParserUtil.MESSAGE_INVALID_ROLE);
     }
 
     @Test

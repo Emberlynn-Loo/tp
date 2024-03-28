@@ -213,7 +213,7 @@ public class ParserUtil {
         }
     }
 
-    private static String[] separateRelationshipTypes(String parts) throws ParseException {
+    private static String[] separateRelationshipTypes(String parts) {
         String[] result = parts.trim().split(" ", 1);
         result[0] = result[0].trim();
         return result;
