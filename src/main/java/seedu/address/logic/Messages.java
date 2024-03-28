@@ -39,7 +39,8 @@ public class Messages {
             + "\nPlease ensure that the relationship is in the format: "
             + "\neditRelation /<UUID1> /<UUID2> /<oldRelationshipDescriptor> /<newRelationshipDescriptor> "
             + "\nor "
-            + "\neditRelation /<UUID1> <role1> /<UUID2> <role2> /<oldRelationshipDescriptor> /<newRelationshipDescriptor>";
+            + "\neditRelation /<UUID1> <role1> /<UUID2> <role2> /<oldRelationshipDescriptor> "
+            + "/<newRelationshipDescriptor>";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

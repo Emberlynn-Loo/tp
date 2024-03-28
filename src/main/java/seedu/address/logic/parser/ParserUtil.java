@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -192,7 +196,7 @@ public class ParserUtil {
         return result;
     }
 
-    private static String[] separateUUIDAndValues(String parts) throws ParseException {
+    private static String[] separateUuidAndValues(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length == 1) {
             result[0] = result[0].trim();
@@ -236,7 +240,7 @@ public class ParserUtil {
 
         for (int i = 0; i < parts.length; i++) {
             if (i == 0) {
-                String[] uuidAndValue = separateUUIDAndValues(parts[i]);
+                String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String uuid = uuidAndValue[0];
                 String value;
                 if (uuidAndValue.length == 1) {
@@ -246,7 +250,7 @@ public class ParserUtil {
                 }
                 relationshipMap.put(uuid, value);
             } else if (i == 1) {
-                String[] uuidAndValue = separateUUIDAndValues(parts[i]);
+                String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String value = relationshipMap.keySet().toArray(new String[0])[0];
                 if (uuidAndValue[0].equals(value)) {
                     throw new ParseException("Relationships must be between 2 different people");
@@ -277,17 +281,17 @@ public class ParserUtil {
      * @param parts The pairs of UUIDs and values in the command arguments
      * @return  A LinkedHashMap containing the pairs of UUIDs and values
      */
-    public static LinkedHashMap<String, String> getRelationshipHashMapDelete(String[] parts, boolean hasUUIDs)
+    public static LinkedHashMap<String, String> getRelationshipHashMapDelete(String[] parts, boolean hasUuids)
             throws ParseException, CommandException {
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
 
-        if (hasUUIDs) {
+        if (hasUuids) {
             for (int i = 0; i < parts.length; i++) {
                 if (i == 0) {
-                    String[] uuidAndValue = separateUUIDAndValuesDelete(parts[i]);
+                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
                     relationshipMap.put(uuidAndValue[0], null);
                 } else if (i == 1) {
-                    String[] uuidAndValue = separateUUIDAndValuesDelete(parts[i]);
+                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
                     String value = relationshipMap.keySet().toArray(new String[0])[0];
                     if (uuidAndValue[0].equals(value)) {
                         throw new CommandException("Relationships must be between 2 different people");
@@ -307,7 +311,7 @@ public class ParserUtil {
         return relationshipMap;
     }
 
-    private static String[] separateUUIDAndValuesDelete(String parts) throws ParseException {
+    private static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_ROLE_DELETE));
@@ -324,25 +328,25 @@ public class ParserUtil {
         for (int i = 0; i < parts.length; i++) {
             String value;
             if (i == 0) {
-                String uuid = separateUUIDAndValues(parts[i])[0];
-                if (separateUUIDAndValues(parts[i]).length == 1) {
+                String uuid = separateUuidAndValues(parts[i])[0];
+                if (separateUuidAndValues(parts[i]).length == 1) {
                     value = null;
                 } else {
-                    value = separateUUIDAndValues(parts[i])[1];
+                    value = separateUuidAndValues(parts[i])[1];
                 }
                 relationshipMap.put(uuid, value);
-            } else if (i == 1) {;
-                if (separateUUIDAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
+            } else if (i == 1) {
+                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
                     throw new ParseException("Relationships must be between 2 different people");
                 }
-                String uuid = separateUUIDAndValues(parts[i])[0];
-                if (separateUUIDAndValues(parts[i]).length == 1) {
+                String uuid = separateUuidAndValues(parts[i])[0];
+                if (separateUuidAndValues(parts[i]).length == 1) {
                     value = null;
                 } else {
-                    if (separateUUIDAndValues(parts[i])[1].equals(relationshipMap.values().toArray(new String[0])[0])) {
+                    if (separateUuidAndValues(parts[i])[1].equals(relationshipMap.values().toArray(new String[0])[0])) {
                         throw new ParseException("Roles must be different for each person in a relationship.");
                     }
-                    value = separateUUIDAndValues(parts[i])[1];
+                    value = separateUuidAndValues(parts[i])[1];
                 }
                 relationshipMap.put(uuid, value);
             } else if (i == 2) {
@@ -351,7 +355,7 @@ public class ParserUtil {
                 relationshipMap.put(relationshipTypeKey, null);
             } else if (i == 3) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
-                if (separateUUIDAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
+                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
                     throw new ParseException("Relationship types must be different.");
                 }
                 String relationshipTypeKey = relationshipType[0];

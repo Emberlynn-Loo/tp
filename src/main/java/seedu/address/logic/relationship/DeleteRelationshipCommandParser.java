@@ -2,13 +2,13 @@ package seedu.address.logic.relationship;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.LinkedHashMap;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.LinkedHashMap;
 
 /**
  * Parses user input into a DeleteRelationshipCommand.
@@ -28,11 +28,11 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             throw new ParseException(Messages.MESSAGE_INVALID_DELETE_RELATIONSHIP_COMMAND_FORMAT);
         }
         parts = ParserUtil.removeFirstItemFromStringList(parts);
-        boolean hasUUIDs = false;
+        boolean hasUuids = false;
         if (parts.length == 3) {
-            hasUUIDs = true;
+            hasUuids = true;
         }
-        LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapDelete(parts, hasUUIDs);
+        LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapDelete(parts, hasUuids);
 
         if (relationshipMap.size() == 3) {
             try {

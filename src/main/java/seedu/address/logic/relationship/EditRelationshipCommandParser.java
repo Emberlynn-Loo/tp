@@ -2,11 +2,11 @@ package seedu.address.logic.relationship;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.LinkedHashMap;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.LinkedHashMap;
 
 /**
  * Parses user input into an EditRelationshipCommand.
