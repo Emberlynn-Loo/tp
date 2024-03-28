@@ -1,0 +1,25 @@
+.display_section_container {
+    -fx-min-width: 700;
+    -fx-padding: 0 20;
+}
+
+.display_section_header_deco {
+    -fx-max-height: 3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: black;
+}
+
+.display_section_header_container {
+    -fx-padding: 0 20;
+}
+
+.display_section_header_title {
+    -fx-text-fill: black;
+}
+
+.display_section_body {
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+

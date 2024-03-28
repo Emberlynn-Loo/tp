@@ -322,7 +322,9 @@ public class Person {
     public Set<Attribute> getAttributes() {
         return new HashSet<>(attributes.values());
     }
-
+    public HashMap<String, Attribute> getAttributesMap() {
+        return this.attributes;
+    }
     public void setAttribute(String name, String str) {
         attributes.put(name, new StringAttribute(name, str));
     }

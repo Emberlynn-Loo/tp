@@ -1,0 +1,42 @@
+.attributeCard {
+    -fx-background-color: #D6DAC8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10 5 10;
+}
+.attributeCard_attributeLabel {
+    -fx-padding: 2 5 2 5;
+    -fx-alignment: center;
+    -fx-background-color: #F8F6E3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+}
+.attributeCard_attributeInfo {
+    -fx-opacity: 1;
+    -fx-padding: 2 5;
+}
+.personCard_uuid_label {
+    -fx-background-color: #FBF3D5;
+    -fx-padding: 3 5 3 5;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+.personCard_vbox {
+    -fx-background-color: #D6DAC8;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+.personCard_container {
+    -fx-background-color: #9CAFAA;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.personCard_container:hover {
+    -fx-translate-y: -8;
+    -fx-translate-x: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 15, 0.0, 5, 10);
+}
