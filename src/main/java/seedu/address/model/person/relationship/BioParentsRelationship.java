@@ -15,4 +15,8 @@ public class BioParentsRelationship extends RoleBasedRelationship {
     public BioParentsRelationship(UUID parentUuid, UUID childUuid) {
         super(parentUuid, childUuid, "family", ROLE_PARENT, ROLE_CHILD);
     }
+    @Override
+    public String getStyleDescriptor() {
+        return "bioparent";
+    }
 }

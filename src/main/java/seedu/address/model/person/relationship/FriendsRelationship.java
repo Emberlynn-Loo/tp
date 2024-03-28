@@ -9,4 +9,8 @@ public class FriendsRelationship extends Relationship {
     public FriendsRelationship(UUID person1, UUID person2) {
         super(person1, person2, "friend");
     }
+    @Override
+    public String getStyleDescriptor() {
+        return "friend";
+    }
 }

@@ -45,3 +45,41 @@
     -fx-translate-x: 5;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 15, 0.0, 5, 10);
 }
+.personCard-tag {
+    -fx-padding: 2 5;
+    -fx-text-fill: -black;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-font-family: 'Raleway';
+}
+.personCard-tag:hover {
+    -fx-opacity: 0.75;
+}
+
+.personCard-sibling {
+    -fx-background-color: -tag-red-sibling;
+}
+
+.personCard-spouse {
+    -fx-background-color: -tag-purple-spouse;
+}
+
+.personCard-bioparent {
+    -fx-background-color: -tag-yellow-bioparent;
+}
+
+.personCard-friend {
+    -fx-background-color: -tag-green-friend;
+}
+
+.personCard-general {
+    -fx-background-color: -tag-blue-general;
+}
+
+.personCard_flowpane {
+    -fx-background-color: #B5C0D0;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.0, 5, 10);
+}

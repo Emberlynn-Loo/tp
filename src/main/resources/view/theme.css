@@ -49,6 +49,7 @@
     -special-orange: #EFBC9B;
     -special-cream: #FBF3D5;
     -white: #EEEEEE;
+    -dark-grey: #393E46;
 
     /* SECONDARY COLORS */
     -light-green: #D6DAC8;
@@ -57,12 +58,12 @@
     -rose-red: #3B0918;
 
     /* COLORS FOR TAGS */
-    -tag-red: #F59B7C;
+    -tag-red-sibling: #F59B7C;
     -tag-orange: #FEBF76;
-    -tag-yellow: #F1F487;
-    -tag-green: #C2ED98;
-    -tag-blue: #8ED2CD;
-    -tag-purple: #98A9D7;
+    -tag-yellow-bioparent: #F1F487;
+    -tag-green-friend: #C2ED98;
+    -tag-blue-general: #8ED2CD;
+    -tag-purple-spouse: #98A9D7;
 }
 
 /* ============================================================================= */

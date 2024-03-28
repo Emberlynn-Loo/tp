@@ -9,4 +9,8 @@ public class SpousesRelationship extends RoleBasedRelationship {
     public SpousesRelationship(UUID person1, UUID person2) {
         super(person1, person2, "family", "husband", "wife");
     }
+    @Override
+    public String getStyleDescriptor() {
+        return "spouse";
+    }
 }

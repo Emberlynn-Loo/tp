@@ -60,6 +60,9 @@ public class Relationship {
                 || (other.person1.equals(this.person2) && other.person2.equals(this.person1)))
                 && other.relationshipDescriptor.equals(relationshipDescriptor);
     }
+    public String getStyleDescriptor() {
+        return "general";
+    }
     @Override
     public String toString() {
         return String.format("%s and %s are %s", person1.toString(),
