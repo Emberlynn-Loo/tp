@@ -22,10 +22,14 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.relationship.AddRelationshipCommand;
 import seedu.address.logic.relationship.AddRelationshipCommandParser;
+import seedu.address.logic.relationship.AnySearchCommand;
+import seedu.address.logic.relationship.AnySearchCommandParser;
 import seedu.address.logic.relationship.DeleteRelationshipCommand;
 import seedu.address.logic.relationship.DeleteRelationshipCommandParser;
 import seedu.address.logic.relationship.EditRelationshipCommand;
 import seedu.address.logic.relationship.EditRelationshipCommandParser;
+import seedu.address.logic.relationship.FamilySearchCommand;
+import seedu.address.logic.relationship.FamilySearchCommandParser;
 import seedu.address.logic.relationship.ListRelationshipTypesCommand;
 import seedu.address.model.person.Person;
 
@@ -95,6 +99,10 @@ public class AddressBookParser {
             return new EditRelationshipCommandParser().parse(arguments.trim());
         case ListRelationshipTypesCommand.COMMAND_WORD:
             return new ListRelationshipTypesCommand();
+        case AnySearchCommand.COMMAND_WORD:
+            return new AnySearchCommandParser().parse(arguments.trim());
+        case FamilySearchCommand.COMMAND_WORD:
+            return new FamilySearchCommandParser().parse(arguments.trim());
         case DeleteAttributeCommand.COMMAND_WORD:
             return new DeleteAttributeCommandParser().parse(arguments);
 

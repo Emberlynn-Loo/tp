@@ -26,6 +26,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR = "You cannot delete this "
             + "relationship type.";
 
+    public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

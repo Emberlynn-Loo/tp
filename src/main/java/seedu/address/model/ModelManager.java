@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -147,6 +148,16 @@ public class ModelManager implements Model {
     @Override
     public void deleteRelationshipsOfPerson(UUID personUuid) {
         addressBook.deleteRelationshipsOfPerson(personUuid);
+    }
+
+    @Override
+    public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
+        return addressBook.anySearch(originUuid, targetUuid);
+    }
+
+    @Override
+    public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
+        return addressBook.familySearch(originUuid, targetUuid);
     }
 
     /**
