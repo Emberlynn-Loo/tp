@@ -94,6 +94,24 @@ public class DisplaySection extends UiPart<Region> {
         allContactsSection.update(personLists, relationships);
         renderSection(allContactsSection.getRoot());
     }
+    /**
+     * Displays the footer buttons that enables user to toggle between different sections.
+     * @param allContactButtonLabel The text label of the all contacts button.
+     * @param findResultButtonLabel The text label of the find result button.
+     * @param anyListButtonLabel The text label of any list button.
+     * @param allContactButtonHandler The function to execute on clicking the all contacts button.
+     * @param findResultButtonHandler The function to execute on clicking the find result button.
+     * @param anyListButtonHandler The function to execute on clicking the anyList button.
+     */
+    private void displayFooter(String allContactButtonLabel, String findResultButtonLabel, String anyListButtonLabel,
+                               Runnable allContactButtonHandler, Runnable findResultButtonHandler,
+                               Runnable anyListButtonHandler) {
+        this.footerButtonSection = new FooterButtonSection(
+                allContactButtonLabel, findResultButtonLabel, anyListButtonLabel,
+                allContactButtonHandler, findResultButtonHandler, anyListButtonHandler);
+        displaySection.getChildren().remove(displaySection.lookup(".footer-button-section"));
+        displaySection.getChildren().add(footerButtonSection.getRoot());
+    }
 
     /**
      * Renders the given UI part within the body of the display section.
@@ -106,3 +124,6 @@ public class DisplaySection extends UiPart<Region> {
         body.getChildren().add(section);
     }
 }
+
+
+
