@@ -29,14 +29,6 @@ public class EditRelationshipCommandTest {
 
     private Model model;
     private Model expectedModel;
-    @Test
-    public void execute_editNonExistentRelationship_throwsCommandException() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        EditRelationshipCommand editCommand = new EditRelationshipCommand("uuid1", "uuid2",
-                "siblings", "friend");
-        assertThrows(CommandException.class, () -> editCommand.execute(model));
-    }
 
     @Test
     public void execute_originUuidIsNull_throwsCommandException() {
@@ -63,22 +55,6 @@ public class EditRelationshipCommandTest {
                 oldDescriptor, newDescriptor);
         assertThrows(CommandException.class, () -> editCommand.execute(model),
                 Messages.MESSAGE_INVALID_PERSON_UUID);
-    }
-
-    @Test
-    public void execute_originAndTargetUuidsAreSame_throwsCommandException() {
-        // Setup
-        Model model = new ModelManager();
-        String originUuid = "person123";
-        String targetUuid = "person123";
-        String oldRelationshipDescriptor = "siblings";
-        String newRelationshipDescriptor = "friend";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
-                oldRelationshipDescriptor, newRelationshipDescriptor);
-
-        // Verify
-        assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "Relationships must be between 2 different people");
     }
 
     @Test

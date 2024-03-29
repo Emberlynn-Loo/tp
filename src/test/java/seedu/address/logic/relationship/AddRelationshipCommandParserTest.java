@@ -201,9 +201,10 @@ class AddRelationshipCommandParserTest {
     @Test
     void parse_missingRole2_throwsParseException() {
         String userInput = "/0001 boss /0003 /siblings";
-        assertParseFailure(parser, userInput, "siblings relationship requires two roles to be specified.\n"
-                + "Please specify the roles in the format: "
-                + "\naddRelation /<UUID> <role> /<UUID> <role> /siblings");
+        assertParseFailure(parser, userInput, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
     }
 
     @Test
