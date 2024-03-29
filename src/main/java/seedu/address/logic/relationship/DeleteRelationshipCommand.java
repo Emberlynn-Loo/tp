@@ -37,8 +37,9 @@ public class DeleteRelationshipCommand extends Command {
 
     /**
      * Constructor for deleteRelationshipCommand, deletes Relationship type if it exist otherwise tell user relationship
-     * do not exist
+     * type do not exist
      * @param relationshipDescriptor String describing the type of relationship if exisiting
+     * @param isRelationType boolean to check if the relationship is a type
      */
     public DeleteRelationshipCommand(String relationshipDescriptor, boolean isRelationType) {
         this.relationshipDescriptor = relationshipDescriptor.toLowerCase();
@@ -49,11 +50,10 @@ public class DeleteRelationshipCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        if (originUuid == null || targetUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
-        }
-        if (fullOriginUuid == fullTargetUuid) {
-            throw new CommandException("Relationships must be between 2 different people");
+        if (!isRelationType) {
+            if (fullOriginUuid == null || fullTargetUuid == null) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
+            }
         }
         if (isRelationType) {
             try {

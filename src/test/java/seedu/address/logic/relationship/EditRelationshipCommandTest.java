@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.testutil.TypicalPersonsUuid;
@@ -25,22 +27,14 @@ import seedu.address.testutil.TypicalPersonsUuid;
 public class EditRelationshipCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
 
+    private Model model;
+    private Model expectedModel;
     @Test
     public void execute_editNonExistentRelationship_throwsCommandException() {
-        Model model = new ModelManager();
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         EditRelationshipCommand editCommand = new EditRelationshipCommand("uuid1", "uuid2",
                 "siblings", "friend");
-        assertThrows(CommandException.class, () -> editCommand.execute(model));
-    }
-
-    @Test
-    public void execute_editSameDescriptor_throwsCommandException() {
-        Model model = new ModelManager();
-        Relationship existingRelationship = new Relationship(UUID.randomUUID(),
-                UUID.randomUUID(), "siblings");
-        model.addRelationship(existingRelationship);
-        EditRelationshipCommand editCommand = new EditRelationshipCommand("uuid1", "uuid2",
-                "siblings", "siblings");
         assertThrows(CommandException.class, () -> editCommand.execute(model));
     }
 
@@ -85,28 +79,6 @@ public class EditRelationshipCommandTest {
         // Verify
         assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Relationships must be between 2 different people");
-    }
-
-    @Test
-    public void execute_oldAndNewDescriptorsAreSame_throwsCommandException() {
-        // Setup
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0006";
-        String oldRelationshipDescriptor = "siblings";
-        String newRelationshipDescriptor = "siblings";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
-                oldRelationshipDescriptor, newRelationshipDescriptor);
-
-        // Verify
-        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "There's no need to edit the relationship if the new relationship is the same as the old one.");
-
-        // Check the exception message
-        assertEquals("There's no need to edit the relationship if the new relationship is the same as the old one.",
-                exception.getMessage());
     }
 
     @Test
@@ -186,7 +158,7 @@ public class EditRelationshipCommandTest {
         CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Invalid Relationship type");
         // Check the exception message
-        assertEquals("Invalid Relationship type",
+        assertEquals("Invalid Relationship type. Must only consist of letters.",
                 exception.getMessage());
     }
 

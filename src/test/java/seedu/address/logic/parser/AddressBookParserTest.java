@@ -119,14 +119,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_editRelationship() throws Exception {
-        String userInput = "editRelation 1234 5678 family friend";
+        String userInput = "editRelation /1234 /5678 /something /friend";
         Command command = parser.parseCommand(userInput);
         assertTrue(command instanceof EditRelationshipCommand);
     }
 
     @Test
     public void parseCommand_deleteRelationship() throws Exception {
-        String userInput = "deleteRelation 1234 5678 siblings";
+        String userInput = "deleteRelation /1234 /5678 /workbuds";
         Command command = parser.parseCommand(userInput);
         assertTrue(command instanceof DeleteRelationshipCommand);
     }
@@ -139,7 +139,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addRelationship() throws Exception {
-        String userInput = "addRelation 1234 5678 housemates";
+        String userInput = "addRelation /1234 /5678 /housemates";
         Command command = parser.parseCommand(userInput);
         assertTrue(command instanceof AddRelationshipCommand);
     }

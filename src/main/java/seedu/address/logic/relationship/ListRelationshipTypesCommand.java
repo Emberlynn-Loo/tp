@@ -13,7 +13,12 @@ import seedu.address.model.Model;
 public class ListRelationshipTypesCommand extends Command {
     public static final String COMMAND_WORD = "listRelations";
 
-    @Override
+    /**
+     * Executes the command to list all the relationship types in the address book.
+     * @param model {@code Model} which the command should operate on.
+     * @return a CommandResult containing the success message to be displayed to the user.
+     * @throws CommandException if an error occurs during command execution.
+     */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String successMessage = model.showRelationshipTypes();

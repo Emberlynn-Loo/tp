@@ -70,18 +70,6 @@ class DeleteRelationshipCommandTest {
     }
 
     @Test
-    void execute_sameOriginAndTargetUuidsButNotTestUuids_throwsCommandException() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0001"; // Same as originUuid
-        String relationshipDescriptor = "friend";
-
-        DeleteRelationshipCommand deleteRelationshipCommand = new DeleteRelationshipCommand(
-                testOriginUuid, testTargetUuid, relationshipDescriptor);
-
-        assertCommandFailure(deleteRelationshipCommand, model, "Relationships must be between 2 different people");
-    }
-
-    @Test
     void execute_deleteRelationTypeRelationshipTypeNotExists_throwsCommandException() {
         String relationshipDescriptor = "nonexistent";
 
@@ -95,7 +83,7 @@ class DeleteRelationshipCommandTest {
     void execute_invalidRelationshipType_throwsCommandException() {
         String originUuid = "0001";
         String targetUuid = "0002";
-        String relationshipDescriptor = "invalid"; // Provide an invalid relationship type
+        String relationshipDescriptor = "invalid";
 
         DeleteRelationshipCommand deleteRelationshipCommand = new DeleteRelationshipCommand(
                 originUuid, targetUuid, relationshipDescriptor);

@@ -26,8 +26,8 @@ public class Relationship {
         this.person2 = person2;
 
         if (!validDescriptors.contains(relationshipDescriptor)) {
-            if (!relationshipDescriptor.matches("[a-zA-Z]+")) {
-                throw new IllegalArgumentException("Invalid Relationship type");
+            if (!relationshipDescriptor.matches("[a-zA-Z]+(\\s[a-zA-Z]+)*")) {
+                throw new IllegalArgumentException("Invalid Relationship type. Must only consist of letters.");
             } else {
                 validDescriptors.add(relationshipDescriptor);
             }

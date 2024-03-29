@@ -2,7 +2,10 @@ package seedu.address.logic.relationship;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.LinkedHashMap;
+
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,15 +21,26 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
      * @return The DeleteRelationshipCommand corresponding to the user input.
      * @throws IllegalArgumentException If the user input is invalid.
      */
-    public DeleteRelationshipCommand parse(String userInput) throws ParseException {
+    public DeleteRelationshipCommand parse(String userInput) throws ParseException, CommandException {
         requireNonNull(userInput);
-        String[] parts = userInput.split(" ");
-        if (parts.length != 1 && parts.length != 3) {
-            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        String[] parts = userInput.split("/", -1);
+        if (parts.length != 4 && parts.length != 2) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DELETE_RELATIONSHIP_COMMAND_FORMAT);
         }
-        if (parts.length == 1) {
-            String relationshipDescriptor = parts[0].toLowerCase();
-            if (relationshipDescriptor.equalsIgnoreCase("family")) {
+        parts = ParserUtil.removeFirstItemFromStringList(parts);
+        boolean hasUuids = false;
+        if (parts.length == 3) {
+            hasUuids = true;
+        }
+        LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapDelete(parts, hasUuids);
+
+        if (relationshipMap.size() == 3) {
+            String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
+            String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
+            String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, false).toLowerCase();
+
+            if (relationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
@@ -34,20 +48,15 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
                     || relationshipDescriptor.equals("siblings") || relationshipDescriptor.equals("spouses")) {
                 throw new ParseException(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR);
             }
-            return new DeleteRelationshipCommand(relationshipDescriptor, true);
+            return new DeleteRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
         } else {
-            try {
-                String originUuid = ParserUtil.parseUuid(parts[0]);
-                String targetUuid = ParserUtil.parseUuid(parts[1]);
-                String relationshipDescriptor = parts[2].toLowerCase();
-                if (relationshipDescriptor.equalsIgnoreCase("family")) {
-                    throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
-                            + " Valid familial relations are: [bioParents, siblings, spouses]");
-                }
-                return new DeleteRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
-            } catch (ParseException pe) {
-                throw pe;
+            String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    0, false).toLowerCase();
+            if (relationshipDescriptor.equals("family")) {
+                throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
+            return new DeleteRelationshipCommand(relationshipDescriptor, true);
         }
     }
 }

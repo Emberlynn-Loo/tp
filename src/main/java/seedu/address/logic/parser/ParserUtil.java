@@ -5,11 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -23,8 +25,13 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
     public static final String MESSAGE_MALFORMED_ATTRIBUTE_PAIR = "Attributes must be of the format: "
             + "/attributeName value";
+
+    public static final String MESSAGE_INVALID_ROLE = "Roles must be all strings and one word only";
+
+    public static final String MESSAGE_INVALID_ROLE_DELETE = "Roles does not need to be specified for delete command";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -184,9 +191,209 @@ public class ParserUtil {
         result[1] = result[1].trim();
         return result;
     }
+
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static String[] separateUuidAndValues(String parts) throws ParseException {
+        String[] result = parts.trim().split(" ");
+        if (result.length == 1) {
+            result[0] = result[0].trim();
+            return result;
+        } else if (result.length == 2) {
+            if (!result[1].matches("[a-zA-Z]+")) {
+                throw new ParseException(String.format(MESSAGE_INVALID_ROLE));
+            }
+            result[0] = result[0].trim();
+            result[1] = result[1].trim();
+            return result;
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_ROLE));
+        }
+    }
+
+    private static String[] separateRelationshipTypes(String parts) {
+        String[] result = parts.trim().split(" ", 1);
+        result[0] = result[0].trim();
+        return result;
+    }
+
     private static void requireValidParts(String[] parts) throws ParseException {
         for (int i = 0; i < parts.length; i++) {
             separateAttributeNamesAndValues(parts[i]);
+        }
+    }
+
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static LinkedHashMap<String, String> getRelationshipHashMapFromRelationshipStrings(String[] parts)
+            throws ParseException {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+
+        for (int i = 0; i < parts.length; i++) {
+            if (i == 0) {
+                String[] uuidAndValue = separateUuidAndValues(parts[i]);
+                String uuid = uuidAndValue[0];
+                String value;
+                if (uuidAndValue.length == 1) {
+                    value = null;
+                } else {
+                    value = uuidAndValue[1];
+                }
+                relationshipMap.put(uuid, value);
+            } else if (i == 1) {
+                String[] uuidAndValue = separateUuidAndValues(parts[i]);
+                String value = relationshipMap.keySet().toArray(new String[0])[0];
+                if (uuidAndValue[0].equals(value)) {
+                    throw new ParseException("Relationships must be between 2 different people");
+                }
+                String uuid = uuidAndValue[0];
+                String value2;
+                if (uuidAndValue.length == 1) {
+                    value2 = null;
+                } else {
+                    if (uuidAndValue[1].equals(relationshipMap.values().toArray(new String[0])[0])) {
+                        throw new ParseException("Roles must be different for each person in a relationship.");
+                    }
+                    value2 = uuidAndValue[1];
+                }
+                relationshipMap.put(uuid, value2);
+            } else if (i == 2) {
+                String[] relationshipType = separateRelationshipTypes(parts[i]);
+                String relationshipTypeKey = relationshipType[0];
+                relationshipMap.put(relationshipTypeKey, null);
+            }
+        }
+        return relationshipMap;
+    }
+
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static LinkedHashMap<String, String> getRelationshipHashMapDelete(String[] parts, boolean hasUuids)
+            throws ParseException, CommandException {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+
+        if (hasUuids) {
+            for (int i = 0; i < parts.length; i++) {
+                if (i == 0) {
+                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
+                    relationshipMap.put(uuidAndValue[0], null);
+                } else if (i == 1) {
+                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
+                    String value = relationshipMap.keySet().toArray(new String[0])[0];
+                    if (uuidAndValue[0].equals(value)) {
+                        throw new CommandException("Relationships must be between 2 different people");
+                    }
+                    relationshipMap.put(uuidAndValue[0], null);
+                } else if (i == 2) {
+                    String[] relationshipType = separateRelationshipTypes(parts[i]);
+                    String relationshipTypeKey = relationshipType[0];
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
+            }
+        } else {
+            String[] relationshipType = separateRelationshipTypes(parts[0]);
+            String relationshipTypeKey = relationshipType[0];
+            relationshipMap.put(relationshipTypeKey, null);
+        }
+        return relationshipMap;
+    }
+
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
+        String[] result = parts.trim().split(" ");
+        if (result.length != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_ROLE_DELETE));
+        } else {
+            result[0] = result[0].trim();
+            return result;
+        }
+    }
+
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static LinkedHashMap<String, String> getRelationshipHashMapEdit(String[] parts)
+            throws ParseException {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+
+        for (int i = 0; i < parts.length; i++) {
+            String value;
+            if (i == 0) {
+                String uuid = separateUuidAndValues(parts[i])[0];
+                if (separateUuidAndValues(parts[i]).length == 1) {
+                    value = null;
+                } else {
+                    value = separateUuidAndValues(parts[i])[1];
+                }
+                relationshipMap.put(uuid, value);
+            } else if (i == 1) {
+                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[0])) {
+                    throw new ParseException("Relationships must be between 2 different people");
+                }
+                String uuid = separateUuidAndValues(parts[i])[0];
+                if (separateUuidAndValues(parts[i]).length == 1) {
+                    value = null;
+                } else {
+                    if (separateUuidAndValues(parts[i])[1].equals(relationshipMap.values().toArray(new String[0])[0])) {
+                        throw new ParseException("Roles must be different for each person in a relationship.");
+                    }
+                    value = separateUuidAndValues(parts[i])[1];
+                }
+                relationshipMap.put(uuid, value);
+            } else if (i == 2) {
+                String[] relationshipType = separateRelationshipTypes(parts[i]);
+                String relationshipTypeKey = relationshipType[0];
+                relationshipMap.put(relationshipTypeKey, null);
+            } else if (i == 3) {
+                String[] relationshipType = separateRelationshipTypes(parts[i]);
+                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[2])) {
+                    throw new ParseException("There's no need to edit the relationship "
+                            + "if the new relationship is the same as the old one.");
+                }
+                String relationshipTypeKey = relationshipType[0];
+                relationshipMap.put(relationshipTypeKey, null);
+            }
+        }
+        return relationshipMap;
+    }
+
+    /**
+     * Returns the key or value of a LinkedHashMap at a specified index
+     *
+     * @param relationshipMap The LinkedHashMap containing the pairs of UUIDs and values
+     * @param index The index of the key or value to return
+     * @param value A boolean indicating whether to return the key or value
+     * @return The key or value at the specified index
+     */
+    public static String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap,
+                                               int index, boolean value) {
+        if (index >= relationshipMap.size()) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        }
+        if (!value) {
+            return relationshipMap.keySet().toArray(new String[0])[index];
+        } else {
+            return relationshipMap.values().toArray(new String[0])[index];
         }
     }
 }
