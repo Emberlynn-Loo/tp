@@ -11,7 +11,7 @@ import seedu.address.ui.UiPart;
  * A button in the footer of the ResultsSection.
  */
 public class FooterButton extends UiPart<Region> {
-    private static final String FXML = "display-section/FooterButton.fxml";
+    private static final String FXML = "display-section/NavBarButton.fxml";
     @FXML
     private VBox footerButtonContainer;
     @FXML

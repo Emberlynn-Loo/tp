@@ -18,6 +18,7 @@
 .display_section_header_title {
      -fx-text-fill: -black;
      -fx-font-family: 'Raleway SemiBold Italic'; /* Specify just the family name */
+     -fx-font-size: 30;
 }
 
 .display_section_body {

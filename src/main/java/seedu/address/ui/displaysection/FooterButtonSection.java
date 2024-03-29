@@ -10,7 +10,7 @@ import seedu.address.ui.UiPart;
  * A group of buttons in the footer of the ResultsSection.
  */
 public class FooterButtonSection extends UiPart<Region> {
-    private static final String FXML = "display-section/FooterButtonSection.fxml";
+    private static final String FXML = "display-section/NavBar.fxml";
 
     private FooterButton allContactButton;
     private FooterButton findResultButton;

@@ -14,7 +14,7 @@
     <HBox alignment="CENTER" styleClass="display_section_header">
         <HBox HBox.hgrow="ALWAYS" styleClass="display_section_header_deco"/>
         <VBox alignment="CENTER" styleClass="display_section_header_container">
-            <Label fx:id="headerTitle" styleClass="display_section_header_title, h1"/>
+            <Label fx:id="headerTitle" styleClass="display_section_header_title"/>
         </VBox>
         <HBox HBox.hgrow="ALWAYS" styleClass="display_section_header_deco"/>
     </HBox>

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,7 +19,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.displaysection.DisplaySection;
+import seedu.address.ui.displaysection.FooterButtonSection;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,19 +42,24 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private FooterButtonSection footerButtonSection;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
-
+    private VBox mainWindowContainer;
+    @FXML
+    private HBox mainWindowNavBar;
+    @FXML
+    private HBox mainWindowNavBarButtonPlaceholder;
+    @FXML
+    private HBox mainWindowBody;
+    @FXML
+    private VBox displaySectionPlaceholder;
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
+    @FXML
+    private StackPane commandBoxPlaceholder;
     @FXML
     private StackPane statusbarPlaceholder;
 
@@ -113,14 +124,21 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personList = new DisplaySection(logic);
-        personListPanelPlaceholder.getChildren().add(personList.getRoot());
+        displayFooter("All Contacts", "Found Contacts", "Any List", () ->
+                displayAllContactsSection(logic.getFilteredPersonList(),
+                        logic.getRelationshipList()), () ->
+                displayFoundResultSection(logic.getFilteredPersonList(),
+                        logic.getRelationshipList()), () ->
+                displayAnyListSection(logic.getFilteredPersonList(),
+                        logic.getRelationshipList()));
+        displaySectionPlaceholder.getChildren().add(personList.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
+//
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
+//
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -163,6 +181,62 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+    /**
+     * Displays the footer buttons that enables user to toggle between different sections.
+     * @param allContactButtonLabel The text label of the all contacts button.
+     * @param findResultButtonLabel The text label of the find result button.
+     * @param anyListButtonLabel The text label of any list button.
+     * @param allContactButtonHandler The function to execute on clicking the all contacts button.
+     * @param findResultButtonHandler The function to execute on clicking the find result button.
+     * @param anyListButtonHandler The function to execute on clicking the anyList button.
+     */
+    private void displayFooter(String allContactButtonLabel, String findResultButtonLabel, String anyListButtonLabel,
+                               Runnable allContactButtonHandler, Runnable findResultButtonHandler,
+                               Runnable anyListButtonHandler) {
+        this.footerButtonSection = new FooterButtonSection(
+                allContactButtonLabel, findResultButtonLabel, anyListButtonLabel,
+                allContactButtonHandler, findResultButtonHandler, anyListButtonHandler);
+        mainWindowNavBarButtonPlaceholder.getChildren().remove(mainWindowNavBarButtonPlaceholder.lookup(".footer-button-section"));
+        mainWindowNavBarButtonPlaceholder.getChildren().add(footerButtonSection.getRoot());
+    }
+    /**
+     * Displays the "All Contacts" section.
+     * This method updates the view to show all contacts and sets the appropriate title.
+     *
+     * @param personLists The list of persons to be displayed.
+     * @param relationships The list of relationships associated with the persons.
+     */
+    public void displayAllContactsSection(ObservableList<Person> personLists,
+                                          ObservableList<Relationship> relationships) {
+        footerButtonSection.selectAllContactButton();
+        personList.displayAllContactsSection(personLists, relationships);
+    }
+
+    /**
+     * Displays the "Found Contacts" section.
+     * This method updates the view to show the results of a search operation and sets the appropriate title.
+     *
+     * @param personLists The list of persons found as a result of the search.
+     * @param relationships The list of relationships associated with the found persons.
+     */
+    public void displayFoundResultSection(ObservableList<Person> personLists,
+                                          ObservableList<Relationship> relationships) {
+        footerButtonSection.selectFindResultButton();
+        personList.displayFoundResultSection(personLists, relationships);
+    }
+
+    /**
+     * Displays a custom list section named "Any List".
+     * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
+     *
+     * @param personLists The list of persons to be displayed in the custom list.
+     * @param relationships The list of relationships associated with the persons in the custom list.
+     */
+    public void displayAnyListSection(ObservableList<Person> personLists,
+                                      ObservableList<Relationship> relationships) {
+        footerButtonSection.selectAnyListButton();
+        personList.displayAnyListSection(personLists, relationships);
     }
 
 

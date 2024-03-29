@@ -10,8 +10,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Gene-nie" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="GENE-nie" minWidth="400" minHeight="500" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/genie_32x32.png" />
   </icons>
@@ -23,36 +25,32 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+      <VBox fillWidth="true" styleClass="main-window_container" fx:id="mainWindowContainer" alignment="CENTER">
+        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" styleClass="menu-bar_panel">
           <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" styleClass="menu-bar_item"/>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" styleClass="menu-bar_item"/>
           </Menu>
         </MenuBar>
-
-        <!-- SplitPane to divide the screen into person card and CLI -->
-        <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
-          <!-- Left side for person list -->
-          <VBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+        <HBox styleClass="main-window_navbar" fx:id="mainWindowNavBar">
+          <HBox styleClass="main-window_navbar_image-container">
+            <ImageView fitHeight="150" fitWidth="150" preserveRatio="true" styleClass="main-window_navbar_image">
+              <image>
+                <Image url="@/images/genie.png"/> <!-- Replace "your_image.png" with your image path -->
+              </image>
+            </ImageView>
+          </HBox>
+          <HBox styleClass="main-window_navbar-panel" alignment="CENTER" HBox.hgrow="ALWAYS" fx:id="mainWindowNavBarButtonPlaceholder"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20" fx:id="mainWindowBody" VBox.vgrow="ALWAYS">
+          <VBox fx:id="displaySectionPlaceholder" alignment="CENTER"/>
+          <VBox alignment="CENTER">
+            <StackPane fx:id="commandBoxPlaceholder"/>
+            <StackPane fx:id="resultDisplayPlaceholder"/>
           </VBox>
-
-          <!-- Right side for CLI -->
-          <VBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-            <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" minHeight="100" prefHeight="100" maxHeight="500" />
-            <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" />
-          </VBox>
-        </SplitPane>
-
+        </HBox>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
