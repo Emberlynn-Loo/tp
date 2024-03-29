@@ -16,4 +16,8 @@ public class BioParentsRelationship extends FamilyRelationship {
     public BioParentsRelationship(UUID parentUuid, UUID childUuid) {
         super(parentUuid, childUuid, "bioparents", "parent", "child");
     }
+    @Override
+    public String getStyleDescriptor() {
+        return "bioparent";
+    }
 }

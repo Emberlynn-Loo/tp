@@ -18,6 +18,7 @@
   <scene>
     <Scene>
       <stylesheets>
+        <URL value="@theme.css" />
         <URL value="@NewCliTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>

@@ -16,4 +16,8 @@ public class SpousesRelationship extends FamilyRelationship {
     public SpousesRelationship(UUID person1, UUID person2) {
         super(person1, person2, "spouses", "spouse", "spouse");
     }
+    @Override
+    public String getStyleDescriptor() {
+        return "spouse";
+    }
 }

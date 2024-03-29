@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+
+<HBox alignment="CENTER" spacing="15" styleClass="personCard_container" stylesheets="@person-card.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" maxHeight="Infinity" maxWidth="550">
+   <children>
+      <Label fx:id="personCardUuidLabel" alignment="CENTER" minHeight="45.0" minWidth="100.0" maxHeight="45" maxWidth="100" styleClass="personCard_uuid_label, h2" stylesheets="@person-card.css" text="Label"/>
+      <VBox spacing="10">
+         <children>
+            <VBox fx:id="personCardAttributes" alignment="CENTER" maxHeight="Infinity" maxWidth="450" minHeight="90.0" minWidth="450.0" spacing="7" styleClass="personCard_vbox" stylesheets="@person-card.css">
+            </VBox>
+            <FlowPane alignment="CENTER_LEFT" fx:id="relationshipFlowPane" hgap="8" vgap="8" maxWidth="450" styleClass="personCard_flowpane" stylesheets="@person-card.css">
+               <!-- Add your FlowPane content here -->
+            </FlowPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
+

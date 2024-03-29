@@ -318,7 +318,6 @@ public class Person {
         }
         return sb.toString().trim();
     }
-
     /**
      * Sorts the keys in the attribute Map in lexicographical order, after the function will convert the Map into
      * an array of array of Strings of size 2, where the first element is the descriptor of the key and the second
@@ -347,7 +346,9 @@ public class Person {
     public Set<Attribute> getAttributes() {
         return new HashSet<>(attributes.values());
     }
-
+    public HashMap<String, Attribute> getAttributesMap() {
+        return this.attributes;
+    }
     public void setAttribute(String name, String str) {
         attributes.put(name, new StringAttribute(name, str));
     }

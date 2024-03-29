@@ -64,6 +64,25 @@ public class Relationship {
                 || (other.person1.equals(this.person2) && other.person2.equals(this.person1)))
                 && other.relationshipDescriptor.equals(relationshipDescriptor);
     }
+    public String getStyleDescriptor() {
+        return "general";
+    }
+
+    /**
+     * check if relationship has the UUID if there is return the other party so that BFS can be done
+     * otherwise return null
+     * @param origin
+     * @return
+     */
+    public UUID containsUuid(UUID origin) {
+        if (origin.equals(person1)) {
+            return person2;
+        }
+        if (origin.equals(person2)) {
+            return person1;
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return String.format("%s and %s are %s", person1.toString(),
@@ -110,21 +129,5 @@ public class Relationship {
                     + "\nPlease delete them first.");
         }
         validDescriptors.remove(relationType);
-    }
-
-    /**
-     * check if relationship has the UUID if there is return the other party so that BFS can be done
-     * otherwise return null
-     * @param origin
-     * @return
-     */
-    public UUID containsUuid(UUID origin) {
-        if (origin.equals(person1)) {
-            return person2;
-        }
-        if (origin.equals(person2)) {
-            return person1;
-        }
-        return null;
     }
 }

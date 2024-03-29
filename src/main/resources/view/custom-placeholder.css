@@ -1,0 +1,14 @@
+.placeholder_container {
+    -fx-padding: 10;
+    -fx-spacing: 5;
+}
+.placeholder_deco {
+    -fx-max-height: 3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: -black;
+}
+.placeholder_text {
+    -fx-padding: 10;
+    -fx-text-fill: -black;
+}
