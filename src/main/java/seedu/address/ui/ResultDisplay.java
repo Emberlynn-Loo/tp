@@ -18,6 +18,12 @@ public class ResultDisplay extends UiPart<Region> {
 
     public ResultDisplay() {
         super(FXML);
+        initialize();
+    }
+
+    private void initialize() {
+        resultDisplay.setEditable(false);
+        resultDisplay.setWrapText(true);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
