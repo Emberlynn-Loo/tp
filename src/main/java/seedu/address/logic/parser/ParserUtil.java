@@ -409,8 +409,8 @@ public class ParserUtil {
      * @param relationshipMap The LinkedHashMap containing the pairs of UUIDs and values
      * @throws ParseException If the roles are invalid
      */
-    public static void validateRolesForFamilialRelation(String relationshipDescriptor,
-                                                        LinkedHashMap<String, String> relationshipMap) throws ParseException {
+    public static void validateRolesForFamilialRelation(String relationshipDescriptor, LinkedHashMap<String,
+            String> relationshipMap) throws ParseException {
         if (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) == null
                 || ParserUtil.relationKeysAndValues(relationshipMap, 1, true) == null) {
             throw new ParseException(relationshipDescriptor + " relationship requires two roles to be specified.\n"
@@ -421,32 +421,32 @@ public class ParserUtil {
         String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
 
         switch (relationshipDescriptor) {
-            case "bioparents":
-                if (!role1.equalsIgnoreCase("parent") && !role1.equalsIgnoreCase("child")
-                        && !role2.equalsIgnoreCase("parent")
-                        && !role2.equalsIgnoreCase("child")) {
-                    throw new ParseException("BioParents relationship requires the roles to be "
-                            + "specified as either 'parent' or 'child'.");
-                }
-                break;
-            case "siblings":
-                if (!role1.equalsIgnoreCase("brother") && !role1.equalsIgnoreCase("sister")
-                        && !role2.equalsIgnoreCase("brother")
-                        && !role2.equalsIgnoreCase("sister")) {
-                    throw new ParseException("Siblings relationship requires the roles to be "
-                            + "specified as either 'brother' or 'sister'.");
-                }
-                break;
-            case "spouses":
-                if (!role1.equalsIgnoreCase("husband") && !role1.equalsIgnoreCase("wife")
-                        && !role2.equalsIgnoreCase("husband")
-                        && !role2.equalsIgnoreCase("wife")) {
-                    throw new ParseException("Spouses relationship requires the roles to be "
-                            + "specified as either 'husband' or 'wife'.");
-                }
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + relationshipDescriptor);
+        case "bioparents":
+            if (!role1.equalsIgnoreCase("parent") && !role1.equalsIgnoreCase("child")
+                    && !role2.equalsIgnoreCase("parent")
+                    && !role2.equalsIgnoreCase("child")) {
+                throw new ParseException("BioParents relationship requires the roles to be "
+                        + "specified as either 'parent' or 'child'.");
+            }
+            break;
+        case "siblings":
+            if (!role1.equalsIgnoreCase("brother") && !role1.equalsIgnoreCase("sister")
+                    && !role2.equalsIgnoreCase("brother")
+                    && !role2.equalsIgnoreCase("sister")) {
+                throw new ParseException("Siblings relationship requires the roles to be "
+                        + "specified as either 'brother' or 'sister'.");
+            }
+            break;
+        case "spouses":
+            if (!role1.equalsIgnoreCase("husband") && !role1.equalsIgnoreCase("wife")
+                    && !role2.equalsIgnoreCase("husband")
+                    && !role2.equalsIgnoreCase("wife")) {
+                throw new ParseException("Spouses relationship requires the roles to be "
+                        + "specified as either 'husband' or 'wife'.");
+            }
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + relationshipDescriptor);
         }
     }
 }

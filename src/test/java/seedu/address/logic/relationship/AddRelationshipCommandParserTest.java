@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -214,21 +215,22 @@ class AddRelationshipCommandParserTest {
     }
 
     @Test
-    void validateRolesForFamilialRelation_bioparents_validRoles_success() {
+    void validateRolesForFamilialRelationBioparents_validRoles_success() {
         String relationshipDescriptor = "bioparents";
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
         relationshipMap.put("role1", "parent");
         relationshipMap.put("role2", "child");
-        assertDoesNotThrow(() -> parser.validateRolesForFamilialRelation(relationshipDescriptor, relationshipMap));
+        assertDoesNotThrow(() -> ParserUtil.validateRolesForFamilialRelation(relationshipDescriptor, relationshipMap));
     }
 
     @Test
-    void validateRolesForFamilialRelation_bioparents_invalidRoles_throwsParseException() {
+    void validateRolesForFamilialRelationBioparents_invalidRoles_throwsParseException() {
         String relationshipDescriptor = "workbuds";
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
         relationshipMap.put("role1", "sibling");
         relationshipMap.put("role2", "child");
-        assertThrows(IllegalStateException.class, () -> parser.validateRolesForFamilialRelation(relationshipDescriptor,
+        assertThrows(IllegalStateException.class, () ->
+                ParserUtil.validateRolesForFamilialRelation(relationshipDescriptor,
                 relationshipMap));
     }
 }
