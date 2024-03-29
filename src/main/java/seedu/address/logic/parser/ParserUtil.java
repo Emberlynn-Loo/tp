@@ -259,7 +259,9 @@ public class ParserUtil {
                 if (uuidAndValue.length == 1) {
                     value2 = null;
                 } else {
-                    if (uuidAndValue[1].equals(relationshipMap.values().toArray(new String[0])[0])) {
+                    if (uuidAndValue[1].equals(relationshipMap.values().toArray(new String[0])[0])
+                            && !separateRelationshipTypes(parts[2])[0].equals("siblings")
+                            && !separateRelationshipTypes(parts[2])[0].equals("spouses")) {
                         throw new ParseException("Roles must be different for each person in a relationship.");
                     }
                     value2 = uuidAndValue[1];

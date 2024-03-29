@@ -78,11 +78,11 @@ public class AddRelationshipCommand extends Command {
             if (isRoleBased) {
                 RoleBasedRelationship toAdd;
                 if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid);
+                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
-                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid);
+                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {
-                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid);
+                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             relationshipDescriptor, rolePerson1, rolePerson2);
