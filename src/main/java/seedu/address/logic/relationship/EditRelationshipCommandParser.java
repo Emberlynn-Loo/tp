@@ -45,7 +45,7 @@ public class EditRelationshipCommandParser {
         if (!newRelationshipDescriptor.endsWith("s")) {
             newRelationshipDescriptor += "s";
         }
-        
+
         if (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null) {
             String role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
             String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
