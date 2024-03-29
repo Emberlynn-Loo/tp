@@ -134,7 +134,7 @@ class AddRelationshipCommandTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
         expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid));
+                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
@@ -149,7 +149,7 @@ class AddRelationshipCommandTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
         expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid));
+                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "husband"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 

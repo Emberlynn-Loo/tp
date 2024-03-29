@@ -13,11 +13,11 @@ public class SiblingRelationshipTest {
         UUID person1 = UUID.randomUUID();
         UUID person2 = UUID.randomUUID();
 
-        SiblingRelationship relationship = new SiblingRelationship(person1, person2);
+        SiblingRelationship relationship = new SiblingRelationship(person1, person2, "brother", "sister");
 
         assertEquals(person1, relationship.getPerson1());
         assertEquals(person2, relationship.getPerson2());
-        assertEquals("sibling", relationship.getRoleDescriptor(person1));
-        assertEquals("sibling", relationship.getRoleDescriptor(person2));
+        assertEquals("brother", relationship.getRoleDescriptor(person1));
+        assertEquals("sister", relationship.getRoleDescriptor(person2));
     }
 }

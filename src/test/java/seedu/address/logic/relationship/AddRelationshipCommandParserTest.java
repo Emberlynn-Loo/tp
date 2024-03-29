@@ -125,7 +125,7 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
         expectedModel.addRelationship(
-                new BioParentsRelationship(person1Uuid, person2Uuid));
+                new BioParentsRelationship(person1Uuid, person2Uuid, "parent", "child"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
@@ -140,7 +140,7 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000003");
         expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid));
+                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "wife"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
@@ -155,7 +155,7 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
         expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid));
+                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
