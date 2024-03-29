@@ -333,4 +333,36 @@ public class ParserUtilTest {
         String[] parts = {"1234 parent", "5678 parent", "friend", "bioparents"};
         assertThrows(ParseException.class, () -> ParserUtil.getRelationshipHashMapEdit(parts));
     }
+
+    @Test
+    public void relationKeysAndValues_indexWithinBounds_returnKey() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("Key1", "Value1");
+        relationshipMap.put("Key2", "Value2");
+
+        String key = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
+
+        assertEquals("Key1", key);
+    }
+
+    @Test
+    public void relationKeysAndValues_indexWithinBounds_returnValue() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("Key1", "Value1");
+        relationshipMap.put("Key2", "Value2");
+
+        String value = ParserUtil.relationKeysAndValues(relationshipMap, 1, true);
+
+        assertEquals("Value2", value);
+    }
+
+    @Test
+    public void relationKeysAndValues_indexOutOfBounds_throwIndexOutOfBoundsException() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("Key1", "Value1");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
+        });
+    }
 }

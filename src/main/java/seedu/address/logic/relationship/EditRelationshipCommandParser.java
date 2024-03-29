@@ -28,27 +28,26 @@ public class EditRelationshipCommandParser {
         parts = ParserUtil.removeFirstItemFromStringList(parts);
         LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapEdit(parts);
 
-        if ((relationKeysAndValues(relationshipMap, 0, true) == null
-                && relationKeysAndValues(relationshipMap, 1, true) != null)
-                || (relationKeysAndValues(relationshipMap, 0, true) != null
-                && relationKeysAndValues(relationshipMap, 1, true) == null)) {
+        if ((ParserUtil.relationKeysAndValues(relationshipMap, 0, true) == null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 1, true) != null)
+                || (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 1, true) == null)) {
             throw new ParseException(Messages.MESSAGE_INVALID_EDIT_RELATIONSHIP_COMMAND_FORMAT);
         }
 
-        String originUuid = relationKeysAndValues(relationshipMap, 0, false);
-        String targetUuid = relationKeysAndValues(relationshipMap, 1, false);
-        String oldRelationshipDescriptor = relationKeysAndValues(relationshipMap, 2, false).toLowerCase();
-        String newRelationshipDescriptor = relationKeysAndValues(relationshipMap, 3, false).toLowerCase();
+        String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
+        String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
+        String oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                2, false).toLowerCase();
+        String newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                3, false).toLowerCase();
 
-        if (relationKeysAndValues(relationshipMap, 0, true) != null) {
-            String role1 = relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
-            String role2 = relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
+        if (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null) {
+            String role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
+            String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
             if (newRelationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
-            }
-            if (!role1.matches("[a-zA-Z]+") || !role2.matches("[a-zA-Z]+")) {
-                throw new ParseException("Roles must be all strings and one word only");
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor, role1, role2);
@@ -59,17 +58,6 @@ public class EditRelationshipCommandParser {
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor);
-        }
-    }
-
-    String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap, int index, boolean value) {
-        if (index >= relationshipMap.size()) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
-        if (!value) {
-            return relationshipMap.keySet().toArray(new String[0])[index];
-        } else {
-            return relationshipMap.values().toArray(new String[0])[index];
         }
     }
 }

@@ -192,7 +192,13 @@ public class ParserUtil {
         return result;
     }
 
-    static String[] separateUuidAndValues(String parts) throws ParseException {
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static String[] separateUuidAndValues(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length == 1) {
             result[0] = result[0].trim();
@@ -304,7 +310,13 @@ public class ParserUtil {
         return relationshipMap;
     }
 
-    static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
+    public static String[] separateUuidAndValuesDelete(String parts) throws ParseException {
         String[] result = parts.trim().split(" ");
         if (result.length != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_ROLE_DELETE));
@@ -314,6 +326,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses relationships in command arguments into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param parts The pairs of UUIDs and values in the command arguments
+     * @return  A LinkedHashMap containing the pairs of UUIDs and values
+     */
     public static LinkedHashMap<String, String> getRelationshipHashMapEdit(String[] parts)
             throws ParseException {
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
@@ -357,5 +375,25 @@ public class ParserUtil {
             }
         }
         return relationshipMap;
+    }
+
+    /**
+     * Returns the key or value of a LinkedHashMap at a specified index
+     *
+     * @param relationshipMap The LinkedHashMap containing the pairs of UUIDs and values
+     * @param index The index of the key or value to return
+     * @param value A boolean indicating whether to return the key or value
+     * @return The key or value at the specified index
+     */
+    public static String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap,
+                                               int index, boolean value) {
+        if (index >= relationshipMap.size()) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        }
+        if (!value) {
+            return relationshipMap.keySet().toArray(new String[0])[index];
+        } else {
+            return relationshipMap.values().toArray(new String[0])[index];
+        }
     }
 }

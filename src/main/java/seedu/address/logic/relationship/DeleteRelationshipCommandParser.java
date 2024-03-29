@@ -35,47 +35,28 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
         LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapDelete(parts, hasUuids);
 
         if (relationshipMap.size() == 3) {
-            try {
-                String originUuid = relationKeysAndValues(relationshipMap, 0, false);
-                String targetUuid = relationKeysAndValues(relationshipMap, 1, false);
-                String relationshipDescriptor = relationKeysAndValues(relationshipMap,
-                        2, false).toLowerCase();
+            String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
+            String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
+            String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, false).toLowerCase();
 
-                if (relationshipDescriptor.equals("family")) {
-                    throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
-                            + " Valid familial relations are: [bioParents, siblings, spouses]");
-                }
-                if (relationshipDescriptor.equals("friend") || relationshipDescriptor.equals("bioparents")
-                        || relationshipDescriptor.equals("siblings") || relationshipDescriptor.equals("spouses")) {
-                    throw new ParseException(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR);
-                }
-                return new DeleteRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
-            } catch (ParseException pe) {
-                throw pe;
+            if (relationshipDescriptor.equals("family")) {
+                throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
-        } else {
-            try {
-                String relationshipDescriptor = relationKeysAndValues(relationshipMap,
-                        0, false).toLowerCase();
-                if (relationshipDescriptor.equals("family")) {
-                    throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
-                            + " Valid familial relations are: [bioParents, siblings, spouses]");
-                }
-                return new DeleteRelationshipCommand(relationshipDescriptor, true);
-            } catch (ParseException pe) {
-                throw pe;
+            if (relationshipDescriptor.equals("friend") || relationshipDescriptor.equals("bioparents")
+                    || relationshipDescriptor.equals("siblings") || relationshipDescriptor.equals("spouses")) {
+                throw new ParseException(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR);
             }
-        }
-    }
-
-    String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap, int index, boolean value) {
-        if (index >= relationshipMap.size()) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
-        if (!value) {
-            return relationshipMap.keySet().toArray(new String[0])[index];
+            return new DeleteRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
         } else {
-            return relationshipMap.values().toArray(new String[0])[index];
+            String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    0, false).toLowerCase();
+            if (relationshipDescriptor.equals("family")) {
+                throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
+            }
+            return new DeleteRelationshipCommand(relationshipDescriptor, true);
         }
     }
 }

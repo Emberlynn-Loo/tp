@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -152,8 +153,8 @@ class DeleteRelationshipCommandParserTest {
         DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
 
         // Test retrieving the key at a valid index
-        assertEquals("uuid1", parser.relationKeysAndValues(relationshipMap, 0, false));
-        assertEquals("uuid2", parser.relationKeysAndValues(relationshipMap, 1, false));
+        assertEquals("uuid1", ParserUtil.relationKeysAndValues(relationshipMap, 0, false));
+        assertEquals("uuid2", ParserUtil.relationKeysAndValues(relationshipMap, 1, false));
     }
 
     @Test
@@ -162,10 +163,8 @@ class DeleteRelationshipCommandParserTest {
         relationshipMap.put("uuid1", "role1");
         relationshipMap.put("uuid2", "role2");
 
-        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
-
         // Test retrieving the value at a valid index
-        assertEquals("role1", parser.relationKeysAndValues(relationshipMap, 0, true));
-        assertEquals("role2", parser.relationKeysAndValues(relationshipMap, 1, true));
+        assertEquals("role1", ParserUtil.relationKeysAndValues(relationshipMap, 0, true));
+        assertEquals("role2", ParserUtil.relationKeysAndValues(relationshipMap, 1, true));
     }
 }

@@ -1,11 +1,8 @@
 package seedu.address.logic.relationship;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.LinkedHashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -191,31 +188,5 @@ public class EditRelationshipCommandParserTest {
     public void getRelationshipHashMapEditRole2NotLetter_throwsParseException() {
         String userInput = "/1234 /1244 123 /oldDescriptor /Newdescriptor";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
-    }
-
-    @Test
-    public void relationKeysAndValues_retrieveKeyAtIndex_success() {
-        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
-        relationshipMap.put("uuid1", "role1");
-        relationshipMap.put("uuid2", "role2");
-
-        EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
-
-        // Test retrieving the key at a valid index
-        assertEquals("uuid1", parser.relationKeysAndValues(relationshipMap, 0, false));
-        assertEquals("uuid2", parser.relationKeysAndValues(relationshipMap, 1, false));
-    }
-
-    @Test
-    public void relationKeysAndValuesRetrieveValueAtIndex_success() {
-        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
-        relationshipMap.put("uuid1", "role1");
-        relationshipMap.put("uuid2", "role2");
-
-        EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
-
-        // Test retrieving the value at a valid index
-        assertEquals("role1", parser.relationKeysAndValues(relationshipMap, 0, true));
-        assertEquals("role2", parser.relationKeysAndValues(relationshipMap, 1, true));
     }
 }

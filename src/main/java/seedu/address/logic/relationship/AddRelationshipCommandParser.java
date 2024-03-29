@@ -27,21 +27,22 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
         parts = ParserUtil.removeFirstItemFromStringList(parts);
         LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapFromRelationshipStrings(parts);
 
-        if ((relationKeysAndValues(relationshipMap, 0, true) == null
-                && relationKeysAndValues(relationshipMap, 1, true) != null)
-                || (relationKeysAndValues(relationshipMap, 0, true) != null
-                && relationKeysAndValues(relationshipMap, 1, true) == null)) {
+        if ((ParserUtil.relationKeysAndValues(relationshipMap, 0, true) == null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 1, true) != null)
+                || (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 1, true) == null)) {
             throw new ParseException(Messages.MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT);
         }
 
-        String originUuid = relationKeysAndValues(relationshipMap, 0, false);
-        String targetUuid = relationKeysAndValues(relationshipMap, 1, false);
-        String relationshipDescriptor = relationKeysAndValues(relationshipMap, 2, false).toLowerCase();
+        String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
+        String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
+        String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                2, false).toLowerCase();
 
-        if (relationKeysAndValues(relationshipMap, 0, true) != null
-                && relationKeysAndValues(relationshipMap, 1, true) != null) {
-            String role1 = relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
-            String role2 = relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
+        if (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 1, true) != null) {
+            String role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
+            String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
 
             originUuid = ParserUtil.parseUuid(originUuid);
             targetUuid = ParserUtil.parseUuid(targetUuid);
@@ -60,17 +61,6 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             return new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
-        }
-    }
-
-    private String relationKeysAndValues(LinkedHashMap<String, String> relationshipMap, int index, boolean value) {
-        if (index >= relationshipMap.size()) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
-        if (!value) {
-            return relationshipMap.keySet().toArray(new String[0])[index];
-        } else {
-            return relationshipMap.values().toArray(new String[0])[index];
         }
     }
 }
