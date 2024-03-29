@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -114,4 +115,8 @@ public interface Model {
     void deleteRelationType(String relationType);
 
     void deleteRelationshipsOfPerson(UUID personUuid);
+
+    ArrayList<String> anySearch(UUID originUuid, UUID targetUuid);
+
+    ArrayList<String> familySearch(UUID originUuid, UUID targetUuid);
 }

@@ -195,6 +195,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Relationship> getFilteredRelationshipList() {
             throw new AssertionError("This method should not be called.");
         }

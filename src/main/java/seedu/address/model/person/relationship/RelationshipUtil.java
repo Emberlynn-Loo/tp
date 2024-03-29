@@ -151,7 +151,7 @@ public class RelationshipUtil {
                     if (nextUuid == null) {
                         continue;
                     }
-                    if (nextUuid == target) {
+                    if (nextUuid.equals(target)) {
                         parent[i] = new Pair(start, currentNode.relationshipPairIndex);
                         int currentIdx = i;
                         while (currentIdx != -1) {
@@ -203,7 +203,7 @@ public class RelationshipUtil {
                     if (nextUuid == null) {
                         continue;
                     }
-                    if (nextUuid == target) {
+                    if (nextUuid.equals(target)) {
                         parent[i] = new Pair(start, currentNode.relationshipPairIndex);
                         int currentIdx = i;
                         while (currentIdx != -1) {

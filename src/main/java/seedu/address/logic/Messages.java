@@ -42,6 +42,8 @@ public class Messages {
             + "\neditRelation /<UUID1> <role1> /<UUID2> <role2> /<oldRelationshipDescriptor> "
             + "/<newRelationshipDescriptor>";
 
+    public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

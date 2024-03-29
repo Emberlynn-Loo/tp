@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -147,6 +148,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void deleteRelationshipsOfPerson(UUID personUuid) {
         relationships.deleteRelationshipsOfPerson(personUuid);
+    }
+
+    public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
+        return relationships.anySearchDescriptors(originUuid, targetUuid);
+    }
+
+    public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
+        return relationships.familySearchDescriptors(originUuid, targetUuid);
     }
 
     @Override
