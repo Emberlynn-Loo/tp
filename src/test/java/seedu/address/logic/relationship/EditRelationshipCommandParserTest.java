@@ -203,4 +203,40 @@ public class EditRelationshipCommandParserTest {
             Assertions.fail("Unexpected ParseException thrown");
         }
     }
+
+    @Test
+    public void parse_validInputWithFamilialRelationshipDescriptor_success() {
+        // Valid input with UUIDs, roles, and new relationship descriptor as "bioparents"
+        String userInput = "/1234 parent /1244 child /friends /bioparents";
+        try {
+            EditRelationshipCommand command = parser.parse(userInput);
+            Assertions.assertNotNull(command);
+        } catch (ParseException e) {
+            Assertions.fail("Unexpected ParseException thrown");
+        }
+    }
+
+    @Test
+    public void parse_validInputWithFamilialRelationshipDescriptorUpperCase_success() {
+        // Valid input with UUIDs, roles, and new relationship descriptor as "SIBLINGS"
+        String userInput = "/1234 brother /1244 brother /oldDescriptor /siblings";
+        try {
+            EditRelationshipCommand command = parser.parse(userInput);
+            Assertions.assertNotNull(command);
+        } catch (ParseException e) {
+            Assertions.fail("Unexpected ParseException thrown");
+        }
+    }
+
+    @Test
+    public void parse_validInputWithFamilialRelationshipDescriptorLowerCase_success() {
+        // Valid input with UUIDs, roles, and new relationship descriptor as "siblings"
+        String userInput = "/1234 husband /1244 husband /oldDescriptor /spouses";
+        try {
+            EditRelationshipCommand command = parser.parse(userInput);
+            Assertions.assertNotNull(command);
+        } catch (ParseException e) {
+            Assertions.fail("Unexpected ParseException thrown");
+        }
+    }
 }

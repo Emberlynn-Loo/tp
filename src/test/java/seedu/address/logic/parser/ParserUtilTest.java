@@ -376,4 +376,37 @@ public class ParserUtilTest {
             ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
         });
     }
+
+    @Test
+    public void validateRolesForBioparents_validRoleCombinations_noExceptionThrown() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("0001", "nknn");
+        relationshipMap.put("0003", "something");
+        relationshipMap.put("bioparents", null);
+
+        assertThrows(ParseException.class, () -> ParserUtil.validateRolesForFamilialRelation(
+                "bioparents", relationshipMap));
+    }
+
+    @Test
+    public void validateRolesForSiblings_validRoleCombinations_noExceptionThrown() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("0001", "nknn");
+        relationshipMap.put("0003", "something");
+        relationshipMap.put("siblings", null);
+
+        assertThrows(ParseException.class, () -> ParserUtil.validateRolesForFamilialRelation(
+                "siblings", relationshipMap));
+    }
+
+    @Test
+    public void validateRolesForSpouses_validRoleCombinations_noExceptionThrown() {
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("0001", "nknn");
+        relationshipMap.put("0003", "something");
+        relationshipMap.put("spouses", null);
+
+        assertThrows(ParseException.class, () -> ParserUtil.validateRolesForFamilialRelation(
+                "spouses", relationshipMap));
+    }
 }

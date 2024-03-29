@@ -20,6 +20,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
+import seedu.address.model.person.relationship.SpousesRelationship;
 import seedu.address.testutil.TypicalPersonsUuid;
 
 public class EditRelationshipCommandTest {
@@ -196,5 +198,98 @@ public class EditRelationshipCommandTest {
 
         assertFalse(model.hasRelationshipWithDescriptor(expectedDeletedRelationship));
         assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorSiblings_success() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "friend";
+        String newRelationshipDescriptor = "siblings";
+        String role1 = "brother";
+        String role2 = "sister";
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid,
+                targetUuid, oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        assertEquals(EditRelationshipCommand.MESSAGE_EDIT_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that the relationship was deleted and added successfully
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        Relationship expectedDeletedRelationship =
+                new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
+        Relationship expectedAddedRelationship =
+                new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+
+        assertFalse(model.hasRelationshipWithDescriptor(expectedDeletedRelationship));
+        assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorSpouses_success() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "friend";
+        String newRelationshipDescriptor = "spouses";
+        String role1 = "husband";
+        String role2 = "husband";
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid,
+                targetUuid, oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        assertEquals(EditRelationshipCommand.MESSAGE_EDIT_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that the relationship was deleted and added successfully
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        Relationship expectedDeletedRelationship =
+                new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
+        Relationship expectedAddedRelationship =
+                new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+
+        assertFalse(model.hasRelationshipWithDescriptor(expectedDeletedRelationship));
+        assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorNotSpouses_nothingAddedOrDeleted() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "friend";
+        String newRelationshipDescriptor = "workbuddies";
+        String role1 = "subordinate";
+        String role2 = "boss";
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid,
+                targetUuid, oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        assertEquals(EditRelationshipCommand.MESSAGE_EDIT_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that no relationship was added or deleted
+        assertFalse(model.hasRelationshipWithDescriptor(
+                new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor)));
     }
 }
