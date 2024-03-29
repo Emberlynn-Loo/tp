@@ -20,7 +20,7 @@ public class AnySearchCommandTest {
     public void execute_validUuids_success() throws CommandException {
         AnySearchCommand anySearchCommand = new AnySearchCommand("0001", "0002");
         CommandResult commandResult = anySearchCommand.execute(model);
-        String expectedSearchResult = "No Relationship pathway found";
+        String expectedSearchResult = "Pathway between 0001 and 0002:\n" + "0001 friend of 0002";
         assertEquals(expectedSearchResult, commandResult.getFeedbackToUser());
     }
 
