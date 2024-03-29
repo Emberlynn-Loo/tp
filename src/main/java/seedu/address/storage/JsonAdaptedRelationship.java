@@ -6,8 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
+import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * Jackson-friendly version of {@link Relationship}.
@@ -61,9 +64,19 @@ public class JsonAdaptedRelationship {
         if (relationshipDescriptor == null || relationshipDescriptor.isEmpty() || person1 == null || person2 == null) {
             throw new IllegalValueException("Invalid relationship type or value in JSON.");
         }
+        String descriptorCheck = relationshipDescriptor.toLowerCase();
         if (rolePerson1 != null && rolePerson2 != null) {
-            return new RoleBasedRelationship(UUID.fromString(person1),
-                    UUID.fromString(person2), relationshipDescriptor, rolePerson1, rolePerson2);
+            switch (descriptorCheck) {
+            case "bioparents":
+                return new BioParentsRelationship(UUID.fromString(person1), UUID.fromString(person2));
+            case "siblings":
+                return new SiblingRelationship(UUID.fromString(person1), UUID.fromString(person2));
+            case "spouses":
+                return new SpousesRelationship(UUID.fromString(person1), UUID.fromString(person2));
+            default:
+                return new RoleBasedRelationship(UUID.fromString(person1), UUID.fromString(person2),
+                        relationshipDescriptor, rolePerson1, rolePerson2);
+            }
         } else {
             return new Relationship(UUID.fromString(person1), UUID.fromString(person2), relationshipDescriptor);
         }
