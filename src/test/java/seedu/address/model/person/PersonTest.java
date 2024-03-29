@@ -25,7 +25,6 @@ import seedu.address.model.person.attribute.StringAttribute;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
-
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
