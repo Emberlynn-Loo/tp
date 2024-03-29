@@ -318,25 +318,6 @@ public class Person {
         }
         return sb.toString().trim();
     }
-    public String[][] allAttributesAsPairs() {
-        if (attributes.isEmpty()) {
-            return null;
-        }
-        // sorts by lexicographical ordering of attributes key as compared to the method above sorts by the combined
-        // length of key and value leading to inconsistent ordering in a personCard
-        List<Map.Entry<String, Attribute>> sortedAttributes = new ArrayList<>(attributes.entrySet());
-        sortedAttributes.sort(
-                Comparator.comparing(
-                        Map.Entry::getKey));
-        String[][] result = new String[sortedAttributes.size()][2];
-        for (int i = 0; i < sortedAttributes.size(); i++) {
-            Map.Entry<String, Attribute> entry = sortedAttributes.get(i);
-            String[] current = new String[] {String.format("%s:", entry.getKey()), entry.getValue().getValueAsString()};
-            result[i] = current;
-        }
-        return result;
-    }
-
     /**
      * Sorts the keys in the attribute Map in lexicographical order, after the function will convert the Map into
      * an array of array of Strings of size 2, where the first element is the descriptor of the key and the second

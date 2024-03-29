@@ -130,20 +130,4 @@ public class Relationship {
         }
         validDescriptors.remove(relationType);
     }
-
-    /**
-     * check if relationship has the UUID if there is return the other party so that BFS can be done
-     * otherwise return null
-     * @param origin
-     * @return
-     */
-    public UUID containsUuid(UUID origin) {
-        if (origin.equals(person1)) {
-            return person2;
-        }
-        if (origin.equals(person2)) {
-            return person1;
-        }
-        return null;
-    }
 }
