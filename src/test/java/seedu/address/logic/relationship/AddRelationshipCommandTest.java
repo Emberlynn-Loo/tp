@@ -1,23 +1,25 @@
 package seedu.address.logic.relationship;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
 import java.util.UUID;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.SiblingRelationship;
 import seedu.address.model.person.relationship.SpousesRelationship;
+import seedu.address.testutil.TypicalPersonsUuid;
 
 class AddRelationshipCommandTest {
     private Model model;
@@ -101,7 +103,7 @@ class AddRelationshipCommandTest {
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
         AddRelationshipCommand test2 =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        assertEquals(test1.equals(test2), true);
+        Assertions.assertEquals(test1.equals(test2), true);
     }
     @Test
     void testEqualsMethodWithNotAddRelationshipCommandInstance() {
@@ -111,7 +113,7 @@ class AddRelationshipCommandTest {
         AddRelationshipCommand test1 =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
         String test2 = "test";
-        assertEquals(test1.equals(test2), false);
+        Assertions.assertEquals(test1.equals(test2), false);
     }
     @Test
     void testEqualsMethodWithSameInstance() {
@@ -120,7 +122,7 @@ class AddRelationshipCommandTest {
         String relationshipDescriptor = "housemates";
         AddRelationshipCommand test1 =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        assertEquals(test1.equals(test1), true);
+        Assertions.assertEquals(test1.equals(test1), true);
     }
 
     @Test
@@ -166,17 +168,101 @@ class AddRelationshipCommandTest {
         String familyRelationshipDescriptor = "housemates";
 
         // Ensure model does not initially contain the relationship
-        assertEquals(model.hasRelationship(new Relationship(person1Uuid, person2Uuid,
+        Assertions.assertEquals(model.hasRelationship(new Relationship(person1Uuid, person2Uuid,
                 familyRelationshipDescriptor)), false);
 
         // Execute the command
         CommandResult commandResult = addRelationshipCommand.execute(model);
 
         // Ensure model now contains the relationship
-        assertEquals(model.hasRelationship(new Relationship(person1Uuid, person2Uuid,
+        Assertions.assertEquals(model.hasRelationship(new Relationship(person1Uuid, person2Uuid,
                 familyRelationshipDescriptor)), true);
 
         // Ensure command result contains the expected message
-        assertEquals(commandResult.getFeedbackToUser(), expectedMessage);
+        Assertions.assertEquals(commandResult.getFeedbackToUser(), expectedMessage);
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorSiblings_success() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String newRelationshipDescriptor = "siblings";
+        String role1 = "brother";
+        String role2 = "sister";
+        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+                targetUuid, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that the relationship was deleted and added successfully
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        Relationship expectedAddedRelationship =
+                new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+
+        Assertions.assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorSpouses_success() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String newRelationshipDescriptor = "spouses";
+        String role1 = "husband";
+        String role2 = "husband";
+        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+                targetUuid, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that the relationship was deleted and added successfully
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        Relationship expectedAddedRelationship =
+                new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+
+        Assertions.assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorNotSpouses_nothingAddedOrDeleted() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String newRelationshipDescriptor = "workbuddies";
+        String role1 = "subordinate";
+        String role2 = "boss";
+        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+                targetUuid, newRelationshipDescriptor, role1, role2);
+
+        // Execute
+        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+
+        // Verify
+        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+
+        // Assert that no relationship was added or deleted
+        Assertions.assertTrue(model.hasRelationshipWithDescriptor(
+                new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                        UUID.fromString("00000000-0000-0000-0000-000000000002"), newRelationshipDescriptor)));
     }
 }
