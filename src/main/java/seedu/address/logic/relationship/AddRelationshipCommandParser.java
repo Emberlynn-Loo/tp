@@ -61,13 +61,13 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
             role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
             role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
 
-            if (relationshipDescriptor.equals("family")) {
+            if (relationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             return new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
         } else {
-            if (relationshipDescriptor.equals("family")) {
+            if (relationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }

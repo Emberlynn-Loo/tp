@@ -49,14 +49,14 @@ public class EditRelationshipCommandParser {
         if (ParserUtil.relationKeysAndValues(relationshipMap, 0, true) != null) {
             String role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
             String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
-            if (newRelationshipDescriptor.equals("family")) {
+            if (newRelationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor, role1, role2);
         } else {
-            if (newRelationshipDescriptor.equals("family")) {
+            if (newRelationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }

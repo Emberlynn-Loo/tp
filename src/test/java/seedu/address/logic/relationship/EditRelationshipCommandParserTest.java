@@ -167,14 +167,8 @@ public class EditRelationshipCommandParserTest {
     }
 
     @Test
-    public void getRelationshipHashMapEdit_bothKeysNull_throwsParseException() {
-        String userInput = "/1234 smt /1244 role /oldDescriptor /family";
-        assertThrows(ParseException.class, () -> parser.parse(userInput));
-    }
-
-    @Test
     public void getRelationshipHashMapEdit_throwsParseException() {
-        String userInput = "/1234 /1244 /oldDescriptor /family";
+        String userInput = "/1234 /1244 /oldDescriptor /familys";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 

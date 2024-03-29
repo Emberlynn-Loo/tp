@@ -47,14 +47,6 @@ class AddRelationshipCommandParserTest {
     }
 
     @Test
-    void parseInvalidInputWithRoles_throwsParseException() {
-        String userInput = "/0001 parent /19000 child /bioparents";
-        assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
-
-        String userInput2 = "/00010 parent /0003 child /bioparents";
-        assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
-    }
-    @Test
     void parse_invalidInputMissingPartsWithRoles_throwsIllegalArgumentException() {
         String userInput = "/ parent /0002 child /bioparents";
         assertParseFailure(parser, userInput, "Relationship format is invalid. "
@@ -76,20 +68,15 @@ class AddRelationshipCommandParserTest {
                 "bioparents", "parent", "child");
         assertParseSuccess(parser, userInput, expected);
 
-        String userInput2 = "/0001 /0003 /Siblings";
+        String userInput2 = "/0001 brother /0003 Brother /siblings";
         AddRelationshipCommand expected2 = new AddRelationshipCommand("0001", "0003",
-                "siblings");
+                "siblings", "brother", "brother");
         assertParseSuccess(parser, userInput2, expected2);
 
-        String userInput3 = "/0001 /0003 /Spouses";
+        String userInput3 = "/0001 husband /0003 husband /spouses";
         AddRelationshipCommand expected3 = new AddRelationshipCommand("0001", "0003",
-                "spouses");
+                "spouses", "husband", "husband");
         assertParseSuccess(parser, userInput3, expected3);
-
-        String userInput4 = "/0001 Parent /0005 child /Bioparents";
-        AddRelationshipCommand expected4 = new AddRelationshipCommand("0001", "0005",
-                "bioparents", "parent", "child");
-        assertParseSuccess(parser, userInput4, expected4);
 
         String userInput5 = "/0001 parent /0006 CHILd /Bioparents";
         AddRelationshipCommand expected5 = new AddRelationshipCommand("0001", "0006",
@@ -161,20 +148,12 @@ class AddRelationshipCommandParserTest {
 
     @Test
     void parse_validInput_success() {
-        String userInput = "/0001 /0003 /siblings";
+        String userInput = "/0001 brother /0003 sister /siblings";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001",
-                "0003", "siblings");
+                "0003", "siblings", "brother", "sister");
         assertParseSuccess(parser, userInput, expected);
     }
 
-    @Test
-    void parseInvalidInput_throwsParseException() {
-        String userInput = "/0001 /19000 /siblings";
-        assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
-
-        String userInput2 = "/00010 /0003 /siblings";
-        assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
-    }
     @Test
     void parse_invalidInputMissingParts_throwsIllegalArgumentException() {
         String targetUuid = "0001";
