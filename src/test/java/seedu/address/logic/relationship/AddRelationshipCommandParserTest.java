@@ -1,11 +1,13 @@
 package seedu.address.logic.relationship;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
+import java.util.LinkedHashMap;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -185,5 +187,48 @@ class AddRelationshipCommandParserTest {
         assertParseFailure(parser, userInput, "Please specify the type of "
                 + "familial relationship instead of 'Family'.\n"
                 + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_missingRole1_throwsParseException() {
+        String userInput = "/0001 /0003 /spouses";
+        assertParseFailure(parser, userInput, "spouses relationship requires two roles to be specified.\n"
+                + "Please specify the roles in the format: "
+                + "\naddRelation /<UUID> <role> /<UUID> <role> /spouses");
+    }
+
+    @Test
+    void parse_missingRole2_throwsParseException() {
+        String userInput = "/0001 boss /0003 /siblings";
+        assertParseFailure(parser, userInput, "siblings relationship requires two roles to be specified.\n"
+                + "Please specify the roles in the format: "
+                + "\naddRelation /<UUID> <role> /<UUID> <role> /siblings");
+    }
+
+    @Test
+    void parse_missingRoles_throwsParseException() {
+        String userInput = "/0001 /0003 /bioparents";
+        assertParseFailure(parser, userInput, "bioparents relationship requires two roles to be specified.\n"
+                + "Please specify the roles in the format: "
+                + "\naddRelation /<UUID> <role> /<UUID> <role> /bioparents");
+    }
+
+    @Test
+    void validateRolesForFamilialRelation_bioparents_validRoles_success() {
+        String relationshipDescriptor = "bioparents";
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("role1", "parent");
+        relationshipMap.put("role2", "child");
+        assertDoesNotThrow(() -> parser.validateRolesForFamilialRelation(relationshipDescriptor, relationshipMap));
+    }
+
+    @Test
+    void validateRolesForFamilialRelation_bioparents_invalidRoles_throwsParseException() {
+        String relationshipDescriptor = "workbuds";
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("role1", "sibling");
+        relationshipMap.put("role2", "child");
+        assertThrows(IllegalStateException.class, () -> parser.validateRolesForFamilialRelation(relationshipDescriptor,
+                relationshipMap));
     }
 }

@@ -1,12 +1,13 @@
 package seedu.address.logic.relationship;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.Assert;
+
+import java.util.LinkedHashMap;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EditRelationshipCommandParserTest {
     private EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
@@ -182,5 +183,28 @@ public class EditRelationshipCommandParserTest {
     public void getRelationshipHashMapEditRole2NotLetter_throwsParseException() {
         String userInput = "/1234 /1244 123 /oldDescriptor /Newdescriptor";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    public void getRelationshipHashMapEditRoles_throwsParseException() {
+        String userInput = "/1234 somme /1244 some /oldDescriptor /familys";
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    public void parse_validInputsWithRoles_success() {
+        // Valid input with UUIDs and relationship descriptors
+        String userInput = "/1234 some"
+                + " /5432 somee"
+                + " /siblings /weweew";
+
+        EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
+
+        try {
+            EditRelationshipCommand command = parser.parse(userInput);
+            assertNotNull(command);
+        } catch (ParseException e) {
+            fail("Unexpected ParseException thrown");
+        }
     }
 }
