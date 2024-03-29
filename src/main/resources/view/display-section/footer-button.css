@@ -1,17 +1,30 @@
 .footer-button-container {
     -fx-cursor: hand;
+    -fx-padding: 2 2 2 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.footer-button-container-selected {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-background-color: -rose-red;
 }
 .footer-button {
     -fx-font-family: 'Raleway SemiBold Italic';
-    -fx-text-fill: -black;
+    -fx-text-fill: -rose-red;
     -fx-background-color: transparent;
 }
 .footer-button-selected {
-    -fx-text-fill: -rose-red;
+    -fx-text-fill: -white;
 }
+
+.footer-button-container:hover,
+.footer-button-selected-deco,
 .footer-button:hover {
     -fx-opacity: 0.75;
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.0, 5, 10);
 }
 .footer-button-selected-deco {
-    -fx-fill: -rose-red;
+    -fx-fill: -white;
 }

@@ -34,8 +34,8 @@ public class FooterButton extends UiPart<Region> {
      * Adds the selected style of the button.
      */
     public void addSelectedStyle() {
+        footerButtonContainer.getStyleClass().add("footer-button-container-selected");
         footerButton.getStyleClass().add("footer-button-selected");
-
         Circle deco = new Circle();
         deco.setRadius(3);
         deco.getStyleClass().add("footer-button-selected-deco");
@@ -47,7 +47,7 @@ public class FooterButton extends UiPart<Region> {
      */
     public void clearSelectedStyle() {
         footerButton.getStyleClass().remove("footer-button-selected");
-
+        footerButtonContainer.getStyleClass().remove("footer-button-container-selected");
         footerButtonContainer.getChildren()
                 .remove(footerButtonContainer.lookup(".footer-button-selected-deco"));
     }

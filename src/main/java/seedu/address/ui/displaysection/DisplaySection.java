@@ -36,21 +36,21 @@ public class DisplaySection extends UiPart<Region> {
                         logic.getRelationshipList()));
         displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
-    private void displayAllContactsSection(ObservableList<Person> personLists,
+    public void displayAllContactsSection(ObservableList<Person> personLists,
                                            ObservableList<Relationship> relationships) {
         footerButtonSection.selectAllContactButton();
         headerTitle.setText("All Contacts");
         allContactsSection.update(personLists, relationships);
         renderSection(allContactsSection.getRoot());
     }
-    private void displayFoundResultSection(ObservableList<Person> personLists,
+    public void displayFoundResultSection(ObservableList<Person> personLists,
                                            ObservableList<Relationship> relationships) {
         footerButtonSection.selectFindResultButton();
         headerTitle.setText("Found Contacts");
         allContactsSection.update(personLists, relationships);
         renderSection(allContactsSection.getRoot());
     }
-    private void displayAnyListSection(ObservableList<Person> personLists,
+    public void displayAnyListSection(ObservableList<Person> personLists,
                                        ObservableList<Relationship> relationships) {
         footerButtonSection.selectAnyListButton();
         headerTitle.setText("Any List");
