@@ -40,6 +40,10 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
         String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                 2, false).toLowerCase();
 
+        if (!relationshipDescriptor.endsWith("s")) {
+            relationshipDescriptor += "s";
+        }
+
         String role1;
         String role2;
 

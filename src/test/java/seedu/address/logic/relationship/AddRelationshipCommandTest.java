@@ -180,5 +180,3 @@ class AddRelationshipCommandTest {
         assertEquals(commandResult.getFeedbackToUser(), expectedMessage);
     }
 }
-
-
