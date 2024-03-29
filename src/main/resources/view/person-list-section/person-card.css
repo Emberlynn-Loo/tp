@@ -75,6 +75,9 @@
 .personCard-general {
     -fx-background-color: -tag-blue-general;
 }
+.personCard-empty {
+    -fx-background-color: -white;
+}
 
 .personCard_flowpane {
     -fx-background-color: #B5C0D0;
