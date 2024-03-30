@@ -10,8 +10,8 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -117,7 +117,6 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
-
     /**
      * Fills up all the placeholders of this window.
      */
@@ -130,15 +129,12 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-//
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-//
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
-
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -150,7 +146,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
-
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -206,6 +201,10 @@ public class MainWindow extends UiPart<Stage> {
         footerButtonSection.selectAllContactButton();
         personList.displayAllContactsSection(personLists, relationships);
     }
+
+    /**
+     * navigates to existing contactSection with no rendering
+     */
     public void displayAllContactsSection() {
         footerButtonSection.selectAllContactButton();
         personList.displayAllContactsSection();
@@ -218,6 +217,12 @@ public class MainWindow extends UiPart<Stage> {
         footerButtonSection.selectAnyListButton();
         personList.displayAnyListSection();
     }
+
+    /**
+     * navaigates and updates the anyListSection with results from anySearch Command
+     * @param persons persons in relationshipPathway if there is any
+     * @param relationships relationships in relationshipPathway if there is any
+     */
     public void displayUpdatedAnyListSection(ObservableList<Person> persons,
                                               ObservableList<Relationship> relationships) {
         footerButtonSection.selectAnyListButton();
@@ -234,12 +239,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            if(commandResult.isAnySearch()) {
+            if (commandResult.isAnySearch()) {
                 displayUpdatedAnyListSection(logic.getFilteredPersonList(), logic.getRelationshipList());
             } else {
                 displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
             }
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

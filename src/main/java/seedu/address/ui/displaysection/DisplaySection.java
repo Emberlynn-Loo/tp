@@ -1,7 +1,5 @@
 package seedu.address.ui.displaysection;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -57,6 +55,10 @@ public class DisplaySection extends UiPart<Region> {
         allContactsSection.update(personLists, relationships);
         renderSection(allContactsSection.getRoot());
     }
+
+    /**
+     * display AllContactsSection without rendering
+     */
     public void displayAllContactsSection() {
         headerTitle.setText("All Contacts");
         renderSection(allContactsSection.getRoot());
@@ -69,6 +71,12 @@ public class DisplaySection extends UiPart<Region> {
         headerTitle.setText("Any List");
         renderSection(anyListSection.getRoot());
     }
+
+    /**
+     * updates AnyListSection
+     * @param persons people involved in relationships
+     * @param relationships relationships in the pathway
+     */
     public void displayUpdatedAnyListSection(ObservableList<Person> persons,
                                              ObservableList<Relationship> relationships) {
         headerTitle.setText("Any List");

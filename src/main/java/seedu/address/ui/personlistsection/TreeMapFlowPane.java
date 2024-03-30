@@ -1,7 +1,5 @@
 package seedu.address.ui.personlistsection;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

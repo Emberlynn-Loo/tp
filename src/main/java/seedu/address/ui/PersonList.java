@@ -29,6 +29,10 @@ public class PersonList extends UiPart<Region> {
         super(FXML);
         setPersonListCardItems(personList, relationships);
     }
+
+    /**
+     * Constructor To intialise an empty Section
+     */
     public PersonList() {
         super(FXML);
         displayPlaceholderText("You Have To Use AnySearch First!");
