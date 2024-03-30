@@ -315,12 +315,13 @@ public class RelationshipUtilTest {
         RelationshipUtil relationshipUtil = new RelationshipUtil();
         // Level 0 -> Level 1
         relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(aliceUuid, charlieUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(aliceUuid, charlieUuid, "brother", "sister"));
 
         // Level 1 -> Level 2
         relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(charlieUuid, fionaUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(charlieUuid, fionaUuid, "brother",
+                "sister"));
         relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
 
         // Level 2 -> Level 3
@@ -328,7 +329,7 @@ public class RelationshipUtilTest {
         relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(fionaUuid, liamUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(fionaUuid, liamUuid, "brother", "sister"));
         relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));

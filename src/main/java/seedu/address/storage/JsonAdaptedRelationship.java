@@ -68,11 +68,14 @@ public class JsonAdaptedRelationship {
         if (rolePerson1 != null && rolePerson2 != null) {
             switch (descriptorCheck) {
             case "bioparents":
-                return new BioParentsRelationship(UUID.fromString(person1), UUID.fromString(person2));
+                return new BioParentsRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                        rolePerson2);
             case "siblings":
-                return new SiblingRelationship(UUID.fromString(person1), UUID.fromString(person2));
+                return new SiblingRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                        rolePerson2);
             case "spouses":
-                return new SpousesRelationship(UUID.fromString(person1), UUID.fromString(person2));
+                return new SpousesRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                        rolePerson2);
             default:
                 return new RoleBasedRelationship(UUID.fromString(person1), UUID.fromString(person2),
                         relationshipDescriptor, rolePerson1, rolePerson2);

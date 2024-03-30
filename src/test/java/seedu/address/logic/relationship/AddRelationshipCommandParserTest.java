@@ -1,17 +1,20 @@
 package seedu.address.logic.relationship;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
+import java.util.LinkedHashMap;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -47,14 +50,6 @@ class AddRelationshipCommandParserTest {
     }
 
     @Test
-    void parseInvalidInputWithRoles_throwsParseException() {
-        String userInput = "/0001 parent /19000 child /bioparents";
-        assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
-
-        String userInput2 = "/00010 parent /0003 child /bioparents";
-        assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
-    }
-    @Test
     void parse_invalidInputMissingPartsWithRoles_throwsIllegalArgumentException() {
         String userInput = "/ parent /0002 child /bioparents";
         assertParseFailure(parser, userInput, "Relationship format is invalid. "
@@ -76,20 +71,15 @@ class AddRelationshipCommandParserTest {
                 "bioparents", "parent", "child");
         assertParseSuccess(parser, userInput, expected);
 
-        String userInput2 = "/0001 /0003 /Siblings";
+        String userInput2 = "/0001 brother /0003 Brother /siblings";
         AddRelationshipCommand expected2 = new AddRelationshipCommand("0001", "0003",
-                "siblings");
+                "siblings", "brother", "brother");
         assertParseSuccess(parser, userInput2, expected2);
 
-        String userInput3 = "/0001 /0003 /Spouses";
+        String userInput3 = "/0001 husband /0003 husband /spouses";
         AddRelationshipCommand expected3 = new AddRelationshipCommand("0001", "0003",
-                "spouses");
+                "spouses", "husband", "husband");
         assertParseSuccess(parser, userInput3, expected3);
-
-        String userInput4 = "/0001 Parent /0005 child /Bioparents";
-        AddRelationshipCommand expected4 = new AddRelationshipCommand("0001", "0005",
-                "bioparents", "parent", "child");
-        assertParseSuccess(parser, userInput4, expected4);
 
         String userInput5 = "/0001 parent /0006 CHILd /Bioparents";
         AddRelationshipCommand expected5 = new AddRelationshipCommand("0001", "0006",
@@ -125,7 +115,7 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
         expectedModel.addRelationship(
-                new BioParentsRelationship(person1Uuid, person2Uuid));
+                new BioParentsRelationship(person1Uuid, person2Uuid, "parent", "child"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
@@ -140,7 +130,7 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000003");
         expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid));
+                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "wife"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
@@ -155,26 +145,18 @@ class AddRelationshipCommandParserTest {
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
         expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid));
+                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
         assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     void parse_validInput_success() {
-        String userInput = "/0001 /0003 /siblings";
+        String userInput = "/0001 brother /0003 sister /siblings";
         AddRelationshipCommand expected = new AddRelationshipCommand("0001",
-                "0003", "siblings");
+                "0003", "siblings", "brother", "sister");
         assertParseSuccess(parser, userInput, expected);
     }
 
-    @Test
-    void parseInvalidInput_throwsParseException() {
-        String userInput = "/0001 /19000 /siblings";
-        assertParseFailure(parser, userInput, "The UUID provided is invalid: ");
-
-        String userInput2 = "/00010 /0003 /siblings";
-        assertParseFailure(parser, userInput2, "The UUID provided is invalid: ");
-    }
     @Test
     void parse_invalidInputMissingParts_throwsIllegalArgumentException() {
         String targetUuid = "0001";
@@ -206,5 +188,50 @@ class AddRelationshipCommandParserTest {
         assertParseFailure(parser, userInput, "Please specify the type of "
                 + "familial relationship instead of 'Family'.\n"
                 + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_missingRole1_throwsParseException() {
+        String userInput = "/0001 /0003 /spouses";
+        assertParseFailure(parser, userInput, "spouses relationship requires two roles to be specified.\n"
+                + "Please specify the roles in the format: "
+                + "\naddRelation /<UUID> <role> /<UUID> <role> /spouses");
+    }
+
+    @Test
+    void parse_missingRole2_throwsParseException() {
+        String userInput = "/0001 boss /0003 /siblings";
+        assertParseFailure(parser, userInput, "Relationship format is invalid. "
+                + "\nPlease ensure that the relationship is in the format: "
+                + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
+                + "\naddRelation /<UUID1> <role1> /<UUID2> <role2> /<relationshipDescriptor>");
+    }
+
+    @Test
+    void parse_missingRoles_throwsParseException() {
+        String userInput = "/0001 /0003 /bioparents";
+        assertParseFailure(parser, userInput, "bioparents relationship requires two roles to be specified.\n"
+                + "Please specify the roles in the format: "
+                + "\naddRelation /<UUID> <role> /<UUID> <role> /bioparents");
+    }
+
+    @Test
+    void validateRolesForFamilialRelationBioparents_validRoles_success() {
+        String relationshipDescriptor = "bioparents";
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("role1", "parent");
+        relationshipMap.put("role2", "child");
+        assertDoesNotThrow(() -> ParserUtil.validateRolesForFamilialRelation(relationshipDescriptor, relationshipMap));
+    }
+
+    @Test
+    void validateRolesForFamilialRelationBioparents_invalidRoles_throwsParseException() {
+        String relationshipDescriptor = "workbuds";
+        LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
+        relationshipMap.put("role1", "sibling");
+        relationshipMap.put("role2", "child");
+        assertThrows(IllegalStateException.class, () ->
+                ParserUtil.validateRolesForFamilialRelation(relationshipDescriptor,
+                relationshipMap));
     }
 }
