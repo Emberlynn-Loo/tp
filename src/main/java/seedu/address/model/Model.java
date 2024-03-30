@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 
@@ -16,6 +17,12 @@ import seedu.address.model.person.relationship.Relationship;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Person> PREDICATE_SHOW_NO_PERSONS = unused -> false;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Relationship> PREDICATE_SHOW_ALL_RELATIONSHIPS = unused -> true;
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Relationship> PREDICATE_SHOW_NO_RELATIONSHIPS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -81,12 +88,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
-
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredRelationshipList(Predicate<Relationship> predicate);
     boolean hasRelationship(Relationship target);
 
     void addRelationship(Relationship toAdd);
@@ -116,7 +123,7 @@ public interface Model {
 
     void deleteRelationshipsOfPerson(UUID personUuid);
 
-    ArrayList<String> anySearch(UUID originUuid, UUID targetUuid);
+    ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
     ArrayList<String> familySearch(UUID originUuid, UUID targetUuid);
 }

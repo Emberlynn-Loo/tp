@@ -1,13 +1,18 @@
 package seedu.address.logic.relationship;
 
-import java.util.ArrayList;
+import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_NO_RELATIONSHIPS;
+
 import java.util.UUID;
 
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.PersonInRelationshipPathwayPredicate;
+import seedu.address.model.person.RelationshipInRelationshipPathwayPredicate;
 
 /**
  * This class is responsible for parsing and executing commands to search for the relationship pathway between two
@@ -46,14 +51,18 @@ public class AnySearchCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("anySearch must be performed between two different persons.");
         }
-        ArrayList<String> searchResult = model.anySearch(fullOriginUuid, fullTargetUuid);
-        String searchResultString = "Pathway between " + originUuid + " and "
-                + targetUuid + ":\n";
-        searchResultString += String.join("\n", searchResult);
-        if (searchResult.isEmpty()) {
-            searchResultString = Messages.MESSAGE_SEARCH_FAILURE;
+        ResultContainer searchResult = model.anySearch(fullOriginUuid, fullTargetUuid);
+        if (searchResult == null) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
+            model.updateFilteredRelationshipList(PREDICATE_SHOW_NO_RELATIONSHIPS);
+            return new CommandResult(Messages.MESSAGE_SEARCH_FAILURE);
         }
-        return new CommandResult(searchResultString);
+        model.updateFilteredPersonList(new PersonInRelationshipPathwayPredicate(searchResult.getPersons()));
+        model.updateFilteredRelationshipList(
+                new RelationshipInRelationshipPathwayPredicate(searchResult.getRelationships()));
+        return new CommandResult(
+                String.format("Pathway:\n%s", searchResult.getRelationshipPathway()),
+                false, false, true);
     }
 
     @Override
