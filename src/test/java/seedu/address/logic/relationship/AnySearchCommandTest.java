@@ -20,8 +20,8 @@ public class AnySearchCommandTest {
     public void execute_validUuids_success() throws CommandException {
         AnySearchCommand anySearchCommand = new AnySearchCommand("0001", "0002");
         CommandResult commandResult = anySearchCommand.execute(model);
-        String expectedSearchResult = "Pathway:\n" +
-                "0001 --> friend of --> 0002";
+        String expectedSearchResult = "Pathway:\n"
+                + "0001 --> friend of --> 0002";
         System.out.println(commandResult.getFeedbackToUser());
         assertEquals(expectedSearchResult, commandResult.getFeedbackToUser());
     }
