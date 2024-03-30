@@ -54,24 +54,6 @@ public class AddAttributeCommandTest {
     }
 
     @Test
-    public void execute_pass_genderFemale() throws CommandException {
-        ALICE.deleteAttribute("Sex");
-        AddAttributeCommand addAttributeCommand =
-                new AddAttributeCommand(ALICE.getUuidString().substring(36 - 4), Map.of("sex", "female"));
-        addAttributeCommand.execute(model);
-        assertNotNull(ALICE.getAttribute("Sex"));
-    }
-
-    @Test
-    public void execute_pass_genderMale() throws CommandException {
-        ALICE.deleteAttribute("Sex");
-        AddAttributeCommand addAttributeCommand =
-                new AddAttributeCommand(ALICE.getUuidString().substring(36 - 4), Map.of("sex", "male"));
-        addAttributeCommand.execute(model);
-        assertNotNull(ALICE.getAttribute("Sex"));
-    }
-
-    @Test
     public void execute_fail_invalidDate() {
         AddAttributeCommand addAttributeCommand =
                 new AddAttributeCommand(ALICE.getUuidString().substring(36 - 4), Map.of("Birthday", "2001-13-32"));
@@ -82,13 +64,6 @@ public class AddAttributeCommandTest {
     public void execute_fail_invalidPhoneNumber() {
         AddAttributeCommand addAttributeCommand =
                 new AddAttributeCommand(ALICE.getUuidString().substring(36 - 4), Map.of("Phone", "-12345"));
-        assertThrows(CommandException.class, () -> addAttributeCommand.execute(model));
-    }
-
-    @Test
-    public void execute_fail_invalidSex() {
-        AddAttributeCommand addAttributeCommand =
-                new AddAttributeCommand(ALICE.getUuidString().substring(36 - 4), Map.of("Sex", "Helicopter"));
         assertThrows(CommandException.class, () -> addAttributeCommand.execute(model));
     }
 

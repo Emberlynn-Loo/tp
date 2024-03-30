@@ -113,7 +113,7 @@ public class AddressBookParser {
             return new DeleteAttributeCommandParser().parse(arguments.trim());
 
         case AddAttributeCommand.COMMAND_WORD:
-            return new PersonAttributeCommandParser().parse(userInput);
+            return new AddAttributeParser().parse(userInput);
 
         case EditAttributeCommand.COMMAND_WORD:
             return new EditCommandParser().parse(userInput.trim());

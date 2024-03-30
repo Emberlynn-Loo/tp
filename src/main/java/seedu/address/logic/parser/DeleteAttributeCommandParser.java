@@ -27,8 +27,7 @@ public class DeleteAttributeCommandParser implements Parser<DeleteAttributeComma
 
         // Validate command structure
         if (parts.length < 2) {
-            throw new ParseException("Invalid command format. Expected format: "
-                    + "deleteAttribute /UUID /attributeName1 /attributeName2 ...");
+            throw new ParseException(DeleteAttributeCommand.MESSAGE_USAGE);
         }
 
         String uuid = parts[0].substring(1); // Remove the leading "/"

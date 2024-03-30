@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 
@@ -8,9 +7,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
-import seedu.address.model.person.attribute.BirthdayAttribute;
-import seedu.address.model.person.attribute.NameAttribute;
-import seedu.address.model.person.attribute.PhoneNumberAttribute;
 
 /**
  * A command to edit an existing attribute of a person in the address book.
@@ -19,7 +15,7 @@ import seedu.address.model.person.attribute.PhoneNumberAttribute;
 public class EditAttributeCommand extends Command {
 
     public static final String COMMAND_WORD = "editAttribute";
-    public static final Object MESSAGE_USAGE = COMMAND_WORD + ": Edits attributes of a person in the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits attributes of a person in the address book. "
             + "\n"
             + "Command format:  " + COMMAND_WORD + " /UUID /attributeName1 attributeValue1 "
             + "/attributeName2 attributeValue2 ...\n"
@@ -56,36 +52,7 @@ public class EditAttributeCommand extends Command {
                         attributeName));
             }
 
-            Attribute attribute;
-
-            // Similar switch-case logic as AddAttributeCommand for handling different attribute types
-            switch (attributeName.toLowerCase()) {
-            case "birthday":
-                try {
-                    LocalDate attributeValueDate = LocalDate.parse(attributeValue);
-                    attribute = new BirthdayAttribute("Birthday", attributeValueDate);
-                } catch (Exception e) {
-                    throw new CommandException("Invalid date format for " + attributeName + ". Please use yyyy-mm-dd.");
-                }
-                break;
-            case "name":
-                attribute = new NameAttribute("Name", attributeValue);
-                break;
-            case "phone":
-                int phoneNumber;
-                try {
-                    phoneNumber = Integer.parseInt(attributeValue);
-                    if (phoneNumber < 0) {
-                        throw new CommandException("Phone number cannot be negative for " + attributeName + ".");
-                    }
-                } catch (NumberFormatException e) {
-                    throw new CommandException("Phone number for " + attributeName + " must be a number.");
-                }
-                attribute = new PhoneNumberAttribute("Phone", phoneNumber);
-                break;
-            default:
-                attribute = Attribute.fromString(attributeName, attributeValue);
-            }
+            Attribute attribute = AttributeUtil.createAttribute(attributeName, attributeValue);
 
             person.updateAttribute(attribute);
         }

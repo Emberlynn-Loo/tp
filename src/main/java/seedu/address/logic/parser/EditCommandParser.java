@@ -29,7 +29,7 @@ public class EditCommandParser implements Parser<EditAttributeCommand> {
 
         // Validate command structure
         if (parts.length < 3 || !"editAttribute".equalsIgnoreCase(parts[0])) {
-            throw new ParseException("Invalid command format. Expected format: editAttribute /uuid [attributes]");
+            throw new ParseException(EditAttributeCommand.MESSAGE_USAGE);
         }
 
         // The second part should be the UUID prefixed with "/"

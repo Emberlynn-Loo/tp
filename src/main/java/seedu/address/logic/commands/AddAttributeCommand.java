@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 
@@ -8,10 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
-import seedu.address.model.person.attribute.BirthdayAttribute;
-import seedu.address.model.person.attribute.NameAttribute;
-import seedu.address.model.person.attribute.PhoneNumberAttribute;
-import seedu.address.model.person.attribute.SexAttribute;
+
 
 /**
  * A command to add a new attribute to a person in the address book, or to update an existing attribute.
@@ -57,48 +53,7 @@ public class AddAttributeCommand extends Command {
         for (Map.Entry<String, String> entry : attributes.entrySet()) {
             String attributeName = entry.getKey();
             String attributeValue = entry.getValue();
-            Attribute attribute;
-
-            switch (attributeName.toLowerCase()) {
-            case "birthday":
-                try {
-                    LocalDate attributeValueDate = LocalDate.parse(attributeValue);
-                    attribute = new BirthdayAttribute("Birthday", attributeValueDate);
-                } catch (Exception e) {
-                    throw new CommandException("Invalid date format for " + attributeName + ". Please use yyyy-mm-dd.");
-                }
-                break;
-            case "name":
-                attribute = new NameAttribute("Name", attributeValue);
-                break;
-            case "phone":
-                int phoneNumber;
-                try {
-                    phoneNumber = Integer.parseInt(attributeValue);
-                    if (phoneNumber < 0) {
-                        throw new CommandException("Phone number cannot be negative for " + attributeName + ".");
-                    }
-                } catch (NumberFormatException e) {
-                    throw new CommandException("Phone number for " + attributeName + " must be a number.");
-                }
-                attribute = new PhoneNumberAttribute("Phone", phoneNumber);
-                break;
-            case "sex":
-                if ("male".equalsIgnoreCase(attributeValue)) {
-                    attribute = new SexAttribute("Sex", SexAttribute.Gender.MALE);
-                } else if ("female".equalsIgnoreCase(attributeValue)) {
-                    attribute = new SexAttribute("Sex", SexAttribute.Gender.FEMALE);
-                } else {
-                    throw new CommandException("Sex for " + attributeName + " can be either male or female.");
-                }
-                break;
-            default:
-                attribute = Attribute.fromString(attributeName, attributeValue);
-                if (attribute == null) {
-                    throw new CommandException("Unknown or invalid attribute " + attributeName + ".");
-                }
-            }
-
+            Attribute attribute = AttributeUtil.createAttribute(attributeName, attributeValue);
             person.updateAttribute(attribute);
         }
         return new CommandResult("Attributes updated successfully.");

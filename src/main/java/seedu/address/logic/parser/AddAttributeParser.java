@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * This parser converts user input strings into an AddAttributeCommand object
  * that can add attributes to a person in the address book.
  */
-public class PersonAttributeCommandParser {
+public class AddAttributeParser {
 
     /**
      * Parses the given user input string into an executable command.
@@ -29,7 +29,7 @@ public class PersonAttributeCommandParser {
 
         // Validate command structure
         if (commandParts.length < 3 || !"addAttribute".equalsIgnoreCase(commandParts[0])) {
-            throw new ParseException("Invalid command format. Expected format: addAttribute /uuid [attributes]");
+            throw new ParseException(AddAttributeCommand.MESSAGE_USAGE);
         }
 
         // The second part should be the UUID prefixed with "/"
