@@ -72,4 +72,3 @@ shadowJar {
 defaultTasks 'clean', 'test'
 run {
     enableAssertions = true
-}
