@@ -146,6 +146,16 @@ public class Person {
     public String getUuidString() {
         return uuid.toString();
     }
+
+    /**
+     * Return the last four character of person uuid
+     * @return last four character of person uuid
+     */
+    public String getLastFourCharacterOfUuid() {
+        String uuid = getUuidString();
+        int len = uuid.length();
+        return uuid.substring(len - 4);
+    }
     /**
      * Returns whether the person has an attribute with the given type.
      *

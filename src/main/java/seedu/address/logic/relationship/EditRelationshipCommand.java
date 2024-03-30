@@ -7,8 +7,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
+import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.
@@ -74,9 +77,6 @@ public class EditRelationshipCommand extends Command {
         }
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        if (fullOriginUuid == fullTargetUuid) {
-            throw new CommandException("Relationships must be between 2 different people");
-        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);
@@ -88,9 +88,18 @@ public class EditRelationshipCommand extends Command {
             }
             model.deleteRelationship(toEditOff);
             if (role1 != null && role2 != null) {
-                RoleBasedRelationship newRelationship = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
-                        newRelationshipDescriptor, role1, role2);
-                model.addRelationship(newRelationship);
+                RoleBasedRelationship toAdd;
+                if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
+                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                } else if (newRelationshipDescriptor.equalsIgnoreCase("Siblings")) {
+                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
+                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                } else {
+                    toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
+                            newRelationshipDescriptor, role1, role2);
+                }
+                model.addRelationship(toAdd);
             } else {
                 model.addRelationship(toEditIn);
             }

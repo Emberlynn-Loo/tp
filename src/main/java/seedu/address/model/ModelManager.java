@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 
@@ -151,7 +152,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
+    public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
         return addressBook.anySearch(originUuid, targetUuid);
     }
 
@@ -184,6 +185,11 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+    @Override
+    public void updateFilteredRelationshipList(Predicate<Relationship> predicate) {
+        requireNonNull(predicate);
+        filteredRelationships.setPredicate(predicate);
     }
     @Override
     public UUID getFullUuid(String digits) {

@@ -12,12 +12,12 @@
     <stylesheets>
         <URL value="@tree-edge-component.css" />
     </stylesheets>
-    <ImageView fitWidth="35" fitHeight="35" preserveRatio="true">
+    <ImageView fitWidth="80" fitHeight="35" preserveRatio="true">
         <image>
             <Image url="/images/rightarrow.png"/>
         </image>
     </ImageView>
-    <Label alignment="CENTER" fx:id="relationshipDescriptorLabel" styleClass="relationshipDescriptorLabel"/>
+    <Label alignment="CENTER" fx:id="relationshipDescriptorLabel" styleClass="relationshipDescriptorLabel" maxWidth="80" wrapText="true"/>
 </VBox>
 
 

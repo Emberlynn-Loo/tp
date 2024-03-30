@@ -29,6 +29,10 @@ public class PersonList extends UiPart<Region> {
         super(FXML);
         setPersonListCardItems(personList, relationships);
     }
+    public PersonList() {
+        super(FXML);
+        displayPlaceholderText("You Have To Use AnySearch First!");
+    }
     public void setPersonListCardItems(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
         personListCardVbox.getChildren().clear();
         personListScrollPane.setVvalue(0);
@@ -48,7 +52,7 @@ public class PersonList extends UiPart<Region> {
     }
     private void displayPlaceholderText(String text) {
         CustomPlaceholder customPlaceholder = new CustomPlaceholder(
-                "You Have No Contacts, Start Adding Them!", 20);
+                text, 20);
         personListCardVbox.getChildren().add(customPlaceholder.getRoot());
     }
 }

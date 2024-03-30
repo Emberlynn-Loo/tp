@@ -118,4 +118,24 @@ public class RelationshipTest {
         // Verify
         assertFalse(relationship.equals(notARelationship));
     }
+    @Test
+    void testGetRelativeRelationshipDescriptorWithoutUuid() {
+        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
+        // Assuming Relationship is an abstract class and MyRelationship is a concrete subclass
+        Relationship relationship = new Relationship(person1Uuid, person2Uuid, "parent");
+        String expected = "parent of";
+        assertEquals(expected, relationship.getRelativeRelationshipDescriptorWithoutUuid(person1Uuid));
+    }
+
+    @Test
+    void testGetRelativeRelationshipDescriptor() {
+        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
+        // Assuming Relationship is an abstract class and MyRelationship is a concrete subclass
+        Relationship relationship = new SiblingRelationship(person1Uuid, person2Uuid,
+                 "brother", "sister");
+        String expected = " (siblings) brother of ";
+        assertEquals(expected, relationship.getRelativeRelationshipDescriptorWithoutUuid(person1Uuid));
+    }
 }

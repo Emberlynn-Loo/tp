@@ -22,13 +22,17 @@ public class RoleBasedRelationship extends Relationship {
         roles.put(person1, rolePerson1);
         roles.put(person2, rolePerson2);
     }
-
-    @Override
     public String getRoleDescriptor(UUID targetPerson) {
         if (!targetPerson.equals(super.getPerson1()) && !targetPerson.equals(super.getPerson2())) {
             throw new IllegalArgumentException("This person is not in this relationship");
         }
         return roles.get(targetPerson);
+    }
+    @Override
+    public String getRelativeRelationshipDescriptorWithoutUuid(UUID origin) {
+        UUID target = origin.equals(this.person1) ? this.person2 : this.person1;
+        String originRole = getRoleDescriptor(origin);
+        return String.format(" (%s) %s of ", relationshipDescriptor, originRole);
     }
     @Override
     public String getRelativeRelationshipDescriptor(UUID origin) {

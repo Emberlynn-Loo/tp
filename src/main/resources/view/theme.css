@@ -99,6 +99,17 @@
 .main-window_navbar-panel {
 }
 
+.commandBox_container{
+    -fx-spacing: 10;
+}
+
+.result_container {
+
+}
+
+.commandBoxContainer{
+
+}
 
 
 

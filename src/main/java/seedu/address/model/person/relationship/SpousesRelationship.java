@@ -13,8 +13,8 @@ public class SpousesRelationship extends FamilyRelationship {
      * @param person1 The UUID of the first person in the relationship.
      * @param person2 The UUID of the second person in the relationship.
      */
-    public SpousesRelationship(UUID person1, UUID person2) {
-        super(person1, person2, "spouses", "spouse", "spouse");
+    public SpousesRelationship(UUID person1, UUID person2, String role1, String role2) {
+        super(person1, person2, "spouses", role1, role2);
     }
     @Override
     public String getStyleDescriptor() {

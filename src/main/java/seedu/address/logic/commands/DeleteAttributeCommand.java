@@ -19,8 +19,8 @@ public class DeleteAttributeCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Attribute deleted from person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes attributes from a person in the address book. "
             + "\n"
-            + "Command format:  " + COMMAND_WORD + " UUID /attributeName1 /attributeName2 ...\n"
-            + "Example: " + COMMAND_WORD + " f8d9 /Name /Phone";
+            + "Command format:  " + COMMAND_WORD + " /UUID /attributeName1 /attributeName2 ...\n"
+            + "Example: " + COMMAND_WORD + " /f8d9 /Name /Phone";
     private final String toDelete;
     private final String[] attributeList;
 
@@ -57,13 +57,12 @@ public class DeleteAttributeCommand extends Command {
 
         // Perform deletion of attribute
         for (String attributeName : attributeList) {
-            if (!model.hasAttribute(personToDelete.getUuidString(), attributeName)) {
+            System.out.println(attributeName);
+            if (model.hasAttribute(fullUuid.toString(), attributeName)) {
+                model.deleteAttribute(fullUuid.toString(), attributeName);
+            } else {
                 throw new CommandException(Messages.MESSAGE_NO_SUCH_ATTRIBUTE + attributeName);
             }
-        }
-
-        for (String attributeName : attributeList) {
-            model.deleteAttribute(personToDelete.getUuidString(), attributeName);
         }
 
         // Return result

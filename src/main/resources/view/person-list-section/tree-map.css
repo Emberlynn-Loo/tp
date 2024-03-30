@@ -35,6 +35,7 @@
 .person-tag {
     -fx-padding: 2 5;
     -fx-text-fill: -black;
+    -fx-background-color: #d3d3d3;
     -fx-border-radius: 7;
     -fx-background-radius: 7;
     -fx-font-family: 'Raleway';
@@ -44,25 +45,4 @@
     -fx-opacity: 0.75;
 }
 
-.person-tag-sibling {
-    -fx-background-color: -tag-red-sibling;
-}
 
-.person-tag-spouse {
-    -fx-background-color: -tag-purple-spouse;
-}
-
-.person-tag-bioparent {
-    -fx-background-color: -tag-yellow-bioparent;
-}
-
-.person-tag-friend {
-    -fx-background-color: -tag-green-friend;
-}
-
-.person-tag-general {
-    -fx-background-color: -tag-blue-general;
-}
-.person-tag-empty {
-    -fx-background-color: -white;
-}

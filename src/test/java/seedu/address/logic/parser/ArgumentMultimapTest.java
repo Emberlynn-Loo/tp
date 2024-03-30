@@ -1,11 +1,9 @@
-package seedu.address.logic;
+package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 class ArgumentMultimapTest {

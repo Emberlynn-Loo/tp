@@ -46,9 +46,9 @@
         </HBox>
         <HBox alignment="CENTER" spacing="20" fx:id="mainWindowBody" VBox.vgrow="ALWAYS">
           <VBox fx:id="displaySectionPlaceholder" alignment="CENTER"/>
-          <VBox alignment="CENTER">
-            <StackPane fx:id="commandBoxPlaceholder"/>
-            <StackPane fx:id="resultDisplayPlaceholder"/>
+          <VBox alignment="CENTER" styleClass="commandBox_container">
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="commandBoxContainer"/>
+            <StackPane fx:id="resultDisplayPlaceholder" styleClass="result_container"/>
           </VBox>
         </HBox>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
@@ -56,3 +56,4 @@
     </Scene>
   </scene>
 </fx:root>
+

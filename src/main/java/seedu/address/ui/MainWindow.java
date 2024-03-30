@@ -43,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private CommandBox commandBox;
     private FooterButtonSection footerButtonSection;
-
     @FXML
     private VBox mainWindowContainer;
     @FXML
@@ -124,13 +123,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personList = new DisplaySection(logic);
-        displayFooter("All Contacts", "Found Contacts", "Any List", () ->
-                displayAllContactsSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()), () ->
-                displayFoundResultSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()), () ->
-                displayAnyListSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()));
+        displayFooter("All Contacts", "Any List", () ->
+                displayAllContactsSection(), () ->
+                displayAnyListSection());
         displaySectionPlaceholder.getChildren().add(personList.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -186,19 +181,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Displays the footer buttons that enables user to toggle between different sections.
      * @param allContactButtonLabel The text label of the all contacts button.
-     * @param findResultButtonLabel The text label of the find result button.
      * @param anyListButtonLabel The text label of any list button.
      * @param allContactButtonHandler The function to execute on clicking the all contacts button.
-     * @param findResultButtonHandler The function to execute on clicking the find result button.
      * @param anyListButtonHandler The function to execute on clicking the anyList button.
      */
-    private void displayFooter(String allContactButtonLabel, String findResultButtonLabel, String anyListButtonLabel,
-                               Runnable allContactButtonHandler, Runnable findResultButtonHandler,
-                               Runnable anyListButtonHandler) {
+    private void displayFooter(String allContactButtonLabel, String anyListButtonLabel,
+                               Runnable allContactButtonHandler, Runnable anyListButtonHandler) {
         this.footerButtonSection = new FooterButtonSection(
-                allContactButtonLabel, findResultButtonLabel, anyListButtonLabel,
-                allContactButtonHandler, findResultButtonHandler, anyListButtonHandler);
-        mainWindowNavBarButtonPlaceholder.getChildren().remove(mainWindowNavBarButtonPlaceholder.lookup(".footer-button-section"));
+                allContactButtonLabel, anyListButtonLabel,
+                allContactButtonHandler, anyListButtonHandler);
+        mainWindowNavBarButtonPlaceholder.getChildren().remove(
+                mainWindowNavBarButtonPlaceholder.lookup(".footer-button-section"));
         mainWindowNavBarButtonPlaceholder.getChildren().add(footerButtonSection.getRoot());
     }
     /**
@@ -213,33 +206,23 @@ public class MainWindow extends UiPart<Stage> {
         footerButtonSection.selectAllContactButton();
         personList.displayAllContactsSection(personLists, relationships);
     }
-
-    /**
-     * Displays the "Found Contacts" section.
-     * This method updates the view to show the results of a search operation and sets the appropriate title.
-     *
-     * @param personLists The list of persons found as a result of the search.
-     * @param relationships The list of relationships associated with the found persons.
-     */
-    public void displayFoundResultSection(ObservableList<Person> personLists,
-                                          ObservableList<Relationship> relationships) {
-        footerButtonSection.selectFindResultButton();
-        personList.displayFoundResultSection(personLists, relationships);
+    public void displayAllContactsSection() {
+        footerButtonSection.selectAllContactButton();
+        personList.displayAllContactsSection();
     }
-
     /**
      * Displays a custom list section named "Any List".
      * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
-     *
-     * @param personLists The list of persons to be displayed in the custom list.
-     * @param relationships The list of relationships associated with the persons in the custom list.
      */
-    public void displayAnyListSection(ObservableList<Person> personLists,
-                                      ObservableList<Relationship> relationships) {
+    public void displayAnyListSection() {
         footerButtonSection.selectAnyListButton();
-        personList.displayAnyListSection(personLists, relationships);
+        personList.displayAnyListSection();
     }
-
+    public void displayUpdatedAnyListSection(ObservableList<Person> persons,
+                                              ObservableList<Relationship> relationships) {
+        footerButtonSection.selectAnyListButton();
+        personList.displayUpdatedAnyListSection(persons, relationships);
+    }
 
     /**
      * Executes the command and returns the result.
@@ -251,7 +234,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            if(commandResult.isAnySearch()) {
+                displayUpdatedAnyListSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            } else {
+                displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -260,7 +247,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);

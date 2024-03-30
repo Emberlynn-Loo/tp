@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.NameAttribute;
@@ -313,14 +314,15 @@ public class RelationshipUtilTest {
         UUID oliviaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000F");
 
         RelationshipUtil relationshipUtil = new RelationshipUtil();
-        // Level 0 -> Level 1
         relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(aliceUuid, charlieUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(aliceUuid, charlieUuid, "sister",
+                 "brother"));
 
         // Level 1 -> Level 2
         relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(charlieUuid, fionaUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(charlieUuid, fionaUuid, "brother",
+                 "sister"));
         relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
 
         // Level 2 -> Level 3
@@ -328,7 +330,8 @@ public class RelationshipUtilTest {
         relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(fionaUuid, liamUuid));
+        relationshipUtil.addRelationship(new SiblingRelationship(fionaUuid, liamUuid, "brother",
+                 "sister"));
         relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));
@@ -339,5 +342,86 @@ public class RelationshipUtilTest {
         for (String s : result) {
             System.out.println(s);
         }
+    }
+    @Test
+    public void testSuccessfulAnySearchForTreeMapReturnsNull() {
+        UUID aliceUuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID bobUuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
+        UUID charlieUuid = UUID.fromString("00000000-0000-0000-0000-000000000003");
+        UUID dianaUuid = UUID.fromString("00000000-0000-0000-0000-000000000004");
+        UUID elenaUuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
+        UUID fionaUuid = UUID.fromString("00000000-0000-0000-0000-000000000006");
+        UUID georgeUuid = UUID.fromString("00000000-0000-0000-0000-000000000007");
+        UUID harryUuid = UUID.fromString("00000000-0000-0000-0000-000000000008");
+        UUID ianUuid = UUID.fromString("00000000-0000-0000-0000-000000000009");
+        UUID jackUuid = UUID.fromString("00000000-0000-0000-0000-00000000000A");
+        UUID kaylaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000B");
+        UUID liamUuid = UUID.fromString("00000000-0000-0000-0000-00000000000C");
+        UUID miaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000D");
+        UUID noahUuid = UUID.fromString("00000000-0000-0000-0000-00000000000E");
+        UUID oliviaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000F");
+        UUID oliverUuid = UUID.fromString("00000000-0000-0000-0000-000000000020");
+
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        // Level 0 -> Level 1
+        relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, "bioparents"));
+        // Level 1 -> Level 2
+        relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
+
+        // Level 2 -> Level 3
+        relationshipUtil.addRelationship(new Relationship(dianaUuid, harryUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));
+
+        ResultContainer result = relationshipUtil.anySearchForTreeMap(aliceUuid, oliverUuid);
+        assertEquals(result, null);
+    }
+    @Test
+    public void testSuccessfulAnySearchForTreeMap() {
+        UUID aliceUuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID bobUuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
+        UUID charlieUuid = UUID.fromString("00000000-0000-0000-0000-000000000003");
+        UUID dianaUuid = UUID.fromString("00000000-0000-0000-0000-000000000004");
+        UUID elenaUuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
+        UUID fionaUuid = UUID.fromString("00000000-0000-0000-0000-000000000006");
+        UUID georgeUuid = UUID.fromString("00000000-0000-0000-0000-000000000007");
+        UUID harryUuid = UUID.fromString("00000000-0000-0000-0000-000000000008");
+        UUID ianUuid = UUID.fromString("00000000-0000-0000-0000-000000000009");
+        UUID jackUuid = UUID.fromString("00000000-0000-0000-0000-00000000000A");
+        UUID kaylaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000B");
+        UUID liamUuid = UUID.fromString("00000000-0000-0000-0000-00000000000C");
+        UUID miaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000D");
+        UUID noahUuid = UUID.fromString("00000000-0000-0000-0000-00000000000E");
+        UUID oliviaUuid = UUID.fromString("00000000-0000-0000-0000-00000000000F");
+        UUID oliverUuid = UUID.fromString("00000000-0000-0000-0000-000000000020");
+
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(aliceUuid, charlieUuid, "bioparents"));
+
+        // Level 1 -> Level 2
+        relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(charlieUuid, fionaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
+
+        // Level 2 -> Level 3
+        relationshipUtil.addRelationship(new Relationship(dianaUuid, harryUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(fionaUuid, liamUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
+        relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));
+
+        ResultContainer result = relationshipUtil.anySearchForTreeMap(aliceUuid, oliviaUuid);
+        System.out.println(result.getRelationshipPathway());
     }
 }
