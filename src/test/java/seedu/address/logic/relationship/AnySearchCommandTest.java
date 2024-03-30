@@ -40,4 +40,12 @@ public class AnySearchCommandTest {
         assertCommandFailure(anySearchCommand1, model, Messages.MESSAGE_INVALID_PERSON_UUID);
         assertCommandFailure(anySearchCommand2, model, Messages.MESSAGE_INVALID_PERSON_UUID);
     }
+    @Test
+    public void testListFilteredCorrectlyForInvalidAnySearch() throws CommandException {
+        AnySearchCommand anySearchCommand1 = new AnySearchCommand("0001", "000a");
+        CommandResult result = anySearchCommand1.execute(model);
+        assertEquals(0, (model.getFilteredPersonList().size()));
+        assertEquals(0, model.getFilteredRelationshipList().size());
+        assertEquals("No Relationship pathway found", result.getFeedbackToUser());
+    }
 }
