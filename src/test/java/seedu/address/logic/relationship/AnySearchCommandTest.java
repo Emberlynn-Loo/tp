@@ -51,41 +51,41 @@ public class AnySearchCommandTest {
         assertEquals("No Relationship pathway found", result.getFeedbackToUser());
     }
     @Test
-    void testEquals_SameObject() {
+    void testEqualsSameObject() {
         AnySearchCommand command = new AnySearchCommand("uuid1", "uuid2");
         assertTrue(command.equals(command));
     }
 
     @Test
-    void testEquals_EquivalentObjects() {
+    void testEqualsEquivalentObjects() {
         AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
         AnySearchCommand command2 = new AnySearchCommand("uuid1", "uuid2");
         assertTrue(command1.equals(command2));
     }
 
     @Test
-    void testEquals_DifferentOriginUuid() {
+    void testEqualsDifferentOriginUuid() {
         AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
         AnySearchCommand command2 = new AnySearchCommand("uuid3", "uuid2");
         assertFalse(command1.equals(command2));
     }
 
     @Test
-    void testEquals_DifferentTargetUuid() {
+    void testEqualsDifferentTargetUuid() {
         AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
         AnySearchCommand command2 = new AnySearchCommand("uuid1", "uuid3");
         assertFalse(command1.equals(command2));
     }
 
     @Test
-    void testEquals_BothUuidsDifferent() {
+    void testEqualsBothUuidsDifferent() {
         AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
         AnySearchCommand command2 = new AnySearchCommand("uuid3", "uuid4");
         assertFalse(command1.equals(command2));
     }
 
     @Test
-    void testEquals_NullValuesInUuid() {
+    void testEqualsNullValuesInUuid() {
         AnySearchCommand command1 = new AnySearchCommand(null, null);
         AnySearchCommand command2 = new AnySearchCommand(null, null);
         assertTrue(command1.equals(command2));
