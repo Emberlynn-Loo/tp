@@ -21,7 +21,7 @@ public class SpousesRelationshipTest {
     public void testGetStyleDescriptor() {
         UUID person1 = UUID.randomUUID();
         UUID person2 = UUID.randomUUID();
-        SpousesRelationship spousesRelationship = new SpousesRelationship(person1, person2);
+        SpousesRelationship spousesRelationship = new SpousesRelationship(person1, person2, "husband", "wife");
         assertEquals("spouse", spousesRelationship.getStyleDescriptor());
     }
 
