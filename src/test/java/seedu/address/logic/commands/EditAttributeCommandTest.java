@@ -54,4 +54,35 @@ public class EditAttributeCommandTest {
         assertThrows(NullPointerException.class, () -> editAttributeCommand.execute(model));
     }
 
+    @Test
+    public void execute_null_person() {
+        EditAttributeCommand editAttributeCommand = new EditAttributeCommand(null, Map.of("Name", "Alice"));
+        assertThrows(NullPointerException.class, () -> editAttributeCommand.execute(model));
+    }
+
+    @Test
+    public void execute_pass_birthday() throws CommandException {
+        ALICE.setAttribute("Birthday", "1999-01-02");
+        EditAttributeCommand editAttributeCommand = new EditAttributeCommand(ALICE.getUuidString().substring(32, 36),
+                Map.of("Birthday", "1999-01-01"));
+        editAttributeCommand.execute(model);
+        assert(ALICE.getAttribute("Birthday").getValueAsString().equals("1999-01-01"));
+    }
+
+    @Test
+    public void execute_fail_phoneNumber() {
+        EditAttributeCommand editAttributeCommand = new EditAttributeCommand(ALICE.getUuidString().substring(32, 36),
+                Map.of("Phone", "-12345678"));
+        assertThrows(CommandException.class, () -> editAttributeCommand.execute(model));
+    }
+
+    @Test
+    public void execute_pass_randomAttribute() throws CommandException {
+        ALICE.setAttribute("Random", "Random1");
+        EditAttributeCommand editAttributeCommand = new EditAttributeCommand(ALICE.getUuidString().substring(32, 36),
+                Map.of("Random", "Random"));
+        editAttributeCommand.execute(model);
+        assert(ALICE.getAttribute("Random").getValueAsString().equals("Random"));
+    }
+
 }

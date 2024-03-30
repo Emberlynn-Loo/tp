@@ -40,4 +40,16 @@ public class EditAttributeCommandParserTest {
         assertThrows(ParseException.class, () -> parser.parse(malformedCommand));
     }
 
+    @Test
+    public void parse_malformedCommand3_throwsParseException() {
+        String malformedCommand = "12345 /nickname";
+        assertThrows(ParseException.class, () -> parser.parse(malformedCommand));
+    }
+
+    @Test
+    public void parse_missing_uuid() {
+        String malformedCommand = "/nickname lol";
+        assertThrows(ParseException.class, () -> parser.parse(malformedCommand));
+    }
+
 }

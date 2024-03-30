@@ -11,7 +11,6 @@ import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.BirthdayAttribute;
 import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.attribute.PhoneNumberAttribute;
-import seedu.address.model.person.attribute.SexAttribute;
 
 /**
  * A command to edit an existing attribute of a person in the address book.
@@ -84,20 +83,8 @@ public class EditAttributeCommand extends Command {
                 }
                 attribute = new PhoneNumberAttribute("Phone", phoneNumber);
                 break;
-            case "sex":
-                if ("male".equalsIgnoreCase(attributeValue)) {
-                    attribute = new SexAttribute("Sex", SexAttribute.Gender.MALE);
-                } else if ("female".equalsIgnoreCase(attributeValue)) {
-                    attribute = new SexAttribute("Sex", SexAttribute.Gender.FEMALE);
-                } else {
-                    throw new CommandException("Sex for " + attributeName + " can be either male or female.");
-                }
-                break;
             default:
                 attribute = Attribute.fromString(attributeName, attributeValue);
-                if (attribute == null) {
-                    throw new CommandException("Unknown or invalid attribute " + attributeName + ".");
-                }
             }
 
             person.updateAttribute(attribute);
