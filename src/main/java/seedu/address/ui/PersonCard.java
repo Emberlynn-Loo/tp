@@ -48,7 +48,7 @@ public class PersonCard extends UiPart<Region> {
             addEmptyRelationshipTag();
         } else {
             for (Relationship r: relationships) {
-                String relationshipDescriptor = r.getRelationshipDescriptor();
+                String relationshipDescriptor = r.getRelativeRelationshipDescriptor(person.getUuid());
                 String tagStyle = r.getStyleDescriptor();
                 addRelationshipTag(relationshipDescriptor,
                         relationshipDescriptor, tagStyle);

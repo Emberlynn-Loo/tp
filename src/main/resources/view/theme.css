@@ -71,35 +71,48 @@
 /* ============================================================================= */
 .dialog-pane {
     -fx-background-color: #EFBC9B;
+    -fx-spacing: 10;
 }
 
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: -black;
+.main-window_container {
+    -fx-background-color: #EFBC9B;
 }
-
-.dialog-pane > *.label.content {
-    -fx-font-size: 14px;
-    -fx-font-family: 'Raleway Semi Bold', sans-serif;
-    -fx-text-fill: -black;
-}
-
-.dialog-pane:header *.header-panel {
-    -fx-background-color: -black;
-}
-
-.dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: -black;
-    -fx-text-fill: -black;
-}
-
-.scroll-pane {
-    -fx-fit-to-width: true;
-    -fx-background: transparent;
+.menu-bar_panel {
+    -fx-padding: 5;
     -fx-background-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-border-color: transparent;
 }
+
+.menu-bar_item {
+    -fx-text-fill: -black;
+}
+.main-window_navbar {
+    -fx-padding: 40 150 0 100;
+    -fx-spacing: 120;
+}
+.main-window_navbar_image-container {
+
+}
+.main-window_navbar_image {
+    -fx-border-radius: 10;
+}
+
+.main-window_navbar-panel {
+}
+
+.commandBox_container{
+    -fx-spacing: 10;
+}
+
+.result_container {
+
+}
+
+.commandBoxContainer{
+
+}
+
+
+
+
 
 

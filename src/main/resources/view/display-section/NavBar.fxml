@@ -6,6 +6,6 @@
 
 <HBox fx:id="footerButtonSection" alignment="CENTER" styleClass="footer-button-section" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@footer-button-section.css" />
+        <URL value="@nav-bar.css" />
     </stylesheets>
 </HBox>

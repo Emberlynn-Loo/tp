@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<VBox fx:id="treeMapPaneContainer" alignment="CENTER" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@tree-map.css" />
+    </stylesheets>
+    <ScrollPane fitToWidth="true" fitToHeight="true" fx:id="treeMapPaneScrollPane" styleClass="treeMapPaneScrollPane">
+        <FlowPane fx:id="treeMapPane" alignment="CENTER" hgap="5" vgap="5" styleClass="tree-map_flowpane">
+        </FlowPane>
+    </ScrollPane>
+</VBox>

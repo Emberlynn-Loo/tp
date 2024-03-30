@@ -16,9 +16,9 @@ public class SiblingRelationship extends FamilyRelationship {
     public SiblingRelationship(UUID person1, UUID person2, String role1, String role2) {
         super(person1, person2, "siblings", role1, role2);
     }
-
     @Override
     public String getStyleDescriptor() {
         return "sibling";
     }
+
 }

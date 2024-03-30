@@ -1,8 +1,8 @@
 .footer-button-container {
     -fx-cursor: hand;
-    -fx-padding: 2 2 2 2;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-max-height: 100;
 }
 .footer-button-container-selected {
     -fx-scale-x: 1.1;
@@ -13,6 +13,7 @@
     -fx-font-family: 'Raleway SemiBold Italic';
     -fx-text-fill: -rose-red;
     -fx-background-color: transparent;
+    -font-weight: 700;
 }
 .footer-button-selected {
     -fx-text-fill: -white;

@@ -58,6 +58,9 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
+    public boolean isAnySearch() {
+        return anySearch;
+    }
 
     @Override
     public boolean equals(Object other) {

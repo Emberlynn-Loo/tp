@@ -2,13 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,7 +19,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.displaysection.DisplaySection;
+import seedu.address.ui.displaysection.FooterButtonSection;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,19 +42,23 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
-
+    private FooterButtonSection footerButtonSection;
     @FXML
-    private StackPane commandBoxPlaceholder;
-
+    private VBox mainWindowContainer;
+    @FXML
+    private HBox mainWindowNavBar;
+    @FXML
+    private HBox mainWindowNavBarButtonPlaceholder;
+    @FXML
+    private HBox mainWindowBody;
+    @FXML
+    private VBox displaySectionPlaceholder;
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
+    @FXML
+    private StackPane commandBoxPlaceholder;
     @FXML
     private StackPane statusbarPlaceholder;
 
@@ -107,24 +117,24 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
     }
-
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
         personList = new DisplaySection(logic);
-        personListPanelPlaceholder.getChildren().add(personList.getRoot());
+        displayFooter("All Contacts", "Any List", () ->
+                displayAllContactsSection(), () ->
+                displayAnyListSection());
+        displaySectionPlaceholder.getChildren().add(personList.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
-
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -136,7 +146,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
-
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -164,7 +173,61 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+    /**
+     * Displays the footer buttons that enables user to toggle between different sections.
+     * @param allContactButtonLabel The text label of the all contacts button.
+     * @param anyListButtonLabel The text label of any list button.
+     * @param allContactButtonHandler The function to execute on clicking the all contacts button.
+     * @param anyListButtonHandler The function to execute on clicking the anyList button.
+     */
+    private void displayFooter(String allContactButtonLabel, String anyListButtonLabel,
+                               Runnable allContactButtonHandler, Runnable anyListButtonHandler) {
+        this.footerButtonSection = new FooterButtonSection(
+                allContactButtonLabel, anyListButtonLabel,
+                allContactButtonHandler, anyListButtonHandler);
+        mainWindowNavBarButtonPlaceholder.getChildren().remove(
+                mainWindowNavBarButtonPlaceholder.lookup(".footer-button-section"));
+        mainWindowNavBarButtonPlaceholder.getChildren().add(footerButtonSection.getRoot());
+    }
+    /**
+     * Displays the "All Contacts" section.
+     * This method updates the view to show all contacts and sets the appropriate title.
+     *
+     * @param personLists The list of persons to be displayed.
+     * @param relationships The list of relationships associated with the persons.
+     */
+    public void displayAllContactsSection(ObservableList<Person> personLists,
+                                          ObservableList<Relationship> relationships) {
+        footerButtonSection.selectAllContactButton();
+        personList.displayAllContactsSection(personLists, relationships);
+    }
 
+    /**
+     * navigates to existing contactSection with no rendering
+     */
+    public void displayAllContactsSection() {
+        footerButtonSection.selectAllContactButton();
+        personList.displayAllContactsSection();
+    }
+    /**
+     * Displays a custom list section named "Any List".
+     * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
+     */
+    public void displayAnyListSection() {
+        footerButtonSection.selectAnyListButton();
+        personList.displayAnyListSection();
+    }
+
+    /**
+     * navaigates and updates the anyListSection with results from anySearch Command
+     * @param persons persons in relationshipPathway if there is any
+     * @param relationships relationships in relationshipPathway if there is any
+     */
+    public void displayUpdatedAnyListSection(ObservableList<Person> persons,
+                                              ObservableList<Relationship> relationships) {
+        footerButtonSection.selectAnyListButton();
+        personList.displayUpdatedAnyListSection(persons, relationships);
+    }
 
     /**
      * Executes the command and returns the result.
@@ -176,8 +239,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            personList.displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
-
+            if (commandResult.isAnySearch()) {
+                displayUpdatedAnyListSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            } else {
+                displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            }
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -185,7 +251,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);

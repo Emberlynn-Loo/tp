@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ResultContainer;
 
+
 /**
  * Represents a utility class for managing the relationships associated with a person.
  * Allows for adding, deleting, and checking for existing relationships.

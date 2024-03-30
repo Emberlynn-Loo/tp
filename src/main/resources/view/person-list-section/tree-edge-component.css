@@ -1,0 +1,41 @@
+.treeEdge_container {
+
+}
+
+.relationshipDescriptorLabel {
+    -fx-padding: 2 5;
+    -fx-font-family: 'Raleway SemiBold';
+    -fx-font-size: 13;
+    -fx-translate-y: -8;
+    -fx-translate-z: 2;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: -black;
+}
+
+.relationshipDescriptorLabel:hover {
+    -fx-opacity: 0.75;
+}
+
+.sibling {
+    -fx-background-color: -tag-red-sibling;
+}
+
+.spouse {
+    -fx-background-color: -tag-purple-spouse;
+}
+
+.bioparent {
+    -fx-background-color: -tag-yellow-bioparent;
+}
+
+.friend {
+    -fx-background-color: -tag-green-friend;
+}
+
+.general {
+    -fx-background-color: -tag-blue-general;
+}
+.empty {
+    -fx-background-color: -white;
+}

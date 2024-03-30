@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.personlistsection.AllContactsSection;
+import seedu.address.ui.personlistsection.AnyListSection;
 
 /**
  * Represents the display section in the user interface.
@@ -21,8 +22,7 @@ import seedu.address.ui.personlistsection.AllContactsSection;
 public class DisplaySection extends UiPart<Region> {
     private static final String FXML = "display-section/DisplaySection.fxml";
     private AllContactsSection allContactsSection;
-    private FooterButtonSection footerButtonSection;
-
+    private AnyListSection anyListSection;
     @FXML
     private VBox displaySection;
     @FXML
@@ -40,16 +40,8 @@ public class DisplaySection extends UiPart<Region> {
     public DisplaySection(Logic logic) {
         super(FXML);
         this.allContactsSection = new AllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
-        displayFooter("All Contacts", "Found Contacts", "Any List", () ->
-                displayAllContactsSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()), () ->
-                displayFoundResultSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()), () ->
-                displayAnyListSection(logic.getFilteredPersonList(),
-                        logic.getRelationshipList()));
-        displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+        this.anyListSection = new AnyListSection();
     }
-
     /**
      * Displays the "All Contacts" section.
      * This method updates the view to show all contacts and sets the appropriate title.
@@ -59,60 +51,38 @@ public class DisplaySection extends UiPart<Region> {
      */
     public void displayAllContactsSection(ObservableList<Person> personLists,
                                           ObservableList<Relationship> relationships) {
-        footerButtonSection.selectAllContactButton();
         headerTitle.setText("All Contacts");
         allContactsSection.update(personLists, relationships);
         renderSection(allContactsSection.getRoot());
     }
 
     /**
-     * Displays the "Found Contacts" section.
-     * This method updates the view to show the results of a search operation and sets the appropriate title.
-     *
-     * @param personLists The list of persons found as a result of the search.
-     * @param relationships The list of relationships associated with the found persons.
+     * display AllContactsSection without rendering
      */
-    public void displayFoundResultSection(ObservableList<Person> personLists,
-                                          ObservableList<Relationship> relationships) {
-        footerButtonSection.selectFindResultButton();
-        headerTitle.setText("Found Contacts");
-        allContactsSection.update(personLists, relationships);
+    public void displayAllContactsSection() {
+        headerTitle.setText("All Contacts");
         renderSection(allContactsSection.getRoot());
     }
-
     /**
      * Displays a custom list section named "Any List".
      * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
-     *
-     * @param personLists The list of persons to be displayed in the custom list.
-     * @param relationships The list of relationships associated with the persons in the custom list.
      */
-    public void displayAnyListSection(ObservableList<Person> personLists,
-                                      ObservableList<Relationship> relationships) {
-        footerButtonSection.selectAnyListButton();
+    public void displayAnyListSection() {
         headerTitle.setText("Any List");
-        allContactsSection.update(personLists, relationships);
-        renderSection(allContactsSection.getRoot());
-    }
-    /**
-     * Displays the footer buttons that enables user to toggle between different sections.
-     * @param allContactButtonLabel The text label of the all contacts button.
-     * @param findResultButtonLabel The text label of the find result button.
-     * @param anyListButtonLabel The text label of any list button.
-     * @param allContactButtonHandler The function to execute on clicking the all contacts button.
-     * @param findResultButtonHandler The function to execute on clicking the find result button.
-     * @param anyListButtonHandler The function to execute on clicking the anyList button.
-     */
-    private void displayFooter(String allContactButtonLabel, String findResultButtonLabel, String anyListButtonLabel,
-                               Runnable allContactButtonHandler, Runnable findResultButtonHandler,
-                               Runnable anyListButtonHandler) {
-        this.footerButtonSection = new FooterButtonSection(
-                allContactButtonLabel, findResultButtonLabel, anyListButtonLabel,
-                allContactButtonHandler, findResultButtonHandler, anyListButtonHandler);
-        displaySection.getChildren().remove(displaySection.lookup(".footer-button-section"));
-        displaySection.getChildren().add(footerButtonSection.getRoot());
+        renderSection(anyListSection.getRoot());
     }
 
+    /**
+     * updates AnyListSection
+     * @param persons people involved in relationships
+     * @param relationships relationships in the pathway
+     */
+    public void displayUpdatedAnyListSection(ObservableList<Person> persons,
+                                             ObservableList<Relationship> relationships) {
+        headerTitle.setText("Any List");
+        anyListSection.update(persons, relationships);
+        renderSection(anyListSection.getRoot());
+    }
     /**
      * Renders the given UI part within the body of the display section.
      * This method clears any existing content in the body and displays the new content.

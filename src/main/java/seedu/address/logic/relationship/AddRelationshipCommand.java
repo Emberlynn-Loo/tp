@@ -92,6 +92,8 @@ public class AddRelationshipCommand extends Command {
                     throw new CommandException(String.format("Sorry, %s", existing));
                 }
                 model.addRelationship(toAdd);
+                System.out.println("Role based instance of Sibling");
+                System.out.println(toAdd instanceof SiblingRelationship);
                 return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
             }
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);

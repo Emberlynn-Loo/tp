@@ -55,7 +55,7 @@ public class AnySearchCommand extends Command {
         if (searchResult == null) {
             model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
             model.updateFilteredRelationshipList(PREDICATE_SHOW_NO_RELATIONSHIPS);
-            return new CommandResult(Messages.MESSAGE_SEARCH_FAILURE);
+            return new CommandResult(Messages.MESSAGE_SEARCH_FAILURE, false, false, true);
         }
         model.updateFilteredPersonList(new PersonInRelationshipPathwayPredicate(searchResult.getPersons()));
         model.updateFilteredRelationshipList(

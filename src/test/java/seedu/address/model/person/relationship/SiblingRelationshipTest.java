@@ -30,4 +30,11 @@ public class SiblingRelationshipTest {
 
         assertEquals("sibling", relationship.getStyleDescriptor());
     }
+    @Test
+    public void testGetStyleDescriptor() {
+        UUID person1 = UUID.randomUUID();
+        UUID person2 = UUID.randomUUID();
+        SiblingRelationship relationship = new SiblingRelationship(person1, person2, "brother", "sister");
+        assertEquals("sibling", relationship.getStyleDescriptor());
+    }
 }
