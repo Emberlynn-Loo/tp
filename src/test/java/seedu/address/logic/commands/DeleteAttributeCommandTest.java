@@ -61,4 +61,25 @@ public class DeleteAttributeCommandTest {
                 new DeleteAttributeCommand("1234", attributeList);
         assertThrows(Exception.class, () -> deleteAttributeCommand.execute(model));
     }
+
+    @Test
+    public void execute_pass_multiple() throws CommandException {
+        String[] attributeList = {"Name", "Phone"};
+        DeleteAttributeCommand deleteAttributeCommand =
+                new DeleteAttributeCommand(ALICE.getUuidString().substring(32, 36), attributeList);
+        deleteAttributeCommand.execute(model);
+        assertThrows(IllegalArgumentException.class, () -> ALICE.getAttribute("Name"));
+        assertThrows(IllegalArgumentException.class, () -> ALICE.getAttribute("Phone"));
+        ALICE.setAttribute("Name", "Alice Pauline");
+        ALICE.setAttribute("Phone", "12345678");
+    }
+
+    @Test
+    public void execute_fail_multiple() {
+        String[] attributeList = {"Name", "Dog"};
+        DeleteAttributeCommand deleteAttributeCommand =
+                new DeleteAttributeCommand(ALICE.getUuidString().substring(32, 36), attributeList);
+        assertThrows(CommandException.class, () -> deleteAttributeCommand.execute(model));
+        ALICE.setAttribute("Name", "Alice Pauline");
+    }
 }

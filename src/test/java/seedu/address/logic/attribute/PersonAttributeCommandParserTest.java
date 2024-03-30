@@ -16,7 +16,7 @@ class PersonAttributeCommandParserTest {
 
     @Test
     void parse_validAddCommand_returnsAddAttributeCommand() throws ParseException {
-        String userInput = "addAttribute 12345 nickname Johnny";
+        String userInput = "addAttribute /12345 /nickname Johnny";
         Command command = parser.parse(userInput);
         assertTrue(command instanceof AddAttributeCommand);
     }
