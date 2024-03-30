@@ -43,10 +43,6 @@ public class Relationship {
     public UUID getPerson2() {
         return person2;
     }
-
-    public String getRoleDescriptor(UUID targetPerson) {
-        return this.relationshipDescriptor;
-    }
     public String getRelationshipDescriptor() {
         return this.relationshipDescriptor;
     }
@@ -103,6 +99,18 @@ public class Relationship {
         String lastFourCharactersOfTargetString = targetString.substring(targetString.length() - 4);
         return String.format("%s %s of %s", lastFourCharactersOfOriginString,
                 relationshipDescriptor, lastFourCharactersOfTargetString);
+    }
+    /**
+     * suppose (abcd, edfg) is exisiting relationship of relationshipDescriptor friend, then
+     * getRelativeRelationshipDescrptor(edfg) will return friend of abcd
+     * @param origin
+     * @return
+     */
+    public String getRelativeRelationshipDescriptorWithoutUuid(UUID origin) {
+        UUID target = origin.equals(this.person1) ? this.person2 : this.person1;
+        String originString = origin.toString();
+        String targetString = target.toString();
+        return String.format("%s of", relationshipDescriptor);
     }
 
     /**

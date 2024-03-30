@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.Messages;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -158,6 +159,10 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void updateFilteredRelationshipList(Predicate<Relationship> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deleteAttribute(String uuid, String attributeName) {
@@ -195,7 +200,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
+        public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
             throw new AssertionError("This method should not be called.");
         }
 

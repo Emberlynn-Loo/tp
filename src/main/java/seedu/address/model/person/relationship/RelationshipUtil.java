@@ -3,12 +3,15 @@ package seedu.address.model.person.relationship;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ResultContainer;
+import seedu.address.model.person.Person;
 
 /**
  * Represents a utility class for managing the relationships associated with a person.
@@ -19,7 +22,7 @@ public class RelationshipUtil {
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
     private class Pair {
-        private UUID uuid;
+        private  UUID uuid;
         private int relationshipPairIndex;
         private Pair(UUID uuid, int relationshipPairIndex) {
             this.uuid = uuid;
@@ -174,6 +177,80 @@ public class RelationshipUtil {
         return result;
     }
     /**
+     * Performs a breadth-first search (BFS) through the relationships tracker to find a path
+     * of relationship descriptors between two UUIDs, representing the origin and target entities.
+     * This method considers all types of relationships in the search.
+     *
+     * @param origin The UUID of the origin entity from which the search begins.
+     * @param target The UUID of the target entity the search aims to find a path to.
+     * @return a listcontaining the relationship descriptors in the order
+     *         encountered from the origin to the target. If no path exists, returns an empty list.
+     */
+    public ResultContainer anySearchForTreeMap(UUID origin, UUID target) {
+        ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
+        ArrayList<String> relationshipPathwayBuilder = new ArrayList<>();
+        HashSet<UUID> visited = new HashSet<>();
+        Pair[] parent = new Pair[relationshipsTracker.size()];
+        ArrayList<Pair> frontier = new ArrayList<>();
+        frontier.add(new Pair(origin, -1));; //since we came from nowhere
+        visited.add(origin);
+
+        while (!frontier.isEmpty()) {
+            ArrayList<Pair> nextFrontier = new ArrayList<>();
+            for (Pair currentNode: frontier) {
+                UUID start = currentNode.uuid;
+                for (int i = 0; i < relationshipsTracker.size(); i++) {
+                    Relationship current = relationshipsTracker.get(i);
+                    UUID nextUuid = current.containsUuid(start);
+                    if (nextUuid == null) {
+                        continue;
+                    }
+                    if (nextUuid.equals(target)) {
+                        relatedPersonsUuid.add(nextUuid);
+                        relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(nextUuid));
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        int currentIdx = i;
+                        while (currentIdx != -1) {
+                            Pair parentPair = parent[currentIdx];
+                            Relationship edge = relationshipsTracker.get(currentIdx);
+                            relationships.add(edge);
+                            relatedPersonsUuid.add(parentPair.uuid);
+                            relationshipPathwayBuilder.add(edge.getRelativeRelationshipDescriptorWithoutUuid(parentPair.uuid));
+                            relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(parentPair.uuid));
+                            currentIdx = parentPair.relationshipPairIndex;
+                        }
+                        Collections.reverse(relatedPersonsUuid);
+                        Collections.reverse(relationships);
+                        Collections.reverse(relationshipPathwayBuilder);
+                        StringBuilder relationshipPathwayCompactor = new StringBuilder();
+                        int idx = 0;
+                        while (idx < relationshipPathwayBuilder.size()) {
+                            if (idx == 0) {
+                                relationshipPathwayCompactor.append(relationshipPathwayBuilder.get(idx));
+                                idx++;
+                            } else {
+                                String toAdd = String.format(" --> %s --> %s", relationshipPathwayBuilder.get(idx),
+                                        relationshipPathwayBuilder.get(idx + 1));
+                                relationshipPathwayCompactor.append(toAdd);
+                                idx += 2;
+                            }
+                        }
+                        return new ResultContainer(relatedPersonsUuid, relationships,
+                                relationshipPathwayCompactor.toString());
+                    }
+                    if (!visited.contains(nextUuid)) {
+                        visited.add(nextUuid);
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        nextFrontier.add(new Pair(nextUuid, i));
+                    }
+                }
+            }
+            frontier = nextFrontier;
+        }
+        return null;
+    }
+    /**
      * Searches for a path of family relationships between two entities identified by their UUIDs,
      * specifically considering only those relationships that are instances of FamilyRelationship.
      * Utilizes a breadth-first search (BFS) strategy to navigate through the relationships tracker.
@@ -245,5 +322,16 @@ public class RelationshipUtil {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * util method to return last 4 character of uuid
+     * @param uuid uuid to obtain the last 4 characters from
+     * @return string containing the last 4 characters
+     */
+    private String getLastFourCharacterOfUuid(UUID uuid) {
+        String uuidString = uuid.toString();
+        int len = uuidString.length();
+        return uuidString.substring(len - 4);
     }
 }

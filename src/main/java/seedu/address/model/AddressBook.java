@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ResultContainer;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -150,8 +151,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         relationships.deleteRelationshipsOfPerson(personUuid);
     }
 
-    public ArrayList<String> anySearch(UUID originUuid, UUID targetUuid) {
-        return relationships.anySearchDescriptors(originUuid, targetUuid);
+    public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
+        return relationships.anySearchForTreeMap(originUuid, targetUuid);
     }
 
     public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
