@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
 import seedu.address.model.person.relationship.Relationship;
 
 /**
