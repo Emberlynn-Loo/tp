@@ -375,7 +375,6 @@ public class RelationshipUtilTest {
         relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(fionaUuid, liamUuid));
         relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));
