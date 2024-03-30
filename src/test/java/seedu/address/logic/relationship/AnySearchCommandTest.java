@@ -1,6 +1,8 @@
 package seedu.address.logic.relationship;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 import org.junit.jupiter.api.Test;
@@ -47,5 +49,45 @@ public class AnySearchCommandTest {
         assertEquals(0, (model.getFilteredPersonList().size()));
         assertEquals(0, model.getFilteredRelationshipList().size());
         assertEquals("No Relationship pathway found", result.getFeedbackToUser());
+    }
+    @Test
+    void testEquals_SameObject() {
+        AnySearchCommand command = new AnySearchCommand("uuid1", "uuid2");
+        assertTrue(command.equals(command));
+    }
+
+    @Test
+    void testEquals_EquivalentObjects() {
+        AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
+        AnySearchCommand command2 = new AnySearchCommand("uuid1", "uuid2");
+        assertTrue(command1.equals(command2));
+    }
+
+    @Test
+    void testEquals_DifferentOriginUuid() {
+        AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
+        AnySearchCommand command2 = new AnySearchCommand("uuid3", "uuid2");
+        assertFalse(command1.equals(command2));
+    }
+
+    @Test
+    void testEquals_DifferentTargetUuid() {
+        AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
+        AnySearchCommand command2 = new AnySearchCommand("uuid1", "uuid3");
+        assertFalse(command1.equals(command2));
+    }
+
+    @Test
+    void testEquals_BothUuidsDifferent() {
+        AnySearchCommand command1 = new AnySearchCommand("uuid1", "uuid2");
+        AnySearchCommand command2 = new AnySearchCommand("uuid3", "uuid4");
+        assertFalse(command1.equals(command2));
+    }
+
+    @Test
+    void testEquals_NullValuesInUuid() {
+        AnySearchCommand command1 = new AnySearchCommand(null, null);
+        AnySearchCommand command2 = new AnySearchCommand(null, null);
+        assertTrue(command1.equals(command2));
     }
 }
