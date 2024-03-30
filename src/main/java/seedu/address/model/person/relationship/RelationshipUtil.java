@@ -11,7 +11,6 @@ import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ResultContainer;
-import seedu.address.model.person.Person;
 
 /**
  * Represents a utility class for managing the relationships associated with a person.
@@ -22,7 +21,7 @@ public class RelationshipUtil {
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
     private class Pair {
-        private  UUID uuid;
+        private UUID uuid;
         private int relationshipPairIndex;
         private Pair(UUID uuid, int relationshipPairIndex) {
             this.uuid = uuid;
@@ -216,7 +215,8 @@ public class RelationshipUtil {
                             Relationship edge = relationshipsTracker.get(currentIdx);
                             relationships.add(edge);
                             relatedPersonsUuid.add(parentPair.uuid);
-                            relationshipPathwayBuilder.add(edge.getRelativeRelationshipDescriptorWithoutUuid(parentPair.uuid));
+                            relationshipPathwayBuilder.add(
+                                    edge.getRelativeRelationshipDescriptorWithoutUuid(parentPair.uuid));
                             relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(parentPair.uuid));
                             currentIdx = parentPair.relationshipPairIndex;
                         }
