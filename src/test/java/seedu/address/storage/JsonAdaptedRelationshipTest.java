@@ -35,7 +35,7 @@ public class JsonAdaptedRelationshipTest {
         JsonAdaptedRelationship relationship = new JsonAdaptedRelationship(
                 VALID_UUID1.toString(), VALID_UUID2.toString(), "bioparents", VALID_ROLE1, VALID_ROLE2);
         assertEquals(
-                new BioParentsRelationship(VALID_UUID1, VALID_UUID2),
+                new BioParentsRelationship(VALID_UUID1, VALID_UUID2, VALID_ROLE1, VALID_ROLE2),
                 relationship.toModelType());
     }
 
@@ -44,7 +44,7 @@ public class JsonAdaptedRelationshipTest {
         JsonAdaptedRelationship relationship = new JsonAdaptedRelationship(
                 VALID_UUID1.toString(), VALID_UUID2.toString(), "siblings", VALID_ROLE1, VALID_ROLE2);
         assertEquals(
-                new SiblingRelationship(VALID_UUID1, VALID_UUID2),
+                new SiblingRelationship(VALID_UUID1, VALID_UUID2, VALID_ROLE1, VALID_ROLE2),
                 relationship.toModelType());
     }
 
@@ -53,7 +53,7 @@ public class JsonAdaptedRelationshipTest {
         JsonAdaptedRelationship relationship = new JsonAdaptedRelationship(
                 VALID_UUID1.toString(), VALID_UUID2.toString(), "spouses", VALID_ROLE1, VALID_ROLE2);
         assertEquals(
-                new SpousesRelationship(VALID_UUID1, VALID_UUID2),
+                new SpousesRelationship(VALID_UUID1, VALID_UUID2, VALID_ROLE1, VALID_ROLE2),
                 relationship.toModelType());
     }
 
@@ -81,7 +81,6 @@ public class JsonAdaptedRelationshipTest {
                         null, VALID_ROLE1, VALID_ROLE2);
         assertThrows(IllegalValueException.class, relationship::toModelType);
     }
-
     @Test
     public void toModelType_nullPerson1_throwsIllegalValueException() {
         JsonAdaptedRelationship relationship =

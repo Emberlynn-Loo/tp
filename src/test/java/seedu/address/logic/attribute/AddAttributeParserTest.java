@@ -7,16 +7,16 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddAttributeCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.parser.PersonAttributeCommandParser;
+import seedu.address.logic.parser.AddAttributeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-class PersonAttributeCommandParserTest {
+class AddAttributeParserTest {
 
-    private final PersonAttributeCommandParser parser = new PersonAttributeCommandParser();
+    private final AddAttributeParser parser = new AddAttributeParser();
 
     @Test
     void parse_validAddCommand_returnsAddAttributeCommand() throws ParseException {
-        String userInput = "addAttribute 12345 nickname Johnny";
+        String userInput = "addAttribute /12345 /nickname Johnny";
         Command command = parser.parse(userInput);
         assertTrue(command instanceof AddAttributeCommand);
     }
