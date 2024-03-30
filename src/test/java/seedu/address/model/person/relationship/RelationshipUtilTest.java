@@ -368,7 +368,6 @@ public class RelationshipUtilTest {
         // Level 1 -> Level 2
         relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
-        relationshipUtil.addRelationship(new SiblingRelationship(charlieUuid, fionaUuid));
         relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
 
         // Level 2 -> Level 3
