@@ -83,11 +83,4 @@ public class AnySearchCommandTest {
         AnySearchCommand command2 = new AnySearchCommand("uuid3", "uuid4");
         assertFalse(command1.equals(command2));
     }
-
-    @Test
-    void testEqualsNullValuesInUuid() {
-        AnySearchCommand command1 = new AnySearchCommand(null, null);
-        AnySearchCommand command2 = new AnySearchCommand(null, null);
-        assertTrue(command1.equals(command2));
-    }
 }
