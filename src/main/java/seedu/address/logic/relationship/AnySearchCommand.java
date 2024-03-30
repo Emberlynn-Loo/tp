@@ -60,7 +60,7 @@ public class AnySearchCommand extends Command {
         model.updateFilteredPersonList(new PersonInRelationshipPathwayPredicate(searchResult.getPersons()));
         model.updateFilteredRelationshipList(
                 new RelationshipInRelationshipPathwayPredicate(searchResult.getRelationships()));
-        return new CommandResult(String.format("Pathway:\n%s",searchResult.getRelationshipPathway()),
+        return new CommandResult(String.format("Pathway:\n%s",searchResult.getRelationshipPathway()), 
                 false, false, true);
     }
 
