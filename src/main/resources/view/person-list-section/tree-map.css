@@ -1,0 +1,68 @@
+.tree-map_flowpane {
+    -fx-background-color: #EFBC9B;
+}
+
+.treeMapPaneScrollPane {
+    -fx-background-color: transparent;
+    -fx-fit-to-width: true;
+}
+
+.treeMapPaneScrollPane .scroll-bar:vertical .increment-arrow,
+.treeMapPaneScrollPane .scroll-bar:vertical .decrement-arrow,
+.treeMapPaneScrollPane .scroll-bar:vertical .increment-button,
+.treeMapPaneScrollPane .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    -fx-shape: "";
+}
+
+.treeMapPaneScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color:#EFBC9B;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+    -fx-pref-height: 30;
+}
+.treeMapPaneScrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-opacity: 0;
+}
+.treeMapPaneScrollPane:hover .scroll-bar:vertical,
+.treeMapPaneScrollPane:focus .scroll-bar {
+    -fx-opacity: 1;
+}
+
+.person-tag {
+    -fx-padding: 2 5;
+    -fx-text-fill: -black;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-font-family: 'Raleway';
+    -fx-translate-y: -8;
+}
+.person-tag:hover {
+    -fx-opacity: 0.75;
+}
+
+.person-tag-sibling {
+    -fx-background-color: -tag-red-sibling;
+}
+
+.person-tag-spouse {
+    -fx-background-color: -tag-purple-spouse;
+}
+
+.person-tag-bioparent {
+    -fx-background-color: -tag-yellow-bioparent;
+}
+
+.person-tag-friend {
+    -fx-background-color: -tag-green-friend;
+}
+
+.person-tag-general {
+    -fx-background-color: -tag-blue-general;
+}
+.person-tag-empty {
+    -fx-background-color: -white;
+}

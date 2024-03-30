@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import java.net.URL?>
+<VBox alignment="CENTER" fillWidth="true" styleClass="anyListSection_container" VBox.vgrow="ALWAYS" fx:id="anyListSection" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@any-list-section.css" />
+    </stylesheets>
+    <StackPane fx:id="treeMapPlaceHolder" styleClass="anyListSection_treeMapContainer" VBox.vgrow="NEVER"/>
+    <StackPane VBox.vgrow="ALWAYS" fx:id="personListPlaceHolder" styleClass="anyListSection_personListPlaceHolder"/>
+</VBox>
+

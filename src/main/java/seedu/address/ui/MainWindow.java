@@ -141,6 +141,7 @@ public class MainWindow extends UiPart<Stage> {
 //
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
 
     /**
@@ -250,7 +251,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            personList.displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+            displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

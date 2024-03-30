@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:id="treeEdgeComponentContainer" alignment="CENTER" styleClass="treeEdge_container">
+    <stylesheets>
+        <URL value="@tree-edge-component.css" />
+    </stylesheets>
+    <ImageView fitWidth="35" fitHeight="35" preserveRatio="true">
+        <image>
+            <Image url="/images/rightarrow.png"/>
+        </image>
+    </ImageView>
+    <Label alignment="CENTER" fx:id="relationshipDescriptorLabel" styleClass="relationshipDescriptorLabel"/>
+</VBox>
+
+

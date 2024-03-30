@@ -1,5 +1,7 @@
 package seedu.address.ui.displaysection;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,6 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.personlistsection.AllContactsSection;
+import seedu.address.ui.personlistsection.AnyListSection;
 
 /**
  * Represents the display section in the user interface.
@@ -21,6 +24,7 @@ import seedu.address.ui.personlistsection.AllContactsSection;
 public class DisplaySection extends UiPart<Region> {
     private static final String FXML = "display-section/DisplaySection.fxml";
     private AllContactsSection allContactsSection;
+    private AnyListSection anyListSection;
     @FXML
     private VBox displaySection;
     @FXML
@@ -38,6 +42,7 @@ public class DisplaySection extends UiPart<Region> {
     public DisplaySection(Logic logic) {
         super(FXML);
         this.allContactsSection = new AllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
+        this.anyListSection = new AnyListSection(logic.getFilteredPersonList(), logic.getRelationshipList(), new ArrayList<>());
         displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
     /**
@@ -78,8 +83,8 @@ public class DisplaySection extends UiPart<Region> {
     public void displayAnyListSection(ObservableList<Person> personLists,
                                       ObservableList<Relationship> relationships) {
         headerTitle.setText("Any List");
-        allContactsSection.update(personLists, relationships);
-        renderSection(allContactsSection.getRoot());
+        anyListSection.update(personLists, relationships, new ArrayList<>());
+        renderSection(anyListSection.getRoot());
     }
 
     /**

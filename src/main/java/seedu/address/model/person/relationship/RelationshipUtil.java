@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 
 /**
  * Represents a utility class for managing the relationships associated with a person.
@@ -136,6 +137,57 @@ public class RelationshipUtil {
      */
     public ArrayList<String> anySearchDescriptors(UUID origin, UUID target) {
         ArrayList<String> result = new ArrayList<>();
+        HashSet<UUID> visited = new HashSet<>();
+        Pair[] parent = new Pair[relationshipsTracker.size()];
+        ArrayList<Pair> frontier = new ArrayList<>();
+        frontier.add(new Pair(origin, -1));; //since we came from nowhere
+        visited.add(origin);
+        while (!frontier.isEmpty()) {
+            ArrayList<Pair> nextFrontier = new ArrayList<>();
+            for (Pair currentNode: frontier) {
+                UUID start = currentNode.uuid;
+                for (int i = 0; i < relationshipsTracker.size(); i++) {
+                    Relationship current = relationshipsTracker.get(i);
+                    UUID nextUuid = current.containsUuid(start);
+                    if (nextUuid == null) {
+                        continue;
+                    }
+                    if (nextUuid.equals(target)) {
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        int currentIdx = i;
+                        while (currentIdx != -1) {
+                            Pair parentPair = parent[currentIdx];
+                            Relationship edge = relationshipsTracker.get(currentIdx);
+                            result.add(0, edge.getRelativeRelationshipDescriptor(parentPair.uuid));
+                            currentIdx = parentPair.relationshipPairIndex;
+                        }
+                        return result;
+                    }
+                    if (!visited.contains(nextUuid)) {
+                        visited.add(nextUuid);
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        nextFrontier.add(new Pair(nextUuid, i));
+                    }
+                }
+            }
+            frontier = nextFrontier;
+        }
+        return result;
+    }
+    /**
+     * Performs a breadth-first search (BFS) through the relationships tracker to find a path
+     * of relationship descriptors between two UUIDs, representing the origin and target entities.
+     * This method considers all types of relationships in the search.
+     *
+     * @param origin The UUID of the origin entity from which the search begins.
+     * @param target The UUID of the target entity the search aims to find a path to.
+     * @return a listcontaining the relationship descriptors in the order
+     *         encountered from the origin to the target. If no path exists, returns an empty list.
+     */
+    public ArrayList<String> anySearch(UUID origin, UUID target) {
+        ArrayList<Person> relatedPersons = new ArrayList<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
+        StringBuilder relationshipPathwayBuilder = new StringBuilder();
         HashSet<UUID> visited = new HashSet<>();
         Pair[] parent = new Pair[relationshipsTracker.size()];
         ArrayList<Pair> frontier = new ArrayList<>();

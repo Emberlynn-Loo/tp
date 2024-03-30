@@ -1,0 +1,12 @@
+.treeEdge_container {
+
+}
+
+.relationshipDescriptorLabel {
+    -fx-text-fill: -black;
+    -fx-font-family: 'Raleway SemiBold';
+    -fx-font-size: 14;
+    -fx-translate-y: -8;
+    -fx-translate-z: 2;
+}
+

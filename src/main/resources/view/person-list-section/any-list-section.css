@@ -1,0 +1,12 @@
+.anyListSection_container {
+}
+
+.anyListSection_treeMapContainer {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-height: 100;
+    -fx-max-height: 150;
+}
+
+.anyListSection_personListPlaceHolder {
+}
