@@ -67,6 +67,10 @@ public class TypicalPersonsUuid {
             new Relationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
                     "siblings");
 
+    public static final Relationship ALICE_GEORGE_ROLE =
+            new RoleBasedRelationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
+                    "siblings", "brother", "brother");
+
     public static final RoleBasedRelationship CARL_ELLE_ROLE =
             new RoleBasedRelationship(UUID.fromString(CARL_UUID), UUID.fromString(ELLE_UUID),
                     "bioparents", "parent", "child");

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.BorderPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="Gene-nie" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -44,13 +45,17 @@
           </VBox>
 
           <!-- Right side for CLI -->
-          <VBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <BorderPane styleClass="pane-with-border">
             <padding>
               <Insets top="5" right="10" bottom="5" left="10" />
             </padding>
-            <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" minHeight="100" prefHeight="100" maxHeight="500" />
-            <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" />
-          </VBox>
+            <center>
+              <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" prefHeight="100" maxHeight="500" />
+            </center>
+            <bottom>
+              <StackPane fx:id="commandBoxPlaceholder" />
+            </bottom>
+          </BorderPane>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

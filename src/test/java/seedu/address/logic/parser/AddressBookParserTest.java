@@ -93,7 +93,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addAttribute() throws Exception {
-        String userInput = "addAttribute 4000 \\name John";
+        String userInput = "addAttribute /4000 /name John";
         Command command = parser.parseCommand(userInput);
 
         assertTrue(command instanceof AddAttributeCommand);

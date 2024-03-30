@@ -43,6 +43,7 @@ public class Messages {
             + "/<newRelationshipDescriptor>";
 
     public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
+    public static final String MESSAGE_INVALID_ATTRIBUTE_FORMAT = "Invalid attribute format.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

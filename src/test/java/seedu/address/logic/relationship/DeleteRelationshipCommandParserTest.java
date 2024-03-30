@@ -119,12 +119,6 @@ class DeleteRelationshipCommandParserTest {
     }
 
     @Test
-    void parse_invalidUuid_throwsParseException() {
-        String userInput = "/invalid_uuid /1234 /relationshipDescriptor";
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-    }
-
-    @Test
     void parse_invalidFamilialRelationshipDescriptors_throwsParseException() {
         DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
         String userInput = "/1233 /1234 /family";

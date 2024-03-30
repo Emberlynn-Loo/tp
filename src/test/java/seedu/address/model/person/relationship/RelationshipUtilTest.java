@@ -317,9 +317,11 @@ public class RelationshipUtilTest {
         // Level 0 -> Level 1
         relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, "bioparents"));
 
+
         // Level 1 -> Level 2
         relationshipUtil.addRelationship(new Relationship(bobUuid, dianaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(bobUuid, elenaUuid, "bioparents"));
+
         relationshipUtil.addRelationship(new Relationship(charlieUuid, georgeUuid, "bioparents"));
 
         // Level 2 -> Level 3
@@ -327,6 +329,7 @@ public class RelationshipUtilTest {
         relationshipUtil.addRelationship(new Relationship(dianaUuid, ianUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, jackUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(elenaUuid, kaylaUuid, "bioparents"));
+
         relationshipUtil.addRelationship(new Relationship(fionaUuid, miaUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, noahUuid, "bioparents"));
         relationshipUtil.addRelationship(new Relationship(georgeUuid, oliviaUuid, "bioparents"));

@@ -13,8 +13,8 @@ public class BioParentsRelationship extends FamilyRelationship {
      * @param parentUuid The UUID of the parent in the relationship.
      * @param childUuid The UUID of the child in the relationship.
      */
-    public BioParentsRelationship(UUID parentUuid, UUID childUuid) {
-        super(parentUuid, childUuid, "bioparents", "parent", "child");
+    public BioParentsRelationship(UUID parentUuid, UUID childUuid, String role1, String role2) {
+        super(parentUuid, childUuid, "bioparents", role1, role2);
     }
     @Override
     public String getStyleDescriptor() {
