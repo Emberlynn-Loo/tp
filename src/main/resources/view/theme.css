@@ -9,6 +9,16 @@
 }
 
 @font-face {
+    font-family: 'Orbitron';
+    src: url("../fonts/Orbitron-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Orbitron Medium';
+    src: url("../fonts/Orbitron-Medium.ttf");
+}
+
+@font-face {
     font-family: 'Raleway SemiBold';
     src: url("../fonts/Raleway-SemiBold.ttf");
 }
@@ -110,7 +120,9 @@
 .commandBoxContainer{
 
 }
-
+.command-section_command-box-placeholder {
+    -fx-background-color: -special-orange;
+}
 
 
 

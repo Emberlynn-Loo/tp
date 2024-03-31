@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.ui.commandsection.CommandSection;
 import seedu.address.ui.displaysection.DisplaySection;
 import seedu.address.ui.displaysection.FooterButtonSection;
 
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private DisplaySection personList;
     private ResultDisplay resultDisplay;
+    private CommandSection commandSection;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
     private FooterButtonSection footerButtonSection;
@@ -56,11 +58,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
     @FXML
-    private StackPane resultDisplayPlaceholder;
-    @FXML
-    private StackPane commandBoxPlaceholder;
-    @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private VBox commandSectionPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -126,13 +126,10 @@ public class MainWindow extends UiPart<Stage> {
                 displayAllContactsSection(), () ->
                 displayAnyListSection());
         displaySectionPlaceholder.getChildren().add(personList.getRoot());
-
+        commandSectionPlaceholder.getChildren().add(new CommandSection(this::executeCommand).getRoot());
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
     /**
