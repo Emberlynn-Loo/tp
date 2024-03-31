@@ -51,6 +51,12 @@ public class AnySearchCommandTest {
         assertEquals("No Relationship pathway found", result.getFeedbackToUser());
     }
     @Test
+    public void testInputsNotInAddressBook() {
+        AnySearchCommand anySearchCommand1 = new AnySearchCommand("0020", "0020");
+        assertCommandFailure(anySearchCommand1, model,"you have not added the contacts "
+                + "of the people you are looking for!");
+    }
+    @Test
     void testEqualsSameObject() {
         AnySearchCommand command = new AnySearchCommand("uuid1", "uuid2");
         assertTrue(command.equals(command));
