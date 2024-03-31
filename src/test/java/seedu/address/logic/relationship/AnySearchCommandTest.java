@@ -53,7 +53,7 @@ public class AnySearchCommandTest {
     @Test
     public void testInputsNotInAddressBook() {
         AnySearchCommand anySearchCommand1 = new AnySearchCommand("0020", "0020");
-        assertCommandFailure(anySearchCommand1, model,"you have not added the contacts "
+        assertCommandFailure(anySearchCommand1, model, "you have not added the contacts "
                 + "of the people you are looking for!");
     }
     @Test
