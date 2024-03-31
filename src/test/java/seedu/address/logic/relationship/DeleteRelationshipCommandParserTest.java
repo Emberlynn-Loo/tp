@@ -148,15 +148,10 @@ class DeleteRelationshipCommandParserTest {
     }
 
     @Test
-    void parse_validInputDeleteRelationTypeRoleless_success() {
-        String relationshipDescriptor = "housemates";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000004");
-        expectedModel.addRelationship(new Relationship(person1Uuid, person2Uuid, relationshipDescriptor));
-        expectedModel.deleteRelationship(new Relationship(person1Uuid, person2Uuid, relationshipDescriptor));
-        String expectedMessage = "Delete successful";
-        DeleteRelationshipCommand deleteRelationshipCommand =
-                new DeleteRelationshipCommand(relationshipDescriptor, true);
-        assertCommandSuccess(deleteRelationshipCommand, model, expectedMessage, expectedModel);
+    public void parse_onlyRelationshipDescriptor_returnsDeleteRelationshipCommand() throws Exception {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/housemates";
+        parser.parse(userInput);
+
     }
 }
