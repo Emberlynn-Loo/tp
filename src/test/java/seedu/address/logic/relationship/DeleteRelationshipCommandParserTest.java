@@ -94,25 +94,25 @@ class DeleteRelationshipCommandParserTest {
     @Test
     void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
         DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
-        String userInput = "/1222 /1234 /friend";
+        String userInput = "/friend";
         ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
         Assertions.assertTrue(exception.getMessage().contains(
                 Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
 
         DeleteRelationshipCommandParser parser2 = new DeleteRelationshipCommandParser();
-        String userInput2 = "/1222 /1234 /siblings";
+        String userInput2 = "/siblings";
         ParseException exception2 = Assertions.assertThrows(ParseException.class, () -> parser2.parse(userInput2));
         Assertions.assertTrue(exception2.getMessage().contains(
                 Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
 
         DeleteRelationshipCommandParser parser3 = new DeleteRelationshipCommandParser();
-        String userInput3 = "/1222 /1234 /bioparents";
+        String userInput3 = "/bioparents";
         ParseException exception3 = Assertions.assertThrows(ParseException.class, () -> parser3.parse(userInput3));
         Assertions.assertTrue(exception3.getMessage().contains(
                 Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
 
         DeleteRelationshipCommandParser parser4 = new DeleteRelationshipCommandParser();
-        String userInput4 = "/1222 /1234 /spouses";
+        String userInput4 = "/spouses";
         ParseException exception4 = Assertions.assertThrows(ParseException.class, () -> parser4.parse(userInput4));
         Assertions.assertTrue(exception4.getMessage().contains(
                 Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
