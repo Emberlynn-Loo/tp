@@ -1,8 +1,9 @@
 .footer-button-container {
     -fx-cursor: hand;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-max-height: 100;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-max-height: 60;
+    -fx-padding: 0 5 0 5;
 }
 .footer-button-container-selected {
     -fx-scale-x: 1.1;
@@ -10,19 +11,19 @@
     -fx-background-color: -rose-red;
 }
 .footer-button {
-    -fx-font-family: 'Raleway SemiBold Italic';
+    -fx-font-family: 'Raleway SemiBold';
     -fx-text-fill: -rose-red;
     -fx-background-color: transparent;
     -font-weight: 700;
+    -fx-font-size: 20;
 }
 .footer-button-selected {
     -fx-text-fill: -white;
 }
 
 .footer-button-container:hover,
-.footer-button-selected-deco,
-.footer-button:hover {
-    -fx-opacity: 0.75;
+.footer-button-selected-deco {
+    -fx-opacity: 0.9;
     -fx-translate-y: -3;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.0, 5, 10);
 }

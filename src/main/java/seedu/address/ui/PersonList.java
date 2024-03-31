@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -10,6 +11,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.attribute.Attribute;
+import seedu.address.model.person.attribute.BirthdayAttribute;
+import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.relationship.Relationship;
 
 /**
@@ -27,21 +31,23 @@ public class PersonList extends UiPart<Region> {
      */
     public PersonList(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
         super(FXML);
-        setPersonListCardItems(personList, relationships);
+        setPersonListCardItems(personList, relationships, "No Contacts Found :< !"
+                + "Start Adding Contacts with AddPerson !!!");
     }
 
     /**
      * Constructor To intialise an empty Section
      */
-    public PersonList() {
+    public PersonList(String text) {
         super(FXML);
-        displayPlaceholderText("You Have To Use AnySearch First!");
+        displayPlaceholderText(text);
     }
-    public void setPersonListCardItems(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
+    public void setPersonListCardItems(ObservableList<Person> personList, ObservableList<Relationship> relationships,
+                                       String text) {
         personListCardVbox.getChildren().clear();
         personListScrollPane.setVvalue(0);
         if (personList.size() == 0) {
-            displayPlaceholderText("You Have No Contacts, Start Adding Them!");
+            displayPlaceholderText(text);
             return;
         }
         for (Person p: personList) {
@@ -56,7 +62,7 @@ public class PersonList extends UiPart<Region> {
     }
     private void displayPlaceholderText(String text) {
         CustomPlaceholder customPlaceholder = new CustomPlaceholder(
-                text, 20);
+                text, 30);
         personListCardVbox.getChildren().add(customPlaceholder.getRoot());
     }
 }

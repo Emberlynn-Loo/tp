@@ -31,7 +31,8 @@ public class AllContactsSection extends UiPart<Region> {
      *
      */
     public void update(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
-        this.personList.setPersonListCardItems(personList, relationships);
+        this.personList.setPersonListCardItems(personList, relationships, "No Contacts Found :< ! "
+                 + "Start Adding Contacts with AddPerson !!!");
     }
 }
 

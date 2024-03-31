@@ -34,7 +34,6 @@ public class TreeMapFlowPane extends UiPart<Region> {
      */
     public TreeMapFlowPane() {
         super(FXML);
-        addEmptyPlaceholderText("Use Any Search First!");
     }
 
     /**

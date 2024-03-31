@@ -26,17 +26,23 @@ public class AnyListSection extends UiPart<Region> {
      */
     public AnyListSection() {
         super(FXML);
-        this.personList = new PersonList();
+        this.personList = new PersonList("You Have To Use AnySearch First");
         this.treeMapFlowPane = new TreeMapFlowPane();
         personListPlaceHolder.getChildren().add(this.personList.getRoot());
         treeMapPlaceHolder.getChildren().add(this.treeMapFlowPane.getRoot());
+        treeMapPlaceHolder.setVisible(false);
+        treeMapPlaceHolder.setManaged(false);
     }
     /**
      * Updates the sorted modules in the ModuleListSection.
      *
      */
     public void update(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
-        this.personList.setPersonListCardItems(personList, relationships);
+        this.personList.setPersonListCardItems(personList, relationships, "No Contacts Related "
+                 + "to this Person Found !!\n"
+                 + "Start Adding Relations With AddRelation");
+        treeMapPlaceHolder.setVisible(true);
+        treeMapPlaceHolder.setManaged(true);
         this.treeMapFlowPane.updateFlowPane(personList, relationships);
     }
 }

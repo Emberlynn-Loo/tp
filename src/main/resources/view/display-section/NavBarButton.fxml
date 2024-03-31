@@ -11,6 +11,6 @@
         <URL value="@nav-bar-button.css" />
     </stylesheets>
 
-    <Button fx:id="footerButton" styleClass="footer-button, h1" />
+    <Button fx:id="footerButton" styleClass="footer-button" />
 </VBox>
 
