@@ -9,6 +9,6 @@
         <URL value="@any-list-section.css" />
     </stylesheets>
     <VBox fx:id="treeMapPlaceHolder" styleClass="anyListSection_treeMapContainer" VBox.vgrow="ALWAYS" alignment="CENTER"/>
-    <VBox fx:id="personListPlaceHolder" styleClass="anyListSection_personListPlaceHolder" VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="personListPlaceHolder" styleClass="anyListSection_personListPlaceHolder" VBox.vgrow="ALWAYS" alignment="CENTER"/>
 </VBox>
 
