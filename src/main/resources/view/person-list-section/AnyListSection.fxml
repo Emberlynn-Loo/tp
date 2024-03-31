@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <?import java.net.URL?>
-<VBox alignment="CENTER" fillWidth="true" styleClass="anyListSection_container" VBox.vgrow="ALWAYS" fx:id="anyListSection" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10" alignment="CENTER" fillWidth="true" styleClass="anyListSection_container" VBox.vgrow="ALWAYS" fx:id="anyListSection" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@any-list-section.css" />
     </stylesheets>

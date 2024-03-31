@@ -17,7 +17,7 @@
             <Image url="/images/rightarrow.png"/>
         </image>
     </ImageView>
-    <Label alignment="CENTER" fx:id="relationshipDescriptorLabel" styleClass="relationshipDescriptorLabel" maxWidth="80" wrapText="true"/>
+    <Label alignment="CENTER" fx:id="relationshipDescriptorLabel" styleClass="relationshipDescriptorLabel" maxWidth="90" wrapText="true"/>
 </VBox>
 
 
