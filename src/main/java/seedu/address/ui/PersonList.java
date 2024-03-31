@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -11,9 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.attribute.Attribute;
-import seedu.address.model.person.attribute.BirthdayAttribute;
-import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.relationship.Relationship;
 
 /**
