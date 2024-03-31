@@ -24,7 +24,7 @@ public class Messages {
     public static final String MESSAGE_SPACES_IN_UUID = "Spaces found in UUID: ";
 
     public static final String MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR = "You cannot delete this "
-            + "relationship type.";
+            + "relationship type. \nType 'listRelations to see your list of relationship types.'";
     public static final String MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT = "Relationship format is invalid. "
             + "\nPlease ensure that the relationship is in the format: "
             + "\naddRelation /<UUID1> /<UUID2> /<relationshipDescriptor> or "
