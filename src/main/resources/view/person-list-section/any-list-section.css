@@ -6,6 +6,8 @@
     -fx-border-radius: 5;
     -fx-min-height: 100;
     -fx-max-height: 150;
+    -fx-padding: 0 0 25 0;
+    -fx-border-radius: 10;
 }
 
 .anyListSection_personListPlaceHolder {
