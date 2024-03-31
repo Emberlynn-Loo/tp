@@ -32,7 +32,7 @@ public class FooterButtonSection extends UiPart<Region> {
         anyListButton = new FooterButton(anyListButtonLabel, anyListButtonHandler);
 
         // Add buttons to the HBox, possibly with visual separators
-        footerButtonSection.getChildren().addAll(allContactButton.getRoot(), getDeco(), anyListButton.getRoot());
+        footerButtonSection.getChildren().addAll(allContactButton.getRoot(), anyListButton.getRoot());
     }
 
     /**
