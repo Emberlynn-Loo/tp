@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
@@ -27,6 +28,8 @@ public class CustomPlaceholder extends UiPart<Region> {
 
     @FXML
     private Label placeholderText;
+    @FXML
+    private ImageView imageContainer;
 
     /**
      * Creates an instance of CustomPlaceholder with specified text and font size.
@@ -38,5 +41,10 @@ public class CustomPlaceholder extends UiPart<Region> {
         super(FXML);
         placeholderText.setText(text);
         placeholderText.setFont(new Font("Raleway", fontSize));
+    }
+    public void setImageSize(int width, int height) {
+        imageContainer.setFitWidth(width);
+        imageContainer.setFitHeight(height);
+        imageContainer.setPreserveRatio(true);
     }
 }
