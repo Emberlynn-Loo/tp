@@ -48,6 +48,9 @@ public class AnySearchCommand extends Command {
         }
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        if (fullOriginUuid == null || originUuid == null) {
+            throw new CommandException(("you have not added the contacts of the people you are looking for!"));
+        }
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("anySearch must be performed between two different persons.");
         }
