@@ -38,6 +38,13 @@ public class PersonList extends UiPart<Region> {
         super(FXML);
         displayPlaceholderText(text);
     }
+
+    /**
+     * set items in personList Section
+     * @param personList
+     * @param relationships
+     * @param text
+     */
     public void setPersonListCardItems(ObservableList<Person> personList, ObservableList<Relationship> relationships,
                                        String text) {
         personListCardVbox.getChildren().clear();
