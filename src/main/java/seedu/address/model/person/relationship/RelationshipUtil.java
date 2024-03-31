@@ -304,6 +304,17 @@ public class RelationshipUtil {
         return result;
     }
 
+
+    /**
+     * Searches for a path of family relationships between two entities identified by their UUIDs,
+     * specifically considering only those relationships that are instances of FamilyRelationship.
+     * Utilizes a breadth-first search (BFS) strategy to navigate through the relationships tracker.
+     *
+     * @param origin The UUID of the entity from which to start the search.
+     * @param target The UUID of the entity to find a path to, using only family relationships.
+     * @return A ResultContainer listing the family relationship descriptors from the origin
+     *         to the target, in order encountered. Returns null if no such path exists.
+     */
     public ResultContainer familySearchForTreeMap(UUID origin, UUID target) {
         ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
         ArrayList<Relationship> relationships = new ArrayList<>();

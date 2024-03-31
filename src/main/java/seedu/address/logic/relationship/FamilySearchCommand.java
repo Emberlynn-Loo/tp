@@ -3,7 +3,6 @@ package seedu.address.logic.relationship;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_RELATIONSHIPS;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import seedu.address.commons.util.ResultContainer;
