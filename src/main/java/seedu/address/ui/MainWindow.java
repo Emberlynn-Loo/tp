@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personList = new DisplaySection(logic);
-        displayFooter("All Contacts", "Any List", () ->
+        displayFooter("All Contacts", "Search Results", () ->
                 displayAllContactsSection(), () ->
                 displayAnyListSection());
         displaySectionPlaceholder.getChildren().add(personList.getRoot());

@@ -68,7 +68,7 @@ public class DisplaySection extends UiPart<Region> {
      * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
      */
     public void displayAnyListSection() {
-        headerTitle.setText("Any List");
+        headerTitle.setText("Search Result");
         renderSection(anyListSection.getRoot());
     }
 
@@ -79,7 +79,7 @@ public class DisplaySection extends UiPart<Region> {
      */
     public void displayUpdatedAnyListSection(ObservableList<Person> persons,
                                              ObservableList<Relationship> relationships) {
-        headerTitle.setText("Any List");
+        headerTitle.setText("Search Result");
         anyListSection.update(persons, relationships);
         renderSection(anyListSection.getRoot());
     }
