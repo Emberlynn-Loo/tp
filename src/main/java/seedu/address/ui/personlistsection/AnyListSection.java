@@ -38,12 +38,16 @@ public class AnyListSection extends UiPart<Region> {
      *
      */
     public void update(ObservableList<Person> personList, ObservableList<Relationship> relationships) {
-        this.personList.setPersonListCardItems(personList, relationships, "No Contacts Related "
-                 + "to this Person Found !!\n"
-                 + "Start Adding Relations With AddRelation");
-        treeMapPlaceHolder.setVisible(true);
-        treeMapPlaceHolder.setManaged(true);
-        this.treeMapFlowPane.updateFlowPane(personList, relationships);
+        this.personList.setPersonListCardItems(personList, relationships, "\"This Guy is an island, "
+                + "cause he has no Relationships\"");
+        if (relationships.size() == 0) {
+            treeMapPlaceHolder.setVisible(false);
+            treeMapPlaceHolder.setManaged(false);
+        } else {
+            treeMapPlaceHolder.setVisible(true);
+            treeMapPlaceHolder.setManaged(true);
+            this.treeMapFlowPane.updateFlowPane(personList, relationships);
+        }
     }
 }
 

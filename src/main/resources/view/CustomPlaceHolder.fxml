@@ -12,7 +12,7 @@
     <stylesheets>
         <URL value="@custom-placeholder.css" />
     </stylesheets>
-    <ImageView fitHeight="200" fitWidth="200" preserveRatio="true" styleClass="main-window_navbar_image">
+    <ImageView fitHeight="200" fitWidth="200" preserveRatio="true" styleClass="main-window_navbar_image" fx:id="imageContainer">
         <image>
             <Image url="@/images/no-results.png"/> <!-- Replace "your_image.png" with your image path -->
         </image>
