@@ -303,6 +303,76 @@ public class RelationshipUtil {
         }
         return result;
     }
+
+    public ResultContainer familySearchForTreeMap(UUID origin, UUID target) {
+        ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
+        ArrayList<String> relationshipPathwayBuilder = new ArrayList<>();
+        HashSet<UUID> visited = new HashSet<>();
+        Pair[] parent = new Pair[relationshipsTracker.size()];
+        ArrayList<Pair> frontier = new ArrayList<>();
+        frontier.add(new Pair(origin, -1));; //since we came from nowhere
+        visited.add(origin);
+
+        while (!frontier.isEmpty()) {
+            ArrayList<Pair> nextFrontier = new ArrayList<>();
+            for (Pair currentNode: frontier) {
+                UUID start = currentNode.uuid;
+                for (int i = 0; i < relationshipsTracker.size(); i++) {
+                    Relationship current = relationshipsTracker.get(i);
+                    if (!(current instanceof FamilyRelationship)) {
+                        continue;
+                    }
+                    UUID nextUuid = current.containsUuid(start);
+                    if (nextUuid == null) {
+                        continue;
+                    }
+                    if (nextUuid.equals(target)) {
+                        relatedPersonsUuid.add(nextUuid);
+                        relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(nextUuid));
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        int currentIdx = i;
+                        while (currentIdx != -1) {
+                            Pair parentPair = parent[currentIdx];
+                            Relationship edge = relationshipsTracker.get(currentIdx);
+                            relationships.add(edge);
+                            relatedPersonsUuid.add(parentPair.uuid);
+                            relationshipPathwayBuilder.add(
+                                    edge.getRelativeRelationshipDescriptorWithoutUuid(parentPair.uuid));
+                            relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(parentPair.uuid));
+                            currentIdx = parentPair.relationshipPairIndex;
+                        }
+                        Collections.reverse(relatedPersonsUuid);
+                        Collections.reverse(relationships);
+                        Collections.reverse(relationshipPathwayBuilder);
+                        StringBuilder relationshipPathwayCompactor = new StringBuilder();
+                        int idx = 0;
+                        while (idx < relationshipPathwayBuilder.size()) {
+                            if (idx == 0) {
+                                relationshipPathwayCompactor.append(relationshipPathwayBuilder.get(idx));
+                                idx++;
+                            } else {
+                                String toAdd = String.format(" --> %s --> %s", relationshipPathwayBuilder.get(idx),
+                                        relationshipPathwayBuilder.get(idx + 1));
+                                relationshipPathwayCompactor.append(toAdd);
+                                idx += 2;
+                            }
+                        }
+                        return new ResultContainer(relatedPersonsUuid, relationships,
+                                relationshipPathwayCompactor.toString());
+                    }
+                    if (!visited.contains(nextUuid)) {
+                        visited.add(nextUuid);
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        nextFrontier.add(new Pair(nextUuid, i));
+                    }
+                }
+            }
+            frontier = nextFrontier;
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

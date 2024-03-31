@@ -125,5 +125,5 @@ public interface Model {
 
     ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
-    ArrayList<String> familySearch(UUID originUuid, UUID targetUuid);
+    ResultContainer familySearch(UUID originUuid, UUID targetUuid);
 }

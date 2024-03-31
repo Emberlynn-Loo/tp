@@ -155,8 +155,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return relationships.anySearchForTreeMap(originUuid, targetUuid);
     }
 
-    public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
-        return relationships.familySearchDescriptors(originUuid, targetUuid);
+    public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
+        return relationships.familySearchForTreeMap(originUuid, targetUuid);
     }
 
     @Override

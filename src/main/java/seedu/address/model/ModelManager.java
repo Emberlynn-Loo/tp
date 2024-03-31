@@ -157,7 +157,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
+    public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
         return addressBook.familySearch(originUuid, targetUuid);
     }
 
