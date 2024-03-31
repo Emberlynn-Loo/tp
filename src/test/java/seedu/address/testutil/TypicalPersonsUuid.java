@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 
@@ -72,8 +73,8 @@ public class TypicalPersonsUuid {
                     "siblings", "brother", "brother");
 
     public static final RoleBasedRelationship CARL_ELLE_ROLE =
-            new RoleBasedRelationship(UUID.fromString(CARL_UUID), UUID.fromString(ELLE_UUID),
-                    "bioparents", "parent", "child");
+            new BioParentsRelationship(UUID.fromString(CARL_UUID), UUID.fromString(ELLE_UUID),
+                     "parent", "child");
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").buildWithUuid(HOON_UUID);

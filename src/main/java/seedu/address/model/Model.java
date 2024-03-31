@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -125,5 +124,5 @@ public interface Model {
 
     ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
-    ArrayList<String> familySearch(UUID originUuid, UUID targetUuid);
+    ResultContainer familySearch(UUID originUuid, UUID targetUuid);
 }

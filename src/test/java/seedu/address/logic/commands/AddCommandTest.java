@@ -205,7 +205,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ArrayList<String> familySearch(UUID originUuid, UUID targetUuid) {
+        public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
             throw new AssertionError("This method should not be called.");
         }
 
