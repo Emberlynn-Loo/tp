@@ -8,11 +8,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:id="treeEdgeComponentContainer" alignment="CENTER" styleClass="treeEdge_container">
+<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:id="treeEdgeComponentContainer" alignment="CENTER" styleClass="treeEdge_container" spacing="9">
     <stylesheets>
         <URL value="@tree-edge-component.css" />
     </stylesheets>
-    <ImageView fitWidth="80" fitHeight="35" preserveRatio="true">
+    <ImageView fitWidth="90" fitHeight="35" preserveRatio="true">
         <image>
             <Image url="/images/rightarrow.png"/>
         </image>

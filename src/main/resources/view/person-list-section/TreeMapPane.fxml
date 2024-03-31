@@ -11,7 +11,7 @@
         <URL value="@tree-map.css" />
     </stylesheets>
     <ScrollPane fitToWidth="true" fitToHeight="true" fx:id="treeMapPaneScrollPane" styleClass="treeMapPaneScrollPane">
-        <FlowPane fx:id="treeMapPane" alignment="CENTER" hgap="5" vgap="5" styleClass="tree-map_flowpane">
+        <FlowPane fx:id="treeMapPane" alignment="CENTER" hgap="8" vgap="8" styleClass="tree-map_flowpane">
         </FlowPane>
     </ScrollPane>
 </VBox>

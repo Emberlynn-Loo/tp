@@ -42,7 +42,7 @@ public class TreeMapFlowPane extends UiPart<Region> {
      */
     private void addPersonTag(String personUuid) {
         Label personTag = new Label(personUuid);
-        personTag.getStyleClass().addAll("person-tag", "h3");
+        personTag.getStyleClass().addAll("person-tag");
         treeMapPane.getChildren().add(personTag);
 
         // Adds a tooltip to the tag to show the full UUID on hover.

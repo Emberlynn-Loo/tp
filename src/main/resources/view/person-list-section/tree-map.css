@@ -39,7 +39,8 @@
     -fx-border-radius: 7;
     -fx-background-radius: 7;
     -fx-font-family: 'Raleway';
-    -fx-translate-y: -8;
+    -fx-translate-y: -10;
+    -fx-font-size: 15;
 }
 .person-tag:hover {
     -fx-opacity: 0.75;
