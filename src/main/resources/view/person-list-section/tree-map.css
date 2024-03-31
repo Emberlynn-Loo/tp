@@ -4,7 +4,6 @@
 
 .treeMapPaneScrollPane {
     -fx-background-color: transparent;
-    -fx-fit-to-width: true;
 }
 
 .treeMapPaneScrollPane .scroll-bar:vertical .increment-arrow,

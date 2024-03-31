@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 
-<VBox fx:id="treeMapPaneContainer" alignment="CENTER" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" fitToHeight="true" fx:id="treeMapPaneScrollPane" styleClass="treeMapPaneScrollPane">
     <stylesheets>
         <URL value="@tree-map.css" />
     </stylesheets>
-    <ScrollPane fitToWidth="true" fitToHeight="true" fx:id="treeMapPaneScrollPane" styleClass="treeMapPaneScrollPane">
         <FlowPane fx:id="treeMapPane" alignment="CENTER" hgap="8" vgap="8" styleClass="tree-map_flowpane">
         </FlowPane>
     </ScrollPane>
-</VBox>
+

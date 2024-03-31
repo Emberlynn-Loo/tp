@@ -70,7 +70,7 @@ public class PersonCard extends UiPart<Region> {
     public void setEmptyAttributeBox() {
         CustomPlaceholder emptyAttributePlaceholder =
                 new CustomPlaceholder("No Attributes Found", 20);
-        emptyAttributePlaceholder.setImageSize(120, 120);
+        emptyAttributePlaceholder.setImageSize(100, 100);
         personCardAttributes.getChildren().add(emptyAttributePlaceholder.getRoot());
     }
     /**

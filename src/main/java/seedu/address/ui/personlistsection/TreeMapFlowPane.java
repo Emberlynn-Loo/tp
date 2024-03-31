@@ -7,7 +7,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
@@ -21,9 +20,6 @@ import seedu.address.ui.UiPart;
  */
 public class TreeMapFlowPane extends UiPart<Region> {
     private static final String FXML = "person-list-section/TreeMapPane.fxml";
-
-    @FXML
-    private VBox treeMapPaneContainer;
     @FXML
     private ScrollPane treeMapPaneScrollPane;
     @FXML
@@ -86,6 +82,7 @@ public class TreeMapFlowPane extends UiPart<Region> {
                         currentRelationship.getStyleDescriptor());
             }
         }
+        treeMapPaneScrollPane.setVvalue(0);
     }
 
     /**

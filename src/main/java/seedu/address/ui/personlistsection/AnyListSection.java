@@ -3,7 +3,7 @@ package seedu.address.ui.personlistsection;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.PersonList;
@@ -17,9 +17,9 @@ public class AnyListSection extends UiPart<Region> {
     private PersonList personList;
     private TreeMapFlowPane treeMapFlowPane;
     @FXML
-    private StackPane personListPlaceHolder;
+    private VBox personListPlaceHolder;
     @FXML
-    private StackPane treeMapPlaceHolder;
+    private VBox treeMapPlaceHolder;
 
     /**
      * Instantiates a anyListSection.

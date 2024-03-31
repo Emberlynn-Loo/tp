@@ -8,7 +8,7 @@
     <stylesheets>
         <URL value="@any-list-section.css" />
     </stylesheets>
-    <StackPane fx:id="treeMapPlaceHolder" styleClass="anyListSection_treeMapContainer" VBox.vgrow="NEVER"/>
-    <StackPane VBox.vgrow="ALWAYS" fx:id="personListPlaceHolder" styleClass="anyListSection_personListPlaceHolder"/>
+    <VBox fx:id="treeMapPlaceHolder" styleClass="anyListSection_treeMapContainer" VBox.vgrow="ALWAYS" alignment="CENTER"/>
+    <VBox fx:id="personListPlaceHolder" styleClass="anyListSection_personListPlaceHolder" VBox.vgrow="SOMETIMES"/>
 </VBox>
 
