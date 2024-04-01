@@ -20,6 +20,7 @@ import seedu.address.model.person.relationship.SpousesRelationship;
 public class AddRelationshipCommand extends Command {
     public static final String COMMAND_WORD = "addrelation";
     public static final String MESSAGE_ADD_RELATIONSHIP_SUCCESS = "Add success";
+    public static final String COMMAND_WORD_SHORT = "ar";
     private String originUuid;
     private String targetUuid;
     private String relationshipDescriptor;

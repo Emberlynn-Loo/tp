@@ -21,6 +21,7 @@ import seedu.address.model.person.RelationshipInRelationshipPathwayPredicate;
 public class AnySearchCommand extends Command {
 
     public static final String COMMAND_WORD = "anysearch";
+    public static final String COMMAND_WORD_SHORT = "as";
 
     private String originUuid;
     private String targetUuid;

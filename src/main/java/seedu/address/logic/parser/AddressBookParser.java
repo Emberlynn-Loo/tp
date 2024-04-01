@@ -71,51 +71,67 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_SHORT:
             return new AddCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD_SHORT:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_WORD_SHORT:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD_SHORT:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD_SHORT:
             return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD_SHORT:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD_SHORT:
             return new HelpCommand();
 
         case AddRelationshipCommand.COMMAND_WORD:
+        case AddRelationshipCommand.COMMAND_WORD_SHORT:
             return new AddRelationshipCommandParser().parse(arguments.trim());
 
         case DeleteRelationshipCommand.COMMAND_WORD:
+        case DeleteRelationshipCommand.COMMAND_WORD_SHORT:
             return new DeleteRelationshipCommandParser().parse(arguments.trim());
 
         case EditRelationshipCommand.COMMAND_WORD:
+        case EditRelationshipCommand.COMMAND_WORD_SHORT:
             return new EditRelationshipCommandParser().parse(arguments.trim());
 
         case ListRelationshipTypesCommand.COMMAND_WORD:
+        case ListRelationshipTypesCommand.COMMAND_WORD_SHORT:
             return new ListRelationshipTypesCommand();
 
         case AnySearchCommand.COMMAND_WORD:
+        case AnySearchCommand.COMMAND_WORD_SHORT:
             return new AnySearchCommandParser().parse(arguments.trim());
 
         case FamilySearchCommand.COMMAND_WORD:
+        case FamilySearchCommand.COMMAND_WORD_SHORT:
             return new FamilySearchCommandParser().parse(arguments.trim());
 
         case DeleteAttributeCommand.COMMAND_WORD:
+        case DeleteAttributeCommand.COMMAND_WORD_SHORT:
             return new DeleteAttributeCommandParser().parse(arguments.trim());
 
         case AddAttributeCommand.COMMAND_WORD:
+        case AddAttributeCommand.COMMAND_WORD_SHORT:
             return new AddAttributeParser().parse(userInput);
 
         case EditAttributeCommand.COMMAND_WORD:
+        case EditAttributeCommand.COMMAND_WORD_SHORT:
             return new EditCommandParser().parse(userInput.trim());
 
         default:

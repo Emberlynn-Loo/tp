@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 public class DeleteAttributeCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteattribute";
+    public static final String COMMAND_WORD_SHORT = "da";
     private static final String MESSAGE_SUCCESS = "Attribute deleted from person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes attributes from a person in the address book. "
             + "\n"

@@ -21,6 +21,7 @@ public class AddAttributeCommand extends Command {
             + "Command format:  " + COMMAND_WORD + " UUID /attributeName1 attributeValue1 "
             + "/attributeName2 attributeValue2 ...\n"
             + "Example: " + COMMAND_WORD + " /4000 /Name John Doe /Phone 12345678";
+    public static final String COMMAND_WORD_SHORT = "aa";
     private final String uuid;
     private final Map<String, String> attributes;
 
