@@ -29,6 +29,15 @@ command-section_scrollpane .viewport {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
+#command-section_dialog-label-welcome {
+    -fx-font-size: 15;
+    -fx-font-family: "Orbitron";
+    -fx-alignment: center;
+    -fx-text-fill: -white;
+    -fx-padding: 5 10 5 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
 .success {
     -fx-background-color: #B7E0A6;
 }
