@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -23,6 +25,8 @@ import seedu.address.ui.UiPart;
 public class CommandSection extends UiPart<Region> {
     private static final String FXML = "command-section/CommandSection.fxml";
     private static final String ERROR = "failure-text";
+    private static final Image SUCCESS = new Image("/images/command-success.png");
+    private static final Image FAILURE = new Image("/images/command-error.png");
     @FXML
     private VBox commandSectionContainer;
     @FXML
@@ -33,6 +37,8 @@ public class CommandSection extends UiPart<Region> {
     private ScrollPane commandSectionDialogScrollPane;
     @FXML
     private TextField cliInput;
+    @FXML
+    private ImageView commandBoxImageContainer;
     private CommandExecutor commandExecutor;
     private ArrayList<String> pastCommands = new ArrayList<>();
     private int pastCommandIndex = 0;
@@ -43,6 +49,8 @@ public class CommandSection extends UiPart<Region> {
     public CommandSection(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        commandBoxImageContainer.setVisible(false);
+        commandBoxImageContainer.setManaged(false);
         cliInput.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         // Add an event handler to the TextField
         cliInput.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -81,9 +89,13 @@ public class CommandSection extends UiPart<Region> {
         }
         if (commandText.equalsIgnoreCase("clr")) {
             commandSectionDialogContainer.getChildren().clear();
+            commandBoxImageContainer.setVisible(false);
+            commandBoxImageContainer.setManaged(false);
             cliInput.setText("");
             return;
         }
+        commandBoxImageContainer.setVisible(true);
+        commandBoxImageContainer.setManaged(true);
         if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
             pastCommands.add(commandText);
             pastCommandIndex = pastCommands.size();
@@ -93,9 +105,11 @@ public class CommandSection extends UiPart<Region> {
             setDialogLabel(commandResult.getFeedbackToUser(), true);
             cliInput.setText("");
             setStyleToDefault();
+            commandBoxImageContainer.setImage(SUCCESS);
         } catch (CommandException | ParseException e) {
             setDialogLabel(e.getMessage(), false);
             setStyleToIndicateCommandFailure();
+            commandBoxImageContainer.setImage(FAILURE);
         }
     }
     /**
