@@ -14,7 +14,7 @@ import seedu.address.model.person.attribute.Attribute;
  */
 public class EditAttributeCommand extends Command {
 
-    public static final String COMMAND_WORD = "editAttribute";
+    public static final String COMMAND_WORD = "editattribute";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits attributes of a person in the address book. "
             + "\n"
             + "Command format:  " + COMMAND_WORD + " /UUID /attributeName1 attributeValue1 "

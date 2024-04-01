@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  * Lists all the relationship types in the address book.
  */
 public class ListRelationshipTypesCommand extends Command {
-    public static final String COMMAND_WORD = "listRelations";
+    public static final String COMMAND_WORD = "listrelations";
 
     /**
      * Executes the command to list all the relationship types in the address book.

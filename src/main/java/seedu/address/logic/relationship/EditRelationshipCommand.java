@@ -18,7 +18,7 @@ import seedu.address.model.person.relationship.SpousesRelationship;
  * It supports adding relationships with and without roles.
  */
 public class EditRelationshipCommand extends Command {
-    public static final String COMMAND_WORD = "editRelation";
+    public static final String COMMAND_WORD = "editrelation";
     public static final String MESSAGE_EDIT_RELATIONSHIP_SUCCESS = "Edit successful";
     private String originUuid;
     private String targetUuid;

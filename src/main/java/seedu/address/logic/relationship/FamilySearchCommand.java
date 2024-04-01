@@ -20,7 +20,7 @@ import seedu.address.model.person.RelationshipInRelationshipPathwayPredicate;
  */
 public class FamilySearchCommand extends Command {
 
-    public static final String COMMAND_WORD = "familySearch";
+    public static final String COMMAND_WORD = "familysearch";
 
     private String originUuid;
     private String targetUuid;
