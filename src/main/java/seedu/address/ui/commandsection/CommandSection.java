@@ -1,14 +1,12 @@
 package seedu.address.ui.commandsection;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,9 +15,6 @@ import javafx.scene.layout.VBox;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.relationship.Relationship;
-import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -58,8 +53,8 @@ public class CommandSection extends UiPart<Region> {
                 downArrowKeyListener();
             }
         });
-        commandSectionDialogContainer.heightProperty().addListener(
-                (observable) -> commandSectionDialogScrollPane.setVvalue(1.0));
+        commandSectionDialogContainer.heightProperty().addListener((observable) ->
+                commandSectionDialogScrollPane.setVvalue(1.0));
         Platform.runLater(() -> cliInput.requestFocus()); // gooogle
     }
     private void setDialogLabel(String text, boolean success) {
@@ -104,14 +99,14 @@ public class CommandSection extends UiPart<Region> {
     /**
      * Sets the command box style to use the default style.
      */
-    private void setStyleToDefault () {
+    private void setStyleToDefault() {
         cliInput.getStyleClass().remove(ERROR);
     }
 
     /**
      * Sets the command box style to indicate a failed command.
      */
-    private void setStyleToIndicateCommandFailure () {
+    private void setStyleToIndicateCommandFailure() {
         ObservableList<String> styleClass = cliInput.getStyleClass();
 
         if (styleClass.contains(ERROR)) {
