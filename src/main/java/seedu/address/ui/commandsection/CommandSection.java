@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -61,6 +62,7 @@ public class CommandSection extends UiPart<Region> {
                 downArrowKeyListener();
             }
         });
+        addWelcomeDialog();
         commandSectionDialogContainer.heightProperty().addListener((observable) ->
                 commandSectionDialogScrollPane.setVvalue(1.0));
         Platform.runLater(() -> cliInput.requestFocus()); // gooogle
@@ -91,9 +93,11 @@ public class CommandSection extends UiPart<Region> {
             commandSectionDialogContainer.getChildren().clear();
             commandBoxImageContainer.setVisible(false);
             commandBoxImageContainer.setManaged(false);
+            addWelcomeDialog();
             cliInput.setText("");
             return;
         }
+        removeWelcomeDialog();
         commandBoxImageContainer.setVisible(true);
         commandBoxImageContainer.setManaged(true);
         if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
@@ -148,6 +152,19 @@ public class CommandSection extends UiPart<Region> {
             return;
         }
         cliInput.setText(pastCommands.get(pastCommandIndex));
+    }
+    private void addWelcomeDialog() {
+        Label dialogLabel = new Label("Hello From Command Section");
+        dialogLabel.setId("command-section_dialog-label-welcome");
+        dialogLabel.setWrapText(true);
+        dialogLabel.prefWidthProperty().bind(commandSectionDialogContainer.widthProperty());
+        commandSectionDialogContainer.setAlignment(Pos.CENTER);
+        commandSectionDialogContainer.getChildren().add(dialogLabel);
+    }
+    private void removeWelcomeDialog() {
+        commandSectionDialogContainer.getChildren().remove(
+                commandSectionDialogContainer.lookup("#command-section_dialog-label-welcome"));
+        commandSectionDialogContainer.setAlignment(Pos.TOP_LEFT);
     }
     /**
      * Represents a function that can execute commands.
