@@ -28,6 +28,7 @@ public class CommandSection extends UiPart<Region> {
     private static final String ERROR = "failure-text";
     private static final Image SUCCESS = new Image("/images/command-success.png");
     private static final Image FAILURE = new Image("/images/command-error.png");
+    private static final Image WELCOME = new Image("./images/welcome.png");
     @FXML
     private VBox commandSectionContainer;
     @FXML
@@ -158,12 +159,20 @@ public class CommandSection extends UiPart<Region> {
         dialogLabel.setId("command-section_dialog-label-welcome");
         dialogLabel.setWrapText(true);
         dialogLabel.prefWidthProperty().bind(commandSectionDialogContainer.widthProperty());
+        ImageView welcomeImage = new ImageView();
+        welcomeImage.setFitWidth(200);
+        welcomeImage.setFitHeight(200);
+        welcomeImage.setPreserveRatio(true);
+        welcomeImage.setImage(WELCOME);
+        welcomeImage.setId("welcome-image");
         commandSectionDialogContainer.setAlignment(Pos.CENTER);
         commandSectionDialogContainer.getChildren().add(dialogLabel);
+        commandSectionDialogContainer.getChildren().add(welcomeImage);
     }
     private void removeWelcomeDialog() {
-        commandSectionDialogContainer.getChildren().remove(
-                commandSectionDialogContainer.lookup("#command-section_dialog-label-welcome"));
+        commandSectionDialogContainer.getChildren().removeAll(
+                commandSectionDialogContainer.lookup("#command-section_dialog-label-welcome"),
+                commandSectionDialogContainer.lookup("#welcome-image"));
         commandSectionDialogContainer.setAlignment(Pos.TOP_LEFT);
     }
     /**
