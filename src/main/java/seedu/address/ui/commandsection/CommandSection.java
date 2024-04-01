@@ -84,8 +84,10 @@ public class CommandSection extends UiPart<Region> {
             cliInput.setText("");
             return;
         }
-        pastCommands.add(commandText);
-        pastCommandIndex = pastCommands.size();
+        if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
+            pastCommands.add(commandText);
+            pastCommandIndex = pastCommands.size();
+        }
         try {
             CommandResult commandResult = commandExecutor.execute(commandText);
             setDialogLabel(commandResult.getFeedbackToUser(), true);
