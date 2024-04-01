@@ -14,8 +14,9 @@ import seedu.address.model.person.relationship.Relationship;
  * Represents a command to delete a relationship between two persons.
  */
 public class DeleteRelationshipCommand extends Command {
-    public static final String COMMAND_WORD = "deleteRelation";
+    public static final String COMMAND_WORD = "deleterelation";
     public static final String MESSAGE_DELETE_RELATIONSHIP_SUCCESS = "Delete successful";
+    public static final String COMMAND_WORD_SHORT = "dr";
     private String originUuid = "0000";
     private String targetUuid = "0000";
     private String relationshipDescriptor;

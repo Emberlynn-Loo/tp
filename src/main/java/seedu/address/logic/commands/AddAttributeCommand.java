@@ -15,12 +15,13 @@ import seedu.address.model.person.attribute.Attribute;
  */
 public class AddAttributeCommand extends Command {
 
-    public static final String COMMAND_WORD = "addAttribute";
+    public static final String COMMAND_WORD = "addattribute";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds attributes to a person in the address book. "
             + "\n"
             + "Command format:  " + COMMAND_WORD + " UUID /attributeName1 attributeValue1 "
             + "/attributeName2 attributeValue2 ...\n"
             + "Example: " + COMMAND_WORD + " /4000 /Name John Doe /Phone 12345678";
+    public static final String COMMAND_WORD_SHORT = "aa";
     private final String uuid;
     private final Map<String, String> attributes;
 
