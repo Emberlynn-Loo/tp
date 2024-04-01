@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.ui.commandsection.CommandSection;
 import seedu.address.ui.displaysection.DisplaySection;
 import seedu.address.ui.displaysection.FooterButtonSection;
 
@@ -38,10 +39,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private DisplaySection personList;
-    private ResultDisplay resultDisplay;
+    private DisplaySection displaySection;
+    private CommandSection commandSection;
     private HelpWindow helpWindow;
-    private CommandBox commandBox;
     private FooterButtonSection footerButtonSection;
     @FXML
     private VBox mainWindowContainer;
@@ -56,11 +56,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
     @FXML
-    private StackPane resultDisplayPlaceholder;
-    @FXML
-    private StackPane commandBoxPlaceholder;
-    @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private VBox commandSectionPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -121,18 +119,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personList = new DisplaySection(logic);
+        displaySection = new DisplaySection(logic);
         displayFooter("All Contacts", "Search Results", () ->
                 displayAllContactsSection(), () ->
                 displayAnyListSection());
-        displaySectionPlaceholder.getChildren().add(personList.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        displaySectionPlaceholder.getChildren().add(displaySection.getRoot());
+        commandSectionPlaceholder.getChildren().add(new CommandSection(this::executeCommand).getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
     }
     /**
@@ -199,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
     public void displayAllContactsSection(ObservableList<Person> personLists,
                                           ObservableList<Relationship> relationships) {
         footerButtonSection.selectAllContactButton();
-        personList.displayAllContactsSection(personLists, relationships);
+        displaySection.displayAllContactsSection(personLists, relationships);
     }
 
     /**
@@ -207,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void displayAllContactsSection() {
         footerButtonSection.selectAllContactButton();
-        personList.displayAllContactsSection();
+        displaySection.displayAllContactsSection();
     }
     /**
      * Displays a custom list section named "Any List".
@@ -215,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void displayAnyListSection() {
         footerButtonSection.selectAnyListButton();
-        personList.displayAnyListSection();
+        displaySection.displayAnyListSection();
     }
 
     /**
@@ -226,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
     public void displayUpdatedAnyListSection(ObservableList<Person> persons,
                                               ObservableList<Relationship> relationships) {
         footerButtonSection.selectAnyListButton();
-        personList.displayUpdatedAnyListSection(persons, relationships);
+        displaySection.displayUpdatedAnyListSection(persons, relationships);
     }
 
     /**
@@ -238,7 +232,6 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.isAnySearch()) {
                 displayUpdatedAnyListSection(logic.getFilteredPersonList(), logic.getRelationshipList());
             } else {
@@ -254,7 +247,6 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
