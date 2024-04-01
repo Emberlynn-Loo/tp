@@ -28,7 +28,7 @@ public class AddAttributeParser {
         String[] commandParts = userInput.split(" ", 3);
 
         // Validate command structure
-        if (commandParts.length < 3 || !"addAttribute".equalsIgnoreCase(commandParts[0])) {
+        if (commandParts.length < 3) {
             throw new ParseException(AddAttributeCommand.MESSAGE_USAGE);
         }
 

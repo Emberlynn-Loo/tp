@@ -28,7 +28,7 @@ public class EditCommandParser implements Parser<EditAttributeCommand> {
         String[] parts = args.split(" ", 3);
 
         // Validate command structure
-        if (parts.length < 3 || !"editAttribute".equalsIgnoreCase(parts[0])) {
+        if (parts.length < 3) {
             throw new ParseException(EditAttributeCommand.MESSAGE_USAGE);
         }
 
