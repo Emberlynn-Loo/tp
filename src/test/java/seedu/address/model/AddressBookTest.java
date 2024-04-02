@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersonsUuid.CAT;
 import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
+import static seedu.address.testutil.TypicalPersonsUuid.CAT;
 import static seedu.address.testutil.TypicalPersonsUuid.HOON;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
