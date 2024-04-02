@@ -20,6 +20,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAttributeCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditAttributeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -105,6 +106,14 @@ public class AddressBookParserTest {
         Command command = parser.parseCommand(userInput);
 
         assertTrue(command instanceof DeleteAttributeCommand);
+    }
+
+    @Test
+    public void parseCommand_editAttribute() throws Exception {
+        String userInput = "editAttribute /4000 /Name John /Name John Doe";
+        Command command = parser.parseCommand(userInput);
+
+        assertTrue(command instanceof EditAttributeCommand);
     }
 
     @Test

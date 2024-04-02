@@ -166,7 +166,7 @@ public class Person {
     }
 
 
-    private static void assertValidAttribute(Attribute attribute) {
+    static void assertValidAttribute(Attribute attribute) {
         if (attribute == null) {
             throw new IllegalArgumentException("Attribute cannot be null.");
         }
