@@ -8,8 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
 import static seedu.address.testutil.TypicalPersonsUuid.BOB;
 
@@ -24,17 +22,9 @@ import seedu.address.model.person.attribute.StringAttribute;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
-    }
 
     @Test
     public void equals() {
-        // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
         assertTrue(ALICE.equals(ALICE));
@@ -53,7 +43,7 @@ public class PersonTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        editedAlice = new PersonBuilder(ALICE).withPhone(Integer.parseInt(VALID_PHONE_BOB)).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
@@ -64,58 +54,20 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName()
                 + "{uuid=" + ALICE.getUuidString()
-                + ", name=" + ALICE.getName()
-                + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail()
-                + ", address=" + ALICE.getAddress()
-                + ", tags=" + ALICE.getTags() + "}";
+                + "}";
         assertEquals(expected, ALICE.toString());
     }
     @Test
     public void getName() {
-        assertEquals(VALID_NAME_BOB, BOB.getName().toString());
+        assertEquals(VALID_NAME_BOB, BOB.getAttribute("Name").toString());
     }
-    @Test
-    public void getName_noName() { // to deprecate
-        Person person = new Person(new Attribute[0]);
-        assertEquals("no name", person.getName().toString());
-    }
-    @Test
-    public void getPhone() {
-        assertEquals(VALID_PHONE_BOB, BOB.getPhone().toString());
-    }
-    @Test
-    public void getPhone_noPhone() { // to deprecate
-        Person person = new Person(new Attribute[0]);
-        assertEquals("00000000", person.getPhone().toString());
-    }
-    @Test
-    public void getEmail() {
-        assertEquals(VALID_EMAIL_BOB, BOB.getEmail().toString());
-    }
-    @Test
-    public void getEmail_noEmail() { // to deprecate
-        Person person = new Person(new Attribute[0]);
-        assertEquals("noemail@noemail.noemail", person.getEmail().toString());
-    }
-    @Test
-    public void getAddress() {
-        assertEquals(VALID_ADDRESS_BOB, BOB.getAddress().toString());
-    }
-    @Test
-    public void getAddress_noAddress() { // to deprecate
-        Person person = new Person(new Attribute[0]);
-        assertEquals("no address", person.getAddress().toString());
-    }
+
     @Test
     public void getUuidString() {
         Person person = new PersonBuilder().build();

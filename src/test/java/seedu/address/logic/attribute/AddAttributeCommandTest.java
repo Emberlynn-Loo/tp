@@ -2,8 +2,8 @@ package seedu.address.logic.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
+import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
 import java.util.Map;
 
