@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -20,6 +22,11 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "/0001", new DeleteCommand("0001"));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse("0001"));
     }
 
 }
