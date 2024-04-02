@@ -36,6 +36,9 @@ public class TypicalPersonsUuid {
     public static final String IDA_UUID = "00000000-0000-0000-0000-000000000009";
     public static final String AMY_UUID = "00000000-0000-0000-0000-000000000010";
     public static final String BOB_UUID = "00000000-0000-0000-0000-000000000011";
+    public static final String CAT_UUID = "00000000-0000-0000-0000-000000000012";
+    public static final String DOG_UUID = "00000000-0000-0000-0000-000000000013";
+
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone(94351253)
@@ -80,6 +83,12 @@ public class TypicalPersonsUuid {
             .withEmail("stefan@example.com").withAddress("little india").buildWithUuid(HOON_UUID);
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone(8482131)
             .withEmail("hans@example.com").withAddress("chicago ave").buildWithUuid(IDA_UUID);
+
+    public static final Person CAT = new PersonBuilder().withName("Cat").withPhone(87654321)
+            .withEmail("cat@cat.com").withAddress("cat street").buildWithUuid(CAT_UUID);
+
+    public static final Person DOG = new PersonBuilder().withName("Dog").withPhone(12345678)
+            .withEmail("dog@dog.com").withAddress("dog street").buildWithUuid(DOG_UUID);
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY)
