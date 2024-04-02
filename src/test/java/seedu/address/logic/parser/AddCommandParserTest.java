@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.HashMap;
@@ -38,11 +37,10 @@ public class AddCommandParserTest {
         expectedAttributeMap.put("Phone", VALID_PHONE_BOB);
         expectedAttributeMap.put("Email", VALID_EMAIL_BOB);
         expectedAttributeMap.put("Address", VALID_ADDRESS_BOB);
-        expectedAttributeMap.put("Tag", VALID_TAG_FRIEND);
+
 
         assertParseSuccess(parser, "add /Name " + VALID_NAME_BOB + " /Phone " + VALID_PHONE_BOB + " /Email "
-                + VALID_EMAIL_BOB + " /Address " + VALID_ADDRESS_BOB + " /Tag "
-                + VALID_TAG_FRIEND, new AddCommand(expectedAttributeMap));
+                + VALID_EMAIL_BOB + " /Address " + VALID_ADDRESS_BOB, new AddCommand(expectedAttributeMap));
     }
 
     @Test
