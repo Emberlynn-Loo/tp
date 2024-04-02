@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,19 +39,6 @@ public class Person {
         for (Attribute attribute : attributes) {
             this.attributes.put(attribute.getName(), attribute);
         }
-    }
-
-    // Constructors for loading purposes
-    /**
-     * Constructs a person with a given UUID.
-     * Every field must be present and not null.
-     */
-    public Person(UUID uuid, Name name, Phone phone, Address address) {
-        requireAllNonNull(name, phone, address);
-        this.uuid = uuid;
-        this.attributes.put("Name", new NameAttribute("Name", name.toString()));
-        this.attributes.put("Phone", new NameAttribute("Phone", phone.toString()));
-        this.attributes.put("Address", new StringAttribute("Address", address.toString()));
     }
 
     /**
