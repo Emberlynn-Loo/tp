@@ -15,7 +15,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        if (!args.trim().startsWith("/")){
+        if (!args.trim().startsWith("/")) {
             throw new ParseException("Input a UUID prefixed with '/'.");
         }
         return new DeleteCommand(args.trim().substring(1));
