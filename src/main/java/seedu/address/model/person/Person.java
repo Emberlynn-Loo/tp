@@ -17,7 +17,6 @@ import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.attribute.PhoneNumberAttribute;
 import seedu.address.model.person.attribute.StringAttribute;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -26,7 +25,6 @@ import seedu.address.model.tag.Tag;
 public class Person {
     private final UUID uuid;
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
     private final HashMap<String, Attribute> attributes = new HashMap<>();
 
     /**
@@ -51,7 +49,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(UUID uuid, Name name, Phone phone, Address address) {
-        requireAllNonNull(name, phone, address, tags);
+        requireAllNonNull(name, phone, address);
         this.uuid = uuid;
         this.attributes.put("Name", new NameAttribute("Name", name.toString()));
         this.attributes.put("Phone", new NameAttribute("Phone", phone.toString()));
@@ -244,9 +242,6 @@ public class Person {
                     otherPerson.getAttribute(entry.getKey()).getValueAsString())) {
                 return false;
             }
-        }
-        if (!tags.equals(otherPerson.tags)) { // Earmarked for deprecation - to be superseded by relations
-            return false;
         }
         return true;
     }
