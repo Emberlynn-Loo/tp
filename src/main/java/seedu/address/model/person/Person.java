@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +15,7 @@ import java.util.UUID;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.NameAttribute;
+import seedu.address.model.person.attribute.PhoneNumberAttribute;
 import seedu.address.model.person.attribute.StringAttribute;
 import seedu.address.model.tag.Tag;
 
@@ -28,22 +28,6 @@ public class Person {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final HashMap<String, Attribute> attributes = new HashMap<>();
-
-    /**
-     * THIS CONSTRUCTOR WILL BE DEPRECATED.
-     * Constructs a person with a random UUID.
-     * Every field must be present and not null.
-     */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.uuid = UUID.randomUUID();
-        this.attributes.put("Name", new NameAttribute("Name", name.toString()));
-        this.attributes.put("Phone", new StringAttribute("Phone", phone.toString()));
-        this.attributes.put("Email", new StringAttribute("Email", email.toString()));
-        this.attributes.put("Address", new StringAttribute("Address", address.toString()));
-
-        this.tags.addAll(tags); // Earmarked for deprecation - to be superseded by relations
-    }
 
     /**
      * Constructs a person with a random UUID and a list of attributes.
@@ -66,12 +50,11 @@ public class Person {
      * Constructs a person with a given UUID.
      * Every field must be present and not null.
      */
-    public Person(UUID uuid, Name name, Phone phone, Email email, Address address) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(UUID uuid, Name name, Phone phone, Address address) {
+        requireAllNonNull(name, phone, address, tags);
         this.uuid = uuid;
         this.attributes.put("Name", new NameAttribute("Name", name.toString()));
         this.attributes.put("Phone", new NameAttribute("Phone", phone.toString()));
-        this.attributes.put("Email", new StringAttribute("Email", email.toString()));
         this.attributes.put("Address", new StringAttribute("Address", address.toString()));
     }
 
@@ -92,44 +75,43 @@ public class Person {
         }
     }
 
-    public Name getName() { //Earmarked for deprecation - superseded by getAttribute - name should be optional
-        if (!attributes.containsKey("Name")) {
-            return new Name("no name");
-        }
-        return new Name(attributes.get("Name").getValueAsString());
-    }
-
-    public Phone getPhone() { //Earmarked for deprecation - superseded by getAttribute - phone should be optional
-        if (!attributes.containsKey("Phone")) {
-            return new Phone("00000000");
-        }
-        return new Phone(attributes.get("Phone").getValueAsString());
-    }
-
-    public Email getEmail() { //Earmarked for deprecation - superseded by getAttribute - email should be optional
-        if (!attributes.containsKey("Email")) {
-            return new Email("noemail@noemail.noemail");
-        }
-        return new Email(attributes.get("Email").getValueAsString());
-    }
-
-    public Address getAddress() { //Earmarked for deprecation - superseded by getAttribute - address should be optional
-        if (!attributes.containsKey("Address")) {
-            return new Address("no address");
-        }
-        return new Address(attributes.get("Address").getValueAsString());
+    /**
+     * Constructs a person with a random UUID and a list of attributes.
+     * There are no compulsory fields, attribute list can be null.
+     *
+     * @params attributes A list of attributes to be added to the person.
+     *      If the list is null, the person will have no attributes.
+     *      If there are multiple attributes of the same type, the last one will be used.
+     * @return A person with the given attributes.
+     */
+    public Person(NameAttribute name, PhoneNumberAttribute phone, StringAttribute email, StringAttribute address) {
+        this.uuid = UUID.randomUUID();
+        this.attributes.put("Name", name);
+        this.attributes.put("Phone", phone);
+        this.attributes.put("Email", email);
+        this.attributes.put("Address", address);
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Constructs a person with a given UUID and a list of attributes.
+     * There are no compulsory fields, attribute list can be null.
+     *
+     * @params fromString The UUID of the person.
+     * @params name The name of the person.
+     * @params phone The phone number of the person.
+     * @params email The email of the person.
+     * @params address The address of the person.
+     * @return A person with the given attributes.
      */
-    public Set<Tag> getTags() { //Earmarked for deprecation - to be superseded by relations
-        if (tags.isEmpty()) {
-            return Collections.unmodifiableSet(new HashSet<>());
-        }
-        return Collections.unmodifiableSet(tags);
+    public Person(UUID fromString, NameAttribute name, PhoneNumberAttribute phone,
+                  StringAttribute email, StringAttribute address) {
+        this.uuid = fromString;
+        this.attributes.put("Name", name);
+        this.attributes.put("Phone", phone);
+        this.attributes.put("Email", email);
+        this.attributes.put("Address", address);
     }
+
     /**
      * Returns the uuid of the person.
      *
@@ -299,11 +281,6 @@ public class Person {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("uuid", uuid)
-                .add("name", getName().toString())
-                .add("phone", getPhone().toString())
-                .add("email", getEmail().toString())
-                .add("address", getAddress().toString())
-                .add("tags", getTags()) // Earmarked for deprecation - to be superseded by relations
                 .toString();
     }
     /**
