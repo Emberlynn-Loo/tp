@@ -122,10 +122,10 @@ public class EditRelationshipCommand extends Command {
                             + "relationtype and add it again.", newRelationshipDescriptor));
                 }
                 if (model.isRelationRoleBased(newRelationshipDescriptor)) {
-                    if (!role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            && !role1.equals(model.getRoles(newRelationshipDescriptor).get(1))
-                            && !role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            && !role2.equals(model.getRoles(newRelationshipDescriptor).get(1))) {
+                    if (!(role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            || role1.equals(model.getRoles(newRelationshipDescriptor).get(1)))
+                            || !(role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            || role2.equals(model.getRoles(newRelationshipDescriptor).get(1)))) {
                         throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
                                         + "\nIf you want to change the roles, please delete the"
                                         + "\nrelationtype and add it again.",

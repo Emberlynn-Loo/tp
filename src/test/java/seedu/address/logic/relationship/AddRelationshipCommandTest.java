@@ -82,7 +82,6 @@ class AddRelationshipCommandTest {
         model.addRelationship(new Relationship(person1Uuid, person2Uuid, familyRelationshipDescriptor));
         assertCommandFailure(addRelationshipCommand, model,
                 "Sorry, 00000000-0000-0000-0000-000000000001 and 00000000-0000-0000-0000-000000000002 are housemates");
-
     }
     @Test
     void testExecuteAddInvalidRelationshipDescriptorThrowsException() {
@@ -163,11 +162,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "siblings";
         String role1 = "brother";
         String role2 = "sister";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -192,11 +191,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "spouses";
         String role1 = "husband";
         String role2 = "husband";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -221,11 +220,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "workbuddies";
         String role1 = "subordinate";
         String role2 = "boss";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -234,5 +233,22 @@ class AddRelationshipCommandTest {
         Assertions.assertTrue(model.hasRelationshipWithDescriptor(
                 new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
                         UUID.fromString("00000000-0000-0000-0000-000000000002"), newRelationshipDescriptor)));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorFriends_nothingAddedOrDeleted() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String newRelationshipDescriptor = "friends";
+        String role1 = "subordinate";
+        String role2 = "boss";
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
+                targetUuid, newRelationshipDescriptor, role1, role2);
+        assertCommandFailure(addCommand, model,
+                "Sorry, friends cannot have roles");
     }
 }
