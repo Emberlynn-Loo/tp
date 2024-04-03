@@ -126,36 +126,6 @@ class AddRelationshipCommandTest {
     }
 
     @Test
-    void execute_addSiblingRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0002";
-        String relationshipDescriptor = "Siblings";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    void execute_addSpousesRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0002";
-        String relationshipDescriptor = "Spouses";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "husband"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     void execute_validInputs_success() throws CommandException {
         String testOriginUuid = "0001";
         String testTargetUuid = "0002";

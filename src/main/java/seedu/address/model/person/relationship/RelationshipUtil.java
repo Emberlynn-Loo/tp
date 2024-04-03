@@ -1,7 +1,9 @@
 package seedu.address.model.person.relationship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.relationship.Relationship.*;
+import static seedu.address.model.person.relationship.Relationship.rolebasedDescriptors;
+import static seedu.address.model.person.relationship.Relationship.rolelessDescriptors;
+import static seedu.address.model.person.relationship.Relationship.validDescriptors;
 
 import java.util.ArrayList;
 import java.util.Collections;

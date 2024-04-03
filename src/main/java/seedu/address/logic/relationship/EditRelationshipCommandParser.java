@@ -45,9 +45,12 @@ public class EditRelationshipCommandParser {
                     2, false).toLowerCase();
         } else {
             newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                    2, false).toLowerCase();
+                    3, false).toLowerCase();
         }
 
+        if (newRelationshipDescriptor.isEmpty()) {
+            throw new ParseException("Relationship Descriptor cannot be empty");
+        }
         if (!newRelationshipDescriptor.endsWith("s")) {
             newRelationshipDescriptor += "s";
         }
@@ -79,10 +82,6 @@ public class EditRelationshipCommandParser {
             if (newRelationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
-            }
-            if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
-                throw new ParseException("There's no need to edit the relationship "
-                        + "if the new relationship is the same as the old one.");
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor);

@@ -7,7 +7,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.relationship.*;
+import seedu.address.model.person.relationship.BioParentsRelationship;
+import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
+import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.
@@ -93,8 +97,7 @@ public class AddRelationshipCommand extends Command {
                                 + "\nIf you want to use it, please delete the roles"
                                 + "\nIf you want to make it a role based relationship, please delete the "
                                 + "relationtype and add it again.", relationshipDescriptor));
-                    }
-                    else {
+                    } else {
                         String existing = model.getExistingRelationship(toAdd);
                         throw new CommandException(String.format("Sorry, %s", existing));
                     }

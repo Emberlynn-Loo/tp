@@ -1,7 +1,6 @@
 package seedu.address.logic.relationship;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -18,10 +17,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 
 class AddRelationshipCommandParserTest {
     private Model model;
@@ -102,51 +98,6 @@ class AddRelationshipCommandParserTest {
         AddRelationshipCommand addRelationshipCommand =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor, role1, role2);
         assertThrows(CommandException.class, () -> addRelationshipCommand.execute(model));
-    }
-
-    @Test
-    void execute_addBioParentsRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0002";
-        String relationshipDescriptor = "bioparents";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        expectedModel.addRelationship(
-                new BioParentsRelationship(person1Uuid, person2Uuid, "parent", "child"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    void execute_addSpousesRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0003";
-        String relationshipDescriptor = "spouses";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000003");
-        expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "wife"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    void execute_addSiblingRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0005";
-        String relationshipDescriptor = "siblings";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
-        expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

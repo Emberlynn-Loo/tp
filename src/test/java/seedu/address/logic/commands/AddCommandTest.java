@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -200,12 +201,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<String> getRoles(String descriptor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRolelessDescriptor(String newRelationshipDescriptor) {
+
+        }
+
+        @Override
+        public void addRolebasedDescriptor(String newRelationshipDescriptor) {
+        }
+
+        @Override
+        public boolean hasDescriptor(String descriptor) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,7 +250,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteRelationType(String relationType) {
+        }
 
+        @Override
+        public boolean isRelationRoleBased(String descriptor) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
