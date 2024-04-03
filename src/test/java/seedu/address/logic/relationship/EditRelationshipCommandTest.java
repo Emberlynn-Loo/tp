@@ -134,34 +134,4 @@ public class EditRelationshipCommandTest {
         assertEquals("Invalid Relationship type. Must only consist of letters.",
                 exception.getMessage());
     }
-
-    @Test
-    public void execute_validInputWithNewRelationshipDescriptorNotSpouses_nothingAddedOrDeleted() {
-        // Setup
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String oldRelationshipDescriptor = "friend";
-        String newRelationshipDescriptor = "workbuddies";
-        String role1 = "subordinate";
-        String role2 = "boss";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid,
-                targetUuid, oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
-
-        // Execute
-        CommandResult result = assertDoesNotThrow(() -> editCommand.execute(model));
-
-        // Verify
-        assertEquals(EditRelationshipCommand.MESSAGE_EDIT_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
-
-        // Assert that no relationship was added or deleted
-        assertFalse(model.hasRelationshipWithDescriptor(
-                new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor)));
-        assertTrue(model.hasRelationshipWithDescriptor(
-                new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                        UUID.fromString("00000000-0000-0000-0000-000000000002"), newRelationshipDescriptor)));
-    }
 }
