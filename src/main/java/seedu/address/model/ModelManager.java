@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -177,14 +178,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRolebasedDescriptor(String newRelationshipDescriptor) {
-        Relationship.addRolebasedDescriptor(newRelationshipDescriptor);
+    public void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2) {
+        Relationship.addRolebasedDescriptor(newRelationshipDescriptor, role1, role2);
     }
 
     @Override
-    public boolean hasDescriptor(String descriptor) {
-        return Relationship.hasDescriptor(descriptor);
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+        return addressBook.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }
+
     /**
      * Returns an unmodifiable view of the list of {@code Relationship} backed by the internal list of
      * {@code versionedAddressBook}

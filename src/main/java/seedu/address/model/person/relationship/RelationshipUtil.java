@@ -445,13 +445,13 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if a relationship with a specific descriptor exists in the tracker.
-     * @param descriptor The descriptor to find.
-     * @return true if the relationship exists, false otherwise.
+     * Checks if a relationship type is role-based.
+     * @param descriptor The descriptor to check.
+     * @return true if the relationship type is role-based, false otherwise.
      */
     public boolean isRelationRoleBased(String descriptor) {
-        for (String relationship : rolebasedDescriptors) {
-            if (relationship.equals(descriptor)) {
+        for (ArrayList<String> relationship : rolebasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
                 return true;
             }
         }
@@ -460,14 +460,40 @@ public class RelationshipUtil {
 
     public List<String> getRoles(String descriptor) {
         List<String> roles = new ArrayList<>();
-        for (Relationship relationship : relationshipsTracker) {
-            if (relationship.getRelationshipDescriptor().equals(descriptor)
-                    && relationship instanceof RoleBasedRelationship) {
-                RoleBasedRelationship roleBasedRelationship = (RoleBasedRelationship) relationship;
-                roles.add(roleBasedRelationship.getRoleDescriptor(roleBasedRelationship.getPerson1()));
-                roles.add(roleBasedRelationship.getRoleDescriptor(roleBasedRelationship.getPerson2()));
+        for (ArrayList<String> relationship : rolebasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
+                ArrayList<String> roleBasedRelationship = relationship;
+                roles.add(roleBasedRelationship.get(1));
+                roles.add(roleBasedRelationship.get(2));
             }
         }
         return roles;
+    }
+
+    /**
+     * Checks if a relationship with the same roles already exists in the tracker.
+     * @param relationship The relationship to check.
+     * @param uuid1 The UUID of the first person in the relationship.
+     * @param uuid2 The UUID of the second person in the relationship.
+     * @return true if the relationship with the same roles exists, false otherwise.
+     */
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid1, UUID uuid2) {
+        for (Relationship storedRelationship : relationshipsTracker) {
+            if (storedRelationship instanceof RoleBasedRelationship) {
+                RoleBasedRelationship storedRoleBasedRelationship = (RoleBasedRelationship) storedRelationship;
+                if (storedRoleBasedRelationship.equals(relationship)) {
+                    String storedRole1 = storedRoleBasedRelationship.getRole(uuid1);
+                    String storedRole2 = storedRoleBasedRelationship.getRole(uuid2);
+                    String newRole1 = relationship.getRole(uuid1);
+                    String newRole2 = relationship.getRole(uuid2);
+                    if (storedRole1.equals(newRole1) && storedRole2.equals(newRole2)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

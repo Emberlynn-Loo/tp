@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RelationshipUtil;
-
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 
 /**
@@ -219,5 +219,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public List<String> getRoles(String descriptor) {
         return relationships.getRoles(descriptor);
+    }
+
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+        return relationships.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }
 }

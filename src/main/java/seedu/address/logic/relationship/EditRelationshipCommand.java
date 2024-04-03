@@ -85,6 +85,16 @@ public class EditRelationshipCommand extends Command {
             if (!model.hasRelationshipWithDescriptor(toEditOff)) {
                 throw new CommandException(String.format("Sorry %s do not exist", toEditOff));
             }
+            if (role1 != null && role2 != null) {
+                RoleBasedRelationship toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
+                        newRelationshipDescriptor, role1, role2);
+                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)
+                        && model.hasRelationshipWithRoles(toAdd, fullOriginUuid, fullTargetUuid)
+                        && model.hasRelationshipWithRoles(toAdd, fullTargetUuid, fullOriginUuid)) {
+                    throw new ParseException("There's no need to edit the relationship "
+                            + "if the new relationship is the same as the old one.");
+                }
+            }
             model.deleteRelationship(toEditOff);
             if (model.hasRelationshipWithDescriptor(toEditIn)) {
                 String existing = model.getExistingRelationship(toEditIn);
@@ -104,33 +114,27 @@ public class EditRelationshipCommand extends Command {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             newRelationshipDescriptor, role1, role2);
                 }
-                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)
-                        && (role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                        || role1.equals(model.getRoles(newRelationshipDescriptor).get(0)))) {
-                    throw new ParseException("There's no need to edit the relationship "
-                                + "if the new relationship is the same as the old one.");
-                }
-                if (!model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
+                if (!model.isRelationRoleBased(newRelationshipDescriptor) && role1 != null && role2 != null) {
                     throw new CommandException(String.format("Sorry, you did not add %s as a "
                             + "role based relationship."
                             + "\nIf you want to use it, please delete the roles"
                             + "\nIf you want to make it a role based relationship, please delete the "
                             + "relationtype and add it again.", newRelationshipDescriptor));
                 }
-                if (model.hasDescriptor(newRelationshipDescriptor)) {
-                    if ((!role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            || !role1.equals(model.getRoles(newRelationshipDescriptor).get(1)))
-                        && (!role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            || !role2.equals(model.getRoles(newRelationshipDescriptor).get(1)))) {
+                if (model.isRelationRoleBased(newRelationshipDescriptor)) {
+                    if (!role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            && !role1.equals(model.getRoles(newRelationshipDescriptor).get(1))
+                            && !role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            && !role2.equals(model.getRoles(newRelationshipDescriptor).get(1))) {
                         throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
-                                        + "\nIf you want to make change the roles, please delete the"
+                                        + "\nIf you want to change the roles, please delete the"
                                         + "\nrelationtype and add it again.",
                                 model.getRoles(newRelationshipDescriptor).get(0),
                                 model.getRoles(newRelationshipDescriptor).get(1)));
                     }
                 }
                 model.addRelationship(toAdd);
-                model.addRolebasedDescriptor(newRelationshipDescriptor);
+                model.addRolebasedDescriptor(newRelationshipDescriptor, role1, role2);
             } else {
                 if (model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
                     throw new CommandException(String.format("Sorry, you added %s as a role based relationship."
@@ -151,7 +155,7 @@ public class EditRelationshipCommand extends Command {
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(e.getMessage()));
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new CommandException(e.getMessage());
         }
     }
 }

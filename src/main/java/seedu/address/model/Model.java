@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 /**
  * The API of the Model component.
@@ -132,7 +133,7 @@ public interface Model {
     ResultContainer familySearch(UUID originUuid, UUID targetUuid);
 
     void addRolelessDescriptor(String newRelationshipDescriptor);
-    void addRolebasedDescriptor(String newRelationshipDescriptor);
+    void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2);
 
-    boolean hasDescriptor(String descriptor);
+    boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2);
 }

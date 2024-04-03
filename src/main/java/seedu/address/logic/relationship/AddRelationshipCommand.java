@@ -103,7 +103,7 @@ public class AddRelationshipCommand extends Command {
                     }
                 }
                 model.addRelationship(toAdd);
-                model.addRolebasedDescriptor(relationshipDescriptor);
+                model.addRolebasedDescriptor(relationshipDescriptor, rolePerson1, rolePerson2);
                 return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
             }
             if (model.isRelationRoleBased(relationshipDescriptor)) {

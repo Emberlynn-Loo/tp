@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 public class AddCommandTest {
 
@@ -221,11 +222,11 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addRolebasedDescriptor(String newRelationshipDescriptor) {
+        public void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2) {
         }
 
         @Override
-        public boolean hasDescriptor(String descriptor) {
+        public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
             throw new AssertionError("This method should not be called.");
         }
 
