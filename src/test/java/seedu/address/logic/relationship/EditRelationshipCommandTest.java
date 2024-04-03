@@ -1,17 +1,13 @@
 package seedu.address.logic.relationship;
 
-import static javafx.beans.binding.Bindings.when;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import javafx.beans.value.ObservableBooleanValue;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -22,8 +18,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.testutil.TypicalPersonsUuid;
-
-import javax.management.relation.Role;
 
 public class EditRelationshipCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
@@ -318,8 +312,8 @@ public class EditRelationshipCommandTest {
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
         String targetUuid = "0002";
-        String oldRelationshipDescriptor = "smt";
-        String newRelationshipDescriptor = "smtelse";
+        String oldRelationshipDescriptor = "smttt";
+        String newRelationshipDescriptor = "smtelsee";
         String role1 = "role";
         String role2 = "rolee";
 
@@ -335,7 +329,7 @@ public class EditRelationshipCommandTest {
                 oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
         CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Expected CommandException");
-        assertEquals("Sorry, you did not add smtelse as a "
+        assertEquals("Sorry, you did not add smtelsee as a "
                         + "role based relationship."
                         + "\nIf you want to use it, please delete the roles"
                         + "\nIf you want to make it a role based relationship, please delete the "
@@ -433,10 +427,40 @@ public class EditRelationshipCommandTest {
         String originUuid = "0001";
         String targetUuid = "0002";
         String oldRelationshipDescriptor = "smt";
+        String role1 = "role";
+        String role2 = "rolee";
 
-        Relationship oldRelationship = new Relationship(
+        Relationship oldRelationship = new RoleBasedRelationship(
                 UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor);
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor, role1, role2);
+        model.addRelationship(oldRelationship);
+        model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
+
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
+                oldRelationshipDescriptor, oldRelationshipDescriptor, role1, role2);
+        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("There's no need to edit the relationship "
+                        + "if the new relationship is the same as the old one.",
+                exception.getMessage());
+    }
+
+
+    @Test
+    public void execute_hasDescriptorInvalidSameDescriptor_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "smtt";
+        String role1 = "role";
+        String role2 = "rolee";
+
+        Relationship oldRelationship = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                role1, role2);
         model.addRelationship(oldRelationship);
         model.addRolelessDescriptor(oldRelationshipDescriptor);
 
