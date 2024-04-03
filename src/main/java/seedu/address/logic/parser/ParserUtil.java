@@ -259,10 +259,6 @@ public class ParserUtil {
                 relationshipMap.put(relationshipTypeKey, null);
             } else if (i == 3) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
-                if (separateUuidAndValues(parts[i])[0].equals(relationshipMap.keySet().toArray(new String[0])[2])) {
-                    throw new ParseException("There's no need to edit the relationship "
-                            + "if the new relationship is the same as the old one.");
-                }
                 String relationshipTypeKey = relationshipType[0];
                 relationshipMap.put(relationshipTypeKey, null);
             }

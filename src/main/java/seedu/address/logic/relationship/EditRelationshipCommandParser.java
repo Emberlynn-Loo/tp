@@ -39,8 +39,14 @@ public class EditRelationshipCommandParser {
         String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
         String oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                 2, false).toLowerCase();
-        String newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                3, false).toLowerCase();
+        String newRelationshipDescriptor;
+        if (relationshipMap.size() == 3) {
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, false).toLowerCase();
+        } else {
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, false).toLowerCase();
+        }
 
         if (!newRelationshipDescriptor.endsWith("s")) {
             newRelationshipDescriptor += "s";
@@ -73,6 +79,10 @@ public class EditRelationshipCommandParser {
             if (newRelationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
+            }
+            if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
+                throw new ParseException("There's no need to edit the relationship "
+                        + "if the new relationship is the same as the old one.");
             }
             return new EditRelationshipCommand(originUuid, targetUuid, oldRelationshipDescriptor,
                     newRelationshipDescriptor);

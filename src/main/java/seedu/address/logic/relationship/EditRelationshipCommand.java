@@ -6,6 +6,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
@@ -103,6 +104,12 @@ public class EditRelationshipCommand extends Command {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             newRelationshipDescriptor, role1, role2);
                 }
+                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)
+                        && (role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                        || role1.equals(model.getRoles(newRelationshipDescriptor).get(0)))) {
+                    throw new ParseException("There's no need to edit the relationship "
+                                + "if the new relationship is the same as the old one.");
+                }
                 if (!model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
                     throw new CommandException(String.format("Sorry, you did not add %s as a "
                             + "role based relationship."
@@ -133,12 +140,18 @@ public class EditRelationshipCommand extends Command {
                             model.getRoles(newRelationshipDescriptor).get(0),
                             model.getRoles(newRelationshipDescriptor).get(1)));
                 }
+                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
+                    throw new ParseException("There's no need to edit the relationship "
+                                + "if the new relationship is the same as the old one.");
+                }
                 model.addRelationship(toEditIn);
                 model.addRolelessDescriptor(newRelationshipDescriptor);
             }
             return new CommandResult(MESSAGE_EDIT_RELATIONSHIP_SUCCESS);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(e.getMessage()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 }
