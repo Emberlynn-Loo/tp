@@ -115,6 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
+
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
@@ -129,25 +130,32 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-### Attribute component
+#### Model component - Person
 
 **API** : [`Attribute.java`](https://github.com/AY2324S2-CS2103T-T11-1/tp/tree/master/src/main/java/seedu/address/model/person/attribute)
 
 <img src="images/AttributeClassDiagram.png" width="550" />
 
-The `Attribute` component,
+The `Person` component,
 
-* stores the attribute data i.e., all `Attribute` objects (which are contained in a `UniqueAttributeList` object).
-* stores the `Attribute` objects in the `Person` object in the hash map.
-* stores the currently 'selected' `Attribute` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Attribute>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components (as the `Attribute` represents data entities of the domain, they should make sense on their own without depending on other components)
-* depends on some classes in the `Model` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Model`)
-* depends on some classes in the `Storage` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Storage`)
-* depends on some classes in the `UI` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `UI`)
-* depends on some classes in the `Logic` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Logic`)
-* depends on some classes in the `Commons` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Commons`)
+* contains details about the person, stored as `Attribute` objects.
+    * The `Attribute` component,
+        * stores details about a `Person`.
+        * stores the `Attribute` objects in the `Person` object in the hash map.
+        * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
+            * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints.
+        * does not depend on the other components (as the `Attribute` are standalone stores of details about the `Person`)
 
+#### Model component - Relationship
 
+TODO: Add class diagram for Relationship
+
+The `Relationship` component,
+
+* contains details about a relationship between two persons.
+* `Person` objects connected by a `Relationship` object are stored as UUIDs.
+* can be `RoleBasedRelationship`,
+    * which contains labels for each `Person` in the relationship.
 
 ### Storage component
 
