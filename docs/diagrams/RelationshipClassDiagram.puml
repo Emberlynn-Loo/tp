@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T4
+skinparam classBackgroundColor MODEL_COLOR
+
+
+
+package "UI"{
+}
+
+package "Model"{
+    package "Relationship classes"{
+    Class RelationshipUtil
+    Class Relationship
+    Class RoleBasedRelationship
+    Class BioParentsRelationship
+    Class FamilyRelationship
+    Class FriendsRelationship
+    Class SiblingRelationship
+    Class SpouseRelationship
+    }
+}
+
+UI .> RelationshipUtil
+
+RelationshipUtil *-down-> "*" Relationship
+
+Relationship <|-- RoleBasedRelationship
+Relationship <|-- FriendsRelationship
+
+
+BioParentsRelationship -up-|> RoleBasedRelationship
+FamilyRelationship -up-|> RoleBasedRelationship
+
+SpouseRelationship -up-|> FamilyRelationship
+SiblingRelationship -up-|> FamilyRelationship
+
+@enduml
