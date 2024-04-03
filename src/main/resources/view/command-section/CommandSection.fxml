@@ -11,7 +11,7 @@
     <stylesheets>
         <URL value="@command-section.css"/>
     </stylesheets>
-    <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" fx:id="commandSectionDialogScrollPane" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="command-section_scrollpane">
+    <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" fx:id="commandSectionDialogScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="command-section_scrollpane">
         <VBox fx:id="commandSectionDialogContainer" styleClass="command-section_dialog-container" VBox.vgrow="ALWAYS" spacing="10"/>
     </ScrollPane>
     <VBox fx:id="commandBoxContainer" styleClass="command-section_command-box-placeholder" VBox.vgrow="NEVER" alignment="TOP_CENTER" minHeight="200" spacing="10">
