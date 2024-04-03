@@ -745,7 +745,9 @@ testers are expected to do more *exploratory* testing.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Go to the folder where the Gene-nie jar file is located, using your file explorer.
+   2. Enter the `data` folder.
+   3. Delete the `addressbook.json` file.
 
