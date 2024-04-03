@@ -166,7 +166,7 @@ public class Person {
     }
 
 
-    private static void assertValidAttribute(Attribute attribute) {
+    static void assertValidAttribute(Attribute attribute) {
         if (attribute == null) {
             throw new IllegalArgumentException("Attribute cannot be null.");
         }
@@ -183,24 +183,6 @@ public class Person {
         if (!attributes.containsKey(attributeType)) {
             throw new IllegalArgumentException("Attribute with name " + attributeType + " does not exist");
         }
-    }
-
-    /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        Attribute otherPersonNameAttribute = otherPerson.attributes.get("Name");
-        Attribute thisPersonNameAttribute = this.attributes.get("Name");
-
-        return otherPerson != null
-                && otherPersonNameAttribute != null
-                && thisPersonNameAttribute != null
-                && otherPersonNameAttribute.getValueAsString().equals(thisPersonNameAttribute.getValueAsString());
     }
 
     /**

@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
+import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

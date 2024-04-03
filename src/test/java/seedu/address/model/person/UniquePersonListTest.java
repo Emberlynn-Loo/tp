@@ -3,19 +3,23 @@ package seedu.address.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
+import static seedu.address.testutil.TypicalPersonsUuid.BOB;
+import static seedu.address.testutil.TypicalPersonsUuid.IDA;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.attribute.Attribute;
+import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -188,5 +192,69 @@ public class UniquePersonListTest {
     void hasAttribute_nonExistingAttribute_returnsFalse() {
         boolean result = uniquePersonList.hasAttribute(ALICE.getUuidString(), "NonExistentAttribute");
         assertFalse(result);
+    }
+
+    @Test
+    public void iterator() {
+        UniquePersonList uniquePersonList = new UniquePersonList();
+        Person person1 = new Person(new Attribute[0]);
+        person1.updateAttribute(new NameAttribute("Name", "Amy Bee"));
+        Person person2 = new Person(new Attribute[0]);
+        person2.updateAttribute(new NameAttribute("Name", "Bob Charlie"));
+        uniquePersonList.add(person1);
+        uniquePersonList.add(person2);
+
+        Iterator<Person> iterator = uniquePersonList.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals(person1, iterator.next());
+        assertTrue(iterator.hasNext());
+        assertEquals(person2, iterator.next());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void equals() {
+        UniquePersonList uniquePersonList1 = new UniquePersonList();
+        Person person1 = new Person(new Attribute[0]);
+        person1.updateAttribute(new NameAttribute("Name", "Amy Bee"));
+        uniquePersonList1.add(person1);
+
+        UniquePersonList uniquePersonList2 = new UniquePersonList();
+        Person person2 = new Person(new Attribute[0]);
+        person2.updateAttribute(new NameAttribute("Name", "Amy Bee"));
+        uniquePersonList2.add(person2);
+
+        // Test for equality with the same object
+        assertTrue(uniquePersonList1.equals(uniquePersonList1));
+
+        // Test for equality with a different object with the same state
+        assertTrue(uniquePersonList1.equals(uniquePersonList2));
+
+        // Test for equality with null
+        assertFalse(uniquePersonList1.equals(null));
+
+        // Test for equality with a different type of object
+        assertFalse(uniquePersonList1.equals(new Object()));
+
+        // Test for equality with a different state
+        uniquePersonList2.remove(person2);
+        assertFalse(uniquePersonList1.equals(uniquePersonList2));
+    }
+
+    @Test
+    public void getPersonByUuid_nonExistingUuid_returnsNull() {
+        UniquePersonList uniquePersonList = new UniquePersonList();
+        Person person1 = new Person(new Attribute[0]);
+        person1.updateAttribute(new NameAttribute("Name", "Amy Bee"));
+        uniquePersonList.add(person1);
+
+        UUID nonExistingUuid = UUID.randomUUID();
+
+        while (uniquePersonList.getPersonByUuid(nonExistingUuid) != null) {
+            nonExistingUuid = UUID.randomUUID();
+        }
+
+        Person result = uniquePersonList.getPersonByUuid(nonExistingUuid);
+        assertNull(result);
     }
 }

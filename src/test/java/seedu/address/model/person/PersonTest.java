@@ -1,17 +1,22 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.TypicalPersonsUuid.ALICE;
-import static seedu.address.testutil.TypicalPersonsUuid.BOB;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -231,5 +236,68 @@ public class PersonTest {
         Person aliceCopy = new Person(new Attribute[]{name, birthday});
         aliceCopy.deleteAttribute("Name");
         assertFalse(aliceCopy.hasAttribute("Name"));
+    }
+
+    @Test
+    public void getLastFourCharacterOfUuid_validUuid_returnsLastFourCharacters() {
+        UUID uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        Attribute name = new NameAttribute("Name", "John Doe");
+        Attribute[] attributes = new Attribute[]{name};
+        Person person = new Person(uuid, attributes);
+
+        String lastFourCharacters = person.getLastFourCharacterOfUuid();
+        assertEquals("0001", lastFourCharacters);
+    }
+
+    @Test
+    public void getLastFourCharacterOfUuid_randomUuid_returnsLastFourCharacters() {
+        Attribute name = new NameAttribute("Name", "John Doe");
+        Attribute[] attributes = new Attribute[]{name};
+        Person person = new Person(attributes);
+
+        String lastFourCharacters = person.getLastFourCharacterOfUuid();
+        String expectedLastFourCharacters = person.getUuid().toString().substring(32);
+        assertEquals(expectedLastFourCharacters, lastFourCharacters);
+    }
+
+    @Test
+    public void assertValidAttribute_nullAttribute_throwsIllegalArgumentException() {
+        Attribute attribute = null;
+        assertThrows(IllegalArgumentException.class, () -> Person.assertValidAttribute(attribute));
+    }
+
+    @Test
+    public void assertValidAttribute_validAttribute_noExceptionThrown() {
+        Attribute attribute = new NameAttribute("Name", "John Doe");
+        assertDoesNotThrow(() -> Person.assertValidAttribute(attribute));
+    }
+
+    @Test
+    public void assertValidAttribute_invalidAttributeName_throwsIllegalArgumentException() {
+        Attribute attribute = new NameAttribute("", "John Doe");
+        assertThrows(IllegalArgumentException.class, () -> Person.assertValidAttribute(attribute));
+    }
+
+    @Test
+    public void allAttributesAsPairs_emptyAttributes_returnsNull() {
+        Attribute[] attributes = new Attribute[]{};
+        Person person = new Person(attributes);
+
+        assertNull(person.allAttributesAsPairs());
+    }
+
+    @Test
+    public void getAttributesMap_validPerson_returnsCorrectAttributesMap() {
+        // Create a Person with known attributes
+        Attribute name = new NameAttribute("Name", "John Doe");
+        Attribute email = new StringAttribute("Email", "johndoe@example.com");
+        Attribute[] attributes = new Attribute[]{name, email};
+        Person person = new Person(attributes);
+
+        // Call getAttributesMap and check if it returns the correct attributes map
+        HashMap<String, Attribute> attributesMap = person.getAttributesMap();
+        assertEquals(2, attributesMap.size());
+        assertEquals(name, attributesMap.get("Name"));
+        assertEquals(email, attributesMap.get("Email"));
     }
 }

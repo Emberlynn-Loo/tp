@@ -1,13 +1,19 @@
 {
-  "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+  "persons" : [ {
+    "uuid" : "00000000-0000-0000-0000-000000000001",
+    "attributes" : [
+      { "name": "Name", "value": "Alice Pauline" },
+      { "name": "Phone", "value": "94351253" },
+      { "name": "Email", "value": "alice@example.com" },
+      { "name": "Address", "value": "123, Jurong West Ave 6, #08-111" }
+    ]
   }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "uuid" : "invalid uuid",
+    "attributes" : [
+      { "name": "Name", "value": "Alice Pauline" },
+      { "name": "Phone", "value": "94351253" },
+      { "name": "Email", "value": "alice@example.com" },
+      { "name": "Address", "value": "123, Jurong West Ave 6, #08-111" }
+    ]
   } ]
 }

@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.Map;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +32,6 @@ import seedu.address.logic.relationship.EditRelationshipCommandParser;
 import seedu.address.logic.relationship.FamilySearchCommand;
 import seedu.address.logic.relationship.FamilySearchCommandParser;
 import seedu.address.logic.relationship.ListRelationshipTypesCommand;
-import seedu.address.model.person.Person;
 
 /**
  * Parses user input.
@@ -54,7 +52,6 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, CommandException {
-        Map<String, Person> personMap; // Assume this is populated elsewhere
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
