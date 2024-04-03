@@ -69,7 +69,28 @@ class DeleteRelationshipCommandParserTest {
 
     @Test
     void execute_sameOriginAndTargetUuidsButNotTestUuids_throwsCommandException() {
-        String userInput = "/0001 /0001 /siblings";
+        String userInput = "/siblings";
+
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    void execute_sameOriginAndTargetUuidsSpouses_throwsCommandException() {
+        String userInput = "/spouses";
+
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    void execute_sameOriginAndTargetUuidsBioparents_throwsCommandException() {
+        String userInput = "/bioParents";
+
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    void execute_sameOriginAndTargetUuidsFriends_throwsCommandException() {
+        String userInput = "/friends";
 
         Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
@@ -104,5 +125,27 @@ class DeleteRelationshipCommandParserTest {
         String userInput = "/housemates";
         parser.parse(userInput);
 
+    }
+
+    @Test
+    public void parse_relationshipDescriptorDoesNotEndWithS_shouldAppendS() throws Exception {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/0001 /0002 /housemate";
+        parser.parse(userInput);
+    }
+
+    @Test
+    public void parse_relationshipDescriptorDoesNotEndWithSRoleless_shouldAppendS() throws Exception {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/housemate";
+        parser.parse(userInput);
+    }
+
+    @Test
+    void execute_sameOriginAndTargetUuidsFamily_throwsCommandException() {
+        String userInput = "/0001 /0002 /family";
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput),
+                "Please specify the type of familial relationship instead of 'Family'.\n"
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
     }
 }
