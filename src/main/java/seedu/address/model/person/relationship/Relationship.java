@@ -116,23 +116,4 @@ public class Relationship {
     public static String showRelationshipTypes() {
         return String.format("Valid relationship types are: %s", validDescriptors.toString());
     }
-
-    /**
-     * Adds a new relationship type to the list of valid relationship types.
-     */
-    public static void deleteRelationType(String relationType) {
-        if (!validDescriptors.contains(relationType)) {
-            throw new IllegalArgumentException("Relationship type does not exist yet");
-        }
-        if (relationType.equals("siblings") || relationType.equals("friend")
-                || relationType.equals("spouses") || relationType.equals("bioparents")) {
-            throw new IllegalArgumentException("Cannot delete default relationship type");
-        }
-        RelationshipUtil relationshipUtil = new RelationshipUtil();
-        if (relationshipUtil.descriptorExists(relationType)) {
-            throw new IllegalArgumentException("There are relationships under this relation type. "
-                    + "\nPlease delete them first.");
-        }
-        validDescriptors.remove(relationType);
-    }
 }

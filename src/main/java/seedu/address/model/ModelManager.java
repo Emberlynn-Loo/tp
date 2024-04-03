@@ -138,7 +138,7 @@ public class ModelManager implements Model {
     }
 
     public void deleteRelationType(String relationType) {
-        Relationship.deleteRelationType(relationType);
+        addressBook.deleteRelationType(relationType);
     }
 
     public String getExistingRelationship(Relationship toGet) {

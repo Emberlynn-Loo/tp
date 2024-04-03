@@ -208,4 +208,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(attributeName);
         return persons.hasAttribute(uuidString, attributeName);
     }
+
+    public void deleteRelationType(String relationType) {
+        relationships.deleteRelationType(relationType);
+    }
 }
