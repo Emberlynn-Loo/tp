@@ -212,4 +212,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void deleteRelationType(String relationType) {
         relationships.deleteRelationType(relationType);
     }
+
+    public boolean isRelationRoleBased(String descriptor) {
+        return relationships.isRelationRoleBased(descriptor);
+    }
+
+    public List<String> getRoles(String descriptor) {
+        return relationships.getRoles(descriptor);
+    }
 }

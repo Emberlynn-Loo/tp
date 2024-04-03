@@ -1,7 +1,7 @@
 package seedu.address.model.person.relationship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.relationship.Relationship.validDescriptors;
+import static seedu.address.model.person.relationship.Relationship.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -421,7 +421,7 @@ public class RelationshipUtil {
     /**
      * Adds a new relationship type to the list of valid relationship types.
      */
-    public static void deleteRelationType(String relationType) {
+    public void deleteRelationType(String relationType) {
         if (!validDescriptors.contains(relationType)) {
             throw new IllegalArgumentException("Relationship type does not exist yet");
         }
@@ -429,11 +429,43 @@ public class RelationshipUtil {
                 || relationType.equals("spouses") || relationType.equals("bioparents")) {
             throw new IllegalArgumentException("Cannot delete default relationship type");
         }
-        RelationshipUtil relationshipUtil = new RelationshipUtil();
-        if (relationshipUtil.descriptorExists(relationType)) {
+        if (descriptorExists(relationType)) {
             throw new IllegalArgumentException("There are relationships under this relation type. "
                     + "\nPlease delete them first.");
         }
         validDescriptors.remove(relationType);
+        if (!rolebasedDescriptors.contains(relationType)) {
+            rolebasedDescriptors.remove(relationType);
+        }
+        if (!rolelessDescriptors.contains(relationType)) {
+            rolelessDescriptors.remove(relationType);
+        }
+    }
+
+    /**
+     * Checks if a relationship with a specific descriptor exists in the tracker.
+     * @param descriptor The descriptor to find.
+     * @return true if the relationship exists, false otherwise.
+     */
+    public boolean isRelationRoleBased(String descriptor) {
+        for (String relationship : rolebasedDescriptors) {
+            if (relationship.equals(descriptor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<String> getRoles(String descriptor) {
+        List<String> roles = new ArrayList<>();
+        for (Relationship relationship : relationshipsTracker) {
+            if (relationship.getRelationshipDescriptor().equals(descriptor)
+                    && relationship instanceof RoleBasedRelationship) {
+                RoleBasedRelationship roleBasedRelationship = (RoleBasedRelationship) relationship;
+                roles.add(roleBasedRelationship.getRoleDescriptor(roleBasedRelationship.getPerson1()));
+                roles.add(roleBasedRelationship.getRoleDescriptor(roleBasedRelationship.getPerson2()));
+            }
+        }
+        return roles;
     }
 }

@@ -22,6 +22,7 @@ public class RoleBasedRelationship extends Relationship {
         roles.put(person1, rolePerson1);
         roles.put(person2, rolePerson2);
     }
+
     public String getRoleDescriptor(UUID targetPerson) {
         if (!targetPerson.equals(super.getPerson1()) && !targetPerson.equals(super.getPerson2())) {
             throw new IllegalArgumentException("This person is not in this relationship");

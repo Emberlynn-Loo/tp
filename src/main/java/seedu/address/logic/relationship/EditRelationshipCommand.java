@@ -84,10 +84,11 @@ public class EditRelationshipCommand extends Command {
             if (!model.hasRelationshipWithDescriptor(toEditOff)) {
                 throw new CommandException(String.format("Sorry %s do not exist", toEditOff));
             }
-            if (model.hasRelationshipWithDescriptor(toEditIn)) {
-                throw new CommandException(String.format("%s already exists", toEditIn));
-            }
             model.deleteRelationship(toEditOff);
+            if (model.hasRelationshipWithDescriptor(toEditIn)) {
+                String existing = model.getExistingRelationship(toEditIn);
+                throw new CommandException(String.format("Sorry, %s", existing));
+            }
             if (role1 != null && role2 != null) {
                 RoleBasedRelationship toAdd;
                 if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
@@ -102,9 +103,38 @@ public class EditRelationshipCommand extends Command {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             newRelationshipDescriptor, role1, role2);
                 }
+                if (!model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
+                    throw new CommandException(String.format("Sorry, you did not add %s as a "
+                            + "role based relationship."
+                            + "\nIf you want to use it, please delete the roles"
+                            + "\nIf you want to make it a role based relationship, please delete the "
+                            + "relationtype and add it again.", newRelationshipDescriptor));
+                }
+                if (model.hasDescriptor(newRelationshipDescriptor)) {
+                    if ((!role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            || !role1.equals(model.getRoles(newRelationshipDescriptor).get(1)))
+                        && (!role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
+                            || !role2.equals(model.getRoles(newRelationshipDescriptor).get(1)))) {
+                        throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
+                                        + "\nIf you want to make change the roles, please delete the"
+                                        + "\nrelationtype and add it again.",
+                                model.getRoles(newRelationshipDescriptor).get(0),
+                                model.getRoles(newRelationshipDescriptor).get(1)));
+                    }
+                }
                 model.addRelationship(toAdd);
+                model.addRolebasedDescriptor(newRelationshipDescriptor);
             } else {
+                if (model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
+                    throw new CommandException(String.format("Sorry, you added %s as a role based relationship."
+                                    + "\nIf you want to use it, please use the roles you added: [%s, %s]"
+                                    + "\nIf you want to make it a role based relationship, please delete the"
+                                    + "\nrelationtype and add it again.", newRelationshipDescriptor,
+                            model.getRoles(newRelationshipDescriptor).get(0),
+                            model.getRoles(newRelationshipDescriptor).get(1)));
+                }
                 model.addRelationship(toEditIn);
+                model.addRolelessDescriptor(newRelationshipDescriptor);
             }
             return new CommandResult(MESSAGE_EDIT_RELATIONSHIP_SUCCESS);
         } catch (IllegalArgumentException e) {

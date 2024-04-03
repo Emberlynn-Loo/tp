@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -141,6 +142,11 @@ public class ModelManager implements Model {
         addressBook.deleteRelationType(relationType);
     }
 
+    @Override
+    public boolean isRelationRoleBased(String descriptor) {
+        return addressBook.isRelationRoleBased(descriptor);
+    }
+
     public String getExistingRelationship(Relationship toGet) {
         return addressBook.getExistingRelationship(toGet);
     }
@@ -148,6 +154,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteRelationshipsOfPerson(UUID personUuid) {
         addressBook.deleteRelationshipsOfPerson(personUuid);
+    }
+
+    @Override
+    public List<String> getRoles(String descriptor) {
+        return addressBook.getRoles(descriptor);
     }
 
     @Override
@@ -160,6 +171,20 @@ public class ModelManager implements Model {
         return addressBook.familySearch(originUuid, targetUuid);
     }
 
+    @Override
+    public void addRolelessDescriptor(String newRelationshipDescriptor) {
+        Relationship.addRolelessDescriptor(newRelationshipDescriptor);
+    }
+
+    @Override
+    public void addRolebasedDescriptor(String newRelationshipDescriptor) {
+        Relationship.addRolebasedDescriptor(newRelationshipDescriptor);
+    }
+
+    @Override
+    public boolean hasDescriptor(String descriptor) {
+        return Relationship.hasDescriptor(descriptor);
+    }
     /**
      * Returns an unmodifiable view of the list of {@code Relationship} backed by the internal list of
      * {@code versionedAddressBook}

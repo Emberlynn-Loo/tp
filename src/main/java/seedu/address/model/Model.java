@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -120,9 +121,18 @@ public interface Model {
 
     void deleteRelationType(String relationType);
 
+    boolean isRelationRoleBased(String descriptor);
+
     void deleteRelationshipsOfPerson(UUID personUuid);
+
+    List<String> getRoles(String descriptor);
 
     ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
     ResultContainer familySearch(UUID originUuid, UUID targetUuid);
+
+    void addRolelessDescriptor(String newRelationshipDescriptor);
+    void addRolebasedDescriptor(String newRelationshipDescriptor);
+
+    boolean hasDescriptor(String descriptor);
 }

@@ -10,6 +10,8 @@ import java.util.UUID;
 public class Relationship {
     protected static ArrayList<String> validDescriptors = new ArrayList<>(
             Arrays.asList("friend", "siblings", "spouses", "bioparents"));
+    protected static ArrayList<String> rolebasedDescriptors = new ArrayList<>(validDescriptors);
+    protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(validDescriptors);
     protected UUID person1;
     protected UUID person2;
     protected boolean isFamilyRelationship;
@@ -35,6 +37,30 @@ public class Relationship {
         isFamilyRelationship = relationshipDescriptor.equalsIgnoreCase("family");
         this.relationshipDescriptor = relationshipDescriptor;
     }
+
+    public static void addRolelessDescriptor(String descriptor) {
+        rolelessDescriptors.add(descriptor);
+    }
+
+    public static void addRolebasedDescriptor(String descriptor) {
+        rolebasedDescriptors.add(descriptor);
+    }
+
+    /**
+     * Checks if the given descriptor is a valid relationship descriptor.
+     *
+     * @param descriptor The descriptor to check.
+     * @return True if the descriptor is valid, false otherwise.
+     */
+    public static boolean hasDescriptor(String descriptor) {
+        for (String validDescriptor : rolebasedDescriptors) {
+            if (validDescriptor.equalsIgnoreCase(descriptor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Getters for person UUIDs
     public UUID getPerson1() {
         return person1;

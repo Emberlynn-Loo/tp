@@ -45,6 +45,9 @@ public class EditRelationshipCommandParser {
         if (!newRelationshipDescriptor.endsWith("s")) {
             newRelationshipDescriptor += "s";
         }
+        if (!oldRelationshipDescriptor.endsWith("s")) {
+            oldRelationshipDescriptor += "s";
+        }
 
         if (newRelationshipDescriptor.equalsIgnoreCase("bioparents")
                 || newRelationshipDescriptor.equalsIgnoreCase("siblings")
