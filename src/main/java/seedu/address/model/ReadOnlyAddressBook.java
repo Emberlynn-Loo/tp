@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RelationshipUtil;
 
 /**
  * Unmodifiable view of an address book
@@ -15,5 +16,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
     ObservableList<Relationship> getRelationshipList();
-
+    RelationshipUtil getRelationshipDescriptors();
 }

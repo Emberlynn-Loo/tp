@@ -2,10 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
@@ -62,6 +64,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setRelationships(List<Relationship> relationships) {
         this.relationships.setRelationships(relationships);
+    }
+
+    public void setRelationshipDescriptors(Pair<ArrayList<String>,
+            ArrayList<ArrayList<String>>> relationshipDescriptors) {
+        this.relationships.setRelationshipDescriptors(relationshipDescriptors.getKey(),
+                relationshipDescriptors.getValue());
     }
 
     /**
@@ -128,6 +136,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Relationship> getRelationshipList() {
         return relationships.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public RelationshipUtil getRelationshipDescriptors() {
+        return relationships;
     }
 
     public void addRelationship(Relationship toAdd) {
