@@ -132,9 +132,7 @@ The `Model` component,
 
 #### Model component - Person
 
-**API** : [`Attribute.java`](https://github.com/AY2324S2-CS2103T-T11-1/tp/tree/master/src/main/java/seedu/address/model/person/attribute)
-
-<img src="images/AttributeClassDiagram.png" width="550" />
+<img src="images/PersonClassDiagram.png" width="550" />
 
 The `Person` component,
 
@@ -148,7 +146,7 @@ The `Person` component,
 
 #### Model component - Relationship
 
-TODO: Add class diagram for Relationship
+<img src="images/RelationshipClassDiagram.png" width="550" />
 
 The `Relationship` component,
 

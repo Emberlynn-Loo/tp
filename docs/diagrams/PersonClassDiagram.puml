@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T4
+skinparam classBackgroundColor MODEL_COLOR
+
+package "Logic"{
+}
+
+package "UI"{
+}
+
+package "Model"{
+    package "Person class"{
+    Class Person
+    }
+}
+
+package "Attribute classes"{
+abstract Class Attribute
+Class StringAttribute
+Class IntegerAttribute
+Class DateAttribute
+Class BirthdayAttribute
+Class NameAttribute
+Class PhoneNumberAttribute
+Class SexAttribute
+}
+
+Logic -> "*" Person
+UI .> Person
+
+Person *-down-> "*" Attribute
+
+Attribute <|-- StringAttribute
+Attribute <|-- IntegerAttribute
+Attribute <|-- DateAttribute
+Attribute <|-- SexAttribute
+
+DateAttribute <|-- BirthdayAttribute
+StringAttribute <|-- NameAttribute
+IntegerAttribute <|-- PhoneNumberAttribute
+
+Person -down[hidden]- Attribute
+@enduml
