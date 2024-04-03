@@ -5,6 +5,9 @@
 .treeMapPaneScrollPane {
     -fx-background-color: transparent;
 }
+.treeMapPaneScrollPane .viewport {
+    -fx-background-color: transparent;
+}
 
 .treeMapPaneScrollPane .scroll-bar:vertical .increment-arrow,
 .treeMapPaneScrollPane .scroll-bar:vertical .decrement-arrow,

@@ -1,7 +1,7 @@
 .anyListSection_treeMapContainer {
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    -fx-padding: 0 0 25 0;
+    -fx-background-color: transparent;
     -fx-border-radius: 10;
     -fx-min-height: 200;
     -fx-pref-height: 350;

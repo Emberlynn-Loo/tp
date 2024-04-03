@@ -103,8 +103,8 @@ public class CommandSection extends UiPart<Region> {
         commandBoxImageContainer.setManaged(true);
         if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
             pastCommands.add(commandText);
-            pastCommandIndex = pastCommands.size();
         }
+        pastCommandIndex = pastCommands.size();
         try {
             CommandResult commandResult = commandExecutor.execute(commandText);
             setDialogLabel(commandResult.getFeedbackToUser(), true);
