@@ -286,7 +286,7 @@ _{more aspects and alternatives to be added}_
 * Often only has provisional or partial information about their family members
 
 
-**Value proposition**: JENGA puts connections between people at the forefront.
+**Value proposition**: Gene-nie puts connections between people at the forefront.
 
 ### User stories
 
@@ -312,11 +312,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to add a new person to JENGA.
-2.  JENGA prompts user for details of new person.
+1.  User requests to add a new person to Gene-nie.
+2.  Gene-nie prompts user for details of new person.
 3.  User enters the necessary information.
-4.  JENGA adds person with the provided details.
-5.  JENGA displays new person added and confirmation message.
+4.  Gene-nie adds person with the provided details.
+5.  Gene-nie displays new person added and confirmation message.
 
     Use case ends.
 
@@ -324,9 +324,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. User enters incomplete or invalid information.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -337,10 +337,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons.
-2.  JENGA displays a list of persons.
+2.  Gene-nie displays a list of persons.
 3.  User selects a specific person in the list to delete by providing the person’s UUID.
-4.  JENGA deletes the person.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes the person.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -348,13 +348,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. JENGA informs the user the list is empty.
+    * 2a1. Gene-nieinforms the user the list is empty.
 
       Use case ends.
 
 * 3a. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
       Use case resumes at step 4.
 
@@ -363,10 +363,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to add an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute details.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute details.
 3.  User enters UUID and attribute information.
-4.  JENGA adds attribute details to specific person’s profile.
-5.  JENGA displays attribute in person’s profile and confirmation message.
+4.  Gene-nie adds attribute details to specific person’s profile.
+5.  Gene-nie displays attribute in person’s profile and confirmation message.
 
     Use case ends.
 
@@ -374,9 +374,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -386,9 +386,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -401,10 +401,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit to add an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute details to add.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute details to add.
 3.  User enters UUID and attribute information.
-4.  JENGA adds attribute details to specific person’s profile.
-5.  JENGA displays attribute in person’s profile and confirmation message.
+4.  Gene-nie adds attribute details to specific person’s profile.
+5.  Gene-nie displays attribute in person’s profile and confirmation message.
 
     Use case ends.
 
@@ -412,9 +412,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -424,9 +424,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -439,10 +439,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit to delete an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute to delete.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute to delete.
 3.  User enters UUID and attribute information.
-4.  JENGA deletes attribute in specific person’s profile.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes attribute in specific person’s profile.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -450,9 +450,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -462,9 +462,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -477,10 +477,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to delete a person.
-2.  JENGA prompts user for details of person.
+2.  Gene-nie prompts user for details of person.
 3.  User enters person’s UUID.
-4.  JENGA deletes person.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes person.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -488,9 +488,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -501,9 +501,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to find persons by attribute.
-2.  JENGA prompts user for attribute and attribute value(s).
+2.  Gene-nie prompts user for attribute and attribute value(s).
 3.  User enters attribute name and attribute value(s).
-4.  JENGA displays list of persons with each of the specified attributes.
+4.  Gene-nie displays list of persons with each of the specified attributes.
 
     Use case ends.
 
@@ -511,9 +511,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -523,7 +523,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The list is empty.
 
-    * 4a1. JENGA informs the user the list is empty.
+    * 4a1. Gene-nie informs the user the list is empty.
 
       Use case ends.
 
@@ -532,9 +532,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to find persons by relationship.
-2.  JENGA prompts user for relationship to User.
+2.  Gene-nie prompts user for relationship to User.
 3.  User enters relationship type.
-4.  JENGA displays list of persons with specified relationship to User.
+4.  Gene-nie displays list of persons with specified relationship to User.
 
     Use case ends.
 
@@ -542,9 +542,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -557,10 +557,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to add a relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
 3.  User enters both persons UUID and relationship type.
-4.  JENGA creates a relationship with the provided details.
-5.  JENGA displays new relationship added under both persons’ profiles and confirmation message.
+4.  Gene-nie creates a relationship with the provided details.
+5.  Gene-nie displays new relationship added under both persons’ profiles and confirmation message.
 
     Use case ends.
 
@@ -568,9 +568,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship type is invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -580,9 +580,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -595,10 +595,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit a specific relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and previous and new relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and previous and new relationship type.
 3.  User enters both persons UUID and previous and new relationship type.
-4.  JENGA edits the specified relationship with the provided details.
-5.  JENGA displays edited relationship under both persons’ profiles and confirmation message.
+4.  Gene-nie edits the specified relationship with the provided details.
+5.  Gene-nie displays edited relationship under both persons’ profiles and confirmation message.
 
     Use case ends.
 
@@ -606,9 +606,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship types are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -618,9 +618,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -633,10 +633,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to delete a specific relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
 3.  User enters both persons UUID and specified relationship type.
-4.  JENGA deletes specified relationship.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes specified relationship.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -644,9 +644,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship type is invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -656,9 +656,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -666,14 +666,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Exit JENGA**
+**Use case: Exit Gene-nie**
 
 **MSS**
 
-1.  User requests to exit JENGA.
-2.  JENGA displays goodbye message.
-3.  JENGA saves current data.
-4.  JENGA closes the application window.
+1.  User requests to exit Gene-nie.
+2.  Gene-nie displays goodbye message.
+3.  Gene-nie saves current data.
+4.  Gene-nie closes the application window.
 
     Use case ends.
 
