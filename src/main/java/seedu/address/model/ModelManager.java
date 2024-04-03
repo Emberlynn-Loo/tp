@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RelationshipUtil;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 /**
@@ -174,12 +175,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addRolelessDescriptor(String newRelationshipDescriptor) {
-        Relationship.addRolelessDescriptor(newRelationshipDescriptor);
+        RelationshipUtil.addRolelessDescriptor(newRelationshipDescriptor);
     }
 
     @Override
     public void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2) {
-        Relationship.addRolebasedDescriptor(newRelationshipDescriptor, role1, role2);
+        RelationshipUtil.addRoleBasedDescriptor(newRelationshipDescriptor, role1, role2);
     }
 
     @Override

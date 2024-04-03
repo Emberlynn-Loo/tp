@@ -1,11 +1,10 @@
 package seedu.address.model.person.relationship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.relationship.Relationship.rolebasedDescriptors;
-import static seedu.address.model.person.relationship.Relationship.rolelessDescriptors;
 import static seedu.address.model.person.relationship.Relationship.validDescriptors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -21,9 +20,17 @@ import seedu.address.commons.util.ResultContainer;
  * Allows for adding, deleting, and checking for existing relationships.
  */
 public class RelationshipUtil {
+    protected static ArrayList<ArrayList<String>> roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+            new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+            new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+            new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+    ));
+    protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
+            Arrays.asList("friend"));
     private final ObservableList<Relationship> relationshipsTracker = FXCollections.observableArrayList();
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
+
     private class Pair {
         private UUID uuid;
         private int relationshipPairIndex;
@@ -104,6 +111,25 @@ public class RelationshipUtil {
             }
         }
         throw new IllegalArgumentException("Relationship does not exist.");
+    }
+
+    public static void addRolelessDescriptor(String descriptor) {
+        rolelessDescriptors.add(descriptor);
+    }
+
+    /**
+     * Adds a new role-based descriptor to the list of valid role-based descriptors.
+     *
+     * @param descriptor The descriptor to be added.
+     * @param role1 The role of the first person in the relationship.
+     * @param role2 The role of the second person in the relationship.
+     */
+    public static void addRoleBasedDescriptor(String descriptor, String role1, String role2) {
+        ArrayList<String> descriptorList = new ArrayList<>();
+        descriptorList.add(descriptor);
+        descriptorList.add(role1);
+        descriptorList.add(role2);
+        roleBasedDescriptors.add(descriptorList);
     }
 
     /**
@@ -436,8 +462,8 @@ public class RelationshipUtil {
                     + "\nPlease delete them first.");
         }
         validDescriptors.remove(relationType);
-        if (!rolebasedDescriptors.contains(relationType)) {
-            rolebasedDescriptors.remove(relationType);
+        if (!roleBasedDescriptors.contains(relationType)) {
+            roleBasedDescriptors.remove(relationType);
         }
         if (!rolelessDescriptors.contains(relationType)) {
             rolelessDescriptors.remove(relationType);
@@ -450,7 +476,7 @@ public class RelationshipUtil {
      * @return true if the relationship type is role-based, false otherwise.
      */
     public boolean isRelationRoleBased(String descriptor) {
-        for (ArrayList<String> relationship : rolebasedDescriptors) {
+        for (ArrayList<String> relationship : roleBasedDescriptors) {
             if (relationship.get(0).equals(descriptor)) {
                 return true;
             }
@@ -460,7 +486,7 @@ public class RelationshipUtil {
 
     public List<String> getRoles(String descriptor) {
         List<String> roles = new ArrayList<>();
-        for (ArrayList<String> relationship : rolebasedDescriptors) {
+        for (ArrayList<String> relationship : roleBasedDescriptors) {
             if (relationship.get(0).equals(descriptor)) {
                 ArrayList<String> roleBasedRelationship = relationship;
                 roles.add(roleBasedRelationship.get(1));
@@ -495,5 +521,19 @@ public class RelationshipUtil {
             }
         }
         return false;
+    }
+
+    public ArrayList<ArrayList<String>> getRoleBasedDescriptors() {
+        return roleBasedDescriptors;
+    }
+
+    public ArrayList<String> getRolelessDescriptors() {
+        return rolelessDescriptors;
+    }
+
+    public void setRelationshipDescriptors(ArrayList<String> rolelessDescriptors,
+                                                  ArrayList<ArrayList<String>> roleBasedDescriptors) {
+        this.rolelessDescriptors = rolelessDescriptors;
+        this.roleBasedDescriptors = roleBasedDescriptors;
     }
 }

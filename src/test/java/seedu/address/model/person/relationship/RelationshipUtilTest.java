@@ -572,6 +572,6 @@ public class RelationshipUtilTest {
         relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, relationType));
         relationshipUtil.deleteRelationship(new Relationship(aliceUuid, bobUuid, relationType));
         relationshipUtil.deleteRelationType(relationType);
-        assertFalse(Relationship.rolelessDescriptors.contains(relationType));
+        assertFalse(RelationshipUtil.rolelessDescriptors.contains(relationType));
     }
 }
