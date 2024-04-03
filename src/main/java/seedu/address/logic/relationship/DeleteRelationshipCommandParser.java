@@ -42,7 +42,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             if (!relationshipDescriptor.endsWith("s")) {
                 relationshipDescriptor += "s";
             }
-            if (relationshipDescriptor.equals("family")) {
+            if (relationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }

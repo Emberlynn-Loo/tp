@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -147,5 +148,37 @@ class DeleteRelationshipCommandParserTest {
         Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput),
                 "Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/friends";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorSiblings_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/siblings";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorSpouses_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/spouses";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorBioparents_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/bioparents";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
     }
 }
