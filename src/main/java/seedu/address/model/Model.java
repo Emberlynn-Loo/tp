@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -9,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 /**
  * The API of the Model component.
@@ -120,9 +122,18 @@ public interface Model {
 
     void deleteRelationType(String relationType);
 
+    boolean isRelationRoleBased(String descriptor);
+
     void deleteRelationshipsOfPerson(UUID personUuid);
+
+    List<String> getRoles(String descriptor);
 
     ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
     ResultContainer familySearch(UUID originUuid, UUID targetUuid);
+
+    void addRolelessDescriptor(String newRelationshipDescriptor);
+    void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2);
+
+    boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2);
 }

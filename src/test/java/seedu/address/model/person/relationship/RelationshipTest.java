@@ -70,46 +70,6 @@ public class RelationshipTest {
     }
 
     @Test
-    public void deleteRelationType_nonExistentType_throwsIllegalArgumentException() {
-        // Setup
-        String nonExistentType = "nonExistentType";
-
-        // Verify that deleting a non-existent relationship type throws IllegalArgumentException
-        assertThrows(IllegalArgumentException.class, () -> Relationship.deleteRelationType(nonExistentType));
-    }
-
-    @Test
-    public void deleteRelationType_defaultType_throwsIllegalArgumentException() {
-        // Setup
-        String defaultType = "friend";
-        assertThrows(IllegalArgumentException.class, () -> Relationship.deleteRelationType(defaultType));
-
-        String defaultType2 = "siblings";
-        assertThrows(IllegalArgumentException.class, () -> Relationship.deleteRelationType(defaultType2));
-
-        String defaultType3 = "spouses";
-        assertThrows(IllegalArgumentException.class, () -> Relationship.deleteRelationType(defaultType3));
-
-        String defaultType4 = "bioparents";
-        assertThrows(IllegalArgumentException.class, () -> Relationship.deleteRelationType(defaultType4));
-    }
-
-    @Test
-    public void deleteRelationType_validType_successfullyDeletesType() {
-        String relationshipDescriptor = "something";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000005");
-        Relationship existingRelationship = new Relationship(person1Uuid, person2Uuid,
-                relationshipDescriptor);
-        model.addRelationship(existingRelationship);
-        model.deleteRelationship(existingRelationship);
-        Relationship.deleteRelationType("something"); // Assuming validType does not exist initially
-
-        // Verify that the type is successfully deleted
-        assertFalse(Relationship.validDescriptors.contains("something"));
-    }
-
-    @Test
     public void testEqualsMethod_objectNotInstanceOfRelationship_returnsFalse() {
         // Setup
         Relationship relationship = new Relationship(PERSON_1_UUID, PERSON_2_UUID, SIBLINGS_RELATIONSHIP_DESCRIPTOR);

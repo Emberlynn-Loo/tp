@@ -1,5 +1,7 @@
 package seedu.address.logic.relationship;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
@@ -17,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.model.person.relationship.SiblingRelationship;
 import seedu.address.model.person.relationship.SpousesRelationship;
 import seedu.address.testutil.TypicalPersonsUuid;
@@ -82,7 +85,6 @@ class AddRelationshipCommandTest {
         model.addRelationship(new Relationship(person1Uuid, person2Uuid, familyRelationshipDescriptor));
         assertCommandFailure(addRelationshipCommand, model,
                 "Sorry, 00000000-0000-0000-0000-000000000001 and 00000000-0000-0000-0000-000000000002 are housemates");
-
     }
     @Test
     void testExecuteAddInvalidRelationshipDescriptorThrowsException() {
@@ -126,36 +128,6 @@ class AddRelationshipCommandTest {
     }
 
     @Test
-    void execute_addSiblingRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0002";
-        String relationshipDescriptor = "Siblings";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        expectedModel.addRelationship(
-                new SiblingRelationship(person1Uuid, person2Uuid, "brother", "sister"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    void execute_addSpousesRelationship_success() {
-        String testOriginUuid = "0001";
-        String testTargetUuid = "0002";
-        String relationshipDescriptor = "Spouses";
-        AddRelationshipCommand addRelationshipCommand =
-                new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
-        String expectedMessage = "Add success";
-        UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
-        UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        expectedModel.addRelationship(
-                new SpousesRelationship(person1Uuid, person2Uuid, "husband", "husband"));
-        assertCommandSuccess(addRelationshipCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     void execute_validInputs_success() throws CommandException {
         String testOriginUuid = "0001";
         String testTargetUuid = "0002";
@@ -193,11 +165,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "siblings";
         String role1 = "brother";
         String role2 = "sister";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -222,11 +194,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "spouses";
         String role1 = "husband";
         String role2 = "husband";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -251,11 +223,11 @@ class AddRelationshipCommandTest {
         String newRelationshipDescriptor = "workbuddies";
         String role1 = "subordinate";
         String role2 = "boss";
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid,
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
                 targetUuid, newRelationshipDescriptor, role1, role2);
 
         // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> editCommand.execute(model));
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
 
         // Verify
         Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
@@ -264,5 +236,54 @@ class AddRelationshipCommandTest {
         Assertions.assertTrue(model.hasRelationshipWithDescriptor(
                 new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
                         UUID.fromString("00000000-0000-0000-0000-000000000002"), newRelationshipDescriptor)));
+    }
+
+    @Test
+    public void execute_validInputWithNewRelationshipDescriptorFriends_nothingAddedOrDeleted() {
+        // Setup
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String newRelationshipDescriptor = "friends";
+        String role1 = "subordinate";
+        String role2 = "boss";
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
+                targetUuid, newRelationshipDescriptor, role1, role2);
+        assertCommandFailure(addCommand, model,
+                "Sorry, friends cannot have roles");
+    }
+
+    @Test
+    public void execute_hasDescriptorFalseInvalidRoles_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "smt";
+        String newRelationshipDescriptor = "smtelse";
+        String role1 = "role";
+        String role2 = "rolee";
+
+        Relationship oldRelationship = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                role1, role2);
+        model.addRelationship(oldRelationship);
+        model.addRolelessDescriptor(newRelationshipDescriptor);
+        model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
+
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
+                oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
+        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Sorry, you did not add smtelse as a "
+                        + "role based relationship."
+                        + "\nIf you want to use it, please delete the roles"
+                        + "\nIf you want to make it a role based relationship, please delete the "
+                        + "relationtype and add it again.",
+                exception.getMessage());
     }
 }

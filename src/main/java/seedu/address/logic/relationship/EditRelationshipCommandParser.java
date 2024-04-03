@@ -39,11 +39,23 @@ public class EditRelationshipCommandParser {
         String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
         String oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                 2, false).toLowerCase();
-        String newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                3, false).toLowerCase();
+        String newRelationshipDescriptor;
+        if (relationshipMap.size() == 3) {
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, false).toLowerCase();
+        } else {
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    3, false).toLowerCase();
+        }
 
+        if (newRelationshipDescriptor.isEmpty()) {
+            throw new ParseException("Relationship Descriptor cannot be empty");
+        }
         if (!newRelationshipDescriptor.endsWith("s")) {
             newRelationshipDescriptor += "s";
+        }
+        if (!oldRelationshipDescriptor.endsWith("s")) {
+            oldRelationshipDescriptor += "s";
         }
 
         if (newRelationshipDescriptor.equalsIgnoreCase("bioparents")

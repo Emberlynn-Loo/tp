@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RelationshipUtil;
-
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 
 /**
@@ -207,5 +207,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(uuidString);
         requireNonNull(attributeName);
         return persons.hasAttribute(uuidString, attributeName);
+    }
+
+    public void deleteRelationType(String relationType) {
+        relationships.deleteRelationType(relationType);
+    }
+
+    public boolean isRelationRoleBased(String descriptor) {
+        return relationships.isRelationRoleBased(descriptor);
+    }
+
+    public List<String> getRoles(String descriptor) {
+        return relationships.getRoles(descriptor);
+    }
+
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+        return relationships.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }
 }

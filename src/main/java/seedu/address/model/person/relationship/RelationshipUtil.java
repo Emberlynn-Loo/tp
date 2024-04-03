@@ -1,6 +1,9 @@
 package seedu.address.model.person.relationship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.relationship.Relationship.rolebasedDescriptors;
+import static seedu.address.model.person.relationship.Relationship.rolelessDescriptors;
+import static seedu.address.model.person.relationship.Relationship.validDescriptors;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -415,5 +418,82 @@ public class RelationshipUtil {
         String uuidString = uuid.toString();
         int len = uuidString.length();
         return uuidString.substring(len - 4);
+    }
+
+    /**
+     * Adds a new relationship type to the list of valid relationship types.
+     */
+    public void deleteRelationType(String relationType) {
+        if (!validDescriptors.contains(relationType)) {
+            throw new IllegalArgumentException("Relationship type does not exist yet");
+        }
+        if (relationType.equals("siblings") || relationType.equals("friend")
+                || relationType.equals("spouses") || relationType.equals("bioparents")) {
+            throw new IllegalArgumentException("Cannot delete default relationship type");
+        }
+        if (descriptorExists(relationType)) {
+            throw new IllegalArgumentException("There are relationships under this relation type. "
+                    + "\nPlease delete them first.");
+        }
+        validDescriptors.remove(relationType);
+        if (!rolebasedDescriptors.contains(relationType)) {
+            rolebasedDescriptors.remove(relationType);
+        }
+        if (!rolelessDescriptors.contains(relationType)) {
+            rolelessDescriptors.remove(relationType);
+        }
+    }
+
+    /**
+     * Checks if a relationship type is role-based.
+     * @param descriptor The descriptor to check.
+     * @return true if the relationship type is role-based, false otherwise.
+     */
+    public boolean isRelationRoleBased(String descriptor) {
+        for (ArrayList<String> relationship : rolebasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<String> getRoles(String descriptor) {
+        List<String> roles = new ArrayList<>();
+        for (ArrayList<String> relationship : rolebasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
+                ArrayList<String> roleBasedRelationship = relationship;
+                roles.add(roleBasedRelationship.get(1));
+                roles.add(roleBasedRelationship.get(2));
+            }
+        }
+        return roles;
+    }
+
+    /**
+     * Checks if a relationship with the same roles already exists in the tracker.
+     * @param relationship The relationship to check.
+     * @param uuid1 The UUID of the first person in the relationship.
+     * @param uuid2 The UUID of the second person in the relationship.
+     * @return true if the relationship with the same roles exists, false otherwise.
+     */
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid1, UUID uuid2) {
+        for (Relationship storedRelationship : relationshipsTracker) {
+            if (storedRelationship instanceof RoleBasedRelationship) {
+                RoleBasedRelationship storedRoleBasedRelationship = (RoleBasedRelationship) storedRelationship;
+                if (storedRoleBasedRelationship.equals(relationship)) {
+                    String storedRole1 = storedRoleBasedRelationship.getRole(uuid1);
+                    String storedRole2 = storedRoleBasedRelationship.getRole(uuid2);
+                    String newRole1 = relationship.getRole(uuid1);
+                    String newRole2 = relationship.getRole(uuid2);
+                    if (storedRole1.equals(newRole1) && storedRole2.equals(newRole2)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

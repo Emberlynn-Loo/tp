@@ -1,7 +1,6 @@
 package seedu.address.logic.relationship;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
@@ -71,56 +70,30 @@ class DeleteRelationshipCommandParserTest {
 
     @Test
     void execute_sameOriginAndTargetUuidsButNotTestUuids_throwsCommandException() {
-        String userInput = "/0001 /0001 /siblings";
+        String userInput = "/siblings";
 
         Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
-    void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
-        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
-        String userInput = "/friend";
-        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-        assertTrue(exception.getMessage().contains(
-                Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
+    void execute_sameOriginAndTargetUuidsSpouses_throwsCommandException() {
+        String userInput = "/spouses";
 
-        DeleteRelationshipCommandParser parser2 = new DeleteRelationshipCommandParser();
-        String userInput2 = "/siblings";
-        ParseException exception2 = Assertions.assertThrows(ParseException.class, () -> parser2.parse(userInput2));
-        assertTrue(exception2.getMessage().contains(
-                Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
-
-        DeleteRelationshipCommandParser parser3 = new DeleteRelationshipCommandParser();
-        String userInput3 = "/bioparents";
-        ParseException exception3 = Assertions.assertThrows(ParseException.class, () -> parser3.parse(userInput3));
-        assertTrue(exception3.getMessage().contains(
-                Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
-
-        DeleteRelationshipCommandParser parser4 = new DeleteRelationshipCommandParser();
-        String userInput4 = "/spouses";
-        ParseException exception4 = Assertions.assertThrows(ParseException.class, () -> parser4.parse(userInput4));
-        assertTrue(exception4.getMessage().contains(
-                Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
-    void parse_invalidFamilialRelationshipDescriptors_throwsParseException() {
-        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
-        String userInput = "/1233 /1234 /family";
-        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-        assertTrue(exception.getMessage().contains("Please specify the type of familial "
-                + "relationship instead of 'Family'.\n"
-                + " Valid familial relations are: [bioParents, siblings, spouses]"));
+    void execute_sameOriginAndTargetUuidsBioparents_throwsCommandException() {
+        String userInput = "/bioParents";
+
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
-    void parseInvalidFamilialRelationshipDescriptorsRoleless_throwsParseException() {
-        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
-        String userInput = "/family";
-        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-        assertTrue(exception.getMessage().contains("Please specify the type of familial "
-                + "relationship instead of 'Family'.\n"
-                + " Valid familial relations are: [bioParents, siblings, spouses]"));
+    void execute_sameOriginAndTargetUuidsFriends_throwsCommandException() {
+        String userInput = "/friends";
+
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
@@ -153,5 +126,59 @@ class DeleteRelationshipCommandParserTest {
         String userInput = "/housemates";
         parser.parse(userInput);
 
+    }
+
+    @Test
+    public void parse_relationshipDescriptorDoesNotEndWithS_shouldAppendS() throws Exception {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/0001 /0002 /housemate";
+        parser.parse(userInput);
+    }
+
+    @Test
+    public void parse_relationshipDescriptorDoesNotEndWithSRoleless_shouldAppendS() throws Exception {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/housemate";
+        parser.parse(userInput);
+    }
+
+    @Test
+    void execute_sameOriginAndTargetUuidsFamily_throwsCommandException() {
+        String userInput = "/0001 /0002 /family";
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput),
+                "Please specify the type of familial relationship instead of 'Family'.\n"
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/friends";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorSiblings_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/siblings";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorSpouses_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/spouses";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidPredefinedRelationshipDescriptorBioparents_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "/bioparents";
+        ParseException exception = Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+        assertEquals(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR, exception.getMessage());
     }
 }

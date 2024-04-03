@@ -10,6 +10,14 @@ import java.util.UUID;
 public class Relationship {
     protected static ArrayList<String> validDescriptors = new ArrayList<>(
             Arrays.asList("friend", "siblings", "spouses", "bioparents"));
+    protected static ArrayList<ArrayList<String>> rolebasedDescriptors = new ArrayList<>(Arrays.asList(
+            new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+            new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+            new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+    ));
+    protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
+            Arrays.asList("friend"));
+
     protected UUID person1;
     protected UUID person2;
     protected boolean isFamilyRelationship;
@@ -35,6 +43,26 @@ public class Relationship {
         isFamilyRelationship = relationshipDescriptor.equalsIgnoreCase("family");
         this.relationshipDescriptor = relationshipDescriptor;
     }
+
+    public static void addRolelessDescriptor(String descriptor) {
+        rolelessDescriptors.add(descriptor);
+    }
+
+    /**
+     * Adds a new role-based descriptor to the list of valid role-based descriptors.
+     *
+     * @param descriptor The descriptor to be added.
+     * @param role1 The role of the first person in the relationship.
+     * @param role2 The role of the second person in the relationship.
+     */
+    public static void addRolebasedDescriptor(String descriptor, String role1, String role2) {
+        ArrayList<String> descriptorList = new ArrayList<>();
+        descriptorList.add(descriptor);
+        descriptorList.add(role1);
+        descriptorList.add(role2);
+        rolebasedDescriptors.add(descriptorList);
+    }
+
     // Getters for person UUIDs
     public UUID getPerson1() {
         return person1;
@@ -115,24 +143,5 @@ public class Relationship {
      */
     public static String showRelationshipTypes() {
         return String.format("Valid relationship types are: %s", validDescriptors.toString());
-    }
-
-    /**
-     * Adds a new relationship type to the list of valid relationship types.
-     */
-    public static void deleteRelationType(String relationType) {
-        if (!validDescriptors.contains(relationType)) {
-            throw new IllegalArgumentException("Relationship type does not exist yet");
-        }
-        if (relationType.equals("siblings") || relationType.equals("friend")
-                || relationType.equals("spouses") || relationType.equals("bioparents")) {
-            throw new IllegalArgumentException("Cannot delete default relationship type");
-        }
-        RelationshipUtil relationshipUtil = new RelationshipUtil();
-        if (relationshipUtil.descriptorExists(relationType)) {
-            throw new IllegalArgumentException("There are relationships under this relation type. "
-                    + "\nPlease delete them first.");
-        }
-        validDescriptors.remove(relationType);
     }
 }

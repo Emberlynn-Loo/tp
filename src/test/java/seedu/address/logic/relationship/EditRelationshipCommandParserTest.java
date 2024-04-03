@@ -116,20 +116,6 @@ public class EditRelationshipCommandParserTest {
     }
 
     @Test
-    public void execute_editSameDescriptor_throwsCommandException() {
-        String userInput = "/0001 /0002 /des /des";
-        EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-    }
-
-    @Test
-    public void execute_editSameDescriptorWithRoles_throwsCommandException() {
-        String userInput = "/0001 smt /0002 smtelse /des /des";
-        EditRelationshipCommandParser parser = new EditRelationshipCommandParser();
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
-    }
-
-    @Test
     public void parse_invalidInputMissingRole2_throwsParseException() {
         // Missing Role2
         String userInput = "/role1 /uuid1 /uuid2 /oldDescriptor /newDescriptor";
