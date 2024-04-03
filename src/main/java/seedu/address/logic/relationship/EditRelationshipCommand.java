@@ -96,6 +96,8 @@ public class EditRelationshipCommand extends Command {
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
                     toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                } else if (newRelationshipDescriptor.equalsIgnoreCase("Friends")) {
+                    throw new CommandException("Sorry, friends cannot have roles");
                 } else {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             newRelationshipDescriptor, role1, role2);
