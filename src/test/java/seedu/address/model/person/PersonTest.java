@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -295,7 +296,7 @@ public class PersonTest {
         Person person = new Person(attributes);
 
         // Call getAttributesMap and check if it returns the correct attributes map
-        HashMap<String, Attribute> attributesMap = person.getAttributesMap();
+        TreeMap<String, Attribute> attributesMap = person.getAttributesMap();
         assertEquals(2, attributesMap.size());
         assertEquals(name, attributesMap.get("Name"));
         assertEquals(email, attributesMap.get("Email"));
