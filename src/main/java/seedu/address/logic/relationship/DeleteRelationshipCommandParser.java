@@ -39,7 +39,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
             String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                     2, false).toLowerCase();
-            if (relationshipDescriptor.equals("familys")) {
+            if (relationshipDescriptor.equals("familys") || relationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }

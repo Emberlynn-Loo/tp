@@ -61,6 +61,14 @@ class DeleteRelationshipCommandParserTest {
     }
 
     @Test
+    void parse_invalidFamilialsRelationshipDescriptor_throwsParseException() {
+        DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
+        String userInput = "familys";
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput),
+                "Expected parse method to throw ParseException for 'family' relationship descriptor");
+    }
+
+    @Test
     void parse_invalidFamilialRelationshipDescriptorCaseInsensitive_throwsParseException() {
         DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
         String userInput = "Family";
