@@ -5,8 +5,7 @@
     -fx-border-color: transparent;
     -fx-padding: 20;
     -fx-max-width: 500;
-    -fx-min-width: 500;
-    -fx-pref-width: 500;
+    -fx-min-width: 200;
 }
 .command-section_scrollpane {
     -fx-background-color: #EFBC9B;
@@ -88,6 +87,5 @@ command-section_scrollpane .viewport {
     -fx-prompt-text-fill: -black;
     -fx-prompt-text-font-weight: bold;
     -fx-max-width: 400;
-    -fx-min-width: 400;
-    -fx-pref-width: 400;
+    -fx-min-width: 100;
 }
