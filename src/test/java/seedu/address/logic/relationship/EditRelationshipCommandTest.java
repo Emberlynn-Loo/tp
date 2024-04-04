@@ -32,7 +32,7 @@ public class EditRelationshipCommandTest {
         String targetUuid = "target123";
         String oldRelationshipDescriptor = "siblings";
         String newRelationshipDescriptor = "friend";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(null, targetUuid,
+        EditRelationshipCommand editCommand = new EditRelationshipCommand("000000", targetUuid,
                 oldRelationshipDescriptor, newRelationshipDescriptor);
 
         // Verify
@@ -46,7 +46,7 @@ public class EditRelationshipCommandTest {
         String originUuid = "1234";
         String oldDescriptor = "siblings";
         String newDescriptor = "friend";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, null,
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, "00000",
                 oldDescriptor, newDescriptor);
         assertThrows(CommandException.class, () -> editCommand.execute(model),
                 Messages.MESSAGE_INVALID_PERSON_UUID);
@@ -438,34 +438,6 @@ public class EditRelationshipCommandTest {
 
         EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
                 oldRelationshipDescriptor, oldRelationshipDescriptor, role1, role2);
-        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "Expected CommandException");
-        assertEquals("There's no need to edit the relationship "
-                        + "if the new relationship is the same as the old one.",
-                exception.getMessage());
-    }
-
-
-    @Test
-    public void execute_hasDescriptorInvalidSameDescriptor_addsRelationship() {
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String oldRelationshipDescriptor = "smtt";
-        String role1 = "role";
-        String role2 = "rolee";
-
-        Relationship oldRelationship = new RoleBasedRelationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
-                role1, role2);
-        model.addRelationship(oldRelationship);
-        model.addRolelessDescriptor(oldRelationshipDescriptor);
-
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
-                oldRelationshipDescriptor, oldRelationshipDescriptor);
         CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Expected CommandException");
         assertEquals("There's no need to edit the relationship "

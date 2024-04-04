@@ -74,11 +74,11 @@ public class EditRelationshipCommand extends Command {
      * @throws CommandException If the command cannot be executed.
      */
     public CommandResult execute(Model model) throws CommandException {
-        if (originUuid == null || targetUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
-        }
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        if (fullTargetUuid == null || fullTargetUuid == null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
+        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);
@@ -95,8 +95,9 @@ public class EditRelationshipCommand extends Command {
                             + "if the new relationship is the same as the old one.");
                 }
             }
-            model.deleteRelationship(toEditOff);
-            if (model.hasRelationshipWithDescriptor(toEditIn)) {
+            if (model.hasRelationshipWithDescriptor(toEditIn)
+                    && !((role1 != null && role2 != null)
+                    && oldRelationshipDescriptor.equals(newRelationshipDescriptor))) {
                 String existing = model.getExistingRelationship(toEditIn);
                 throw new CommandException(String.format("Sorry, %s", existing));
             }
@@ -144,13 +145,10 @@ public class EditRelationshipCommand extends Command {
                             model.getRoles(newRelationshipDescriptor).get(0),
                             model.getRoles(newRelationshipDescriptor).get(1)));
                 }
-                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
-                    throw new ParseException("There's no need to edit the relationship "
-                                + "if the new relationship is the same as the old one.");
-                }
                 model.addRelationship(toEditIn);
                 model.addRolelessDescriptor(newRelationshipDescriptor);
             }
+            model.deleteRelationship(toEditOff);
             return new CommandResult(MESSAGE_EDIT_RELATIONSHIP_SUCCESS);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(e.getMessage()));

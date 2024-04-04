@@ -254,4 +254,9 @@ public class ModelManager implements Model {
     public boolean hasAttribute(String uuidString, String attributeName) {
         return addressBook.hasAttribute(uuidString, attributeName);
     }
+
+    @Override
+    public boolean isRelationRoleless(String descriptor) {
+        return addressBook.isRelationRoleless(descriptor);
+    }
 }

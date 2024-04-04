@@ -262,8 +262,8 @@ class AddRelationshipCommandTest {
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
         String targetUuid = "0002";
-        String oldRelationshipDescriptor = "smt";
-        String newRelationshipDescriptor = "smtelse";
+        String oldRelationshipDescriptor = "smttttt";
+        String rolelessDescriptor = "smtelseee";
         String role1 = "role";
         String role2 = "rolee";
 
@@ -272,18 +272,113 @@ class AddRelationshipCommandTest {
                 UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
                 role1, role2);
         model.addRelationship(oldRelationship);
-        model.addRolelessDescriptor(newRelationshipDescriptor);
+        model.addRolelessDescriptor(rolelessDescriptor);
         model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
 
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
-                oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
-        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid, targetUuid,
+                rolelessDescriptor, role1, role2);
+        CommandException exception = assertThrows(CommandException.class, () -> addCommand.execute(model),
                 "Expected CommandException");
-        assertEquals("Sorry, you did not add smtelse as a "
+        assertEquals("Sorry, you did not add smtelseee as a "
                         + "role based relationship."
                         + "\nIf you want to use it, please delete the roles"
                         + "\nIf you want to make it a role based relationship, please delete the "
                         + "relationtype and add it again.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_hasDescriptorFalseWrongRoles_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "smtttts";
+        String rolebasedDescriptor = "smtelsees";
+        String role1 = "role";
+        String role2 = "rolee";
+        String wrongRole1 = "wrong";
+        String wrongRole2 = "wrongg";
+
+        Relationship oldRelationship = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                role1, role2);
+        model.addRelationship(oldRelationship);
+        model.addRolebasedDescriptor(rolebasedDescriptor, role1, role2);
+        model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
+
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid, targetUuid,
+                rolebasedDescriptor, wrongRole1, wrongRole2);
+        CommandException exception = assertThrows(CommandException.class, () -> addCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Please use the roles you added: [role, rolee]"
+                        + "\nIf you want to change the roles, please delete the"
+                        + "\nrelationtype and add it again.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_hasDescriptorFalseWrongRolesFlip_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "smttttth";
+        String rolebasedDescriptor = "smtelseeep";
+        String role1 = "role";
+        String role2 = "rolee";
+        String wrongRole1 = "wrong";
+        String wrongRole2 = "wrongg";
+
+        Relationship oldRelationship = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                role1, role2);
+        model.addRelationship(oldRelationship);
+        model.addRolebasedDescriptor(rolebasedDescriptor, role2, role1);
+        model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
+
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid, targetUuid,
+                rolebasedDescriptor, wrongRole1, wrongRole2);
+        CommandException exception = assertThrows(CommandException.class, () -> addCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Please use the roles you added: [rolee, role]"
+                        + "\nIf you want to change the roles, please delete the"
+                        + "\nrelationtype and add it again.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_hasDescriptorFalseInvalidRolebased_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String oldRelationshipDescriptor = "smttttt";
+        String rolelessDescriptor = "smtelseee";
+        String role1 = "role";
+        String role2 = "rolee";
+
+        Relationship oldRelationship = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                role1, role2);
+        model.addRelationship(oldRelationship);
+        model.addRolebasedDescriptor(rolelessDescriptor, role1, role2);
+        model.addRolebasedDescriptor(oldRelationshipDescriptor, role1, role2);
+
+        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid, targetUuid,
+                rolelessDescriptor);
+        CommandException exception = assertThrows(CommandException.class, () -> addCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Sorry, you added smtelseee as a role based relationship."
+                        + "\nIf you want to use it, please use the roles you added: [role, rolee]"
+                        + "\nIf you want to make it a role based relationship, please delete the"
+                        + "\nrelationtype and add it again.",
                 exception.getMessage());
     }
 }

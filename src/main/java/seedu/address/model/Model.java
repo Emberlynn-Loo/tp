@@ -136,4 +136,5 @@ public interface Model {
     void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2);
 
     boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2);
+    boolean isRelationRoleless(String descriptor);
 }
