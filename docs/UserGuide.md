@@ -222,6 +222,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * The `NEW_ATTRIBUTE_VALUE` is case-sensitive.
 * If the person does not have the specified attribute, the command will not have any effect.
 * If the person does not exist, the command will not have any effect.
+* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail.
 
 Examples:
 * `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
