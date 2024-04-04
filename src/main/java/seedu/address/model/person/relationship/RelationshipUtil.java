@@ -484,6 +484,20 @@ public class RelationshipUtil {
         return false;
     }
 
+    /**
+     * Checks if a relationship type is roleless.
+     * @param descriptor The descriptor to check.
+     * @return true if the relationship type is roleless, false otherwise.
+     */
+    public boolean isRelationRoleless(String descriptor) {
+        return rolelessDescriptors.contains(descriptor);
+    }
+
+    /**
+     * Retrieves the roles associated with a specific relationship type.
+     * @param descriptor The descriptor to retrieve roles for.
+     * @return A list containing the roles associated with the specified descriptor.
+     */
     public List<String> getRoles(String descriptor) {
         List<String> roles = new ArrayList<>();
         for (ArrayList<String> relationship : roleBasedDescriptors) {

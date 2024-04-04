@@ -237,4 +237,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
         return relationships.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }
+
+    public boolean isRelationRoleless(String descriptor) {
+        return relationships.isRelationRoleless(descriptor);
+    }
 }
