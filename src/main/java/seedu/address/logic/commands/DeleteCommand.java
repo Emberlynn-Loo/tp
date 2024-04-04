@@ -21,8 +21,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1234";
+            + "Parameters: UUID (must be from a person who exists, 4 characters)\n"
+            + "Example: " + COMMAND_WORD + " /1bd4";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
@@ -38,7 +38,10 @@ public class DeleteCommand extends Command {
         UUID targetUuid = model.getFullUuid(target);
 
         if (targetUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
+            if (target.isEmpty()) {
+                throw new CommandException(Messages.MESSAGE_UUID_EMPTY + "\n" + MESSAGE_USAGE);
+            }
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID + target + "\n" + MESSAGE_USAGE);
         }
 
         Person personToDelete = model.getPersonByUuid(targetUuid);
