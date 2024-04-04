@@ -71,6 +71,7 @@ class AddRelationshipCommandTest {
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
         assertCommandFailure(addRelationshipCommand, model,
                 Messages.MESSAGE_INVALID_PERSON_UUID);
+                Messages.MESSAGE_INVALID_PERSON_UUID + "0001 and 0019");
     }
 
     @Test

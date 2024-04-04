@@ -47,6 +47,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_ATTRIBUTE_FORMAT = "Invalid attribute format.";
     public static final String MESSAGE_UUID_EMPTY = "Blank UUID provided. Please provide a valid UUID in this format: "
              + "/UUID" + "\nExample: /d8d8";
+    public static final String MESSAGE_INVALID_UUID_FORMAT = "Invalid UUID format. Please ensure that the UUID is "
+            + "in the format: /<UUID>.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
