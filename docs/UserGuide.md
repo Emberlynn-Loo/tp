@@ -190,6 +190,7 @@ Attributes can be added, edited, or deleted. The attributes that can be added ar
 
 * Other than the attributes that have been defined, the user defined attributes will be of type String.
 * The value of the attributes cannot be converted to another type. e.g. if the attribute is of type Integer, the value must be an Integer.
+</div>
 
 
 ### Adding an attribute : `addAttribute`
