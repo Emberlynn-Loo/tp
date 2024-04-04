@@ -55,7 +55,11 @@ public class DeleteCommandTest {
     public void execute_nonRealUuidFilteredList_throwsCommandException() {
         DeleteCommand deleteCommand = new DeleteCommand("12345");
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_UUID);
+        assertCommandFailure(
+                deleteCommand,
+                model,
+                Messages.MESSAGE_INVALID_PERSON_UUID + "12345" + "\n" + DeleteCommand.MESSAGE_USAGE
+        );
     }
 
     @Test
@@ -112,5 +116,16 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+    @Test
+    public void execute_blankUuid_error() {
+        DeleteCommand deleteCommand = new DeleteCommand("");
+        String expectedMessage = Messages.MESSAGE_UUID_EMPTY + "\n" + DeleteCommand.MESSAGE_USAGE;
+        ModelManager emptyModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        try {
+            deleteCommand.execute(emptyModel);
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+        }
     }
 }

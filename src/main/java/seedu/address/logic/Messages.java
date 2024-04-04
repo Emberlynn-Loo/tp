@@ -20,7 +20,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
-    public static final String MESSAGE_INVALID_PERSON_UUID = "The UUID provided is invalid: ";
+    public static final String MESSAGE_INVALID_PERSON_UUID = "The UUID provided is invalid, "
+            + "does the person exist and is it 4 characters long? The UUID you entered was: ";
     public static final String MESSAGE_MISSING_ATTRIBUTES = "Missing attributes to delete.";
 
     public static final String MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR = "You cannot delete this "
@@ -44,6 +45,8 @@ public class Messages {
 
     public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
     public static final String MESSAGE_INVALID_ATTRIBUTE_FORMAT = "Invalid attribute format.";
+    public static final String MESSAGE_UUID_EMPTY = "Blank UUID provided. Please provide a valid UUID in this format: "
+             + "/UUID" + "\nExample: /d8d8";
     public static final String MESSAGE_INVALID_UUID_FORMAT = "Invalid UUID format. Please ensure that the UUID is "
             + "in the format: /<UUID>.";
 
