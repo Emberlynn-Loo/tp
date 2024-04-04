@@ -44,6 +44,8 @@ public class Messages {
 
     public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
     public static final String MESSAGE_INVALID_ATTRIBUTE_FORMAT = "Invalid attribute format.";
+    public static final String MESSAGE_INVALID_UUID_FORMAT = "Invalid UUID format. Please ensure that the UUID is "
+            + "in the format: /<UUID>.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
