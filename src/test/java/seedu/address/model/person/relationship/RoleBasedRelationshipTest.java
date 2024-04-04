@@ -1,32 +1,37 @@
-//package seedu.address.model.person.relationship;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//import java.util.UUID;
-//
-//import org.junit.jupiter.api.Test;
-//
-//public class RoleBasedRelationshipTest {
-//
-//    @Test
-//    public void testRoleBasedRelationshipCreation() {
-//        UUID person1 = UUID.randomUUID();
-//        UUID person2 = UUID.randomUUID();
-//        RoleBasedRelationship relationship = new RoleBasedRelationship(person1, person2, "Family",
-//                "Parent", "Child");
-//        assertEquals(person1, relationship.getPerson1());
-//        assertEquals(person2, relationship.getPerson2());
-//    }
-//
-//    @Test
-//    public void testAddRoleAndGetRoleDescriptor() {
-//        UUID person1 = UUID.randomUUID();
-//        UUID person2 = UUID.randomUUID();
-//        RoleBasedRelationship relationship = new RoleBasedRelationship(person1, person2, "Family",
-//                "Parent", "Child");
-//        String role1 = relationship.getRoleDescriptor(person1);
-//        String role2 = relationship.getRoleDescriptor(person2);
-//        assertEquals(role1, "Parent");
-//        assertEquals(role2, "Child");
-//    }
-//}
+package seedu.address.model.person.relationship;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.UUID;
+
+import org.junit.jupiter.api.Test;
+
+public class RoleBasedRelationshipTest {
+
+    @Test
+    public void constructor_validParameters_success() {
+        UUID originUuid = UUID.randomUUID();
+        UUID targetUuid = UUID.randomUUID();
+        String descriptor = "work";
+        String role1 = "boss";
+        String role2 = "employee";
+        RoleBasedRelationship relationship =
+                new RoleBasedRelationship(originUuid, targetUuid, descriptor, role1, role2);
+        assertEquals(originUuid, relationship.getPerson1());
+        assertEquals(targetUuid, relationship.getPerson2());
+        assertEquals(descriptor, relationship.getRelationshipDescriptor());
+        assertEquals(role1, relationship.getRole(originUuid));
+        assertEquals(role2, relationship.getRole(targetUuid));
+    }
+
+    @Test
+    public void constructor_invalidParameters_throwsIllegalArgumentException() {
+        String descriptor = "work";
+        String role1 = "boss";
+        String role2 = "employee";
+        assertThrows(IllegalArgumentException.class, () ->
+                new RoleBasedRelationship(UUID.fromString("1"), UUID.fromString("2"),
+                        descriptor, role1, role2));
+    }
+}

@@ -185,6 +185,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void resetRelationshipDescriptors() {
+        RelationshipUtil.resetRelationshipDescriptors();
+    }
+
+    @Override
     public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
         return addressBook.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }

@@ -638,5 +638,16 @@ public class RelationshipUtil {
             return str.substring(0, str.length() - 1);
         }
         return "";
+
+    /**
+     * Resets the relationship descriptors to their default values.
+     */
+    public static void resetRelationshipDescriptors() {
+        rolelessDescriptors = new ArrayList<>(Arrays.asList("friend"));
+        roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+                new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+                new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+        ));
     }
 }
