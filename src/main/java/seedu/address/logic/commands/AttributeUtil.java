@@ -70,6 +70,6 @@ public class AttributeUtil {
             return attributeName.toUpperCase();
         }
 
-        return attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
+        return attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1).toLowerCase();
     }
 }

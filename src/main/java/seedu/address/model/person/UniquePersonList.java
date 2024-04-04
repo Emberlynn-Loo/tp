@@ -197,7 +197,6 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return null;
-
     }
 
     /**
