@@ -97,6 +97,18 @@ public class AddRelationshipCommand extends Command {
                             + "\nIf you want to make it a role based relationship, please delete the "
                             + "relationtype and add it again.", relationshipDescriptor));
                 }
+                if (model.isRelationRoleBased(relationshipDescriptor)) {
+                    if (!(rolePerson1.equals(model.getRoles(relationshipDescriptor).get(0))
+                            || rolePerson1.equals(model.getRoles(relationshipDescriptor).get(1)))
+                            || !(rolePerson2.equals(model.getRoles(relationshipDescriptor).get(0))
+                            || rolePerson2.equals(model.getRoles(relationshipDescriptor).get(1)))) {
+                        throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
+                                        + "\nIf you want to change the roles, please delete the"
+                                        + "\nrelationtype and add it again.",
+                                model.getRoles(relationshipDescriptor).get(0),
+                                model.getRoles(relationshipDescriptor).get(1)));
+                    }
+                }
                 if (model.hasRelationshipWithDescriptor(toAdd)) {
                     String existing = model.getExistingRelationship(toAdd);
                     throw new CommandException(String.format("Sorry, %s", existing));

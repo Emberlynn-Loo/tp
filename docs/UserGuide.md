@@ -61,6 +61,8 @@ your family tree and history.
    
    * `deleteAttribute /12db /Pet` : Deletes the attribute Pet from the person with the `UUID` "12db".
 
+   * `addRelation /12db parent /34ab child /bioparents` : Adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
+
    * `editRelation /12db /34ab /friends /colleagues` : Edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
    * `deleteRelation /12db /34ab /friend` : Deletes the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
@@ -220,25 +222,28 @@ Examples:
 
 ## Features - Managing Person Relationships
 
-### Listing all relationship types : `listRelations`
+### Listing all relationship types : `listRelations` or `lr`
 
 Shows a list of all current relationshipTypes in the address book.
 
-Format: `listRelations`
+Format: `listRelations` or `lr`
 
-### Adding a relationship : `addRelation`
+* The command word is not case-sensitive.
+
+### Adding a relationship : `addRelation` or `ar`
 
 Adds a roleless relationship between two people in the address book.
 
 Format: `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 
+* The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Adds the roleless relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
-* The `RELATIONSHIP_TYPE` **must be a String**.
+* The `RELATIONSHIP_TYPE` **must be a String** but can be more than one word.
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
-* If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
+* If the `RELATIONSHIP_TYPE` does not exist and is valid, it will be added to the existing list of relationTypes.
 
 Examples:
 * `addRelation /12db /34ab /friend` adds the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
@@ -247,12 +252,16 @@ Adds a role-based relationship between two people in the address book.
 
 Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 
-* Adds the role-based relationship between the person with the specified `UUID1` and `ROLE1` and the person with the specified `UUID2` and `ROLE2`.
+* The command word, `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
+* Adds the role-based relationship between the person with the specified `UUID1` and the person with the specified `UUID2` with roles `ROLE1` and `ROLE2` respectively.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
 * The `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `RELATIONSHIP_TYPE` can be more than one word.
+* The `ROLE1` and `ROLE2` can only be one word.
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
+* If the `ROLE1` or `ROLE2` does not exist for the `RELATIONSHIP_TYPE`, the command will not have any effect.
 * If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
@@ -265,16 +274,17 @@ Examples:
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
 </div>
 
-### Editing a relationship : `editRelation`
+### Editing a relationship : `editRelation` or `er`
 
-Edits the relationship between two people in the address book.
+Edits the relationship between two people in the address book to a roleless relationship.
 
 Format: `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
 
-* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
+* The command word, `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` are not case-sensitive.
+* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2` to the new relationship type.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
-* The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` **must be Strings**, but can be more than one word.
 * If the relationship to be edited from does not exist, the command will not have any effect.
 * If the relationship to be edited to already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
@@ -284,15 +294,37 @@ Format: `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYP
 Examples:
 * `editRelation /12db /34ab /friends /colleagues` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
-### Deleting a relationship : `deleteRelation`
+Edits the relationship between two people in the address book to a role-based relationship.
+
+Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
+
+* The command word, `OLD_RELATIONSHIP_TYPE`, `NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
+* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
+* The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
+* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` can be more than one word.
+* The `ROLE1` and `ROLE2` can only be one word.
+* If the relationship to be edited from does not exist, the command will not have any effect.
+* If the relationship to be edited to already exists, the command will not have any effect.
+* If either persons do not exist, the command will not have any effect.
+* If either relationship types do not exist, the command will not have any effect.
+* If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
+
+Examples:
+* `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the UUID 12db and the person with the UUID 34ab from friends to bioparents with the roles parent and child respectively.
+
+### Deleting a relationship : `deleteRelation` or `dr`
 
 Deletes the relationship between two people in the address book.
 
 Format: `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 
+* The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Deletes the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified relationship to be deleted does not exist, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
 
@@ -301,12 +333,15 @@ Examples:
 
 Deletes the relationType from the list of existing relationTypes.
 
-Format: `deleteRelation RELATIONSHIP_TYPE`
+Format: `deleteRelation /RELATIONSHIP_TYPE`
 
 * Deletes the specific `RELATIONSHIP_TYPE` from the list of existing relationTypes.
-* The `RELATIONSHIP_TYPE` **must be a String**.
+* The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified `RELATIONSHIP_TYPE` does not exist, the command will not have any effect.
 * If an existing relationship uses the specified `RELATIONSHIP_TYPE`, the command will not have any effect.
+
+Examples:
+* `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
 ### Finding All Relationships between Entities: `anySearch`
 
