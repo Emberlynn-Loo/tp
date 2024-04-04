@@ -638,6 +638,7 @@ public class RelationshipUtil {
             return str.substring(0, str.length() - 1);
         }
         return "";
+    }
 
     /**
      * Resets the relationship descriptors to their default values.
