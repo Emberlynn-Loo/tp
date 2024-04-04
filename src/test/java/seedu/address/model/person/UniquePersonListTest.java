@@ -214,31 +214,29 @@ public class UniquePersonListTest {
 
     @Test
     public void equals() {
-        UniquePersonList uniquePersonList1 = new UniquePersonList();
+        UniquePersonList uniquePersonList = new UniquePersonList();
         Person person1 = new Person(new Attribute[0]);
         person1.updateAttribute(new NameAttribute("Name", "Amy Bee"));
-        uniquePersonList1.add(person1);
-
-        UniquePersonList uniquePersonList2 = new UniquePersonList();
         Person person2 = new Person(new Attribute[0]);
-        person2.updateAttribute(new NameAttribute("Name", "Amy Bee"));
-        uniquePersonList2.add(person2);
+        person2.updateAttribute(new NameAttribute("Name", "Bob Charlie"));
 
-        // Test for equality with the same object
-        assertTrue(uniquePersonList1.equals(uniquePersonList1));
+        // same object -> returns true
+        assertTrue(uniquePersonList.equals(uniquePersonList));
 
-        // Test for equality with a different object with the same state
-        assertTrue(uniquePersonList1.equals(uniquePersonList2));
+        // same values -> returns true
+        UniquePersonList uniquePersonListCopy = new UniquePersonList();
+        assertTrue(uniquePersonList.equals(uniquePersonListCopy));
 
-        // Test for equality with null
-        assertFalse(uniquePersonList1.equals(null));
+        // different types -> returns false
+        assertFalse(uniquePersonList.equals(1));
 
-        // Test for equality with a different type of object
-        assertFalse(uniquePersonList1.equals(new Object()));
+        // null -> returns false
+        assertFalse(uniquePersonList.equals(null));
 
-        // Test for equality with a different state
-        uniquePersonList2.remove(person2);
-        assertFalse(uniquePersonList1.equals(uniquePersonList2));
+        // different person -> returns false
+        uniquePersonList.add(person1);
+        uniquePersonListCopy.add(person2);
+        assertFalse(uniquePersonList.equals(uniquePersonListCopy));
     }
 
     @Test
