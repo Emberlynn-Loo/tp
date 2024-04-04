@@ -15,7 +15,6 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.UUID;
 
