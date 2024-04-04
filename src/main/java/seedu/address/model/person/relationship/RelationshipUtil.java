@@ -551,6 +551,9 @@ public class RelationshipUtil {
         this.roleBasedDescriptors = roleBasedDescriptors;
     }
 
+    /**
+     * Resets the relationship descriptors to their default values.
+     */
     public static void resetRelationshipDescriptors() {
         rolelessDescriptors = new ArrayList<>(Arrays.asList("friend"));
         roleBasedDescriptors = new ArrayList<>(Arrays.asList(
