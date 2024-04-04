@@ -39,8 +39,10 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
             String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                     2, false).toLowerCase();
-
-            if (relationshipDescriptor.equals("family")) {
+            if (!relationshipDescriptor.endsWith("s")) {
+                relationshipDescriptor += "s";
+            }
+            if (relationshipDescriptor.equals("familys")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
@@ -48,12 +50,11 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
         } else {
             String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                     0, false).toLowerCase();
-            if (relationshipDescriptor.equals("family")) {
-                throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
-                        + " Valid familial relations are: [bioParents, siblings, spouses]");
+            if (!relationshipDescriptor.endsWith("s")) {
+                relationshipDescriptor += "s";
             }
 
-            if (relationshipDescriptor.equals("friend") || relationshipDescriptor.equals("bioparents")
+            if (relationshipDescriptor.equals("friends") || relationshipDescriptor.equals("bioparents")
                     || relationshipDescriptor.equals("siblings") || relationshipDescriptor.equals("spouses")) {
                 throw new ParseException(Messages.MESSAGE_INVALID_PREDEFINED_RELATIONSHIP_DESCRIPTOR);
             }

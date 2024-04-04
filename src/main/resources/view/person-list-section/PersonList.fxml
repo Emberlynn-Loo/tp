@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox fx:id="personListVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" stylesheets="@person-list.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER">
+<VBox fx:id="personListVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="150.0" minWidth="400.0" stylesheets="@person-list.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER">
    <children>
-      <ScrollPane id="personListContainerId" fx:id="personListScrollPane" hbarPolicy="NEVER" minHeight="500.0" minViewportHeight="500.0" styleClass="personList_container" stylesheets="@person-list.css" vbarPolicy="ALWAYS" fitToWidth="true">
+      <ScrollPane VBox.vgrow="ALWAYS" id="personListContainerId" fx:id="personListScrollPane" hbarPolicy="NEVER" minHeight="100" minViewportHeight="100" styleClass="personList_container" stylesheets="@person-list.css" vbarPolicy="ALWAYS" fitToWidth="true">
          <content>
-            <VBox fillWidth="true" fx:id="personListCardVbox" alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="500.0" minWidth="550.0" styleClass="personList_vbox_container" stylesheets="@person-list.css" spacing="10" VBox.vgrow="ALWAYS">
+            <VBox fillWidth="true" fx:id="personListCardVbox" alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="100" minWidth="550.0" styleClass="personList_vbox_container" stylesheets="@person-list.css" spacing="10" VBox.vgrow="ALWAYS">
                <effect>
                   <DropShadow blurType="GAUSSIAN" height="101.06" radius="47.065" width="89.2">
                      <color>

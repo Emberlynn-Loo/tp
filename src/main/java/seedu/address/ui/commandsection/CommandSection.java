@@ -63,7 +63,13 @@ public class CommandSection extends UiPart<Region> {
                 downArrowKeyListener();
             }
         });
-        addWelcomeDialog();
+        commandSectionDialogScrollPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() <= 150) {
+                addWelcomeDialogNoText();
+            } else {
+                addWelcomeDialog();
+            }
+        });
         commandSectionDialogContainer.heightProperty().addListener((observable) ->
                 commandSectionDialogScrollPane.setVvalue(1.0));
         Platform.runLater(() -> cliInput.requestFocus()); // gooogle
@@ -90,21 +96,25 @@ public class CommandSection extends UiPart<Region> {
         if (commandText.equals("")) {
             return;
         }
+        if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
+            pastCommands.add(commandText);
+        }
+        pastCommandIndex = pastCommands.size();
         if (commandText.equalsIgnoreCase("c") || commandText.equalsIgnoreCase("clear")) {
             commandSectionDialogContainer.getChildren().clear();
             commandBoxImageContainer.setVisible(false);
             commandBoxImageContainer.setManaged(false);
-            addWelcomeDialog();
+            if (commandSectionDialogScrollPane.getHeight() <= 150) {
+                addWelcomeDialogNoText();
+            } else {
+                addWelcomeDialog();
+            }
             cliInput.setText("");
             return;
         }
         removeWelcomeDialog();
         commandBoxImageContainer.setVisible(true);
         commandBoxImageContainer.setManaged(true);
-        if (pastCommands.size() == 0 || !commandText.equalsIgnoreCase(pastCommands.get(pastCommands.size() - 1))) {
-            pastCommands.add(commandText);
-        }
-        pastCommandIndex = pastCommands.size();
         try {
             CommandResult commandResult = commandExecutor.execute(commandText);
             setDialogLabel(commandResult.getFeedbackToUser(), true);
@@ -155,6 +165,7 @@ public class CommandSection extends UiPart<Region> {
         cliInput.setText(pastCommands.get(pastCommandIndex));
     }
     private void addWelcomeDialog() {
+        commandSectionDialogContainer.getChildren().clear();
         Label dialogLabel = new Label("Hello From Command Section");
         dialogLabel.setId("command-section_dialog-label-welcome");
         dialogLabel.setWrapText(true);
@@ -168,6 +179,15 @@ public class CommandSection extends UiPart<Region> {
         commandSectionDialogContainer.setAlignment(Pos.CENTER);
         commandSectionDialogContainer.getChildren().add(dialogLabel);
         commandSectionDialogContainer.getChildren().add(welcomeImage);
+    }
+    private void addWelcomeDialogNoText() {
+        commandSectionDialogContainer.getChildren().clear();
+        Label dialogLabel = new Label("Hello From Command Section");
+        dialogLabel.setId("command-section_dialog-label-welcome");
+        dialogLabel.setWrapText(true);
+        dialogLabel.prefWidthProperty().bind(commandSectionDialogContainer.widthProperty());
+        commandSectionDialogContainer.setAlignment(Pos.CENTER);
+        commandSectionDialogContainer.getChildren().add(dialogLabel);
     }
     private void removeWelcomeDialog() {
         commandSectionDialogContainer.getChildren().removeAll(

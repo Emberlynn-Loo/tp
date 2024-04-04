@@ -9,7 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Some code generated using GitHub Copilot, where commented as such in the code.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -40,20 +40,18 @@ Given below is a quick overview of main components and how they interact with ea
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
-The bulk of the app's work is done by the following six components:
+The bulk of the app's work is done by the following four components:
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Logic`**](#logic-component): The command executor.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
-* [**'Attribute'**](#attribute-component): Holds the attributes of the App in memory.
-* [**'Relationship'**](#relationship-component): Holds the relationships of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 0000`, assuming that `0000` corresponds to a valid Person UUID.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -74,7 +72,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g. `StatusBarFooter`, `HelpWindow`, `DisplaySection`, `FooterButtonSection` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -83,7 +81,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Relationship` objects residing in the `Model`.
 
 ### Logic component
 
@@ -93,7 +91,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete /0000")` API call as an example (assuming that `0000` is a valid UUID).
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -117,6 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
+
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
@@ -131,25 +130,30 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-### Attribute component
+#### Model component - Person
 
-**API** : [`Attribute.java`](https://github.com/AY2324S2-CS2103T-T11-1/tp/tree/master/src/main/java/seedu/address/model/person/attribute)
+<img src="images/PersonClassDiagram.png" width="550" />
 
-<img src="images/AttributeClassDiagram.png" width="550" />
+The `Person` component,
 
-The `Attribute` component,
+* contains details about the person, stored as `Attribute` objects.
+    * The `Attribute` component,
+        * stores details about a `Person`.
+        * stores the `Attribute` objects in the `Person` object in the hash map.
+        * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
+            * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints.
+        * does not depend on the other components (as the `Attribute` are standalone stores of details about the `Person`)
 
-* stores the attribute data i.e., all `Attribute` objects (which are contained in a `UniqueAttributeList` object).
-* stores the `Attribute` objects in the `Person` object in the hash map.
-* stores the currently 'selected' `Attribute` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Attribute>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components (as the `Attribute` represents data entities of the domain, they should make sense on their own without depending on other components)
-* depends on some classes in the `Model` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Model`)
-* depends on some classes in the `Storage` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Storage`)
-* depends on some classes in the `UI` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `UI`)
-* depends on some classes in the `Logic` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Logic`)
-* depends on some classes in the `Commons` component (because the `Attribute` component's job is to save/retrieve objects that belong to the `Commons`)
+#### Model component - Relationship
 
+<img src="images/RelationshipClassDiagram.png" width="550" />
 
+The `Relationship` component,
+
+* contains details about a relationship between two persons.
+* `Person` objects connected by a `Relationship` object are stored as UUIDs.
+* can be `RoleBasedRelationship`,
+    * which contains labels for each `Person` in the relationship.
 
 ### Storage component
 
@@ -256,11 +260,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -285,7 +284,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Often only has provisional or partial information about their family members
 
 
-**Value proposition**: JENGA puts connections between people at the forefront.
+**Value proposition**: Gene-nie puts connections between people at the forefront.
 
 ### User stories
 
@@ -311,11 +310,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to add a new person to JENGA.
-2.  JENGA prompts user for details of new person.
+1.  User requests to add a new person to Gene-nie.
+2.  Gene-nie prompts user for details of new person.
 3.  User enters the necessary information.
-4.  JENGA adds person with the provided details.
-5.  JENGA displays new person added and confirmation message.
+4.  Gene-nie adds person with the provided details.
+5.  Gene-nie displays new person added and confirmation message.
 
     Use case ends.
 
@@ -323,9 +322,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. User enters incomplete or invalid information.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -336,10 +335,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons.
-2.  JENGA displays a list of persons.
+2.  Gene-nie displays a list of persons.
 3.  User selects a specific person in the list to delete by providing the person’s UUID.
-4.  JENGA deletes the person.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes the person.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -347,13 +346,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. JENGA informs the user the list is empty.
+    * 2a1. Gene-nieinforms the user the list is empty.
 
       Use case ends.
 
 * 3a. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
       Use case resumes at step 4.
 
@@ -362,10 +361,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to add an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute details.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute details.
 3.  User enters UUID and attribute information.
-4.  JENGA adds attribute details to specific person’s profile.
-5.  JENGA displays attribute in person’s profile and confirmation message.
+4.  Gene-nie adds attribute details to specific person’s profile.
+5.  Gene-nie displays attribute in person’s profile and confirmation message.
 
     Use case ends.
 
@@ -373,9 +372,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -385,9 +384,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -400,10 +399,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit to add an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute details to add.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute details to add.
 3.  User enters UUID and attribute information.
-4.  JENGA adds attribute details to specific person’s profile.
-5.  JENGA displays attribute in person’s profile and confirmation message.
+4.  Gene-nie adds attribute details to specific person’s profile.
+5.  Gene-nie displays attribute in person’s profile and confirmation message.
 
     Use case ends.
 
@@ -411,9 +410,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -423,9 +422,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -438,10 +437,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit to delete an attribute to a person.
-2.  JENGA prompts user to enter the person’s UUID and attribute to delete.
+2.  Gene-nie prompts user to enter the person’s UUID and attribute to delete.
 3.  User enters UUID and attribute information.
-4.  JENGA deletes attribute in specific person’s profile.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes attribute in specific person’s profile.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -449,9 +448,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -461,9 +460,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -476,10 +475,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to delete a person.
-2.  JENGA prompts user for details of person.
+2.  Gene-nie prompts user for details of person.
 3.  User enters person’s UUID.
-4.  JENGA deletes person.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes person.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -487,9 +486,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Given UUID is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -500,9 +499,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to find persons by attribute.
-2.  JENGA prompts user for attribute and attribute value(s).
+2.  Gene-nie prompts user for attribute and attribute value(s).
 3.  User enters attribute name and attribute value(s).
-4.  JENGA displays list of persons with each of the specified attributes.
+4.  Gene-nie displays list of persons with each of the specified attributes.
 
     Use case ends.
 
@@ -510,9 +509,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Attribute details are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -522,7 +521,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The list is empty.
 
-    * 4a1. JENGA informs the user the list is empty.
+    * 4a1. Gene-nie informs the user the list is empty.
 
       Use case ends.
 
@@ -531,9 +530,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to find persons by relationship.
-2.  JENGA prompts user for relationship to User.
+2.  Gene-nie prompts user for relationship to User.
 3.  User enters relationship type.
-4.  JENGA displays list of persons with specified relationship to User.
+4.  Gene-nie displays list of persons with specified relationship to User.
 
     Use case ends.
 
@@ -541,9 +540,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship is invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -556,10 +555,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to add a relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
 3.  User enters both persons UUID and relationship type.
-4.  JENGA creates a relationship with the provided details.
-5.  JENGA displays new relationship added under both persons’ profiles and confirmation message.
+4.  Gene-nie creates a relationship with the provided details.
+5.  Gene-nie displays new relationship added under both persons’ profiles and confirmation message.
 
     Use case ends.
 
@@ -567,9 +566,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship type is invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -579,9 +578,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -594,10 +593,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to edit a specific relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and previous and new relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and previous and new relationship type.
 3.  User enters both persons UUID and previous and new relationship type.
-4.  JENGA edits the specified relationship with the provided details.
-5.  JENGA displays edited relationship under both persons’ profiles and confirmation message.
+4.  Gene-nie edits the specified relationship with the provided details.
+5.  Gene-nie displays edited relationship under both persons’ profiles and confirmation message.
 
     Use case ends.
 
@@ -605,9 +604,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship types are invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -617,9 +616,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -632,10 +631,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to delete a specific relationship between two persons.
-2.  JENGA prompts user for UUIDs of both persons and relationship type.
+2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
 3.  User enters both persons UUID and specified relationship type.
-4.  JENGA deletes specified relationship.
-5.  JENGA displays confirmation message.
+4.  Gene-nie deletes specified relationship.
+5.  Gene-nie displays confirmation message.
 
     Use case ends.
 
@@ -643,9 +642,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Relationship type is invalid.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -655,9 +654,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3b. Given UUIDs are invalid or does not exist.
 
-    * 3a1. JENGA shows an error message.
+    * 3a1. Gene-nie shows an error message.
 
-    * 3a2. JENGA prompts User to enter the correct and complete information.
+    * 3a2. Gene-nie prompts User to enter the correct and complete information.
 
       Steps 3a1-3a2 are repeated until the data entered are correct.
 
@@ -665,14 +664,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Exit JENGA**
+**Use case: Exit Gene-nie**
 
 **MSS**
 
-1.  User requests to exit JENGA.
-2.  JENGA displays goodbye message.
-3.  JENGA saves current data.
-4.  JENGA closes the application window.
+1.  User requests to exit Gene-nie.
+2.  Gene-nie displays goodbye message.
+3.  Gene-nie saves current data.
+4.  Gene-nie closes the application window.
 
     Use case ends.
 
@@ -731,21 +730,22 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `delete <UUID>`<br>
+      (replace `<UUID>` with uuid of person to delete)<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete <UUID>`<br>
+      (replace `<UUID>` with uuid of person to delete)<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete <UUID>`, `...` (where person with`<UUID>` does not exist)<br>
       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Go to the folder where the Gene-nie jar file is located, using your file explorer.
+   2. Enter the `data` folder.
+   3. Delete the `addressbook.json` file.
 
-1. _{ more test cases …​ }_

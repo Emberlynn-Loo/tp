@@ -90,5 +90,4 @@ class DeleteRelationshipCommandTest {
 
         assertThrows(CommandException.class, () -> deleteRelationshipCommand.execute(model));
     }
-
 }

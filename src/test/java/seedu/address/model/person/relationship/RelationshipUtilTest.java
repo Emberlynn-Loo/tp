@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.ResultContainer;
@@ -515,5 +516,62 @@ public class RelationshipUtilTest {
 
         ResultContainer result = relationshipUtil.familySearchForTreeMap(aliceUuid, charlieUuid);
         System.out.println(result.getRelationshipPathway());
+    }
+
+    @Test
+    public void testDeleteDefaultRelationshipType() {
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("siblings"));
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("friend"));
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("spouses"));
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("bioparents"));
+    }
+
+    @Test
+    public void deleteRelationTypeWithExistingRelationships_throwsIllegalArgumentException() {
+        // Create RelationshipUtil instance
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+
+        // Add a relationship with the specified relationship type
+        Relationship relationship = new Relationship(UUID.randomUUID(), UUID.randomUUID(), "relationType");
+        relationshipUtil.addRelationship(relationship);
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () ->
+                        relationshipUtil.deleteRelationType("relationType"),
+                "Expected IllegalArgumentException");
+        assertEquals("There are relationships under this relation type. "
+                        + "\nPlease delete them first.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void deleteNonExistingRelationType() {
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("non_existing"));
+    }
+
+    @Test
+    public void deleteDefaultRelationType() {
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("siblings"));
+    }
+
+    @Test
+    public void deleteRelationTypeWithExistingRelationships() {
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        relationshipUtil.addRelationship(new Relationship(UUID.randomUUID(), UUID.randomUUID(), "test"));
+        assertThrows(IllegalArgumentException.class, () -> relationshipUtil.deleteRelationType("test"));
+    }
+
+    @Test
+    public void deleteValidRelationType() {
+        RelationshipUtil relationshipUtil = new RelationshipUtil();
+        String relationType = "aaaa";
+        UUID aliceUuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
+        UUID bobUuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
+        relationshipUtil.addRelationship(new Relationship(aliceUuid, bobUuid, relationType));
+        relationshipUtil.deleteRelationship(new Relationship(aliceUuid, bobUuid, relationType));
+        relationshipUtil.deleteRelationType(relationType);
+        assertFalse(RelationshipUtil.rolelessDescriptors.contains(relationType));
     }
 }

@@ -23,6 +23,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RelationshipUtil;
 
 public class AddressBookTest {
 
@@ -121,6 +122,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Relationship> relationships = FXCollections.observableArrayList();
+        private final RelationshipUtil relationshipUtil = new RelationshipUtil();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -134,6 +136,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Relationship> getRelationshipList() {
             return relationships;
+        }
+
+        @Override
+        public RelationshipUtil getRelationshipDescriptors() {
+            return relationshipUtil;
         }
     }
 

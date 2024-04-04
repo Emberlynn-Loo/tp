@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -26,6 +27,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 public class AddCommandTest {
 
@@ -200,12 +202,41 @@ public class AddCommandTest {
         }
 
         @Override
+        public List<String> getRoles(String descriptor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRolelessDescriptor(String newRelationshipDescriptor) {
+
+        }
+
+        @Override
+        public void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2) {
+        }
+
+        @Override
+        public void resetRelationshipDescriptors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isRelationRoleless(String descriptor) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,7 +261,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteRelationType(String relationType) {
+        }
 
+        @Override
+        public boolean isRelationRoleBased(String descriptor) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

@@ -2,17 +2,19 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RelationshipUtil;
-
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 
 /**
@@ -64,6 +66,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.relationships.setRelationships(relationships);
     }
 
+    public void setRelationshipDescriptors(Pair<ArrayList<String>,
+            ArrayList<ArrayList<String>>> relationshipDescriptors) {
+        this.relationships.setRelationshipDescriptors(relationshipDescriptors.getKey(),
+                relationshipDescriptors.getValue());
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -71,6 +79,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setRelationships(newData.getRelationshipList());
+        ArrayList<String> rolelessDescriptors = newData.getRelationshipDescriptors().getRolelessDescriptors();
+        ArrayList<ArrayList<String>> roleBasedDescriptors =
+                newData.getRelationshipDescriptors().getRoleBasedDescriptors();
+        Pair<ArrayList<String>, ArrayList<ArrayList<String>>> relationshipDescriptors =
+                new Pair<>(rolelessDescriptors, roleBasedDescriptors);
+        setRelationshipDescriptors(relationshipDescriptors);
     }
 
     //// person-level operations
@@ -128,6 +142,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Relationship> getRelationshipList() {
         return relationships.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public RelationshipUtil getRelationshipDescriptors() {
+        return relationships;
     }
 
     public void addRelationship(Relationship toAdd) {
@@ -207,5 +226,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(uuidString);
         requireNonNull(attributeName);
         return persons.hasAttribute(uuidString, attributeName);
+    }
+
+    public void deleteRelationType(String relationType) {
+        relationships.deleteRelationType(relationType);
+    }
+
+    public boolean isRelationRoleBased(String descriptor) {
+        return relationships.isRelationRoleBased(descriptor);
+    }
+
+    public List<String> getRoles(String descriptor) {
+        return relationships.getRoles(descriptor);
+    }
+
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+        return relationships.hasRelationshipWithRoles(relationship, uuid, uuid2);
+    }
+
+    public boolean isRelationRoleless(String descriptor) {
+        return relationships.isRelationRoleless(descriptor);
     }
 }

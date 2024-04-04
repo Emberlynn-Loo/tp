@@ -2,9 +2,9 @@
 
 ![Ui](docs/images/Ui.png)
 
-**Journal for Enthusiasts in Noting Genealogical Associations**
+**Genealogical Entries Network Enabling - Narrative Interconnections Effortlessly**
 ### Introduction
-JENGA helps Genealogists keep track of details of relatives, and easy storage and retrieval of the relationship between relatives. It does not cover discovery of new information, other than highlighting links/anomalies between existing information.
+Gene-nie helps Genealogists keep track of details of relatives, and easy storage and retrieval of the relationship between relatives. It does not cover discovery of new information, other than highlighting links/anomalies between existing information.
 ### Documentation
 - [User Guide](https://github.com/AY2324S2-CS2103T-T11-1/tp/blob/master/docs/UserGuide.md)
 - [Developer Guide](https://github.com/AY2324S2-CS2103T-T11-1/tp/blob/master/docs/DeveloperGuide.md)

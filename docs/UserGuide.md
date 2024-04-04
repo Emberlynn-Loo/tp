@@ -6,34 +6,36 @@ title: User Guide
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
 Gene-nie is our address book reimagined. It is a desktop app able to not only manage your contacts, but also to help you 
-keep track of your genetic information. Gene-nie acts as your personal autobiographer, providing you with information on 
-your family tree and history.
+keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
+the relationship tree and history of friends and family.
 </p>
 
 ## Table of Contents
 
-<details>
-<summary>&nbsp TABLE OF CONTENTS </summary>
-
 - [Quick Start](#quick-start)
-- [Features](#features)
-     - [Viewing Help](#viewing-help--help)
-     - [Adding a person](#adding-a-person--add)
-     - [Listing all Persons](#listing-all-persons--list)
-     - [Editing a person](#editing-a-person--edit)
-     - [Locating persons by name](#locating-persons-by-name--find)
-     - [Adding an Attribute](#adding-an-attribute--addattribute)
-     - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
-     - [Deleting a Person](#deleting-a-person--delete)
-     - [Editing a Relationship](#editing-a-relationship--editrelation)
-     - [Deleting a Relationship](#deleting-a-relationship--deleterelation)
-     - [Finding Relationship between Entities](#finding-relationship-between-entities--anysearch)
-     - [Clearing all Entries](#clearing-all-entries--clear)
-     - [Exiting the Program](#exiting-the-program--exit)
+- [Managing Person Profiles](#features---managing-person-profiles)
+    - [Listing all persons](#listing-all-persons--list)
+    - [Adding a person](#adding-a-person--add)
+    - [Locating persons by name](#locating-persons-by-name--find)
+    - [Adding an Attribute](#adding-an-attribute--addattribute)
+    - [Editing an Attribute](#editing-an-attribute--editattribute)
+    - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
+    - [Deleting a Person](#deleting-a-person--delete)
+- [Managing Person Relationships](#features---managing-person-relationships)
+    - [Listing all relationship types](#listing-all-relationship-types--listrelations)
+    - [Adding a Relationship](#adding-a-relationship--addrelation)
+    - [Editing a Relationship](#editing-a-relationship--editrelation)
+    - [Deleting a Relationship](#deleting-a-relationship--deleterelation)
+    - [Finding Relationship between Entities](#finding-relationship-between-entities--anysearch)
+- [Clearing All Persons](#features---clearing-all-persons)
+    - [Clearing all entries](#clearing-all-entries--clear)
+- [General Features](#features---general-features)
+    - [Viewing Help](#viewing-help--help)
+    - [Clearing all Entries](#clearing-all-entries--clear)
+    - [Exiting the Program](#exiting-the-program--exit)
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
-</details>
 
 ## Quick start
 
@@ -41,34 +43,57 @@ your family tree and history.
 
 1. Download the latest `gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy `gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gene-nie.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
+</div>
+
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar gene-nie.jar` to run Gene-nie.<br>
+
+<div markdown="span" class="alert alert-primary">:question: **for Linux users:**
+In your terminal, type `cd (path)`, replacing `(path)` with the _home folder_ path.
+</div>
+<div markdown="span" class="alert alert-primary">:question: **for Windows users:**
+Navigate to the _home folder_ in File Explorer, then type `cmd` in the address bar and press Enter.
+</div>
+<div markdown="span" class="alert alert-primary">:question: **for MacOS users:**
+Navigate to the _home folder_ in Finder, then right-click and select "New Terminal at Folder".
+</div>
+
+   A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01` : Adds a contact with the specified attributes to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete /0001` : Deletes the contact with the `UUID` "0001".
    
-   * `addAttribute 12db Pet Dog` : Adds the attribute Pet with the value Dog to the person with the UUID 12db.
+   * `addAttribute /12db /Pet Dog` : Adds the attribute Pet with the value Dog to the person with the `UUID` "12db".
    
-   * `deleteAttribute 12db Pet` : Deletes the attribute Pet from the person with the UUID 12db.
+   * `deleteAttribute /12db /Pet` : Deletes the attribute Pet from the person with the `UUID` "12db".
 
-   * `editRelation 12db 34ab friend family` : Edits the relation between the person with the UUID 12db and the person with the UUID 34ab from friend to be family.
+   * `addRelation /12db parent /34ab child /bioparents` : Adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
 
-   * `deleteRelation 12db 34ab friend` : Deletes the relation friend between the person with the UUID 12db and the person with the UUID 34ab.
+   * `editRelation /12db /34ab /friends /colleagues` : Edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
-   * `clear` : Deletes all contacts.
+   * `deleteRelation /12db /34ab /friend` : Deletes the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
-   * `exit` : Exits the app.
+   * `clear` : Removes all of Gene-nie's previous responses from the command section, so that you dont have to see them anymore!
 
-1. Refer to the [Features](#features---viewing-person-profiles) below for details of each command.
+   * `deleteAllPersons` : When you are done with experimenting with the sample data, you can delete all the persons in Gene-nie to begin building your own contacts list!
+
+<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
+Be careful when using this command with your own data as it will delete all your contacts!
+</div>
+
+   * `exit` : Exits the app. All your contacts will be saved for when you next return.
+
+6. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -81,13 +106,13 @@ your family tree and history.
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add /Name NAME`, `NAME` is a parameter which can be used as `add /Name John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `/NAME name [/Phone PHONE]` can be used as `/NAME John Doe /Phone 98765432` or as `/NAME name`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[/ATTRIBUTENAME ATTRIBUTEVALUE]…​` can be used as ` ` (i.e. 0 times), `/Name John Doe`, `/Name John Doe /Phone 98765432` etc.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -105,7 +130,7 @@ your family tree and history.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Viewing Person Profiles
+## Features - Managing Person Profiles
 
 ### Listing all persons : `list`
 
@@ -113,38 +138,19 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
-## Features - Managing Person Profiles
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of attributes (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
+* `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
 ### Locating persons by name: `find`
 
@@ -152,7 +158,7 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -168,7 +174,7 @@ Examples:
 
 Adds an attribute to a person in the address book.
 
-Format: `addAttribute UUID ATTRIBUTE_NAME ATTRIBUTE_VALUE`
+Format: `addAttribute /UUID /ATTRIBUTE_NAME /ATTRIBUTE_VALUE`
 
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
@@ -177,16 +183,16 @@ Format: `addAttribute UUID ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 * The `ATTRIBUTE_VALUE` is case-sensitive.
 
 Examples:
-* `addAttribute 12db Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db.
-* `addAttribute 12db Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db.
-* `addAttribute 12db pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
-* `addAttribute 12db Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
+* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db.
+* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db.
+* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
+* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
 
 ### Deleting an attribute : `deleteAttribute`
 
 Deletes an attribute from a person in the address book.
 
-Format: `deleteAttribute UUID ATTRIBUTE_NAME`
+Format: `deleteAttribute /UUID /ATTRIBUTE_NAME`
 
 * Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
@@ -197,22 +203,40 @@ Format: `deleteAttribute UUID ATTRIBUTE_NAME`
 * If the attribute does not exist, the command will not have any effect.
 
 Examples:
-* `deleteAttribute 12db Pet` deletes the attribute Pet from the person with the UUID 12db.
-* `deleteAttribute 12db pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
+* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
+* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
+
+### Editing an attribute : `editAttribute`
+
+Edit attributes of a person in the address book.
+
+Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+
+* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`.
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
+* The `UUID` **must be a valid UUID**.
+* The `ATTRIBUTE_NAME` is case-sensitive.
+* The `NEW_ATTRIBUTE_VALUE` is case-sensitive.
+* If the person does not have the specified attribute, the command will not have any effect.
+* If the person does not exist, the command will not have any effect.
+
+Examples:
+* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
 
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `delete /UUID`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the person with the specified `UUID`.
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
+* The `UUID` **must be a valid UUID**.
+* If the `UUID` does not exist, the command will not have any effect.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `delete /12db` deletes the person with the `UUID` "12db".
+* `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -220,43 +244,50 @@ Examples:
 
 ## Features - Managing Person Relationships
 
-### Listing all relationship types : `listRelations`
+### Listing all relationship types : `listRelations` or `lr`
 
 Shows a list of all current relationshipTypes in the address book.
 
-Format: `listRelations`
+Format: `listRelations` or `lr`
 
-### Adding a relationship : `addRelation`
+* The command word is not case-sensitive.
+
+### Adding a relationship : `addRelation` or `ar`
 
 Adds a roleless relationship between two people in the address book.
 
-Format: `addRelation UUID1 UUID2 RELATIONSHIP_TYPE`
+Format: `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 
+* The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Adds the roleless relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
-* The `RELATIONSHIP_TYPE` **must be a String**.
+* The `RELATIONSHIP_TYPE` **must be a String** but can be more than one word.
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
-* If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
+* If the `RELATIONSHIP_TYPE` does not exist and is valid, it will be added to the existing list of relationTypes.
 
 Examples:
-* `addRelation 12db 34ab friend` adds the relation friend between the person with the UUID 12db and the person with the UUID 34ab.
+* `addRelation /12db /34ab /friend` adds the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
 Adds a role-based relationship between two people in the address book.
 
-Format: `addRelation ROLE1 UUID1 ROLE2 UUID2 RELATIONSHIP_TYPE`
+Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 
-* Adds the role-based relationship between the person with the specified `UUID1` and `ROLE1` and the person with the specified `UUID2` and `ROLE2`.
+* The command word, `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
+* Adds the role-based relationship between the person with the specified `UUID1` and the person with the specified `UUID2` with roles `ROLE1` and `ROLE2` respectively.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
 * The `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `RELATIONSHIP_TYPE` can be more than one word.
+* The `ROLE1` and `ROLE2` can only be one word.
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
+* If the `ROLE1` or `ROLE2` does not exist for the `RELATIONSHIP_TYPE`, the command will not have any effect.
 * If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
-* `addRelation parent 12db child 34ab bioparents` adds the relation bioparents between the person with the UUID 12db and the person with the UUID 34ab with the roles parent and child respectively.
+* `addRelation /12db father /34ab child /bioparents` adds the relation bioparents between the person with the UUID 12db and the person with the UUID 34ab with the roles parent and child respectively.
 
 <div markdown="block" class="alert alert-warning">
 
@@ -265,16 +296,17 @@ Examples:
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
 </div>
 
-### Editing a relationship : `editRelation`
+### Editing a relationship : `editRelation` or `er`
 
-Edits the relationship between two people in the address book.
+Edits the relationship between two people in the address book to a roleless relationship.
 
-Format: `editRelation UUID1 UUID2 OLD_RELATIONSHIP_TYPE NEW_RELATIONSHIP_TYPE`
+Format: `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
 
-* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
+* The command word, `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` are not case-sensitive.
+* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2` to the new relationship type.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
-* The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` **must be Strings**, but can be more than one word.
 * If the relationship to be edited from does not exist, the command will not have any effect.
 * If the relationship to be edited to already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
@@ -282,69 +314,100 @@ Format: `editRelation UUID1 UUID2 OLD_RELATIONSHIP_TYPE NEW_RELATIONSHIP_TYPE`
 * If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
-* `editRelation 12db 34ab friend family` edits the relation between the person with the UUID 12db and the person with the UUID 34ab from friend to be family.
+* `editRelation /12db /34ab /friends /colleagues` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
-### Deleting a relationship : `deleteRelation`
+Edits the relationship between two people in the address book to a role-based relationship.
 
-Deletes the relationship between two people in the address book.
+Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
 
-Format: `deleteRelation UUID1 UUID2 RELATIONSHIP_TYPE`
-
-* Deletes the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
+* The command word, `OLD_RELATIONSHIP_TYPE`, `NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
+* Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
 * The `UUID1` and `UUID2` **must be valid UUIDs**.
 * The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
+* The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` can be more than one word.
+* The `ROLE1` and `ROLE2` can only be one word.
+* If the relationship to be edited from does not exist, the command will not have any effect.
+* If the relationship to be edited to already exists, the command will not have any effect.
+* If either persons do not exist, the command will not have any effect.
+* If either relationship types do not exist, the command will not have any effect.
+* If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
+
+Examples:
+* `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the UUID 12db and the person with the UUID 34ab from friends to bioparents with the roles parent and child respectively.
+
+### Deleting a relationship : `deleteRelation` or `dr`
+
+Deletes the relationship between two people in the address book.
+
+Format: `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
+
+* The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
+* Deletes the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
+* The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
+* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified relationship to be deleted does not exist, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
 
 Examples:
-* `deleteRelation 12db 34ab friend` deletes the relation friend between the person with the UUID 12db and the person with the UUID 34ab.
+* `deleteRelation /12db /34ab friend` deletes the relation friend between the person with the UUID 12db and the person with the UUID 34ab.
 
 Deletes the relationType from the list of existing relationTypes.
 
-Format: `deleteRelation RELATIONSHIP_TYPE`
+Format: `deleteRelation /RELATIONSHIP_TYPE`
 
 * Deletes the specific `RELATIONSHIP_TYPE` from the list of existing relationTypes.
-* The `RELATIONSHIP_TYPE` **must be a String**.
+* The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified `RELATIONSHIP_TYPE` does not exist, the command will not have any effect.
 * If an existing relationship uses the specified `RELATIONSHIP_TYPE`, the command will not have any effect.
 
-### Finding Relationship between Entities: `anySearch`
+Examples:
+* `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
+
+### Finding All Relationships between Entities: `anySearch`
 
 Finds the relationship pathway between 2 input entities.
 
-Format: `anySearch [originUUID] [targetUUID]`
+Format: `anySearch /ORIGINUUID /TARGETUUID`
 
 > [!IMPORTANT]
 > Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
-* If there exists a relationship between `originUUID` and `targetUUID` the relationship descriptor will be returned, 
-else `No Relationship Found` will be returned
-    - Example: `anySearch 10cb 980c` suppose 980c is the friend of 10cb mother, `anySearch` will then return the descriptor
-`mother -> friend`
-    - Example: `anySearch 10cb 867d` suppose 867d is not related to 10cb at all, then `anySearch` returns `No Relationship Found`
-* The command is order-sensitive `anySearch 10cb 987d` can potentially return a different result from `anySearch 987d 10cb`
-  * Example: 'anySearch 10cb 867d' suppose the search above returns `father -> friend -> mother` then `anySearch 867d 10cb`
-    returns `mother -> friend -> father` since relationship are bidirectional
+* If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned, 
+else `No Relationship Pathway Found` will be returned
+    - Example: `anySearch /10cb /980c` suppose 980c is the friend of 10cb mother, `anySearch` will then return the descriptor
+`10cb -> (bioParents) child of --> 5964 --> friends of --> 980c`
+    - Example: `anySearch /10cb /867d` suppose 867d is not related to 10cb at all, then `anySearch` returns `No Relationship Pathway Found`
+* The command is order-sensitive `anySearch /10cb /987d` can potentially return a different result from `anySearch /987d /10cb`
+  * Example: `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
+    returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
+
+### Finding Family Relationships between Entities: `familySearch`
+
+Finds the family relationship pathway between 2 input entities.
+
+Format: `familySearch /ORIGINUUID /TARGETUUID`
+
+> [!IMPORTANT]
+> Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
+
+* The search is case-sensitive, '10cb' and '10CB' are considered different UUID
+* If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
+else `No Relationship Pathway Found` will be returned
+    - Example: `familySearch /10cb /980c` suppose 980c is the grandfather of 10cb, `familySearch` will then return the descriptor
+`10cb -> (bioParents) child of --> 5964 --> (bioParents) child of --> 980c`
+    - Example: `familySearch /10cb /867d` suppose 867d has no family relation to 10cb, then `familySearch` returns `No Relationship Pathway Found`
+* The command is order-sensitive `familySearch 10cb 987d` can potentially return a different result from `familySearch 987d 10cb`
+  * Example: `familySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> (bioParents) child of --> 980c` then `familySearch 867d 10cb`
+      returns `980c -> (bioParents) father of --> 5964 --> (bioParents) father of --> 10cb` since relationships are bidirectional
 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Clearing All Persons
-
-### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
-Format: `clear`
-
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
-## General Features
+## Features - General Features
 
 ### Viewing help : `help`
 
@@ -352,7 +415,14 @@ Shows a message explaning how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`## Features: General Features
+Format: `help`
+
+### Clearing all entries : `clear`
+
+Clears all entries from the address book.
+
+Format: `clear`
+
 
 ### Exiting the program : `exit`
 
@@ -402,15 +472,16 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Glossary
 
-| Term                      | Description                                                                                                                                                                                                                                                                                            |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLI                       | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
-| Field                     | **Field:** In the context of data, a field refers to a specific piece of information within a record or data structure. Fields are used to organise and store data in a structured manner, and they are often associated with a particular type or attribute.                                          |
-| GUI                       | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
-| Integer                   | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
-| JAR                       | **JAR (Java ARchive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
-| JSON                      | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
-| Parameter                 | **Parameter:** In the context of software, a parameter is a variable or value that is passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                            |
+| Term      | Description                                                                                                                                                                                                                                                                                            |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| UUID      | **Universally Unique Identifier:** A code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                            |
+| CLI       | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
+| Field     | **Field:** In the context of data, a field refers to a specific piece of information within a record or data structure. Fields are used to organise and store data in a structured manner, and they are often associated with a particular type or attribute.                                          |
+| GUI       | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
+| Integer   | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
+| JAR       | **JAR (Java ARchive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
+| JSON      | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
+| Parameter | **Parameter:** In the context of software, a parameter is a variable or value that is passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                            |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -418,20 +489,23 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Command summary
 
-| Action                      | Format, Examples                                                                                                                                |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**              | `add /ATTRUBUTE_NAME ATTRIBUTE_VALUE [MORE_ATTRIBUTE_NAME_VALUE_PAIRS]` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
-| **Delete Person**           | `delete UUID`<br> e.g., `delete 3k83`                                                                                                           |
-| **Add Person Attribute**    | `addAttribute UUID ATTRIBUTE_NAME ATTRIBUTE_VALUE`<br> e.g., `addAttribute 12db Pet Dog`                                                        |
-| **Delete Person Attribute** | `deleteAttribute UUID /ATTRIBUTE_NAME [MORE_ATTRIBUTE_NAMES]`<br> e.g., `deleteAttribute 12db /Pet /Address`                                    |
-| **Add Relation**            | `addRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `addRelation 12db 3dab family`                                                                |
-| **Edit Relation**           | `editRelation UUID1 UUID2 OLD_RELATION_TYPE NEW_RELATION_TYPE`<br> e.g., `editRelation 12db 3dab family friend`                                 |
-| **Delete Relation**         | `deleteRelation UUID1 UUID2 RELATION_TYPE`<br> e.g., `deleteRelation 12db 3dab family`                                                          |
-| **Find**                    | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                      |
-| **List All Persons**        | `list`                                                                                                                                          |
-| **anySearch**               | `anySearch [originUUID] [targetUUID]`<br> e.g., `anySearch 10cb 987d`                                                                           |
-| **Help**                    | `help`                                                                                                                                          |
-| **Exit App**                | `exit`                                                                                                                                          |
-| **Clear Data**              | `clear`                                                                                                                                         |
+| Action                      | Shorthand | Format, Examples                                                                                                                                    |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**              | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
+| **Delete Person**           | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
+| **Add Person Attribute**    | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
+| **Delete Person Attribute** | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
+| **Edit Person Attribute**   | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
+| **Add Relation**            | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
+| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab friends colleagues`                          |
+| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab friends`                                                        |
+| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find James Jake`                                                                                      |
+| **List All Persons**        | l         | `list`                                                                                                                                              |
+| **anySearch**               | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
+| **familySearch**            | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
+| **Help**                    | h         | `help`                                                                                                                                              |
+| **Exit App**                | e         | `exit`                                                                                                                                              |
+| **Clear Command Responses** | c         | `clear`                                                                                                                                             |
+| **Delete all Persons**      | dap       | `deleteAllPersons`                                                                                                                                  |
 
 [Back to Table of Contents](#table-of-contents)

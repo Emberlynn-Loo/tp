@@ -24,17 +24,21 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPersonAttr> persons = new ArrayList<>();
     private final List<JsonAdaptedRelationship> relationships = new ArrayList<>();
+    private final JsonAdaptedRelationshipDescriptors relationshipDescriptors;
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPersonAttr> persons,
-                                       @JsonProperty("relationships") List<JsonAdaptedRelationship> relationships) {
+                                       @JsonProperty("relationships") List<JsonAdaptedRelationship> relationships,
+                                       @JsonProperty("relationshipDescriptors")
+                                           JsonAdaptedRelationshipDescriptors relationshipDescriptors) {
         this.persons.addAll(persons);
         if (relationships != null) {
             this.relationships.addAll(relationships);
         }
+        this.relationshipDescriptors = relationshipDescriptors;
     }
 
     /**
@@ -46,6 +50,7 @@ class JsonSerializableAddressBook {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPersonAttr::new).collect(Collectors.toList()));
         relationships.addAll(
                 source.getRelationshipList().stream().map(JsonAdaptedRelationship::new).collect(Collectors.toList()));
+        relationshipDescriptors = new JsonAdaptedRelationshipDescriptors(source.getRelationshipDescriptors());
     }
 
     /**
@@ -65,6 +70,9 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedRelationship jsonAdaptedRelationship : relationships) {
             Relationship relationship = jsonAdaptedRelationship.toModelType();
             addressBook.addRelationship(relationship);
+        }
+        if (relationshipDescriptors != null) {
+            addressBook.setRelationshipDescriptors(relationshipDescriptors.toModelType());
         }
         return addressBook;
     }

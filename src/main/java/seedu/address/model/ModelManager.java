@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,6 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
+import seedu.address.model.person.relationship.RelationshipUtil;
+import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -138,7 +141,12 @@ public class ModelManager implements Model {
     }
 
     public void deleteRelationType(String relationType) {
-        Relationship.deleteRelationType(relationType);
+        addressBook.deleteRelationType(relationType);
+    }
+
+    @Override
+    public boolean isRelationRoleBased(String descriptor) {
+        return addressBook.isRelationRoleBased(descriptor);
     }
 
     public String getExistingRelationship(Relationship toGet) {
@@ -151,6 +159,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public List<String> getRoles(String descriptor) {
+        return addressBook.getRoles(descriptor);
+    }
+
+    @Override
     public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
         return addressBook.anySearch(originUuid, targetUuid);
     }
@@ -158,6 +171,26 @@ public class ModelManager implements Model {
     @Override
     public ResultContainer familySearch(UUID originUuid, UUID targetUuid) {
         return addressBook.familySearch(originUuid, targetUuid);
+    }
+
+    @Override
+    public void addRolelessDescriptor(String newRelationshipDescriptor) {
+        RelationshipUtil.addRolelessDescriptor(newRelationshipDescriptor);
+    }
+
+    @Override
+    public void addRolebasedDescriptor(String newRelationshipDescriptor, String role1, String role2) {
+        RelationshipUtil.addRoleBasedDescriptor(newRelationshipDescriptor, role1, role2);
+    }
+
+    @Override
+    public void resetRelationshipDescriptors() {
+        RelationshipUtil.resetRelationshipDescriptors();
+    }
+
+    @Override
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
+        return addressBook.hasRelationshipWithRoles(relationship, uuid, uuid2);
     }
 
     /**
@@ -225,5 +258,10 @@ public class ModelManager implements Model {
     @Override
     public boolean hasAttribute(String uuidString, String attributeName) {
         return addressBook.hasAttribute(uuidString, attributeName);
+    }
+
+    @Override
+    public boolean isRelationRoleless(String descriptor) {
+        return addressBook.isRelationRoleless(descriptor);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic.relationship;
 
 import java.util.UUID;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -79,23 +80,90 @@ public class AddRelationshipCommand extends Command {
             if (isRoleBased) {
                 RoleBasedRelationship toAdd;
                 if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
+                    ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
+                    int originBioParentsCount = 0;
+                    int targetBioParentsCount = 0;
+                    for (Relationship r : allRelationships) {
+                        if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                                && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
+                            if (r.getPerson1().equals(fullOriginUuid)) {
+                                RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                                if (r1.getRole(fullOriginUuid).equals("child")) {
+                                    originBioParentsCount++;
+                                }
+                            } else if (r.getPerson2().equals(fullOriginUuid)) {
+                                RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                                if (r2.getRole(fullOriginUuid).equals("child")) {
+                                    originBioParentsCount++;
+                                }
+                            }
+                        }
+                        if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                                && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
+                            if (r.getPerson1().equals(fullTargetUuid)) {
+                                RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                                if (r1.getRole(fullTargetUuid).equals("child")) {
+                                    targetBioParentsCount++;
+                                }
+                            } else if (r.getPerson2().equals(fullTargetUuid)) {
+                                RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                                if (r2.getRole(fullTargetUuid).equals("child")) {
+                                    targetBioParentsCount++;
+                                }
+                            }
+                        }
+                    }
+                    if (originBioParentsCount >= 2) {
+                        throw new CommandException("Sorry, " + originUuid + " already has 2 parent relationships");
+                    }
+                    if (targetBioParentsCount >= 2) {
+                        throw new CommandException("Sorry, " + targetUuid + " already has 2 parent relationships");
+                    }
                     toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {
                     toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                } else if (relationshipDescriptor.equalsIgnoreCase("Friends")) {
+                    throw new CommandException("Sorry, friends cannot have roles");
                 } else {
                     toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
                             relationshipDescriptor, rolePerson1, rolePerson2);
+                }
+                if (model.isRelationRoleless(relationshipDescriptor)) {
+                    throw new CommandException(String.format("Sorry, you did not add %s as a "
+                            + "role based relationship."
+                            + "\nIf you want to use it, please delete the roles"
+                            + "\nIf you want to make it a role based relationship, please delete the "
+                            + "relationtype and add it again.", relationshipDescriptor));
+                }
+                if (model.isRelationRoleBased(relationshipDescriptor)) {
+                    if (!(rolePerson1.equals(model.getRoles(relationshipDescriptor).get(0))
+                            || rolePerson1.equals(model.getRoles(relationshipDescriptor).get(1)))
+                            || !(rolePerson2.equals(model.getRoles(relationshipDescriptor).get(0))
+                            || rolePerson2.equals(model.getRoles(relationshipDescriptor).get(1)))) {
+                        throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
+                                        + "\nIf you want to change the roles, please delete the"
+                                        + "\nrelationtype and add it again.",
+                                model.getRoles(relationshipDescriptor).get(0),
+                                model.getRoles(relationshipDescriptor).get(1)));
+                    }
                 }
                 if (model.hasRelationshipWithDescriptor(toAdd)) {
                     String existing = model.getExistingRelationship(toAdd);
                     throw new CommandException(String.format("Sorry, %s", existing));
                 }
                 model.addRelationship(toAdd);
-                System.out.println("Role based instance of Sibling");
-                System.out.println(toAdd instanceof SiblingRelationship);
+                model.addRolebasedDescriptor(relationshipDescriptor, rolePerson1, rolePerson2);
                 return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
+            }
+            if (model.isRelationRoleBased(relationshipDescriptor)) {
+                throw new CommandException(String.format("Sorry, you added %s as a role based relationship."
+                        + "\nIf you want to use it, please use the roles you added: [%s, %s]"
+                        + "\nIf you want to make it a role based relationship, please delete the"
+                        + "\nrelationtype and add it again.", relationshipDescriptor,
+                        model.getRoles(relationshipDescriptor).get(0),
+                        model.getRoles(relationshipDescriptor).get(1)));
             }
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);
             if (model.hasRelationshipWithDescriptor(toAdd)) {
@@ -103,6 +171,7 @@ public class AddRelationshipCommand extends Command {
                 throw new CommandException(String.format("Sorry, %s", existing));
             }
             model.addRelationship(toAdd);
+            model.addRolelessDescriptor(relationshipDescriptor);
             return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());

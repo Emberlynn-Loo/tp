@@ -1,8 +1,10 @@
 package seedu.address.model.person.relationship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.person.relationship.Relationship.validDescriptors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -18,9 +20,17 @@ import seedu.address.commons.util.ResultContainer;
  * Allows for adding, deleting, and checking for existing relationships.
  */
 public class RelationshipUtil {
+    protected static ArrayList<ArrayList<String>> roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+            new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+            new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+            new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+    ));
+    protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
+            Arrays.asList("friend"));
     private final ObservableList<Relationship> relationshipsTracker = FXCollections.observableArrayList();
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
+
     private class Pair {
         private UUID uuid;
         private int relationshipPairIndex;
@@ -101,6 +111,25 @@ public class RelationshipUtil {
             }
         }
         throw new IllegalArgumentException("Relationship does not exist.");
+    }
+
+    public static void addRolelessDescriptor(String descriptor) {
+        rolelessDescriptors.add(descriptor);
+    }
+
+    /**
+     * Adds a new role-based descriptor to the list of valid role-based descriptors.
+     *
+     * @param descriptor The descriptor to be added.
+     * @param role1 The role of the first person in the relationship.
+     * @param role2 The role of the second person in the relationship.
+     */
+    public static void addRoleBasedDescriptor(String descriptor, String role1, String role2) {
+        ArrayList<String> descriptorList = new ArrayList<>();
+        descriptorList.add(descriptor);
+        descriptorList.add(role1);
+        descriptorList.add(role2);
+        roleBasedDescriptors.add(descriptorList);
     }
 
     /**
@@ -415,5 +444,122 @@ public class RelationshipUtil {
         String uuidString = uuid.toString();
         int len = uuidString.length();
         return uuidString.substring(len - 4);
+    }
+
+    /**
+     * Adds a new relationship type to the list of valid relationship types.
+     */
+    public void deleteRelationType(String relationType) {
+        if (!validDescriptors.contains(relationType)) {
+            throw new IllegalArgumentException("Relationship type does not exist yet");
+        }
+        if (relationType.equals("siblings") || relationType.equals("friend")
+                || relationType.equals("spouses") || relationType.equals("bioparents")) {
+            throw new IllegalArgumentException("Cannot delete default relationship type");
+        }
+        if (descriptorExists(relationType)) {
+            throw new IllegalArgumentException("There are relationships under this relation type. "
+                    + "\nPlease delete them first.");
+        }
+        validDescriptors.remove(relationType);
+        if (!roleBasedDescriptors.contains(relationType)) {
+            roleBasedDescriptors.remove(relationType);
+        }
+        if (!rolelessDescriptors.contains(relationType)) {
+            rolelessDescriptors.remove(relationType);
+        }
+    }
+
+    /**
+     * Checks if a relationship type is role-based.
+     * @param descriptor The descriptor to check.
+     * @return true if the relationship type is role-based, false otherwise.
+     */
+    public boolean isRelationRoleBased(String descriptor) {
+        for (ArrayList<String> relationship : roleBasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a relationship type is roleless.
+     * @param descriptor The descriptor to check.
+     * @return true if the relationship type is roleless, false otherwise.
+     */
+    public boolean isRelationRoleless(String descriptor) {
+        return rolelessDescriptors.contains(descriptor);
+    }
+
+    /**
+     * Retrieves the roles associated with a specific relationship type.
+     * @param descriptor The descriptor to retrieve roles for.
+     * @return A list containing the roles associated with the specified descriptor.
+     */
+    public List<String> getRoles(String descriptor) {
+        List<String> roles = new ArrayList<>();
+        for (ArrayList<String> relationship : roleBasedDescriptors) {
+            if (relationship.get(0).equals(descriptor)) {
+                ArrayList<String> roleBasedRelationship = relationship;
+                roles.add(roleBasedRelationship.get(1));
+                roles.add(roleBasedRelationship.get(2));
+            }
+        }
+        return roles;
+    }
+
+    /**
+     * Checks if a relationship with the same roles already exists in the tracker.
+     * @param relationship The relationship to check.
+     * @param uuid1 The UUID of the first person in the relationship.
+     * @param uuid2 The UUID of the second person in the relationship.
+     * @return true if the relationship with the same roles exists, false otherwise.
+     */
+    public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid1, UUID uuid2) {
+        for (Relationship storedRelationship : relationshipsTracker) {
+            if (storedRelationship instanceof RoleBasedRelationship) {
+                RoleBasedRelationship storedRoleBasedRelationship = (RoleBasedRelationship) storedRelationship;
+                if (storedRoleBasedRelationship.equals(relationship)) {
+                    String storedRole1 = storedRoleBasedRelationship.getRole(uuid1);
+                    String storedRole2 = storedRoleBasedRelationship.getRole(uuid2);
+                    String newRole1 = relationship.getRole(uuid1);
+                    String newRole2 = relationship.getRole(uuid2);
+                    if (storedRole1.equals(newRole1) && storedRole2.equals(newRole2)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<ArrayList<String>> getRoleBasedDescriptors() {
+        return roleBasedDescriptors;
+    }
+
+    public ArrayList<String> getRolelessDescriptors() {
+        return rolelessDescriptors;
+    }
+
+    public void setRelationshipDescriptors(ArrayList<String> rolelessDescriptors,
+                                                  ArrayList<ArrayList<String>> roleBasedDescriptors) {
+        this.rolelessDescriptors = rolelessDescriptors;
+        this.roleBasedDescriptors = roleBasedDescriptors;
+    }
+
+    /**
+     * Resets the relationship descriptors to their default values.
+     */
+    public static void resetRelationshipDescriptors() {
+        rolelessDescriptors = new ArrayList<>(Arrays.asList("friend"));
+        roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+                new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+                new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+        ));
     }
 }

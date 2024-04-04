@@ -13,7 +13,8 @@ import seedu.address.model.person.Person;
 public class Messages {
     public static final String MESSAGE_MISSING_UUID = "Missing UUID.";
     public static final String MESSAGE_NO_SUCH_ATTRIBUTE = "No such attribute(s) found: ";
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command. Please type 'help' to see the list of "
+            + "available commands on our user guide.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
