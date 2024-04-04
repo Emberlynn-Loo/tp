@@ -2,12 +2,12 @@ package seedu.address.model.person;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -23,7 +23,7 @@ import seedu.address.model.person.attribute.StringAttribute;
 public class Person {
     private final UUID uuid;
     // Data fields
-    private final HashMap<String, Attribute> attributes = new HashMap<>();
+    private final TreeMap<String, Attribute> attributes = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
     /**
      * Constructs a person with a random UUID and a list of attributes.
@@ -286,7 +286,7 @@ public class Person {
     public Set<Attribute> getAttributes() {
         return new HashSet<>(attributes.values());
     }
-    public HashMap<String, Attribute> getAttributesMap() {
+    public TreeMap<String, Attribute> getAttributesMap() {
         return this.attributes;
     }
     public void setAttribute(String name, String str) {
