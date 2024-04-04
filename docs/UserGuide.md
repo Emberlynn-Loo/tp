@@ -182,7 +182,7 @@ Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-insensitive. The attribute name will automatically be converted to the correct case.
+* The `ATTRIBUTE_NAME` is case-insensitive. The attribute name will automatically be converted to the correct case. The attribute name will be converted to having all lowercase after the first letter being capitalized. e.g. `/pEt` will be converted to `Pet`.
 * The `ATTRIBUTE_VALUE` is case-sensitive.
 
 Examples:
