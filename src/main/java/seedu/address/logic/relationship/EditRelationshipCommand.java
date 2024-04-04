@@ -74,11 +74,11 @@ public class EditRelationshipCommand extends Command {
      * @throws CommandException If the command cannot be executed.
      */
     public CommandResult execute(Model model) throws CommandException {
-        if (originUuid == null || targetUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
-        }
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        if (fullTargetUuid == null || fullTargetUuid == null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
+        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);
