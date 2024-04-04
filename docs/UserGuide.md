@@ -6,8 +6,8 @@ title: User Guide
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
 Gene-nie is our address book reimagined. It is a desktop app able to not only manage your contacts, but also to help you 
-keep track of your genetic information. Gene-nie acts as your personal autobiographer, providing you with information on 
-your family tree and history.
+keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
+the relationship tree and history of friends and family.
 </p>
 
 ## Table of Contents
@@ -18,6 +18,7 @@ your family tree and history.
     - [Adding a person](#adding-a-person--add)
     - [Locating persons by name](#locating-persons-by-name--find)
     - [Adding an Attribute](#adding-an-attribute--addattribute)
+    - [Editing an Attribute](#editing-an-attribute--editattribute)
     - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
     - [Deleting a Person](#deleting-a-person--delete)
 - [Managing Person Relationships](#features---managing-person-relationships)
@@ -42,13 +43,28 @@ your family tree and history.
 
 1. Download the latest `gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy `gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gene-nie.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
+</div>
+
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar gene-nie.jar` to run Gene-nie.<br>
+
+<div markdown="span" class="alert alert-primary">:question: **for Linux users:**
+In your terminal, type `cd (path)`, replacing `(path)` with the _home folder_ path.
+</div>
+<div markdown="span" class="alert alert-primary">:question: **for Windows users:**
+Navigate to the _home folder_ in File Explorer, then type `cmd` in the address bar and press Enter.
+</div>
+<div markdown="span" class="alert alert-primary">:question: **for MacOS users:**
+Navigate to the _home folder_ in Finder, then right-click and select "New Terminal at Folder".
+</div>
+
+   A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -67,11 +83,17 @@ your family tree and history.
 
    * `deleteRelation /12db /34ab /friend` : Deletes the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Removes all of Gene-nie's previous responses from the command section, so that you dont have to see them anymore!
 
-   * `exit` : Exits the app.
+   * `deleteAllPersons` : When you are done with experimenting with the sample data, you can delete all the persons in Gene-nie to begin building your own contacts list!
 
-1. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
+<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
+Be careful when using this command with your own data as it will delete all your contacts!
+</div>
+
+   * `exit` : Exits the app. All your contacts will be saved for when you next return.
+
+6. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -450,15 +472,16 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Glossary
 
-| Term                      | Description                                                                                                                                                                                                                                                                                            |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLI                       | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
-| Field                     | **Field:** In the context of data, a field refers to a specific piece of information within a record or data structure. Fields are used to organise and store data in a structured manner, and they are often associated with a particular type or attribute.                                          |
-| GUI                       | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
-| Integer                   | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
-| JAR                       | **JAR (Java ARchive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
-| JSON                      | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
-| Parameter                 | **Parameter:** In the context of software, a parameter is a variable or value that is passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                            |
+| Term      | Description                                                                                                                                                                                                                                                                                            |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| UUID      | **Universally Unique Identifier:** A code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                            |
+| CLI       | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
+| Field     | **Field:** In the context of data, a field refers to a specific piece of information within a record or data structure. Fields are used to organise and store data in a structured manner, and they are often associated with a particular type or attribute.                                          |
+| GUI       | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
+| Integer   | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
+| JAR       | **JAR (Java ARchive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
+| JSON      | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
+| Parameter | **Parameter:** In the context of software, a parameter is a variable or value that is passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                            |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -466,22 +489,23 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Command summary
 
-| Action                      | Format, Examples                                                                                                                                |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**              | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [MORE_ATTRIBUTE_NAME_VALUE_PAIRS]` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
-| **Delete Person**           | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                         |
-| **Add Person Attribute**    | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`<br> e.g., `addAttribute /12db /Pet Dog`                                                    |
-| **Delete Person Attribute** | `deleteAttribute /UUID /ATTRIBUTE_NAME [MORE_ATTRIBUTE_NAMES]`<br> e.g., `deleteAttribute /12db /Pet /Address`                                  |
-| **Edit Person Attribute**   | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE`<br> e.g., `editAttribute /12db /Pet Cat`                                              |
-| **Add Relation**            | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                         |
-| **Edit Relation**           | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab friends colleagues`                      |
-| **Delete Relation**         | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab friends`                                                    |
-| **Find**                    | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                      |
-| **List All Persons**        | `list`                                                                                                                                          |
-| **anySearch**               | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                           |
-| **familySearch**            | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                     |
-| **Help**                    | `help`                                                                                                                                          |
-| **Exit App**                | `exit`                                                                                                                                          |
-| **Clear Data**              | `clear`                                                                                                                                         |
+| Action                      | Shorthand | Format, Examples                                                                                                                                    |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**              | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
+| **Delete Person**           | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
+| **Add Person Attribute**    | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
+| **Delete Person Attribute** | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
+| **Edit Person Attribute**   | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
+| **Add Relation**            | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
+| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab friends colleagues`                          |
+| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab friends`                                                        |
+| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find James Jake`                                                                                      |
+| **List All Persons**        | l         | `list`                                                                                                                                              |
+| **anySearch**               | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
+| **familySearch**            | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
+| **Help**                    | h         | `help`                                                                                                                                              |
+| **Exit App**                | e         | `exit`                                                                                                                                              |
+| **Clear Command Responses** | c         | `clear`                                                                                                                                             |
+| **Delete all Persons**      | dap       | `deleteAllPersons`                                                                                                                                  |
 
 [Back to Table of Contents](#table-of-contents)
