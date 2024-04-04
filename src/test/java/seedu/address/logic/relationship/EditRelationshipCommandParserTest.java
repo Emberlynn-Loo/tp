@@ -156,6 +156,12 @@ public class EditRelationshipCommandParserTest {
     }
 
     @Test
+    public void getRelationshipFamily_throwsParseException() {
+        String userInput = "/1234 /1244 /oldDescriptor /family";
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
     public void getRelationshipHashMapEdit_role1NotLetter_throwsParseException() {
         String userInput = "/1234 123 /1244 role /oldDescriptor /Newdescriptor";
         Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput));

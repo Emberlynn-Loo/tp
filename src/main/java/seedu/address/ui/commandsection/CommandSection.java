@@ -105,7 +105,8 @@ public class CommandSection extends UiPart<Region> {
             pastCommands.add(commandText);
         }
         pastCommandIndex = pastCommands.size();
-        if (commandText.equalsIgnoreCase("clr")) {
+        if (commandText.equalsIgnoreCase("c") || commandText.equalsIgnoreCase("clear")) {
+            commandSectionDialogContainer.getChildren().clear();
             commandBoxImageContainer.setVisible(false);
             commandBoxImageContainer.setManaged(false);
             isDisplayingCommand = false;

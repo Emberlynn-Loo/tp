@@ -8,7 +8,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.model.person.relationship.SiblingRelationship;
@@ -79,6 +78,22 @@ public class EditRelationshipCommand extends Command {
         if (fullTargetUuid == null || fullTargetUuid == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
         }
+        Boolean endsWithS = oldRelationshipDescriptor.endsWith("s");
+        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, oldRelationshipDescriptor);
+        if (relationTypeWithS != null) {
+            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
+                            + "or delete it and add the relation type back how you'd like", relationTypeWithS,
+                    relationTypeWithS);
+            throw new CommandException(errorMessage);
+        }
+        Boolean endsWithS2 = newRelationshipDescriptor.endsWith("s");
+        String relationTypeWithS2 = model.relationTypeExistsWithOrWithoutS(endsWithS2, newRelationshipDescriptor);
+        if (relationTypeWithS2 != null) {
+            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
+                            + "or delete it and add the relation type back how you'd like", relationTypeWithS2,
+                    relationTypeWithS2);
+            throw new CommandException(errorMessage);
+        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);
@@ -104,7 +119,7 @@ public class EditRelationshipCommand extends Command {
             if (role1 != null && role2 != null) {
                 RoleBasedRelationship toAdd;
                 if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                    toAdd = model.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Siblings")) {
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
@@ -157,3 +172,4 @@ public class EditRelationshipCommand extends Command {
         }
     }
 }
+

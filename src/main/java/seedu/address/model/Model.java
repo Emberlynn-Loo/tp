@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.ResultContainer;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
@@ -138,4 +139,8 @@ public interface Model {
 
     boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2);
     boolean isRelationRoleless(String descriptor);
+
+    RoleBasedRelationship getBioparentsCount(Model model, String originUuid,
+                                             String targetUuid, String role1, String role2) throws CommandException;
+    String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor);
 }

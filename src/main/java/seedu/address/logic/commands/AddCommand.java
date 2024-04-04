@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_SHORT = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Optional Parameters: /YourAttributeName YourAttributeValue\n"
+            + "Optional Parameters: /attributeName attributeValue\n"
             + "Predefined parameters: "
             + "/Name "
             + "/Phone "
@@ -69,13 +69,13 @@ public class AddCommand extends Command {
         return personToAdd;
     }
 
-    private Attribute[] generateAttributeList() {
+    private Attribute[] generateAttributeList() throws CommandException {
         Attribute[] attributesToAdd = new Attribute[attributeMap.size()];
 
         for (int i = 0; i < attributeMap.size(); i++) {
             String attributeName = (String) attributeMap.keySet().toArray()[i];
             String attributeValue = attributeMap.get(attributeName);
-            attributesToAdd[i] = Attribute.fromString(attributeName, attributeValue);
+            attributesToAdd[i] = AttributeUtil.createAttribute(attributeName, attributeValue);
         }
         return attributesToAdd;
     }

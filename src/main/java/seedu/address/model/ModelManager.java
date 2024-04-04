@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ResultContainer;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RelationshipUtil;
@@ -263,5 +264,16 @@ public class ModelManager implements Model {
     @Override
     public boolean isRelationRoleless(String descriptor) {
         return addressBook.isRelationRoleless(descriptor);
+    }
+
+    @Override
+    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
+                                                    String role1, String role2) throws CommandException {
+        return addressBook.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
+    }
+
+    @Override
+    public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
+        return addressBook.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
     }
 }
