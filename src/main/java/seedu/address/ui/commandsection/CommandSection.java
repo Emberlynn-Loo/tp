@@ -68,8 +68,7 @@ public class CommandSection extends UiPart<Region> {
         commandSectionDialogScrollPane.heightProperty().addListener((observable, oldValue, newValue) -> {
             if (isDisplayingCommand) {
                 return;
-            }
-            if (newValue.doubleValue() <= 150) {
+            } else if (newValue.doubleValue() <= 150) {
                 addWelcomeDialogNoText();
             } else {
                 addWelcomeDialog();
