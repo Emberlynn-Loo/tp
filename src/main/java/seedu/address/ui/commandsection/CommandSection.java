@@ -26,9 +26,9 @@ import seedu.address.ui.UiPart;
 public class CommandSection extends UiPart<Region> {
     private static final String FXML = "command-section/CommandSection.fxml";
     private static final String ERROR = "failure-text";
-    private final Image SUCCESS = new Image(this.getClass().getResourceAsStream("/images/command-success.png"));
-    private final Image FAILURE = new Image(this.getClass().getResourceAsStream("/images/command-error.png"));
-    private final Image WELCOME = new Image(this.getClass().getResourceAsStream("/images/welcome.png"));
+    private final Image success = new Image(this.getClass().getResourceAsStream("/images/command-success.png"));
+    private final Image failure = new Image(this.getClass().getResourceAsStream("/images/command-error.png"));
+    private final Image welcome = new Image(this.getClass().getResourceAsStream("/images/welcome.png"));
     @FXML
     private VBox commandSectionContainer;
     @FXML
@@ -120,11 +120,11 @@ public class CommandSection extends UiPart<Region> {
             setDialogLabel(commandResult.getFeedbackToUser(), true);
             cliInput.setText("");
             setStyleToDefault();
-            commandBoxImageContainer.setImage(SUCCESS);
+            commandBoxImageContainer.setImage(success);
         } catch (CommandException | ParseException e) {
             setDialogLabel(e.getMessage(), false);
             setStyleToIndicateCommandFailure();
-            commandBoxImageContainer.setImage(FAILURE);
+            commandBoxImageContainer.setImage(failure);
         }
     }
     /**
@@ -174,7 +174,7 @@ public class CommandSection extends UiPart<Region> {
         welcomeImage.setFitWidth(200);
         welcomeImage.setFitHeight(200);
         welcomeImage.setPreserveRatio(true);
-        welcomeImage.setImage(WELCOME);
+        welcomeImage.setImage(welcome);
         welcomeImage.setId("welcome-image");
         commandSectionDialogContainer.setAlignment(Pos.CENTER);
         commandSectionDialogContainer.getChildren().add(dialogLabel);
