@@ -79,6 +79,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setRelationships(newData.getRelationshipList());
+        ArrayList<String> rolelessDescriptors = newData.getRelationshipDescriptors().getRolelessDescriptors();
+        ArrayList<ArrayList<String>> roleBasedDescriptors =
+                newData.getRelationshipDescriptors().getRoleBasedDescriptors();
+        Pair<ArrayList<String>, ArrayList<ArrayList<String>>> relationshipDescriptors =
+                new Pair<>(rolelessDescriptors, roleBasedDescriptors);
+        setRelationshipDescriptors(relationshipDescriptors);
     }
 
     //// person-level operations

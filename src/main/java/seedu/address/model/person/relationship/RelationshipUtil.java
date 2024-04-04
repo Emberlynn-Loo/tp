@@ -550,4 +550,13 @@ public class RelationshipUtil {
         this.rolelessDescriptors = rolelessDescriptors;
         this.roleBasedDescriptors = roleBasedDescriptors;
     }
+
+    public static void resetRelationshipDescriptors() {
+        rolelessDescriptors = new ArrayList<>(Arrays.asList("friend"));
+        roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+                new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+                new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+        ));
+    }
 }
