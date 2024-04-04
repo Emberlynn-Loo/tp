@@ -17,6 +17,7 @@ the relationship tree and history of friends and family.
     - [Listing all persons](#listing-all-persons--list)
     - [Adding a person](#adding-a-person--add)
     - [Locating persons by name](#locating-persons-by-name--find)
+- [Attributes](#attributes)
     - [Adding an Attribute](#adding-an-attribute--addattribute)
     - [Editing an Attribute](#editing-an-attribute--editattribute)
     - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
@@ -173,6 +174,25 @@ Examples:
 * `find /alex /david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Attributes
+
+Attributes are additional information that can be added to a person's profile. Each attribute has a name and a value.
+Attributes can be added, edited, or deleted. The attributes that can be added are not fixed and can be user-defined. Other than the user-defined attributes, the following attributes are predefined:
+
+1. Name attribute with String value
+2. Phone attribute with Integer value
+3. Birthday attribute with Date value
+4. Sex attribute with String enum value. The value can be either `Male` or `Female`
+<div markdown="block" class="alert alert-info">
+
+* The attribute name is case-insensitive for all attributes. The attribute name will automatically be converted to the correct case. The attribute name will be converted to having all lowercase after the first letter being capitalized. e.g. `/pEt` will be converted to `Pet`.
+
+* The attribute value is case-sensitive.
+
+* Other than the attributes that have been defined, the user defined attributes will be of type String.
+* The value of the attributes cannot be converted to another type. e.g. if the attribute is of type Integer, the value must be an Integer.
+
+
 ### Adding an attribute : `addAttribute`
 
 Adds an attribute to a person in the address book.
@@ -182,7 +202,7 @@ Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-insensitive. The attribute name will automatically be converted to the correct case. The attribute name will be converted to having all lowercase after the first letter being capitalized. e.g. `/pEt` will be converted to `Pet`.
+* The `ATTRIBUTE_NAME` is case-insensitive.
 * The `ATTRIBUTE_VALUE` is case-sensitive.
 
 Examples:
