@@ -38,4 +38,24 @@ public class AttributeUtilTest {
     public void createAttribute_invalidBirthdayAttribute_throwsCommandException() {
         assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("birthday", "not a date"));
     }
+    @Test
+    public void capitalizeAttributeName_generalName_returnsCapitalizedName() {
+        String actualName = AttributeUtil.capitalizeAttributeName("general");
+        assertTrue(actualName.equals("General"));
+    }
+    @Test
+    public void capitalizeAttributeName_emptyName_returnsEmptyString() {
+        String actualName = AttributeUtil.capitalizeAttributeName("");
+        assertTrue(actualName.equals(""));
+    }
+    @Test
+    public void capitalizeAttributeName_singleLetterName_returnsCapitalizedLetter() {
+        String actualName = AttributeUtil.capitalizeAttributeName("a");
+        assertTrue(actualName.equals("A"));
+    }
+    @Test
+    public void capitalizeAttributeName_numberName_returnsNull() {
+        String actualName = AttributeUtil.capitalizeAttributeName("1");
+        assertTrue(actualName.equals("1"));
+    }
 }

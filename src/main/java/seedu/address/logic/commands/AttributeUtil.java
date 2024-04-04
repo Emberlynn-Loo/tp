@@ -49,9 +49,27 @@ public class AttributeUtil {
             attribute = new PhoneNumberAttribute("Phone", phoneNumber);
             break;
         default:
+            attributeName = capitalizeAttributeName(attributeName);
             attribute = Attribute.fromString(attributeName, attributeValue);
         }
-
         return attribute;
+    }
+
+    /**
+     * Capitalizes the first letter of the attribute name.
+     *
+     * @param attributeName The name of the attribute.
+     * @return The attribute name with the first letter capitalized.
+     */
+    public static String capitalizeAttributeName(String attributeName) {
+        if (attributeName == null || attributeName.isEmpty()) {
+            return attributeName;
+        }
+
+        if (attributeName.length() == 1) {
+            return attributeName.toUpperCase();
+        }
+
+        return attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
     }
 }
