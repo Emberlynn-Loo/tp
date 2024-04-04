@@ -88,4 +88,5 @@ command-section_scrollpane .viewport {
     -fx-prompt-text-font-weight: bold;
     -fx-max-width: 400;
     -fx-min-width: 100;
+    -fx-font-size: 15;
 }
