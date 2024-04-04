@@ -90,7 +90,7 @@ public class CommandSection extends UiPart<Region> {
         if (commandText.equals("")) {
             return;
         }
-        if (commandText.equalsIgnoreCase("clr")) {
+        if (commandText.equalsIgnoreCase("c") || commandText.equalsIgnoreCase("clear")) {
             commandSectionDialogContainer.getChildren().clear();
             commandBoxImageContainer.setVisible(false);
             commandBoxImageContainer.setManaged(false);
