@@ -126,22 +126,6 @@ class AddRelationshipCommandParserTest {
     }
 
     @Test
-    void parse_invalidInputFamilyWithRoles_throwsParseException() {
-        String userInput = "/0001 parent /0003 child /family";
-        assertParseFailure(parser, userInput, "Please specify the type of familial relationship "
-                + "instead of 'Family'.\n"
-                + " Valid familial relations are: [bioParents, siblings, spouses]");
-    }
-
-    @Test
-    void parse_invalidInputFamily_throwsParseException() {
-        String userInput = "/0001 /0003 /family";
-        assertParseFailure(parser, userInput, "Please specify the type of "
-                + "familial relationship instead of 'Family'.\n"
-                + " Valid familial relations are: [bioParents, siblings, spouses]");
-    }
-
-    @Test
     void parse_missingRole1_throwsParseException() {
         String userInput = "/0001 /0003 /spouses";
         assertParseFailure(parser, userInput, "spouses relationship requires two roles to be specified.\n"
@@ -184,5 +168,39 @@ class AddRelationshipCommandParserTest {
         assertThrows(IllegalStateException.class, () ->
                 ParserUtil.validateRolesForFamilialRelation(relationshipDescriptor,
                 relationshipMap));
+    }
+
+    @Test
+    void parse_wrongDescriptorFamilys_throwsParseException() {
+        String userInput = "/0001 /0003 /familys";
+        assertParseFailure(parser, userInput, "Please specify the type of familial relationship instead of 'Family'.\n"
+                + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_wrongDescriptorFamily_throwsParseException() {
+        String userInput = "/0001 /0003 /family";
+        assertParseFailure(parser, userInput, "Please specify the type of familial relationship instead of 'Family'.\n"
+                + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_wrongDescriptorFamilysRoles_throwsParseException() {
+        String userInput = "/0001 child /0003 parent /familys";
+        assertParseFailure(parser, userInput, "Please specify the type of familial relationship instead of 'Family'.\n"
+                + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_wrongDescriptorFamilyRoles_throwsParseException() {
+        String userInput = "/0001 child /0003 parent /family";
+        assertParseFailure(parser, userInput, "Please specify the type of familial relationship instead of 'Family'.\n"
+                + " Valid familial relations are: [bioParents, siblings, spouses]");
+    }
+
+    @Test
+    void parse_emptyDescriptor_throwsParseException() {
+        String userInput = "/0001 /0003 /";
+        assertParseFailure(parser, userInput, "Relationship Descriptor cannot be empty");
     }
 }

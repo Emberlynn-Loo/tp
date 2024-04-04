@@ -2,13 +2,11 @@ package seedu.address.logic.relationship;
 
 import java.util.UUID;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.model.person.relationship.SiblingRelationship;
@@ -76,50 +74,19 @@ public class AddRelationshipCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
         }
+        Boolean endsWithS = relationshipDescriptor.endsWith("s");
+        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+        if (relationTypeWithS != null) {
+            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
+                                + "or delete it and add the relation type back how you'd like", relationTypeWithS,
+                    relationTypeWithS);
+            throw new CommandException(errorMessage);
+        }
         try {
             if (isRoleBased) {
                 RoleBasedRelationship toAdd;
                 if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
-                    int originBioParentsCount = 0;
-                    int targetBioParentsCount = 0;
-                    for (Relationship r : allRelationships) {
-                        if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
-                                && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
-                            if (r.getPerson1().equals(fullOriginUuid)) {
-                                RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                                if (r1.getRole(fullOriginUuid).equals("child")) {
-                                    originBioParentsCount++;
-                                }
-                            } else if (r.getPerson2().equals(fullOriginUuid)) {
-                                RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                                if (r2.getRole(fullOriginUuid).equals("child")) {
-                                    originBioParentsCount++;
-                                }
-                            }
-                        }
-                        if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
-                                && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
-                            if (r.getPerson1().equals(fullTargetUuid)) {
-                                RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                                if (r1.getRole(fullTargetUuid).equals("child")) {
-                                    targetBioParentsCount++;
-                                }
-                            } else if (r.getPerson2().equals(fullTargetUuid)) {
-                                RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                                if (r2.getRole(fullTargetUuid).equals("child")) {
-                                    targetBioParentsCount++;
-                                }
-                            }
-                        }
-                    }
-                    if (originBioParentsCount >= 2) {
-                        throw new CommandException("Sorry, " + originUuid + " already has 2 parent relationships");
-                    }
-                    if (targetBioParentsCount >= 2) {
-                        throw new CommandException("Sorry, " + targetUuid + " already has 2 parent relationships");
-                    }
-                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                    toAdd = model.getBioparentsCount(model, originUuid, targetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {

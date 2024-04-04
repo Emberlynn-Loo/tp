@@ -61,7 +61,7 @@ public class EditRelationshipCommandTest {
         String originUuid = "0001";
         String targetUuid = "0003";
         String oldDescriptor = "siblings";
-        String newDescriptor = "friend";
+        String newDescriptor = "friends";
 
         // Attempt to edit a non-existent relationship
         EditRelationshipCommand editCommand = new EditRelationshipCommand(
@@ -86,7 +86,7 @@ public class EditRelationshipCommandTest {
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
         String targetUuid = "0002";
-        String oldDescriptor = "friend";
+        String oldDescriptor = "friends";
         String newDescriptor = "siblings";
 
         // Add the relationship to the model
@@ -205,7 +205,7 @@ public class EditRelationshipCommandTest {
         AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
-        String targetUuid = "0002";
+        String targetUuid = "0005";
         String oldRelationshipDescriptor = "smt";
         String newRelationshipDescriptor = "friends";
         String role1 = "smt";
@@ -213,7 +213,7 @@ public class EditRelationshipCommandTest {
 
         Relationship oldRelationship = new Relationship(
                 UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor);
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), oldRelationshipDescriptor);
         model.addRelationship(oldRelationship);
 
         EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
@@ -311,15 +311,15 @@ public class EditRelationshipCommandTest {
         AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
-        String targetUuid = "0002";
+        String targetUuid = "0007";
         String oldRelationshipDescriptor = "smttt";
-        String newRelationshipDescriptor = "smtelsee";
+        String newRelationshipDescriptor = "smtelseeee";
         String role1 = "role";
         String role2 = "rolee";
 
         Relationship oldRelationship = new RoleBasedRelationship(
                 UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor,
+                UUID.fromString("00000000-0000-0000-0000-000000000007"), oldRelationshipDescriptor,
                 role1, role2);
         model.addRelationship(oldRelationship);
         model.addRolelessDescriptor(newRelationshipDescriptor);
@@ -329,7 +329,7 @@ public class EditRelationshipCommandTest {
                 oldRelationshipDescriptor, newRelationshipDescriptor, role1, role2);
         CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Expected CommandException");
-        assertEquals("Sorry, you did not add smtelsee as a "
+        assertEquals("Sorry, you did not add smtelseeee as a "
                         + "role based relationship."
                         + "\nIf you want to use it, please delete the roles"
                         + "\nIf you want to make it a role based relationship, please delete the "
@@ -442,6 +442,68 @@ public class EditRelationshipCommandTest {
                 "Expected CommandException");
         assertEquals("There's no need to edit the relationship "
                         + "if the new relationship is the same as the old one.",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_hasDescriptorInvalidRolelessFail_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String otherRelationshipDescriptor = "ice cream";
+        String oldRelationshipDescriptor = "popsicle";
+        String newRelationshipDescriptor = "ice creams";
+
+        Relationship oldRelationship = new Relationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor);
+        Relationship otherRelationship = new Relationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), otherRelationshipDescriptor);
+        model.addRelationship(otherRelationship);
+        model.addRelationship(oldRelationship);
+        model.addRolelessDescriptor(otherRelationshipDescriptor);
+        model.addRolelessDescriptor(oldRelationshipDescriptor);
+
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
+                oldRelationshipDescriptor, newRelationshipDescriptor);
+        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Sorry, the relation type 'ice cream' exists. Either use 'ice cream', "
+                        + "or delete it and add the relation type back how you'd like",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_hasDescriptorInvalidRoleFail_addsRelationship() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0001";
+        String targetUuid = "0002";
+        String otherRelationshipDescriptor = "ice cream";
+        String oldRelationshipDescriptor = "popsicle";
+        String newRelationshipDescriptor = "ice creams";
+
+        Relationship oldRelationship = new Relationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor);
+        Relationship otherRelationship = new Relationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), otherRelationshipDescriptor);
+        model.addRelationship(otherRelationship);
+        model.addRelationship(oldRelationship);
+        model.addRolelessDescriptor(otherRelationshipDescriptor);
+        model.addRolelessDescriptor(oldRelationshipDescriptor);
+
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
+                newRelationshipDescriptor, oldRelationshipDescriptor);
+        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
+                "Expected CommandException");
+        assertEquals("Sorry, the relation type 'ice cream' exists. Either use 'ice cream', "
+                        + "or delete it and add the relation type back how you'd like",
                 exception.getMessage());
     }
 }

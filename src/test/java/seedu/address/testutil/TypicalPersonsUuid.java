@@ -59,13 +59,13 @@ public class TypicalPersonsUuid {
             .withEmail("anna@example.com").withAddress("4th street").buildWithUuid(GEORGE_UUID);
 
     public static final Relationship ALICE_BENSON =
-            new Relationship(UUID.fromString(ALICE_UUID), UUID.fromString(BENSON_UUID), "friend");
+            new Relationship(UUID.fromString(ALICE_UUID), UUID.fromString(BENSON_UUID), "friends");
 
     public static final Relationship CARL_DANIEL =
-            new Relationship(UUID.fromString(CARL_UUID), UUID.fromString(DANIEL_UUID), "friend");
+            new Relationship(UUID.fromString(CARL_UUID), UUID.fromString(DANIEL_UUID), "friends");
 
     public static final Relationship ELLE_FIONA =
-            new Relationship(UUID.fromString(ELLE_UUID), UUID.fromString(FIONA_UUID), "friend");
+            new Relationship(UUID.fromString(ELLE_UUID), UUID.fromString(FIONA_UUID), "friends");
 
     public static final Relationship ALICE_DANIEL_ROLE =
             new Relationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
