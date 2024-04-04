@@ -17,4 +17,14 @@ public class FriendsRelationshipTest {
         assertEquals(person1, friendsRelationship.getPerson1());
         assertEquals(person2, friendsRelationship.getPerson2());
     }
+
+    @Test
+    public void getStyleDescriptor_returnsFriend_success() {
+        UUID person1 = UUID.randomUUID();
+        UUID person2 = UUID.randomUUID();
+
+        FriendsRelationship relationship = new FriendsRelationship(person1, person2);
+
+        assertEquals("friend", relationship.getStyleDescriptor());
+    }
 }

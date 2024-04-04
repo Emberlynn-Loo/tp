@@ -226,6 +226,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetRelationshipDescriptors() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
             throw new AssertionError("This method should not be called.");
         }
