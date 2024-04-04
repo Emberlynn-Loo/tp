@@ -393,9 +393,9 @@ class AddRelationshipCommandTest {
         String role2 = "parent";
         String relationshipDescriptor = "bioparents";
         Relationship parentRelation2 = new RoleBasedRelationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000005"),
-                UUID.fromString("00000000-0000-0000-0000-000000000001"), relationshipDescriptor,
-                role1, role2);
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), relationshipDescriptor,
+                role2, role1);
         Relationship parentRelation3 = new RoleBasedRelationship(
                 UUID.fromString("00000000-0000-0000-0000-000000000005"),
                 UUID.fromString("00000000-0000-0000-0000-000000000002"), relationshipDescriptor,
@@ -423,9 +423,9 @@ class AddRelationshipCommandTest {
                 UUID.fromString("00000000-0000-0000-0000-000000000005"), relationshipDescriptor,
                 role1, role2);
         Relationship parentRelation3 = new RoleBasedRelationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000002"),
-                UUID.fromString("00000000-0000-0000-0000-000000000005"), relationshipDescriptor,
-                role1, role2);
+                UUID.fromString("00000000-0000-0000-0000-000000000005"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), relationshipDescriptor,
+                role2, role1);
         model.addRelationship(parentRelation2);
         model.addRelationship(parentRelation3);
         AddRelationshipCommand addRelationshipCommand =
