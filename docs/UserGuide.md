@@ -22,16 +22,15 @@ the relationship tree and history of friends and family.
     - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
     - [Deleting a Person](#deleting-a-person--delete)
 - [Managing Person Relationships](#features---managing-person-relationships)
-    - [Listing all relationship types](#listing-all-relationship-types--listrelations)
-    - [Adding a Relationship](#adding-a-relationship--addrelation)
-    - [Editing a Relationship](#editing-a-relationship--editrelation)
-    - [Deleting a Relationship](#deleting-a-relationship--deleterelation)
-    - [Finding Relationship between Entities](#finding-relationship-between-entities--anysearch)
-- [Clearing All Persons](#features---clearing-all-persons)
-    - [Clearing all entries](#clearing-all-entries--clear)
+    - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
+    - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
+    - [Editing a Relationship](#editing-a-relationship--editrelation-or-er)
+    - [Deleting a Relationship](#deleting-a-relationship--deleterelation-or-dr)
+    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch)
 - [General Features](#features---general-features)
     - [Viewing Help](#viewing-help--help)
-    - [Clearing all Entries](#clearing-all-entries--clear)
+    - [Clearing all Entries](#clearing-all-entries--deleteallpersons)
+    - [Clearing Command Responses](#clearing-command-responses--clear)
     - [Exiting the Program](#exiting-the-program--exit)
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
@@ -268,7 +267,7 @@ Format: `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 * If the `RELATIONSHIP_TYPE` does not exist and is valid, it will be added to the existing list of relationTypes.
 
 Examples:
-* `addRelation /12db /34ab /friend` adds the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
+* `addRelation /12db /34ab /friends` adds the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
 Adds a role-based relationship between two people in the address book.
 
@@ -287,13 +286,14 @@ Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 * If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
-* `addRelation /12db father /34ab child /bioparents` adds the relation bioparents between the person with the UUID 12db and the person with the UUID 34ab with the roles parent and child respectively.
+* `addRelation /12db father /34ab child /bioparents` adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
 
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. 
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
+* Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
 
 ### Editing a relationship : `editRelation` or `er`
@@ -334,7 +334,7 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 * If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
-* `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the UUID 12db and the person with the UUID 34ab from friends to bioparents with the roles parent and child respectively.
+* `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
 ### Deleting a relationship : `deleteRelation` or `dr`
 
@@ -351,7 +351,7 @@ Format: `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 * If either persons do not exist, the command will not have any effect.
 
 Examples:
-* `deleteRelation /12db /34ab friend` deletes the relation friend between the person with the UUID 12db and the person with the UUID 34ab.
+* `deleteRelation /12db /34ab friends` deletes the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
 Deletes the relationType from the list of existing relationTypes.
 
@@ -417,12 +417,17 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### Clearing all entries : `clear`
+### Clearing all entries : `deleteAllPersons`
 
-Clears all entries from the address book.
+Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.
+
+Format: `deleteAllPersons`
+
+### Clearing command responses : `clear`
+
+Clears all of Gene-nie's previous responses from the command section.
 
 Format: `clear`
-
 
 ### Exiting the program : `exit`
 
