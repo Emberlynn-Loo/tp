@@ -95,7 +95,6 @@ public class EditRelationshipCommand extends Command {
                             + "if the new relationship is the same as the old one.");
                 }
             }
-            model.deleteRelationship(toEditOff);
             if (model.hasRelationshipWithDescriptor(toEditIn)) {
                 String existing = model.getExistingRelationship(toEditIn);
                 throw new CommandException(String.format("Sorry, %s", existing));
@@ -151,6 +150,7 @@ public class EditRelationshipCommand extends Command {
                 model.addRelationship(toEditIn);
                 model.addRolelessDescriptor(newRelationshipDescriptor);
             }
+            model.deleteRelationship(toEditOff);
             return new CommandResult(MESSAGE_EDIT_RELATIONSHIP_SUCCESS);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(e.getMessage()));
