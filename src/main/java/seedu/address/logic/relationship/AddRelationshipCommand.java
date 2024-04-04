@@ -69,7 +69,7 @@ public class AddRelationshipCommand extends Command {
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
         if (fullTargetUuid == null || fullOriginUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID + originUuid + " and " + targetUuid);
         }
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");

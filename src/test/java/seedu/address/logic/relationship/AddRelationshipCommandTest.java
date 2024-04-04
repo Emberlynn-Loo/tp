@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -69,7 +70,7 @@ class AddRelationshipCommandTest {
         AddRelationshipCommand addRelationshipCommand =
                 new AddRelationshipCommand(testOriginUuid, testTargetUuid, relationshipDescriptor);
         assertCommandFailure(addRelationshipCommand, model,
-                "The UUID provided is invalid: ");
+                Messages.MESSAGE_INVALID_PERSON_UUID + "0001 and 0019");
     }
 
     @Test
