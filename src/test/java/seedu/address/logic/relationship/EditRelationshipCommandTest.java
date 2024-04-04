@@ -32,7 +32,7 @@ public class EditRelationshipCommandTest {
         String targetUuid = "target123";
         String oldRelationshipDescriptor = "siblings";
         String newRelationshipDescriptor = "friend";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(null, targetUuid,
+        EditRelationshipCommand editCommand = new EditRelationshipCommand("000000", targetUuid,
                 oldRelationshipDescriptor, newRelationshipDescriptor);
 
         // Verify
@@ -46,7 +46,7 @@ public class EditRelationshipCommandTest {
         String originUuid = "1234";
         String oldDescriptor = "siblings";
         String newDescriptor = "friend";
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, null,
+        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, "00000",
                 oldDescriptor, newDescriptor);
         assertThrows(CommandException.class, () -> editCommand.execute(model),
                 Messages.MESSAGE_INVALID_PERSON_UUID);
