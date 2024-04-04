@@ -49,7 +49,8 @@ public class AddCommandParserTest {
         try {
             parser.parse(command);
         } catch (ParseException e) {
-            assertEquals(ParserUtil.MESSAGE_MALFORMED_ATTRIBUTE_PAIR, e.getMessage());
+            assertEquals(ParserUtil.MESSAGE_MALFORMED_ATTRIBUTE_PAIR + "\n" + AddCommand.MESSAGE_USAGE,
+                    e.getMessage());
         }
     }
 }
