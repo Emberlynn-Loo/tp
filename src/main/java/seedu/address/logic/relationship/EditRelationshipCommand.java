@@ -145,10 +145,6 @@ public class EditRelationshipCommand extends Command {
                             model.getRoles(newRelationshipDescriptor).get(0),
                             model.getRoles(newRelationshipDescriptor).get(1)));
                 }
-                if (oldRelationshipDescriptor.equals(newRelationshipDescriptor)) {
-                    throw new ParseException("There's no need to edit the relationship "
-                                + "if the new relationship is the same as the old one.");
-                }
                 model.addRelationship(toEditIn);
                 model.addRolelessDescriptor(newRelationshipDescriptor);
             }
