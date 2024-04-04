@@ -200,17 +200,8 @@ public class Person {
             return false;
         }
         Person otherPerson = (Person) other;
-        // compare all attributes
-        for (Map.Entry<String, Attribute> entry : attributes.entrySet()) {
-            if (!otherPerson.hasAttribute(entry.getKey())) {
-                return false;
-            }
-            if (!entry.getValue().getValueAsString().equals(
-                    otherPerson.getAttribute(entry.getKey()).getValueAsString())) {
-                return false;
-            }
-        }
-        return true;
+
+        return otherPerson.getUuid().equals(this.getUuid());
     }
     /**
      * Returns true if the UUID of the person is the same as the UUID of the other object.
