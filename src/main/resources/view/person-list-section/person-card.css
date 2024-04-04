@@ -12,13 +12,13 @@
     -fx-background-radius: 5;
     -fx-opacity: 1;
     -fx-text-fill: -black;
-    -fx-font-family: 'Raleway Medium Italic';
+    -fx-font-family: 'Montserrat SemiBold Italic';
 }
 .attributeCard_attributeInfo {
     -fx-opacity: 1;
     -fx-padding: 2 5;
     -fx-text-fill: -black;
-    -fx-font-family: 'Raleway';
+    -fx-font-family: 'Montserrat';
 }
 .personCard_uuid_label {
     -fx-background-color: #FBF3D5;
@@ -26,7 +26,7 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-text-fill: -black;
-    -fx-font-family: 'Raleway SemiBold';
+    -fx-font-family: 'Montserrat SemiBold';
 }
 .personCard_vbox {
     -fx-background-color: #D6DAC8;
@@ -50,7 +50,7 @@
     -fx-text-fill: -black;
     -fx-border-radius: 7;
     -fx-background-radius: 7;
-    -fx-font-family: 'Raleway';
+    -fx-font-family: 'Montserrat';
 }
 .personCard-tag:hover {
     -fx-opacity: 0.75;

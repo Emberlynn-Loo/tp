@@ -11,4 +11,5 @@
 .placeholder_text {
     -fx-padding: 10;
     -fx-text-fill: -black;
+    -fx-font-family: 'Montserrat Bold'
 }

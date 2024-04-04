@@ -17,7 +17,7 @@
 
 .display_section_header_title {
      -fx-text-fill: -black;
-     -fx-font-family: 'Raleway SemiBold Italic'; /* Specify just the family name */
+     -fx-font-family: 'Montserrat Bold Italic'; /* Specify just the family name */
      -fx-font-size: 30;
 }
 
