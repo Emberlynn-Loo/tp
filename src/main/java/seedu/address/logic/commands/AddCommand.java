@@ -69,13 +69,13 @@ public class AddCommand extends Command {
         return personToAdd;
     }
 
-    private Attribute[] generateAttributeList() {
+    private Attribute[] generateAttributeList() throws CommandException {
         Attribute[] attributesToAdd = new Attribute[attributeMap.size()];
 
         for (int i = 0; i < attributeMap.size(); i++) {
             String attributeName = (String) attributeMap.keySet().toArray()[i];
             String attributeValue = attributeMap.get(attributeName);
-            attributesToAdd[i] = Attribute.fromString(attributeName, attributeValue);
+            attributesToAdd[i] = AttributeUtil.createAttribute(attributeName, attributeValue);
         }
         return attributesToAdd;
     }
