@@ -95,7 +95,9 @@ public class EditRelationshipCommand extends Command {
                             + "if the new relationship is the same as the old one.");
                 }
             }
-            if (model.hasRelationshipWithDescriptor(toEditIn)) {
+            if (model.hasRelationshipWithDescriptor(toEditIn)
+                    && !((role1 != null && role2 != null)
+                    && oldRelationshipDescriptor.equals(newRelationshipDescriptor))) {
                 String existing = model.getExistingRelationship(toEditIn);
                 throw new CommandException(String.format("Sorry, %s", existing));
             }

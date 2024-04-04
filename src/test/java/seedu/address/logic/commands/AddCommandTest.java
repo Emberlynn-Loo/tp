@@ -231,6 +231,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isRelationRoleless(String descriptor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Relationship> getFilteredRelationshipList() {
             throw new AssertionError("This method should not be called.");
         }
