@@ -381,4 +381,72 @@ class AddRelationshipCommandTest {
                         + "\nrelationtype and add it again.",
                 exception.getMessage());
     }
+
+    @Test
+    public void execute_addThirdBioParentToPerson_throwsCommandException() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0005";
+        String targetUuid = "0006";
+        String role1 = "child";
+        String role2 = "parent";
+        String relationshipDescriptor = "bioparents";
+        Relationship parentRelation2 = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000005"),
+                UUID.fromString("00000000-0000-0000-0000-000000000001"), relationshipDescriptor,
+                role1, role2);
+        Relationship parentRelation3 = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000005"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"), relationshipDescriptor,
+                role1, role2);
+        model.addRelationship(parentRelation2);
+        model.addRelationship(parentRelation3);
+        AddRelationshipCommand addRelationshipCommand =
+                new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
+        assertCommandFailure(addRelationshipCommand, model,
+                "Sorry, 0005 already has 2 parent relationships");
+    }
+
+    @Test
+    public void execute_addPersonAsThirdBioParent_throwsCommandException() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0006";
+        String targetUuid = "0005";
+        String role1 = "parent";
+        String role2 = "child";
+        String relationshipDescriptor = "bioparents";
+        Relationship parentRelation2 = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), relationshipDescriptor,
+                role1, role2);
+        Relationship parentRelation3 = new RoleBasedRelationship(
+                UUID.fromString("00000000-0000-0000-0000-000000000002"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"), relationshipDescriptor,
+                role1, role2);
+        model.addRelationship(parentRelation2);
+        model.addRelationship(parentRelation3);
+        AddRelationshipCommand addRelationshipCommand =
+                new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
+        assertCommandFailure(addRelationshipCommand, model,
+                "Sorry, 0005 already has 2 parent relationships");
+    }
+
+    @Test
+    public void execute_addSecondBioParentToPerson_success() {
+        Model model = new ModelManager();
+        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
+        model.setAddressBook(typicalPersonsAddressBook);
+        String originUuid = "0005";
+        String targetUuid = "0006";
+        String role1 = "child";
+        String role2 = "parent";
+        String relationshipDescriptor = "bioparents";
+        AddRelationshipCommand addRelationshipCommand =
+                new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
+        CommandResult result = Assertions.assertDoesNotThrow(() -> addRelationshipCommand.execute(model));
+        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
+    }
 }
