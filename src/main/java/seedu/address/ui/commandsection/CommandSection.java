@@ -26,9 +26,9 @@ import seedu.address.ui.UiPart;
 public class CommandSection extends UiPart<Region> {
     private static final String FXML = "command-section/CommandSection.fxml";
     private static final String ERROR = "failure-text";
-    private static final Image SUCCESS = new Image("/images/command-success.png");
-    private static final Image FAILURE = new Image("/images/command-error.png");
-    private static final Image WELCOME = new Image("./images/welcome.png");
+    private final Image SUCCESS = new Image(this.getClass().getResourceAsStream("/images/command-success.png"));
+    private final Image FAILURE = new Image(this.getClass().getResourceAsStream("/images/command-error.png"));
+    private final Image WELCOME = new Image(this.getClass().getResourceAsStream("/images/welcome.png"));
     @FXML
     private VBox commandSectionContainer;
     @FXML

@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
  * The class supports customizations for the text and its font size, and includes left and right decorations.
  */
 public class CustomPlaceholder extends UiPart<Region> {
-    private static final String FXML = "/CustomPlaceholder.fxml";
+    private static final String FXML = "CustomPlaceHolder.fxml";
 
     @FXML
     private HBox placeholderContainer;
