@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.HashMap;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -22,8 +23,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         args = args.trim();
         String[] parts = args.split("/", -1);
         parts = ParserUtil.removeFirstItemFromStringList(parts);
-        HashMap<String, String> attributeMap = ParserUtil.getAttributeHashMapFromAttributeStrings(parts);
+        HashMap<String, String> attributeMap = generateAttributeMap(parts);
         return new AddCommand(attributeMap);
+    }
+
+    private HashMap<String, String> generateAttributeMap(String[] parts) throws ParseException {
+        try {
+            return ParserUtil.getAttributeHashMapFromAttributeStrings(parts);
+        } catch (ParseException e) {
+            throw new ParseException(e.getMessage() + "\n" + AddCommand.MESSAGE_USAGE);
+        }
     }
 
 
