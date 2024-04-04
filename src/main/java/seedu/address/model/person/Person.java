@@ -157,12 +157,10 @@ public class Person {
      * @param attributeType The type of the attribute to delete.
      * @return
      */
-    public boolean deleteAttribute(String attributeType) {
+    public void deleteAttribute(String attributeType) {
         if (attributes.containsKey(attributeType)) {
             attributes.remove(attributeType);
-            return true;
         }
-        return false;
     }
 
 
