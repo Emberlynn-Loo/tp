@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -232,6 +233,17 @@ public class AddCommandTest {
 
         @Override
         public boolean isRelationRoleless(String descriptor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
+                                                        String role1, String role2) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
             throw new AssertionError("This method should not be called.");
         }
 

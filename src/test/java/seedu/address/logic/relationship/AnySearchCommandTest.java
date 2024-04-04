@@ -23,7 +23,7 @@ public class AnySearchCommandTest {
         AnySearchCommand anySearchCommand = new AnySearchCommand("0001", "0002");
         CommandResult commandResult = anySearchCommand.execute(model);
         String expectedSearchResult = "Pathway:\n"
-                + "0001 --> friend of --> 0002";
+                + "0001 --> friends of --> 0002";
         System.out.println(commandResult.getFeedbackToUser());
         assertEquals(expectedSearchResult, commandResult.getFeedbackToUser());
     }

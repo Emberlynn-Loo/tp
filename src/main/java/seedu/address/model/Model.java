@@ -141,4 +141,5 @@ public interface Model {
 
     RoleBasedRelationship getBioparentsCount(Model model, String originUuid,
                                              String targetUuid, String role1, String role2) throws CommandException;
+    String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor);
 }

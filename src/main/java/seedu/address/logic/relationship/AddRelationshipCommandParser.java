@@ -43,9 +43,6 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
         if (relationshipDescriptor.isEmpty()) {
             throw new ParseException("Relationship Descriptor cannot be empty");
         }
-        if (!relationshipDescriptor.endsWith("s")) {
-            relationshipDescriptor += "s";
-        }
 
         String role1;
         String role2;

@@ -2,13 +2,11 @@ package seedu.address.logic.relationship;
 
 import java.util.UUID;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
 import seedu.address.model.person.relationship.SiblingRelationship;
@@ -75,6 +73,14 @@ public class AddRelationshipCommand extends Command {
         }
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
+        }
+        Boolean endsWithS = relationshipDescriptor.endsWith("s");
+        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+        if (relationTypeWithS != null) {
+            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
+                                + "or delete it and add the relation type back how you'd like", relationTypeWithS,
+                    relationTypeWithS);
+            throw new CommandException(errorMessage);
         }
         try {
             if (isRoleBased) {

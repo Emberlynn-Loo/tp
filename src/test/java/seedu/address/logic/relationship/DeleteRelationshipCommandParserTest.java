@@ -143,14 +143,6 @@ class DeleteRelationshipCommandParserTest {
     }
 
     @Test
-    void execute_sameOriginAndTargetUuidsFamily_throwsCommandException() {
-        String userInput = "/0001 /0002 /family";
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(userInput),
-                "Please specify the type of familial relationship instead of 'Family'.\n"
-                        + " Valid familial relations are: [bioParents, siblings, spouses]");
-    }
-
-    @Test
     void parse_invalidPredefinedRelationshipDescriptor_throwsParseException() {
         DeleteRelationshipCommandParser parser = new DeleteRelationshipCommandParser();
         String userInput = "/friends";

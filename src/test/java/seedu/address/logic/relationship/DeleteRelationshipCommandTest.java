@@ -30,7 +30,7 @@ class DeleteRelationshipCommandTest {
     void testExecute_validUuidInputThrowsException() {
         String testOriginUuid = "0001";
         String testTargetUuid = "0002";
-        String relationshipDescriptor = "friend";
+        String relationshipDescriptor = "friends";
         UUID person1Uuid = UUID.fromString("00000000-0000-0000-0000-000000000001");
         UUID person2Uuid = UUID.fromString("00000000-0000-0000-0000-000000000002");
         String expectedMessage = "Delete successful";
