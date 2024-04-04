@@ -117,4 +117,15 @@ public class DeleteCommandTest {
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
+    @Test
+    public void execute_blankUuid_error() {
+        DeleteCommand deleteCommand = new DeleteCommand("");
+        String expectedMessage = Messages.MESSAGE_UUID_EMPTY + "\n" + DeleteCommand.MESSAGE_USAGE;
+        ModelManager emptyModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        try {
+            deleteCommand.execute(emptyModel);
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+        }
+    }
 }
