@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import java.util.HashMap;
 
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
