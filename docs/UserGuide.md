@@ -41,15 +41,15 @@ the relationship tree and history of friends and family.
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
+1. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
-1. Copy `gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
+1. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
 </div>
 
-4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar gene-nie.jar` to run Gene-nie.<br>
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
 
 <div markdown="span" class="alert alert-primary">:question: **for Linux users:**
 In your terminal, type `cd (path)`, replacing `(path)` with the _home folder_ path.
@@ -156,30 +156,33 @@ Examples:
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find /KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching both keywords can also be returned (i.e. 'AND' search).
+  e.g. `/Hans Gruber` will return `Hans Gruber`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find /John` returns `john` and `John Doe`
+* `find /alex david` returns only `Alex David`<br>
+* `find /alex /david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Adding an attribute : `addAttribute`
 
 Adds an attribute to a person in the address book.
 
-Format: `addAttribute /UUID /ATTRIBUTE_NAME /ATTRIBUTE_VALUE`
+Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-insensitive.
+* The `ATTRIBUTE_NAME` is case-insensitive. The attribute name will automatically be converted to the correct case.
 * The `ATTRIBUTE_VALUE` is case-sensitive.
 
 Examples:
