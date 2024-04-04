@@ -33,4 +33,15 @@ class AddAttributeParserTest {
         assertThrows(ParseException.class, () -> parser.parse(unknownCommand));
     }
 
+    @Test
+    void parse_missingUuid_throwsParseException() {
+        String userInput = "addAttribute /12 345 /nickname Johnny";
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    void parse_invalidAttributeFormat_throwsParseException() {
+        String userInput = "addAttribute /12345 /nickname";
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
 }
