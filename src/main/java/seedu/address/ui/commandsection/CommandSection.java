@@ -44,6 +44,7 @@ public class CommandSection extends UiPart<Region> {
     private CommandExecutor commandExecutor;
     private ArrayList<String> pastCommands = new ArrayList<>();
     private int pastCommandIndex = 0;
+    private boolean isDisplayingCommand;
 
     /**
      * Instantiates a anyListSection.
@@ -63,7 +64,11 @@ public class CommandSection extends UiPart<Region> {
                 downArrowKeyListener();
             }
         });
+        isDisplayingCommand = false;
         commandSectionDialogScrollPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+            if (isDisplayingCommand) {
+                return;
+            }
             if (newValue.doubleValue() <= 150) {
                 addWelcomeDialogNoText();
             } else {
@@ -101,9 +106,9 @@ public class CommandSection extends UiPart<Region> {
         }
         pastCommandIndex = pastCommands.size();
         if (commandText.equalsIgnoreCase("clr")) {
-            commandSectionDialogContainer.getChildren().clear();
             commandBoxImageContainer.setVisible(false);
             commandBoxImageContainer.setManaged(false);
+            isDisplayingCommand = false;
             if (commandSectionDialogScrollPane.getHeight() <= 150) {
                 addWelcomeDialogNoText();
             } else {
@@ -113,6 +118,7 @@ public class CommandSection extends UiPart<Region> {
             return;
         }
         removeWelcomeDialog();
+        isDisplayingCommand = true;
         commandBoxImageContainer.setVisible(true);
         commandBoxImageContainer.setManaged(true);
         try {
@@ -155,6 +161,7 @@ public class CommandSection extends UiPart<Region> {
     }
     private void downArrowKeyListener() {
         if (pastCommandIndex >= pastCommands.size()) {
+            cliInput.setText("");
             return;
         }
         pastCommandIndex += 1;
