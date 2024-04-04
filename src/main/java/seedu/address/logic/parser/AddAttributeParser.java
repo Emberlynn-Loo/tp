@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.AddAttributeCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.EditAttributeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,7 +26,7 @@ public class AddAttributeParser {
         userInput = userInput.trim();
         int firstSlashIndex = userInput.indexOf('/');
         if (firstSlashIndex == -1) {
-            throw new ParseException(Messages.MESSAGE_MISSING_UUID + "\n" + EditAttributeCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_MISSING_UUID + "\n" + AddAttributeCommand.MESSAGE_USAGE);
         }
 
         // Find the index of the start of attributes section (the second slash)
@@ -37,7 +37,7 @@ public class AddAttributeParser {
         // Extract UUID, which is between the first slash and the start of the second segment
         String uuid = userInput.substring(firstSlashIndex + 1, endOfUuidIndex).trim();
         if (uuid.contains(" ") || uuid.length() < 2) {
-            throw new ParseException(Messages.MESSAGE_INVALID_UUID_FORMAT + "\n" + EditAttributeCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_INVALID_UUID_FORMAT + "\n" + AddAttributeCommand.MESSAGE_USAGE);
         }
 
         // Attributes part starts after the second slash, if there is one
@@ -64,10 +64,10 @@ public class AddAttributeParser {
 
         if (attributes.isEmpty()) {
             // You may decide to remove this check if attributes are optional
-            throw new ParseException(Messages.MESSAGE_MISSING_ATTRIBUTES + "\n" + EditAttributeCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_MISSING_ATTRIBUTES + "\n" + AddAttributeCommand.MESSAGE_USAGE);
         }
 
-        return new EditAttributeCommand(uuid, attributes);
+        return new AddAttributeCommand(uuid, attributes);
     }
 
 
