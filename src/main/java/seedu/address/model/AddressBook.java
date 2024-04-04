@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.relationship.Relationship;
@@ -240,5 +241,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public boolean isRelationRoleless(String descriptor) {
         return relationships.isRelationRoleless(descriptor);
+    }
+
+    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid, String role1,
+                                                    String role2) throws CommandException {
+        return relationships.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
 }

@@ -405,7 +405,7 @@ class AddRelationshipCommandTest {
         AddRelationshipCommand addRelationshipCommand =
                 new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
         assertCommandFailure(addRelationshipCommand, model,
-                "Sorry, 0005 already has 2 parent relationships");
+                "Sorry, 0005 already has 2 bioparent relationships");
     }
 
     @Test
@@ -431,7 +431,7 @@ class AddRelationshipCommandTest {
         AddRelationshipCommand addRelationshipCommand =
                 new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
         assertCommandFailure(addRelationshipCommand, model,
-                "Sorry, 0005 already has 2 parent relationships");
+                "Sorry, 0005 already has 2 bioparent relationships");
     }
 
     @Test

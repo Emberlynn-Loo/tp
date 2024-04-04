@@ -2,6 +2,7 @@ package seedu.address.logic.relationship;
 
 import java.util.UUID;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -104,7 +105,7 @@ public class EditRelationshipCommand extends Command {
             if (role1 != null && role2 != null) {
                 RoleBasedRelationship toAdd;
                 if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+                    toAdd = model.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Siblings")) {
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
@@ -157,3 +158,4 @@ public class EditRelationshipCommand extends Command {
         }
     }
 }
+

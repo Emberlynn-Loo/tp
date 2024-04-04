@@ -13,6 +13,8 @@ import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ResultContainer;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 
 /**
@@ -549,5 +551,53 @@ public class RelationshipUtil {
                                                   ArrayList<ArrayList<String>> roleBasedDescriptors) {
         this.rolelessDescriptors = rolelessDescriptors;
         this.roleBasedDescriptors = roleBasedDescriptors;
+    }
+
+    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
+                                                    String role1, String role2) throws CommandException {
+        RoleBasedRelationship toAdd;
+        ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        int originBioParentsCount = 0;
+        int targetBioParentsCount = 0;
+        for (Relationship r : allRelationships) {
+            if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                    && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
+                if (r.getPerson1().equals(fullOriginUuid)) {
+                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                    if (r1.getRole(fullOriginUuid).equals("child")) {
+                        originBioParentsCount++;
+                    }
+                } else if (r.getPerson2().equals(fullOriginUuid)) {
+                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                    if (r2.getRole(fullOriginUuid).equals("child")) {
+                        originBioParentsCount++;
+                    }
+                }
+            }
+            if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                    && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
+                if (r.getPerson1().equals(fullTargetUuid)) {
+                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                    if (r1.getRole(fullTargetUuid).equals("child")) {
+                        targetBioParentsCount++;
+                    }
+                } else if (r.getPerson2().equals(fullTargetUuid)) {
+                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                    if (r2.getRole(fullTargetUuid).equals("child")) {
+                        targetBioParentsCount++;
+                    }
+                }
+            }
+        }
+        if (originBioParentsCount >= 2) {
+            throw new CommandException("Sorry, " + fullOriginUuid + " already has 2 bioparent relationships");
+        }
+        if (targetBioParentsCount >= 2) {
+            throw new CommandException("Sorry, " + fullTargetUuid + " already has 2 bioparent relationships");
+        }
+        toAdd = new BioParentsRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+        return toAdd;
     }
 }
