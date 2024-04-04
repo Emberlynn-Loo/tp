@@ -35,5 +35,11 @@ public class FindCommandParserTest {
     public void parse_empty_keywords() {
         assertParseFailure(parser, "/", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
+    @Test
+    public void parse_keywordWithoutSlash() {
+        assertParseFailure(parser,
+                "Alice", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE)
+        );
+    }
 
 }
