@@ -130,6 +130,9 @@ public class ParserUtil {
                 String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String uuid = uuidAndValue[0];
                 String value;
+                if (uuidAndValue[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (uuidAndValue.length == 1) {
                     value = null;
                 } else {
@@ -139,6 +142,9 @@ public class ParserUtil {
             } else if (i == 1) {
                 String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String value = relationshipMap.keySet().toArray(new String[0])[0];
+                if (uuidAndValue[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (uuidAndValue[0].equals(value)) {
                     throw new ParseException("Relationships must be between 2 different people");
                 }
@@ -159,6 +165,9 @@ public class ParserUtil {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
                 relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipType[0].equals("")) {
+                    throw new ParseException("Relationship type cannot be empty.");
+                }
             }
         }
         return relationshipMap;
