@@ -81,7 +81,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
 
    * `editRelation /12db /34ab /friends /colleagues` : Edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
-   * `deleteRelation /12db /34ab /friend` : Deletes the relation friend between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
+   * `deleteRelation /12db /34ab /friends` : Deletes the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
    * `clear` : Removes all of Gene-nie's previous responses from the command section, so that you dont have to see them anymore!
 
@@ -171,7 +171,7 @@ Examples:
 * `find /John` returns `john` and `John Doe`
 * `find /alex david` returns only `Alex David`<br>
 * `find /alex /david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find /alex /david'](images/findAlexDavidResult.png)
 
 ### Attributes
 
@@ -527,9 +527,9 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 | **Delete Person Attribute** | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
 | **Edit Person Attribute**   | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
 | **Add Relation**            | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
-| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab friends colleagues`                          |
-| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab friends`                                                        |
-| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find James Jake`                                                                                      |
+| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab /friends /colleagues`                        |
+| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab /friends`                                                       |
+| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find /James /Jake`                                                                                    |
 | **List All Persons**        | l         | `list`                                                                                                                                              |
 | **anySearch**               | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
 | **familySearch**            | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
