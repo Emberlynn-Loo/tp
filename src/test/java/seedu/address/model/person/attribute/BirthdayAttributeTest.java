@@ -19,12 +19,12 @@ public class BirthdayAttributeTest {
     }
 
     @Test
-    public void testInvalidBirthdayToday() {
+    public void testValidBirthdayToday() {
         // Test with today's date
         LocalDate today = LocalDate.now();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new BirthdayAttribute("BirthdayToday", today);
-        }, "Should throw IllegalArgumentException for birthdays set to today");
+        BirthdayAttribute birthdayAttribute = new BirthdayAttribute("Birthday", today);
+        assertEquals(today, birthdayAttribute.getValue(),
+                "Birthday should be set correctly for today's date");
     }
 
     @Test

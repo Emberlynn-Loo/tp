@@ -51,7 +51,7 @@ public class EditAttributeCommandTest {
     public void execute_fail_person() {
         EditAttributeCommand editAttributeCommand = new EditAttributeCommand("0000",
                 Map.of("Name", "Alice"));
-        assertThrows(NullPointerException.class, () -> editAttributeCommand.execute(model));
+        assertThrows(CommandException.class, () -> editAttributeCommand.execute(model));
     }
 
     @Test
