@@ -85,4 +85,11 @@ public class EditAttributeCommandTest {
         assert(ALICE.getAttribute("Random").getValueAsString().equals("Random"));
     }
 
+    @Test
+    public void execute_fail_sameAttributes() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new EditAttributeCommand(ALICE.getUuidString().substring(32, 36),
+                Map.of("Name", "Alice", "Name", "Bob")));
+    }
+
 }

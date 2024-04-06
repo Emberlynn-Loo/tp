@@ -58,4 +58,10 @@ public class AttributeUtilTest {
         String actualName = AttributeUtil.capitalizeAttributeName("1");
         assertTrue(actualName.equals("1"));
     }
+
+    @Test
+    public void birthday_invalidBirthday_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Birthday",
+                "2032-01-01"));
+    }
 }
