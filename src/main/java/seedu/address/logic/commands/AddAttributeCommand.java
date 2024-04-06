@@ -54,7 +54,7 @@ public class AddAttributeCommand extends Command {
         for (Map.Entry<String, String> entry : attributes.entrySet()) {
             String attributeName = entry.getKey();
             String attributeValue = entry.getValue();
-            if (person.hasAttribute(attributeName)){
+            if (person.hasAttribute(attributeName)) {
                 throw new CommandException("Attribute " + attributeName + " already exists.");
             }
             Attribute attribute = AttributeUtil.createAttribute(attributeName, attributeValue);

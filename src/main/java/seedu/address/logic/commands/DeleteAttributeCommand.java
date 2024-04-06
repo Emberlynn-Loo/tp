@@ -57,7 +57,7 @@ public class DeleteAttributeCommand extends Command {
         Person personToDelete = model.getPersonByUuid(fullUuid);
 
         for (int i = 0; i < attributeList.length; i++) {
-            for (int j = i; j <attributeList.length; j++) {
+            for (int j = i; j < attributeList.length; j++) {
                 if (i != j && attributeList[i].equalsIgnoreCase(attributeList[j])) {
                     throw new CommandException(Messages.MESSAGE_DUPLICATE_ATTRIBUTES);
                 }

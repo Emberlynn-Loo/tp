@@ -59,7 +59,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         Attribute[] attributesToAdd = generateAttributeList();
-        for (int i = 0; i <attributesToAdd.length; i++) {
+        for (int i = 0; i < attributesToAdd.length; i++) {
             for (int j = i; j < attributesToAdd.length; j++) {
                 if (i != j && attributesToAdd[i].getName().equalsIgnoreCase(attributesToAdd[j].getName())) {
                     throw new CommandException(Messages.MESSAGE_DUPLICATE_ATTRIBUTES);
