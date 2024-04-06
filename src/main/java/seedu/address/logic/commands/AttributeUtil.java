@@ -29,8 +29,10 @@ public class AttributeUtil {
             try {
                 LocalDate attributeValueDate = LocalDate.parse(attributeValue);
                 attribute = new BirthdayAttribute("Birthday", attributeValueDate);
+            } catch (IllegalArgumentException e) {
+                throw new CommandException("Invalid date " + attributeName + ". Please input a date no earlier than today.");
             } catch (Exception e) {
-                throw new CommandException("Invalid date format for " + attributeName + ". Please use yyyy-mm-dd.");
+                throw new CommandException("Invalid date format for " + attributeName + ". Please input a date in the format yyyy-mm-dd.");
             }
             break;
         case "name":

@@ -15,7 +15,7 @@ public class BirthdayAttribute extends DateAttribute {
     public BirthdayAttribute(String name, LocalDate date) {
         super(name, date);
         // Validate that the provided date is before today
-        if (!date.isBefore(LocalDate.now())) {
+        if (date.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birthday must be before today.");
         }
     }
