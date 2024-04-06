@@ -230,7 +230,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person getPersonByUuid(UUID id) {
+    public Person getPersonByUuid(UUID id) throws CommandException {
         return addressBook.getPersonByUuid(id);
     }
 
