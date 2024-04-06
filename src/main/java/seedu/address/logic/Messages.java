@@ -15,7 +15,7 @@ public class Messages {
     public static final String MESSAGE_NO_SUCH_ATTRIBUTE = "No such attribute(s) found: ";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command. Please type 'help' to see the list of "
             + "available commands on our user guide.";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
@@ -44,11 +44,8 @@ public class Messages {
             + "/<newRelationshipDescriptor>";
 
     public static final String MESSAGE_SEARCH_FAILURE = "No Relationship pathway found";
-    public static final String MESSAGE_INVALID_ATTRIBUTE_FORMAT = "Invalid attribute format.";
     public static final String MESSAGE_UUID_EMPTY = "Blank UUID provided. Please provide a valid UUID in this format: "
              + "/UUID" + "\nExample: /d8d8";
-    public static final String MESSAGE_INVALID_UUID_FORMAT = "Invalid UUID format. Please ensure that the UUID is "
-            + "in the format: /<UUID>.";
     public static final String MESSAGE_DUPLICATE_ATTRIBUTES = "Duplicate attributes found.";
 
     /**

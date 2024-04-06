@@ -38,7 +38,8 @@ public class EditCommandParser implements Parser<EditAttributeCommand> {
         // Extract UUID, which is between the first slash and the start of the second segment
         String uuid = userInput.substring(firstSlashIndex + 1, endOfUuidIndex).trim();
         if (uuid.contains(" ") || uuid.length() < 2) {
-            throw new ParseException(Messages.MESSAGE_INVALID_UUID_FORMAT + "\n" + EditAttributeCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n"
+                    + EditAttributeCommand.MESSAGE_USAGE);
         }
 
         // Attributes part starts after the second slash, if there is one
