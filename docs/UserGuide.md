@@ -152,25 +152,28 @@ Examples:
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by name: `find`
+### Locating persons by details: `find` or `f`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose details contain any of the given phrases.
 
-Format: `find /KEYWORD [MORE_KEYWORDS]`
+Format: `find /PHRASE [/MORE_PHRASES] ...`
 
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
-* Persons matching both keywords can also be returned (i.e. 'AND' search).
-  e.g. `/Hans Gruber` will return `Hans Gruber`
+* Between phrases,
+  * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
+    * e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
+  * The order of the phrases do not matter.
+    * e.g. `find /Hans /Bo` will return the same results as `find /Bo /Hans`
+* Within a phrase,
+  * The search will return all persons whose "details" "contain" the phrase
+  * "Details" means UUID or any attribute values
+  * "Contains" means that the entire phrase is a substring of a detail of a person
+    * e.g. `/ans Grub` will return any person with `Hans Gruber` in their details
+  * The search is case-insensitive. e.g. `hans` will match `Hans`
 
 Examples:
-* `find /John` returns `john` and `John Doe`
-* `find /alex david` returns only `Alex David`<br>
-* `find /alex /david` returns `Alex Yeoh`, `David Li`<br>
+* `find /John` returns anyone with `john` and `John Doe` in their details
+* `find /alex david` returns only someone with `Alex David` as a substring of their detials<br>
+* `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
   ![result for 'find /alex /david'](images/findAlexDavidResult.png)
 
 ### Attributes
