@@ -178,21 +178,36 @@ Examples:
 
 ### Attributes
 
-Attributes are additional information that can be added to a person's profile. Each attribute has a name and a value.
-Attributes can be added, edited, or deleted. The attributes that can be added are not fixed and can be user-defined. Other than the user-defined attributes, the following attributes are predefined:
+Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
+Attributes are what you use to store any information about a person that is about that particular person.
+To store information about the relationship between 2 persons, see the relationship feature instead.
 
-1. Name attribute with String value
-2. Phone attribute with Integer value
-3. Birthday attribute with Date value
-4. Sex attribute with String enum value. The value can be either `Male` or `Female`
+Each attribute has a name and a value. They can be added, edited or deleted.
+You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
+
+For your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
+
+1. `Name` attribute with String value
+2. `Phone` attribute with Integer value
+3. `Birthday` attribute with Date value
+4. `Sex` attribute with String enum value. The value can be either `Male` or `Female`
 <div markdown="block" class="alert alert-info">
+Attribute names:
 
-* The attribute name is case-insensitive for all attributes. The attribute name will automatically be converted to the correct case. The attribute name will be converted to having all lowercase after the first letter being capitalized. e.g. `/pEt` will be converted to `Pet`.
+* are case-insensitive
+* will automatically be converted to a consistent case
+  * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
+* cannot be empty
+* cannot contain `/` or ` ` (space)
+  * if the attribute name contains a space, the portion after the space will errorneously be treated as part of the attribute value
 
-* The attribute value is case-sensitive.
+Attribute values:
 
-* Other than the attributes that have been defined, the user defined attributes will be of type String.
-* The value of the attributes cannot be converted to another type. e.g. if the attribute is of type Integer, the value must be an Integer.
+* are case-sensitive
+* cannot be empty
+* cannot contain `/`
+* will be of type String, other than the predefined attributes listed above
+* cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
 
 
@@ -205,8 +220,7 @@ Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-insensitive.
-* The `ATTRIBUTE_VALUE` is case-sensitive.
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
 * `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db.
@@ -223,10 +237,10 @@ Format: `deleteAttribute /UUID /ATTRIBUTE_NAME`
 * Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-sensitive.
 * If the person does not have the specified attribute, the command will not have any effect.
 * If the person does not exist, the command will not have any effect.
 * If the attribute does not exist, the command will not have any effect.
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
 * `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
@@ -241,11 +255,10 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-sensitive.
-* The `NEW_ATTRIBUTE_VALUE` is case-sensitive.
 * If the person does not have the specified attribute, the command will not have any effect.
 * If the person does not exist, the command will not have any effect.
 * If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail.
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
 * `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
