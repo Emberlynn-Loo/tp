@@ -132,13 +132,13 @@ Be careful when using this command with your own data as it will delete all your
 
 ## Features - Managing Person Profiles
 
-### Listing all persons : `list` or `l`
+### Listing all Persons : `list` or `l`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a person: `add` or `a`
+### Adding a Person: `add` or `a`
 
 Adds a person to the address book.
 
@@ -196,7 +196,7 @@ Attributes can be added, edited, or deleted. The attributes that can be added ar
 </div>
 
 
-### Adding an attribute : `addAttribute` or `aa`
+### Adding Attributes to a Person: `addAttribute` or `aa`
 
 Adds an attribute to a person in the address book.
 
@@ -214,7 +214,7 @@ Examples:
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
 
-### Deleting an attribute : `deleteAttribute` or `da`
+### Deleting attribute from a Person: `deleteAttribute` or `da`
 
 Deletes an attribute from a person in the address book.
 
@@ -232,7 +232,7 @@ Examples:
 * `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
 * `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
 
-### Editing an attribute : `editAttribute` or `ea`
+### Editing an Attribute of a Person: `editAttribute` or `ea`
 
 Edit attributes of a person in the address book.
 
@@ -250,7 +250,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 Examples:
 * `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
 
-### Deleting a person : `delete` or `d`
+### Deleting a Person : `delete` or `d`
 
 Deletes the specified person from the address book.
 
@@ -522,23 +522,24 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Command summary
 
-| Action                      | Shorthand | Format, Examples                                                                                                                                    |
-|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**              | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
-| **Delete Person**           | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
-| **Add Person Attribute**    | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
-| **Delete Person Attribute** | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
-| **Edit Person Attribute**   | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
-| **Add Relation**            | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
-| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab /friends /colleagues`                        |
-| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab /friends`                                                       |
-| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find /James /Jake`                                                                                    |
-| **List All Persons**        | l         | `list`                                                                                                                                              |
-| **anySearch**               | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
-| **familySearch**            | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
-| **Help**                    | h         | `help`                                                                                                                                              |
-| **Exit App**                | e         | `exit`                                                                                                                                              |
-| **Clear Command Responses** | c         | `clear`                                                                                                                                             |
-| **Delete all Persons**      | dap       | `deleteAllPersons`                                                                                                                                  |
+| Action                          | Shorthand | Format, Examples                                                                                                                                    |
+|---------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**                  | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
+| **Delete Person**               | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
+| **Add Person Attribute**        | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
+| **Delete Person Attribute**     | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
+| **Edit Person Attribute**       | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
+| **Add Relation**                | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
+| **Edit Relation**               | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab /friends /colleagues`                        |
+| **Delete Relation**             | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab /friends`                                                       |
+| **List current Relation types** | lr        | `listRelations`                                                                                                                                     |
+| **Find Person**                 | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find /James /Jake`                                                                                    |
+| **List all Persons**            | l         | `list`                                                                                                                                              |
+| **anySearch**                   | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
+| **familySearch**                | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
+| **Help**                        | h         | `help`                                                                                                                                              |
+| **Exit App**                    | e         | `exit`                                                                                                                                              |
+| **Clear Command Responses**     | c         | `clear`                                                                                                                                             |
+| **Delete all Persons**          | dap       | `deleteAllPersons`                                                                                                                                  |
 
 [Back to Table of Contents](#table-of-contents)
