@@ -29,8 +29,12 @@ public class AttributeUtil {
             try {
                 LocalDate attributeValueDate = LocalDate.parse(attributeValue);
                 attribute = new BirthdayAttribute("Birthday", attributeValueDate);
+            } catch (IllegalArgumentException e) {
+                throw new CommandException("Invalid date " + attributeName + ". Please input a date "
+                        + "no earlier than today.");
             } catch (Exception e) {
-                throw new CommandException("Invalid date format for " + attributeName + ". Please use yyyy-mm-dd.");
+                throw new CommandException("Invalid date " + attributeName + ". Please input a date in the format "
+                        + "yyyy-mm-dd. Additionally, please make sure the dates input are valid including leap years.");
             }
             break;
         case "name":
@@ -44,7 +48,9 @@ public class AttributeUtil {
                     throw new CommandException("Phone number cannot be negative for " + attributeName + ".");
                 }
             } catch (NumberFormatException e) {
-                throw new CommandException("Phone number for " + attributeName + " must be a number.");
+                throw new CommandException("Phone number for " + attributeName + " must be a number. "
+                        + "A number is only valid if it is a positive integer. "
+                        + "Additionally, please make sure the phone number is lesser than 9 digits.");
             }
             attribute = new PhoneNumberAttribute("Phone", phoneNumber);
             break;

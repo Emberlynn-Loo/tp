@@ -115,7 +115,7 @@ public interface Model {
 
     UUID getFullUuid(String digits);
 
-    Person getPersonByUuid(UUID id);
+    Person getPersonByUuid(UUID id) throws CommandException;
 
     boolean hasAttribute(String uuidString, String attributeName);
 

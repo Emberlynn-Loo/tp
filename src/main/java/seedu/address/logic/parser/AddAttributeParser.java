@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddAttributeCommand;
@@ -37,13 +39,15 @@ public class AddAttributeParser {
         // Extract UUID, which is between the first slash and the start of the second segment
         String uuid = userInput.substring(firstSlashIndex + 1, endOfUuidIndex).trim();
         if (uuid.contains(" ") || uuid.length() < 2) {
-            throw new ParseException(Messages.MESSAGE_INVALID_UUID_FORMAT + "\n" + AddAttributeCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT + "\n"
+                    + AddAttributeCommand.MESSAGE_USAGE);
         }
 
         // Attributes part starts after the second slash, if there is one
         String attributesPart = (secondSlashIndex != -1) ? userInput.substring(secondSlashIndex + 1) : "";
 
         Map<String, String> attributes = new HashMap<>();
+        Set<String> attributeNames = new HashSet<>();
         if (!attributesPart.isEmpty()) {
             // Now, split the remaining part by "/" to separate attributes, considering additional slashes
             String[] attributeParts = attributesPart.split("/", -1);
@@ -55,7 +59,10 @@ public class AddAttributeParser {
                         throw new ParseException("Invalid attribute format. Each attribute must have a value.");
                     }
                     // Extract the attribute name and value
-                    String attributeName = keyValue[0].trim();
+                    String attributeName = keyValue[0].trim().toLowerCase();
+                    if (!attributeNames.add(attributeName)) {
+                        throw new ParseException("Duplicate attribute: " + attributeName);
+                    }
                     String attributeValue = keyValue[1].trim();
                     attributes.put(attributeName, attributeValue);
                 }

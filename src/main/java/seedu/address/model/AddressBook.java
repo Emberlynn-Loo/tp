@@ -203,7 +203,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.deleteAttribute(uuid, attributeName);
     }
 
-    public Person getPersonByUuid(UUID id) {
+    public Person getPersonByUuid(UUID id) throws CommandException {
+        if (id == null) {
+            throw new CommandException("Person not found.");
+        }
         requireNonNull(id);
         return persons.getPersonByUuid(id);
     }

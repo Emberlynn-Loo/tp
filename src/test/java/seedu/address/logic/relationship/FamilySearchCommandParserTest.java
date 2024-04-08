@@ -17,7 +17,7 @@ public class FamilySearchCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "0001", "Invalid command format! \n%1$s");
-        assertParseFailure(parser, "", "Invalid command format! \n%1$s");
+        assertParseFailure(parser, "0001", "Invalid command format!");
+        assertParseFailure(parser, "", "Invalid command format!");
     }
 }

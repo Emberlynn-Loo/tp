@@ -44,4 +44,10 @@ class AddAttributeParserTest {
         String userInput = "addAttribute /12345 /nickname";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
+
+    @Test
+    void parse_multipleSameAttribute_throwsParseException() {
+        String userInput = "addAttribute /12345 /nickname Johnny /nickname Johnny";
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
 }
