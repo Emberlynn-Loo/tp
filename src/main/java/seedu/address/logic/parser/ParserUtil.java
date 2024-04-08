@@ -130,6 +130,9 @@ public class ParserUtil {
                 String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String uuid = uuidAndValue[0];
                 String value;
+                if (uuidAndValue[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (uuidAndValue.length == 1) {
                     value = null;
                 } else {
@@ -139,6 +142,9 @@ public class ParserUtil {
             } else if (i == 1) {
                 String[] uuidAndValue = separateUuidAndValues(parts[i]);
                 String value = relationshipMap.keySet().toArray(new String[0])[0];
+                if (uuidAndValue[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (uuidAndValue[0].equals(value)) {
                     throw new ParseException("Relationships must be between 2 different people");
                 }
@@ -158,7 +164,12 @@ public class ParserUtil {
             } else if (i == 2) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0]) || relationshipTypeKey.equals(
+                        separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             }
         }
         return relationshipMap;
@@ -229,14 +240,19 @@ public class ParserUtil {
         for (int i = 0; i < parts.length; i++) {
             String value;
             if (i == 0) {
-                String uuid = separateUuidAndValues(parts[i])[0];
+                if (separateUuidAndValues(parts[i])[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (separateUuidAndValues(parts[i]).length == 1) {
                     value = null;
                 } else {
                     value = separateUuidAndValues(parts[i])[1];
                 }
-                relationshipMap.put(uuid, value);
+                relationshipMap.put(separateUuidAndValues(parts[i])[0], value);
             } else if (i == 1) {
+                if (separateUuidAndValues(parts[i])[0].equals("")) {
+                    throw new ParseException("UUIDs cannot be empty.");
+                }
                 if (separateUuidAndValues(parts[i])[0].equalsIgnoreCase(
                         relationshipMap.keySet().toArray(new String[0])[0])) {
                     throw new ParseException("Relationships must be between 2 different people");
@@ -256,11 +272,40 @@ public class ParserUtil {
             } else if (i == 2) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipType[0].equals("")) {
+                    throw new ParseException("Relationship Descriptor cannot be empty");
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[3])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[1])[0]))
+                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             } else if (i == 3) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipType[0].equals("")) {
+                    throw new ParseException("Relationship Descriptor cannot be empty");
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[2])[0])) {
+                    break;
+                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[1])[0]))
+                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+                    relationshipMap.put("4", relationshipTypeKey);
+                    relationshipMap.put("5", null);
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             }
         }
         return relationshipMap;

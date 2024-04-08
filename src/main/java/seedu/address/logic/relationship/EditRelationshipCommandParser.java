@@ -35,21 +35,29 @@ public class EditRelationshipCommandParser {
             throw new ParseException(Messages.MESSAGE_INVALID_EDIT_RELATIONSHIP_COMMAND_FORMAT);
         }
 
-        String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
-        String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
-        String oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                2, false).toLowerCase();
-        String newRelationshipDescriptor;
-        if (relationshipMap.size() == 3) {
+        String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false); //first key
+        String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false); //second key
+        String oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap, 2, false); //third key
+        String newRelationshipDescriptor = null; //fourth key
+        if (relationshipMap.size() == 5) { //Two sets of the same case
+            oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, true).toLowerCase();
             newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                    2, false).toLowerCase();
+                    3, true).toLowerCase();
+        } else if (relationshipMap.size() == 3) { //descriptors are same
+            oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, true).toLowerCase();
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, true).toLowerCase();
+        } else if (oldRelationshipDescriptor == null) {
+            oldRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    2, true).toLowerCase();
+        } else if (ParserUtil.relationKeysAndValues(relationshipMap, 3, false) == null) {
+            newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
+                    3, true).toLowerCase();
         } else {
             newRelationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
                     3, false).toLowerCase();
-        }
-
-        if (newRelationshipDescriptor.isEmpty()) {
-            throw new ParseException("Relationship Descriptor cannot be empty");
         }
 
         if (newRelationshipDescriptor.equalsIgnoreCase("bioparents")

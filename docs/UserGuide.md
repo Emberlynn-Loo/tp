@@ -330,7 +330,7 @@ Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 * If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
 Examples:
-* `addRelation /12db father /34ab child /bioparents` adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
+* `addRelation /12db parent /34ab child /bioparents` adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
 
 <div markdown="block" class="alert alert-warning">
 

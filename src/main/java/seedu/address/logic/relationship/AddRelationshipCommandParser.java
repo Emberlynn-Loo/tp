@@ -37,11 +37,15 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
 
         String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
         String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
-        String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                2, false).toLowerCase();
-
-        if (relationshipDescriptor.isEmpty()) {
+        String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap, 2, false);
+        if (relationshipDescriptor == null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 2, true) == null) {
             throw new ParseException("Relationship Descriptor cannot be empty");
+        } else if (relationshipDescriptor == null) {
+            relationshipDescriptor =
+                    ParserUtil.relationKeysAndValues(relationshipMap, 2, true).toLowerCase();
+        } else {
+            relationshipDescriptor = relationshipDescriptor.toLowerCase();
         }
 
         String role1;
