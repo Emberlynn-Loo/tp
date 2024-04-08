@@ -78,16 +78,14 @@ public class EditRelationshipCommand extends Command {
         if (fullTargetUuid == null || fullTargetUuid == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
         }
-        Boolean endsWithS = oldRelationshipDescriptor.endsWith("s");
-        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, oldRelationshipDescriptor);
+        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(oldRelationshipDescriptor);
         if (relationTypeWithS != null) {
             String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
                             + "or delete it and add the relation type back how you'd like", relationTypeWithS,
                     relationTypeWithS);
             throw new CommandException(errorMessage);
         }
-        Boolean endsWithS2 = newRelationshipDescriptor.endsWith("s");
-        String relationTypeWithS2 = model.relationTypeExistsWithOrWithoutS(endsWithS2, newRelationshipDescriptor);
+        String relationTypeWithS2 = model.relationTypeExistsWithOrWithoutS(newRelationshipDescriptor);
         if (relationTypeWithS2 != null) {
             String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
                             + "or delete it and add the relation type back how you'd like", relationTypeWithS2,

@@ -616,28 +616,33 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if a relationship type exists in the tracker, with or without an 's' at the end.
-     * @param hasS true if the descriptor has an 's' at the end, false otherwise.
+     * Checks if a relationship descriptor exists in the tracker, with or without an 's' at the end.
      * @param descriptor The descriptor to check.
-     * @return The descriptor if it exists, null otherwise.
+     * @return The existing descriptor if it exists, null otherwise.
      */
-    public String relationTypeExistsWithOrWithoutS(Boolean hasS, String descriptor) {
-        if (hasS) {
-            return descriptorExistsValid(removeChars(descriptor));
-        } else {
-            return descriptorExistsValid(descriptor + "s");
+    public String relationTypeExistsWithOrWithoutS(String descriptor) {
+        String descriptornos = removeChars(descriptor); //string without any s at the end
+        for (String validDescriptor : validDescriptors) {
+            String validDescriptorWithoutS = removeChars(validDescriptor);
+            if (descriptor.equals(validDescriptor)) {
+                return null;
+            } else if (descriptornos.equals(validDescriptorWithoutS)) {
+                return validDescriptor;
+            }
         }
+        return null;
     }
 
     /**
-     * Removes the last character from the string.
-     * @param str The relationship descriptor to remove the last character from.
+     * Removes all the 's' characters at the end of a string.
+     * @param str The string to remove characters from.
+     * @return The modified string with 's' characters removed from the end.
      */
     public static String removeChars(String str) {
-        if (str != null && !str.trim().isEmpty()) {
-            return str.substring(0, str.length() - 1);
+        while (str.endsWith("s")) {
+            str = str.substring(0, str.length() - 1);
         }
-        return "";
+        return str;
     }
 
     /**

@@ -74,8 +74,7 @@ public class AddRelationshipCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
         }
-        Boolean endsWithS = relationshipDescriptor.endsWith("s");
-        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(relationshipDescriptor);
         if (relationTypeWithS != null) {
             String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
                                 + "or delete it and add the relation type back how you'd like", relationTypeWithS,

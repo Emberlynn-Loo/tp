@@ -273,7 +273,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
-        return addressBook.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+    public String relationTypeExistsWithOrWithoutS(String relationshipDescriptor) {
+        return addressBook.relationTypeExistsWithOrWithoutS(relationshipDescriptor);
     }
 }
