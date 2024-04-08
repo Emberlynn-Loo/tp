@@ -451,11 +451,17 @@ Clears all entries from the address book. This includes all Persons along with t
 
 Format: `deleteAllPersons`
 
-### Clearing command responses : `clear` or `c`
+### Clearing command section of past responses : `clear` or `c`
 
 Clears all of Gene-nie's previous responses from the command section.
 
+Gene-nie keeps track of your previous commands and Gene-nie's own responses to them, since the last time you launched Gene-nie.
+This way, you can easily refer to what changes you have made!
+However, if you want to clear all previous responses, simply use this command!
+
 Format: `clear`
+
+![clear command](images/ClearCommandIllustration.png)
 
 ### Exiting the program : `exit` or `e`
 
