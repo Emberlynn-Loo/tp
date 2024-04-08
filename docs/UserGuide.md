@@ -132,13 +132,13 @@ Be careful when using this command with your own data as it will delete all your
 
 ## Features - Managing Person Profiles
 
-### Listing all persons : `list`
+### Listing all persons : `list` or `l`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a person: `add`
+### Adding a person: `add` or `a`
 
 Adds a person to the address book.
 
@@ -196,7 +196,7 @@ Attributes can be added, edited, or deleted. The attributes that can be added ar
 </div>
 
 
-### Adding an attribute : `addAttribute`
+### Adding an attribute : `addAttribute` or `aa`
 
 Adds an attribute to a person in the address book.
 
@@ -214,7 +214,7 @@ Examples:
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
 
-### Deleting an attribute : `deleteAttribute`
+### Deleting an attribute : `deleteAttribute` or `da`
 
 Deletes an attribute from a person in the address book.
 
@@ -232,7 +232,7 @@ Examples:
 * `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
 * `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
 
-### Editing an attribute : `editAttribute`
+### Editing an attribute : `editAttribute` or `ea`
 
 Edit attributes of a person in the address book.
 
@@ -250,7 +250,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 Examples:
 * `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
 
-### Deleting a person : `delete`
+### Deleting a person : `delete` or `d`
 
 Deletes the specified person from the address book.
 
@@ -393,7 +393,7 @@ Format: `deleteRelation /RELATIONSHIP_TYPE`
 Examples:
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-### Finding All Relationships between Entities: `anySearch`
+### Finding All Relationships between Entities: `anySearch` or `as`
 
 Finds the relationship pathway between 2 input entities.
 
@@ -412,7 +412,7 @@ else `No Relationship Pathway Found` will be returned
   * Example: `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
     returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
 
-### Finding Family Relationships between Entities: `familySearch`
+### Finding Family Relationships between Entities: `familySearch` or `fs`
 
 Finds the family relationship pathway between 2 input entities.
 
@@ -437,7 +437,7 @@ else `No Relationship Pathway Found` will be returned
 
 ## Features - General Features
 
-### Viewing help : `help`
+### Viewing help : `help` or `h`
 
 Shows a message explaning how to access the help page.
 
@@ -445,19 +445,19 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### Clearing all entries : `deleteAllPersons`
+### Clearing all entries : `deleteAllPersons` or `dap`
 
 Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.
 
 Format: `deleteAllPersons`
 
-### Clearing command responses : `clear`
+### Clearing command responses : `clear` or `c`
 
 Clears all of Gene-nie's previous responses from the command section.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Exiting the program : `exit` or `e`
 
 Exits the program.
 
