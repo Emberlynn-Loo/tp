@@ -75,7 +75,7 @@ public class EditRelationshipCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        if (fullTargetUuid == null || fullTargetUuid == null) {
+        if (fullTargetUuid == null || fullOriginUuid == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
         }
         Boolean endsWithS = oldRelationshipDescriptor.endsWith("s");

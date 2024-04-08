@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
+import seedu.address.model.AddressBook;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -164,7 +165,12 @@ public class ParserUtil {
             } else if (i == 2) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0]) || relationshipTypeKey.equals(
+                        separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             }
         }
         return relationshipMap;
@@ -267,11 +273,40 @@ public class ParserUtil {
             } else if (i == 2) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipType[0].equals("")) {
+                    throw new ParseException("Relationship Descriptor cannot be empty");
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[3])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[1])[0]))
+                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             } else if (i == 3) {
                 String[] relationshipType = separateRelationshipTypes(parts[i]);
                 String relationshipTypeKey = relationshipType[0];
-                relationshipMap.put(relationshipTypeKey, null);
+                if (relationshipType[0].equals("")) {
+                    throw new ParseException("Relationship Descriptor cannot be empty");
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[2])[0])) {
+                    break;
+                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[1])[0]))
+                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+                    relationshipMap.put("4", relationshipTypeKey);
+                    relationshipMap.put("5", null);
+                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+                    relationshipMap.put(null, relationshipTypeKey);
+                } else {
+                    relationshipMap.put(relationshipTypeKey, null);
+                }
             }
         }
         return relationshipMap;
