@@ -220,6 +220,7 @@ Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list.
 * The `UUID` **must be a valid UUID**.
+* The first space after the attribute name is considered the start of the attribute value.
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
@@ -258,6 +259,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * If the person does not have the specified attribute, the command will not have any effect.
 * If the person does not exist, the command will not have any effect.
 * If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail.
+* The first space after the attribute name is considered the start of the attribute value.
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
