@@ -132,13 +132,13 @@ Be careful when using this command with your own data as it will delete all your
 
 ## Features - Managing Person Profiles
 
-### Listing all persons : `list`
+### Listing all Persons : `list` or `l`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a person: `add`
+### Adding a Person: `add` or `a`
 
 Adds a person to the address book.
 
@@ -152,115 +152,134 @@ Examples:
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by name: `find`
+### Locating persons by details: `find` or `f`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose details contain any of the given phrases.
 
-Format: `find /KEYWORD [MORE_KEYWORDS]`
+Format: `find /PHRASE [/MORE_PHRASES] ...`
 
-* The search is case-insensitive. e.g. `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
-* Persons matching both keywords can also be returned (i.e. 'AND' search).
-  e.g. `/Hans Gruber` will return `Hans Gruber`
+* Between phrases,
+  * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
+    * e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
+  * The order of the phrases do not matter.
+    * e.g. `find /Hans /Bo` will return the same results as `find /Bo /Hans`
+* Within a phrase,
+  * The search will return all persons whose "details" "contain" the phrase
+  * "Details" means UUID or any attribute values
+  * "Contains" means that the entire phrase is a substring of a detail of a person
+    * e.g. `/ans Grub` will return any person with `Hans Gruber` in their details
+  * The search is case-insensitive. e.g. `hans` will match `Hans`
 
 Examples:
-* `find /John` returns `john` and `John Doe`
-* `find /alex david` returns only `Alex David`<br>
-* `find /alex /david` returns `Alex Yeoh`, `David Li`<br>
+* `find /John` returns anyone with `john` and `John Doe` in their details
+* `find /alex david` returns only someone with `Alex David` as a substring of their detials<br>
+* `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
   ![result for 'find /alex /david'](images/findAlexDavidResult.png)
 
 ### Attributes
 
-Attributes are additional information that can be added to a person's profile. Each attribute has a name and a value.
-Attributes can be added, edited, or deleted. The attributes that can be added are not fixed and can be user-defined. Other than the user-defined attributes, the following attributes are predefined:
+Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
+Attributes are what you use to store any information about a person that is about that particular person.
+To store information about the relationship between 2 persons, see the relationship feature instead.
 
-1. Name attribute with String value
-2. Phone attribute with Integer value
-3. Birthday attribute with Date value
-4. Sex attribute with String enum value. The value can be either `Male` or `Female`
+Each attribute has a name and a value. They can be added, edited or deleted.
+You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
+Generally, the value of attributes are not policed, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+
+However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
+
+1. `Name` attribute with String value
+2. `Phone` attribute with Integer value
+3. `Birthday` attribute with Date value
+4. `Sex` attribute with String enum value. The value can be either `Male` or `Female`
 <div markdown="block" class="alert alert-info">
+Attribute names:
 
-* The attribute name is case-insensitive for all attributes. The attribute name will automatically be converted to the correct case. The attribute name will be converted to having all lowercase after the first letter being capitalized. e.g. `/pEt` will be converted to `Pet`.
+* are case-insensitive
+* will automatically be converted to a consistent case
+  * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
+* cannot be empty
+* cannot contain `/` or ` ` (space)
+  * if the attribute name contains a space, the portion after the space will errorneously be treated as part of the attribute value
 
-* The attribute value is case-sensitive.
+Attribute values:
 
-* Other than the attributes that have been defined, the user defined attributes will be of type String.
-* The value of the attributes cannot be converted to another type. e.g. if the attribute is of type Integer, the value must be an Integer.
+* are case-sensitive
+* cannot be empty
+* cannot contain `/`
+* will be of type String, other than the predefined attributes listed above
+* cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
 
 
-### Adding an attribute : `addAttribute`
+### Adding Attributes to a Person: `addAttribute` or `aa`
 
 Adds an attribute to a person in the address book.
 
 Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 
-* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-insensitive.
-* The `ATTRIBUTE_VALUE` is case-sensitive.
+* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* The first space after the attribute name is marks the start of the attribute value
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db.
-* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db.
-* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
-* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
+* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db
+* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db
+* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
+* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
-### Deleting an attribute : `deleteAttribute`
+### Deleting attribute from a Person: `deleteAttribute` or `da`
 
 Deletes an attribute from a person in the address book.
 
 Format: `deleteAttribute /UUID /ATTRIBUTE_NAME`
 
-* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-sensitive.
-* If the person does not have the specified attribute, the command will not have any effect.
-* If the person does not exist, the command will not have any effect.
-* If the attribute does not exist, the command will not have any effect.
+* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect
+* If the person does not exist, the command will not have any effect
+* If the attribute does not exist, the command will not have any effect
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
-* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
+* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db
+* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
 
-### Editing an attribute : `editAttribute`
+### Editing an Attribute of a Person: `editAttribute` or `ea`
 
 Edit attributes of a person in the address book.
 
 Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
-* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* The `ATTRIBUTE_NAME` is case-sensitive.
-* The `NEW_ATTRIBUTE_VALUE` is case-sensitive.
-* If the person does not have the specified attribute, the command will not have any effect.
-* If the person does not exist, the command will not have any effect.
-* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail.
+* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect
+* If the person does not exist, the command will not have any effect
+* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail
+* The first space after the attribute name is marks the start of the attribute value
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
+* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db
 
-### Deleting a person : `delete`
+### Deleting a Person : `delete` or `d`
 
 Deletes the specified person from the address book.
 
 Format: `delete /UUID`
 
-* Deletes the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* If the `UUID` does not exist, the command will not have any effect.
+* Deletes the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the `UUID` does not exist, the command will not have any effect
 
 Examples:
-* `delete /12db` deletes the person with the `UUID` "12db".
-* `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid.
+* `delete /12db` deletes the person with the `UUID` "12db"
+* `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -390,7 +409,7 @@ Format: `deleteRelation /RELATIONSHIP_TYPE`
 Examples:
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-### Finding All Relationships between Entities: `anySearch`
+### Finding All Relationships between Entities: `anySearch` or `as`
 
 Finds the relationship pathway between 2 input entities.
 
@@ -409,7 +428,7 @@ else `No Relationship Pathway Found` will be returned
   * Example: `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
     returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
 
-### Finding Family Relationships between Entities: `familySearch`
+### Finding Family Relationships between Entities: `familySearch` or `fs`
 
 Finds the family relationship pathway between 2 input entities.
 
@@ -434,7 +453,7 @@ else `No Relationship Pathway Found` will be returned
 
 ## Features - General Features
 
-### Viewing help : `help`
+### Viewing help : `help` or `h`
 
 Shows a message explaning how to access the help page.
 
@@ -442,19 +461,25 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### Clearing all entries : `deleteAllPersons`
+### Clearing all entries : `deleteAllPersons` or `dap`
 
 Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.
 
 Format: `deleteAllPersons`
 
-### Clearing command responses : `clear`
+### Clearing command section of past responses : `clear` or `c`
 
 Clears all of Gene-nie's previous responses from the command section.
 
+Gene-nie keeps track of your previous commands and Gene-nie's own responses to them, since the last time you launched Gene-nie.
+This way, you can easily refer to what changes you have made!
+However, if you want to clear all previous responses, simply use this command!
+
 Format: `clear`
 
-### Exiting the program : `exit`
+![clear command](images/ClearCommandIllustration.png)
+
+### Exiting the program : `exit` or `e`
 
 Exits the program.
 
@@ -519,23 +544,24 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 ## Command summary
 
-| Action                      | Shorthand | Format, Examples                                                                                                                                    |
-|-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Person**              | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
-| **Delete Person**           | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
-| **Add Person Attribute**    | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
-| **Delete Person Attribute** | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
-| **Edit Person Attribute**   | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
-| **Add Relation**            | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
-| **Edit Relation**           | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab /friends /colleagues`                        |
-| **Delete Relation**         | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab /friends`                                                       |
-| **Find**                    | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find /James /Jake`                                                                                    |
-| **List All Persons**        | l         | `list`                                                                                                                                              |
-| **anySearch**               | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
-| **familySearch**            | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
-| **Help**                    | h         | `help`                                                                                                                                              |
-| **Exit App**                | e         | `exit`                                                                                                                                              |
-| **Clear Command Responses** | c         | `clear`                                                                                                                                             |
-| **Delete all Persons**      | dap       | `deleteAllPersons`                                                                                                                                  |
+| Action                          | Shorthand | Format, Examples                                                                                                                                    |
+|---------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Person**                  | a         | `add /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...` <br> e.g., `add /Name Bob /Phone 01010101 /Address 123 Computing Drive` |
+| **Delete Person**               | d         | `delete /UUID`<br> e.g., `delete /3k83`                                                                                                             |
+| **Add Person Attribute**        | aa        | `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTE_NAME ATTRIBUTE_VALUE] ...`<br> e.g., `addAttribute /12db /Pet Dog`                  |
+| **Delete Person Attribute**     | da        | `deleteAttribute /UUID /ATTRIBUTE_NAME  [/ATTRIBUTE_NAME] ...`<br> e.g., `deleteAttribute /12db /Pet /Address`                                      |
+| **Edit Person Attribute**       | ea        | `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE] ...`<br> e.g., `editAttribute /12db /Pet Cat`        |
+| **Add Relation**                | ar        | `addRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `addRelation /12db /3dab /friends`                                                             |
+| **Edit Relation**               | er        | `editRelation /UUID1 /UUID2 /OLD_RELATION_TYPE /NEW_RELATION_TYPE`<br> e.g., `editRelation /12db /3dab /friends /colleagues`                        |
+| **Delete Relation**             | dr        | `deleteRelation /UUID1 /UUID2 /RELATION_TYPE`<br> e.g., `deleteRelation /12db /3dab /friends`                                                       |
+| **List current Relation types** | lr        | `listRelations`                                                                                                                                     |
+| **Find Person**                 | f         | `find /PHRASE [/MORE_PHRASES] ...`<br> e.g., `find /James /Jake`                                                                                    |
+| **List all Persons**            | l         | `list`                                                                                                                                              |
+| **anySearch**                   | as        | `anySearch /originUUID /targetUUID`<br> e.g., `anySearch /10cb /987d`                                                                               |
+| **familySearch**                | fs        | `familySearch /originUUID /targetUUID`<br> e.g., `familySearch /10cb /987d`                                                                         |
+| **Help**                        | h         | `help`                                                                                                                                              |
+| **Exit App**                    | e         | `exit`                                                                                                                                              |
+| **Clear Command Responses**     | c         | `clear`                                                                                                                                             |
+| **Delete all Persons**          | dap       | `deleteAllPersons`                                                                                                                                  |
 
 [Back to Table of Contents](#table-of-contents)
