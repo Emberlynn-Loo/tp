@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
-import seedu.address.model.AddressBook;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
