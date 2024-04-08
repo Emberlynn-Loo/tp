@@ -217,17 +217,17 @@ Adds an attribute to a person in the address book.
 
 Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
 
-* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* The first space after the attribute name is marks the start of the attribute value.
+* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* The first space after the attribute name is marks the start of the attribute value
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db.
-* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db.
-* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db.
-* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db.
+* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db
+* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db
+* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
+* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
 ### Deleting attribute from a Person: `deleteAttribute` or `da`
 
@@ -235,17 +235,17 @@ Deletes an attribute from a person in the address book.
 
 Format: `deleteAttribute /UUID /ATTRIBUTE_NAME`
 
-* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* If the person does not have the specified attribute, the command will not have any effect.
-* If the person does not exist, the command will not have any effect.
-* If the attribute does not exist, the command will not have any effect.
+* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect
+* If the person does not exist, the command will not have any effect
+* If the attribute does not exist, the command will not have any effect
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db.
-* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet.
+* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db
+* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
 
 ### Editing an Attribute of a Person: `editAttribute` or `ea`
 
@@ -253,17 +253,17 @@ Edit attributes of a person in the address book.
 
 Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
-* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* If the person does not have the specified attribute, the command will not have any effect.
-* If the person does not exist, the command will not have any effect.
-* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail.
-* The first space after the attribute name is marks the start of the attribute value.
+* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect
+* If the person does not exist, the command will not have any effect
+* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail
+* The first space after the attribute name is marks the start of the attribute value
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
 Examples:
-* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db.
+* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db
 
 ### Deleting a Person : `delete` or `d`
 
@@ -271,14 +271,14 @@ Deletes the specified person from the address book.
 
 Format: `delete /UUID`
 
-* Deletes the person with the specified `UUID`.
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list.
-* The `UUID` **must be a valid UUID**.
-* If the `UUID` does not exist, the command will not have any effect.
+* Deletes the person with the specified `UUID`
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the `UUID` does not exist, the command will not have any effect
 
 Examples:
-* `delete /12db` deletes the person with the `UUID` "12db".
-* `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid.
+* `delete /12db` deletes the person with the `UUID` "12db"
+* `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
 [Back to Table of Contents](#table-of-contents)
 
