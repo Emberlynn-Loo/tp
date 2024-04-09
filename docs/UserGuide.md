@@ -13,28 +13,29 @@ the relationship tree and history of friends and family.
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [Managing Person Profiles](#features---managing-person-profiles)
-    - [Listing all persons](#listing-all-persons--list)
-    - [Adding a person](#adding-a-person--add)
-    - [Locating persons by name](#locating-persons-by-name--find)
+- [Managing Person Profiles](#persons)
+    - [Listing all persons](#listing-all-persons--list-or-l)
+    - [Adding a person](#adding-a-person--add-or-a)
+    - [Locating persons by name](#locating-persons-by-details--find-or-f)
 - [Attributes](#attributes)
-    - [Adding an Attribute](#adding-an-attribute--addattribute)
-    - [Editing an Attribute](#editing-an-attribute--editattribute)
-    - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
-    - [Deleting a Person](#deleting-a-person--delete)
+    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
+    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
+    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Deleting a Person](#deleting-a-person--delete-or-d)
 - [Managing Person Relationships](#features---managing-person-relationships)
     - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
     - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
     - [Editing a Relationship](#editing-a-relationship--editrelation-or-er)
     - [Deleting a Relationship](#deleting-a-relationship--deleterelation-or-dr)
-    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch)
+    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch-or-as)
 - [General Features](#features---general-features)
-    - [Viewing Help](#viewing-help--help)
-    - [Clearing all Entries](#clearing-all-entries--deleteallpersons)
-    - [Clearing Command Responses](#clearing-command-responses--clear)
-    - [Exiting the Program](#exiting-the-program--exit)
+    - [Viewing Help](#viewing-help--help-or-h)
+    - [Clearing all Entries](#clearing-all-entries--deleteallpersons-or-dap)
+    - [Clearing Command Responses](#clearing-command-section-of-past-responses--clear-or-c)
+    - [Exiting the Program](#exiting-the-program--exit-or-e)
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
+- [Coming Soon](#coming-soon)
 - [Command Summary](#command-summary)
 
 ## Quick start
@@ -117,9 +118,9 @@ Be careful when using this command with your own data as it will delete all your
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* The add attribute command is case-insensitive. The attribute name is case-insensitive for defined attributes like Name or Address, but the attribute name for user defined attributes is case-sensitive.
+* UUID are 4 characters long
 
-* The delete attribute command is case-sensitive. It must match the attribute name exactly.
+* Attribute names are not case-sensitive.
 
 * All relationship commands are case-sensitive (must be in lower-case). It must match the relationship type name exactly.
 
@@ -130,9 +131,22 @@ Be careful when using this command with your own data as it will delete all your
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Person Profiles
+## Persons
 
-### Listing all Persons : `list` or `l`
+Every contact you store in Gene-nie is considered a _Person_.
+A person is made up of three pieces of information:
+1. A unique identifier (UUID)
+   1. Each person has a unique UUID that is used to identify them
+   2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
+   3. UUID are 4-characters long
+2. A set of attributes
+3. A set of relationships
+To learn more about attributes and relationships, find their descriptions in [Table of Contents](#table-of-contents).
+
+Have a look at this sample person card. Can you spot where each detail is located?
+![Sample Person Card](images/PersonCard.png)
+
+### Listing all Persons: `list` or `l`
 
 Shows a list of all persons in the address book.
 
@@ -191,7 +205,7 @@ However, for your convenience, Gene-nie has some predefined attributes that you 
 1. `Name` attribute with String value
 2. `Phone` attribute with Integer value
 3. `Birthday` attribute with Date value
-4. `Sex` attribute with String enum value. The value can be either `Male` or `Female`
+4. `Sex` attribute with String value, limited to `Male` or `Female` (not case sensitive)
 <div markdown="block" class="alert alert-info">
 Attribute names:
 
@@ -230,7 +244,7 @@ Examples:
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
-### Deleting attribute from a Person: `deleteAttribute` or `da`
+### Deleting an attribute from a Person: `deleteAttribute` or `da`
 
 Deletes an attribute from a person in the address book.
 
@@ -520,6 +534,23 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Coming soon
+
+1. **Display results of find command in "Search Results" panel.**
+Currently, the results of the find command are displayed in the "All Contacts" panel.
+This may not be intuitive due to the existence of the "Search Results" panel.
+
+2. **Extend UUID to have more characters.** Currently, the user-facing UUID system is limited to 4 characters.
+This is expected to be sufficient for most use cases.
+However, in the future, the UUID system may be extended to have more characters.
+
+3. **Utilise the predefined Name attribute.** Currently, the Name attribute behaves like any other user-defined attribute.
+In the future, the Name attribute may be used to provide additional functionality, such as displaying the name of the person in the GUI.
 
 [Back to Table of Contents](#table-of-contents)
 
