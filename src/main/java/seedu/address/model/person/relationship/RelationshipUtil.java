@@ -28,7 +28,7 @@ public class RelationshipUtil {
             new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
     ));
     protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
-            Arrays.asList("friend"));
+            Arrays.asList("friends"));
     private final ObservableList<Relationship> relationshipsTracker = FXCollections.observableArrayList();
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);

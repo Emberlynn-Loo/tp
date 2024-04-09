@@ -14,11 +14,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import javafx.util.Pair;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.BioParentsRelationship;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -68,8 +70,8 @@ public class TypicalPersonsUuid {
             new Relationship(UUID.fromString(ELLE_UUID), UUID.fromString(FIONA_UUID), "friends");
 
     public static final Relationship ALICE_DANIEL_ROLE =
-            new Relationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
-                    "siblings");
+            new SiblingRelationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
+                    "brother", "sister");
 
     public static final Relationship ALICE_GEORGE_ROLE =
             new RoleBasedRelationship(UUID.fromString(ALICE_UUID), UUID.fromString(DANIEL_UUID),
@@ -98,6 +100,14 @@ public class TypicalPersonsUuid {
             .withPhone(Integer.parseInt(VALID_PHONE_BOB))
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).buildWithUuid(BOB_UUID);
 
+    private static final ArrayList<String> rolelessDescriptors = new ArrayList<>(Arrays.asList("friends"));
+
+    private static final ArrayList<ArrayList<String>> roleBasedDescriptors = new ArrayList<>(Arrays.asList(
+            new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+            new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+            new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+    ));
+
     private TypicalPersonsUuid() {} // prevents instantiation
 
     /**
@@ -111,6 +121,7 @@ public class TypicalPersonsUuid {
         for (Relationship relationship : getTypicalRelationships()) {
             ab.addRelationship(relationship);
         }
+        ab.setRelationshipDescriptors(getTypicalDescriptors());
         return ab;
     }
 
@@ -120,5 +131,9 @@ public class TypicalPersonsUuid {
 
     public static List<Relationship> getTypicalRelationships() {
         return new ArrayList<>(Arrays.asList(ALICE_BENSON, CARL_DANIEL, ELLE_FIONA, ALICE_DANIEL_ROLE, CARL_ELLE_ROLE));
+    }
+
+    public static Pair<ArrayList<String>, ArrayList<ArrayList<String>>> getTypicalDescriptors() {
+        return new Pair<>(rolelessDescriptors, roleBasedDescriptors);
     }
 }

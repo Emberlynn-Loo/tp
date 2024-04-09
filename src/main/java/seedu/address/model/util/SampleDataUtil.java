@@ -63,7 +63,7 @@ public class SampleDataUtil {
             new Relationship(UUID.fromString("00000000-0000-0000-0000-000000000003"),
                     UUID.fromString("00000000-0000-0000-0000-000000000004"), "colleagues"),
             new BioParentsRelationship(UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                    UUID.fromString("00000000-0000-0000-0000-000000000003"), "father", "child")
+                    UUID.fromString("00000000-0000-0000-0000-000000000003"), "parent", "child")
         };
     }
 

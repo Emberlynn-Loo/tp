@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AttributeUtil;
 import seedu.address.model.person.attribute.Attribute;
 import seedu.address.model.person.attribute.NameAttribute;
 import seedu.address.model.person.attribute.StringAttribute;
@@ -42,10 +43,13 @@ class JsonAdaptedAttribute {
         if (name == null || value == null || name.isEmpty() || value.isEmpty()) {
             throw new IllegalValueException("Invalid attribute type or value in JSON.");
         }
+        if (!name.matches("[a-zA-Z]+")) {
+            throw new IllegalValueException("Attribute name contains more than one word.");
+        }
         if (name.equals("Name") || name.equals("name")) {
             return new NameAttribute("Name", value);
         } else {
-            return new StringAttribute(name, value);
+            return new StringAttribute(AttributeUtil.capitalizeAttributeName(name), value);
         }
     }
 }
