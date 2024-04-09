@@ -202,10 +202,11 @@ Generally, the value of attributes are not policed, as we are inclusive to peopl
 
 However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
 
-1. `Name` attribute with String value
-2. `Phone` attribute with Integer value
-3. `Birthday` attribute with Date value
-4. `Sex` attribute with String value, limited to `Male` or `Female` (not case sensitive)
+1. `Name` attribute with String value, and can be any string supported by the command format (see attribute commands below)
+   1. It is a predefined attribute for the purposes of future features.
+2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols)
+3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
+4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
 <div markdown="block" class="alert alert-info">
 Attribute names:
 
