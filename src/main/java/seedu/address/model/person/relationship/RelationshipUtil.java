@@ -478,10 +478,10 @@ public class RelationshipUtil {
                     + "\nPlease delete them first.");
         }
         validDescriptors.remove(relationType);
-        if (!roleBasedDescriptors.contains(relationType)) {
+        if (roleBasedDescriptors.contains(relationType)) {
             roleBasedDescriptors.remove(relationType);
         }
-        if (!rolelessDescriptors.contains(relationType)) {
+        if (rolelessDescriptors.contains(relationType)) {
             rolelessDescriptors.remove(relationType);
         }
     }

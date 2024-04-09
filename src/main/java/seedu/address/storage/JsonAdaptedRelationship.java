@@ -65,6 +65,9 @@ public class JsonAdaptedRelationship {
             throw new IllegalValueException("Invalid relationship type or value in JSON.");
         }
         String descriptorCheck = relationshipDescriptor.toLowerCase();
+        if (descriptorCheck.contains("family")) {
+            throw new IllegalValueException("Relation type family is not allowed in JSON.");
+        }
         if (rolePerson1 != null && rolePerson2 != null) {
             switch (descriptorCheck) {
             case "bioparents":

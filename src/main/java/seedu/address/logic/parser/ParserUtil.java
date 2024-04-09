@@ -378,5 +378,4 @@ public class ParserUtil {
             throw new IllegalStateException("Unexpected value: " + relationshipDescriptor);
         }
     }
-
 }
