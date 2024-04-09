@@ -40,7 +40,7 @@ the relationship tree and history of friends and family.
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
 1. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
@@ -531,7 +531,8 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 ## FAQ
 
 **Q**: How do I install Java 11, the Java version required by Gene-nie?<br>
-**A**: You can download Java 11 from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+**A**: Download Java 11 JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=11).
+Then, use the "Installers" section of the [installation guide](https://adoptium.net/installation/) to install it.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
