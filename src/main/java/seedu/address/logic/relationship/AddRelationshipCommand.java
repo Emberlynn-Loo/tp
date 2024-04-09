@@ -133,6 +133,12 @@ public class AddRelationshipCommand extends Command {
                         model.getRoles(relationshipDescriptor).get(1)));
             }
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);
+            if (containsIllegalDescriptors(relationshipDescriptor.toLowerCase())) {
+                throw new CommandException(relationshipDescriptor
+                        + " relationship requires two roles to be specified.\n"
+                        + "Please specify the roles in the format: "
+                        + "\naddRelation /<UUID> <role> /<UUID> <role> /" + relationshipDescriptor);
+            }
             if (model.hasRelationshipWithDescriptor(toAdd)) {
                 String existing = model.getExistingRelationship(toAdd);
                 throw new CommandException(String.format("Sorry, %s", existing));
@@ -156,5 +162,22 @@ public class AddRelationshipCommand extends Command {
         AddRelationshipCommand other = (AddRelationshipCommand) o;
         return other.originUuid.equals(this.originUuid) && other.targetUuid.equals(targetUuid)
                 && other.relationshipDescriptor.equals(this.relationshipDescriptor);
+    }
+
+    /**
+     * Checks if the relationship descriptor contains illegal descriptors
+     *
+     * @param relationshipDescriptor The relationship descriptor
+     * @return A boolean indicating whether the relationship descriptor contains illegal descriptors
+     */
+    public boolean containsIllegalDescriptors(String relationshipDescriptor) {
+        return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
+                || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
+                || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
+                || relationshipDescriptor.contains("son") || relationshipDescriptor.contains("daughter")
+                || relationshipDescriptor.contains("child") || relationshipDescriptor.contains("offspring")
+                || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
+                || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
+                || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
     }
 }
