@@ -43,6 +43,11 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
         if (relationshipDescriptor.isEmpty()) {
             throw new ParseException("Relationship Descriptor cannot be empty");
         }
+        if (ParserUtil.containsIllegalDescriptors(relationshipDescriptor)) {
+            throw new ParseException(relationshipDescriptor + " relationship requires two roles to be specified.\n"
+                    + "Please specify the roles in the format: "
+                    + "\naddRelation /<UUID> <role> /<UUID> <role> /" + relationshipDescriptor);
+        }
 
         String role1;
         String role2;

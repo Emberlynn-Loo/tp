@@ -133,10 +133,6 @@ public class AddRelationshipCommand extends Command {
                         model.getRoles(relationshipDescriptor).get(1)));
             }
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);
-            if (containsIllegalDescriptors(relationshipDescriptor)) {
-                throw new CommandException("Sorry, this relationship cannot be added as a roleless relationship.\n" +
-                        "Please add " + relationshipDescriptor +  " as a role based relationship.");
-            }
             if (model.hasRelationshipWithDescriptor(toAdd)) {
                 String existing = model.getExistingRelationship(toAdd);
                 throw new CommandException(String.format("Sorry, %s", existing));
@@ -147,17 +143,6 @@ public class AddRelationshipCommand extends Command {
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());
         }
-    }
-
-    public boolean containsIllegalDescriptors(String relationshipDescriptor) {
-        return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
-                || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
-                || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
-                || relationshipDescriptor.contains("son") || relationshipDescriptor.contains("daughter")
-                || relationshipDescriptor.contains("child") || relationshipDescriptor.contains("offspring")
-                || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
-                || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
-                || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
     }
 
     @Override

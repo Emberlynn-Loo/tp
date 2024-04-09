@@ -334,4 +334,20 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Checks if the relationship descriptor contains illegal descriptors
+     *
+     * @param relationshipDescriptor The relationship descriptor
+     * @return A boolean indicating whether the relationship descriptor contains illegal descriptors
+     */
+    public static boolean containsIllegalDescriptors(String relationshipDescriptor) {
+        return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
+                || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
+                || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
+                || relationshipDescriptor.contains("son") || relationshipDescriptor.contains("daughter")
+                || relationshipDescriptor.contains("child") || relationshipDescriptor.contains("offspring")
+                || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
+                || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
+                || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
+    }
 }
