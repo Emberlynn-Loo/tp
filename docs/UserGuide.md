@@ -277,6 +277,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
 * The `UUID` **must be a valid UUID**
 * If the person does not have the specified attribute, the command will not have any effect
+  * If you have used an incorrect attribute name, and wish to edit the attribute name, you must delete the attribute (using the 'incorrect' name) and add a new one instead
 * If the person does not exist, the command will not have any effect
 * If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail
 * The first space after the attribute name is marks the start of the attribute value
