@@ -304,11 +304,11 @@ Examples:
 
 ### Listing all relationship types : `listRelations` or `lr`
 
-Shows a list of all current relationshipTypes in the address book.
+Shows a list of all current relationshipTypes in the address book. This includes:
+* Pre-defined relationships (this is why you may see more relationships than used in the contacts list)
+* User-defined relationships
 
 Format: `listRelations` or `lr`
-
-* The command word is not case-sensitive.
 
 ### Adding a relationship : `addRelation` or `ar`
 
