@@ -271,4 +271,12 @@ public class ModelManager implements Model {
                                                     String role1, String role2) throws CommandException {
         return addressBook.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
+
+    @Override
+    public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid,
+                                                            String targetUuid, String rolePerson1, String rolePerson2,
+                                                            Boolean isSiblings) throws CommandException {
+        return addressBook.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                rolePerson2, isSiblings);
+    }
 }

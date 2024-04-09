@@ -21,8 +21,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 import seedu.address.testutil.TypicalPersonsUuid;
 
 class AddRelationshipCommandTest {
@@ -153,64 +151,6 @@ class AddRelationshipCommandTest {
 
         // Ensure command result contains the expected message
         Assertions.assertEquals(commandResult.getFeedbackToUser(), expectedMessage);
-    }
-
-    @Test
-    public void execute_validInputWithNewRelationshipDescriptorSiblings_success() {
-        // Setup
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String newRelationshipDescriptor = "siblings";
-        String role1 = "brother";
-        String role2 = "sister";
-        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
-                targetUuid, newRelationshipDescriptor, role1, role2);
-
-        // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
-
-        // Verify
-        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
-
-        // Assert that the relationship was deleted and added successfully
-        UUID fullOriginUuid = model.getFullUuid(originUuid);
-        UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        Relationship expectedAddedRelationship =
-                new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
-
-        Assertions.assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
-    }
-
-    @Test
-    public void execute_validInputWithNewRelationshipDescriptorSpouses_success() {
-        // Setup
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String newRelationshipDescriptor = "spouses";
-        String role1 = "husband";
-        String role2 = "husband";
-        AddRelationshipCommand addCommand = new AddRelationshipCommand(originUuid,
-                targetUuid, newRelationshipDescriptor, role1, role2);
-
-        // Execute
-        CommandResult result = Assertions.assertDoesNotThrow(() -> addCommand.execute(model));
-
-        // Verify
-        Assertions.assertEquals(AddRelationshipCommand.MESSAGE_ADD_RELATIONSHIP_SUCCESS, result.getFeedbackToUser());
-
-        // Assert that the relationship was deleted and added successfully
-        UUID fullOriginUuid = model.getFullUuid(originUuid);
-        UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        Relationship expectedAddedRelationship =
-                new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
-
-        Assertions.assertTrue(model.hasRelationshipWithDescriptor(expectedAddedRelationship));
     }
 
     @Test

@@ -9,8 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.
@@ -80,9 +78,11 @@ public class AddRelationshipCommand extends Command {
                 if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
                     toAdd = model.getBioparentsCount(model, originUuid, targetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
-                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                            rolePerson2, true);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {
-                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                            rolePerson2, false);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Friends")) {
                     throw new CommandException("Sorry, friends cannot have roles");
                 } else {
