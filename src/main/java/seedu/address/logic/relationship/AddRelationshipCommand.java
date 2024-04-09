@@ -74,7 +74,6 @@ public class AddRelationshipCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
         }
-        
         try {
             if (isRoleBased) {
                 RoleBasedRelationship toAdd;
