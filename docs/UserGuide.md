@@ -5,7 +5,7 @@ title: User Guide
 
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
-Gene-nie is our address book reimagined. It is a desktop app able to not only manage your contacts, but also to help you 
+Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you 
 keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
 the relationship tree and history of friends and family.
 </p>
