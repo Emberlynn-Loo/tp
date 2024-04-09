@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -63,5 +64,32 @@ public class AttributeUtilTest {
     public void birthday_invalidBirthday_throwsError() {
         assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Birthday",
                 "2032-01-01"));
+    }
+
+    @Test
+    public void sex_attributeValueEmpty_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Sex", ""));
+    }
+
+    @Test
+    public void sex_invalidSex_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Sex", "invalid"));
+    }
+
+    @Test
+    public void sex_validSex_male() throws CommandException {
+        Attribute male = AttributeUtil.createAttribute("Sex", "male");
+        assertEquals("MALE", male.getValueAsString());
+    }
+
+    @Test
+    public void sex_validSex_female() throws CommandException {
+        Attribute male = AttributeUtil.createAttribute("Sex", "female");
+        assertEquals("FEMALE", male.getValueAsString());
+    }
+
+    @Test
+    public void sex_attributeValueNull_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Sex", null));
     }
 }
