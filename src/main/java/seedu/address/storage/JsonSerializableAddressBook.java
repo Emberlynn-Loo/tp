@@ -75,16 +75,16 @@ class JsonSerializableAddressBook {
 
         for (JsonAdaptedRelationship jsonAdaptedRelationship : relationships) {
             Relationship relationship = jsonAdaptedRelationship.toModelType();
-            if (!(relationship instanceof RoleBasedRelationship) &&
-                    !pairOfDescriptors.getKey().contains(relationship.getRelationshipDescriptor())) {
+            if (!(relationship instanceof RoleBasedRelationship)
+                    && !pairOfDescriptors.getKey().contains(relationship.getRelationshipDescriptor())) {
                 throw new IllegalValueException("Invalid relationship descriptor "
                         + relationship.getRelationshipDescriptor() + " found");
             }
             if (relationship instanceof RoleBasedRelationship) {
                 ArrayList<String> roleBasedDescriptor = new ArrayList<>(Arrays.asList(
-                        relationship.getRelationshipDescriptor(),
-                        ((RoleBasedRelationship) relationship).getRole(relationship.getPerson1()),
-                        ((RoleBasedRelationship) relationship).getRole(relationship.getPerson2())
+                        relationship.getRelationshipDescriptor(), (
+                                (RoleBasedRelationship) relationship).getRole(relationship.getPerson1()), (
+                                        (RoleBasedRelationship) relationship).getRole(relationship.getPerson2())
                 ));
                 boolean descriptorExists = pairOfDescriptors.getValue().stream()
                         .anyMatch(descriptor -> isSameDescriptor(descriptor, roleBasedDescriptor));
