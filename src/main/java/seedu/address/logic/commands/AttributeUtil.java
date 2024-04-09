@@ -3,7 +3,11 @@ package seedu.address.logic.commands;
 import java.time.LocalDate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.attribute.*;
+import seedu.address.model.person.attribute.Attribute;
+import seedu.address.model.person.attribute.BirthdayAttribute;
+import seedu.address.model.person.attribute.NameAttribute;
+import seedu.address.model.person.attribute.PhoneNumberAttribute;
+import seedu.address.model.person.attribute.SexAttribute;
 
 /**
  * A utility class for creating attributes.
@@ -53,11 +57,13 @@ public class AttributeUtil {
             break;
         case "sex":
             SexAttribute.Gender gender;
-            if(attributeValue == null || attributeValue.isEmpty()) {
+            if (attributeValue == null || attributeValue.isEmpty()) {
                 throw new CommandException("Sex cannot be empty for " + attributeName + ".");
-            } else if (attributeValue.equalsIgnoreCase("female") || attributeValue.equalsIgnoreCase("f")) {
+            } else if (attributeValue.equalsIgnoreCase("female")
+                    || attributeValue.equalsIgnoreCase("f")) {
                 gender = SexAttribute.Gender.FEMALE;
-            } else if (attributeValue.equalsIgnoreCase("male") || attributeValue.equalsIgnoreCase("m")) {
+            } else if (attributeValue.equalsIgnoreCase("male")
+                    || attributeValue.equalsIgnoreCase("m")) {
                 gender = SexAttribute.Gender.MALE;
             } else {
                 throw new CommandException("Sex must only be male or female for " + attributeName + ".");
