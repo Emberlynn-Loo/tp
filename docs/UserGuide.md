@@ -65,7 +65,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -454,6 +454,7 @@ Format: `familySearch /ORIGINUUID /TARGETUUID`
 UUIDs are 4 characters long, containing only alphanumeric characters
 </div>
 
+* Unlike `anySearch`, `familySearch` only recognises family relationships, which are `bioparents`, `siblings` and `spouses`
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
 * If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
 else `No Relationship Pathway Found` will be returned
