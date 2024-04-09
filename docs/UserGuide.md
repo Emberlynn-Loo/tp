@@ -162,7 +162,10 @@ Adds a person to the address book.
 Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of attributes (including 0)
+**A person can have any number of attributes (including 0)!**<br>
+Sometimes, you may know that a person exists in your family tree but you don't know anything about them.
+Gene-nie comes to the rescue by allowing you to create empty persons with no attributes!
+This way, you can still add them to relationships, and fill in their details later.
 </div>
 
 Examples:
