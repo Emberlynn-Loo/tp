@@ -271,9 +271,4 @@ public class ModelManager implements Model {
                                                     String role1, String role2) throws CommandException {
         return addressBook.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
-
-    @Override
-    public String relationTypeExistsWithOrWithoutS(String relationshipDescriptor) {
-        return addressBook.relationTypeExistsWithOrWithoutS(relationshipDescriptor);
-    }
 }

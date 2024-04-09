@@ -444,35 +444,4 @@ public class EditRelationshipCommandTest {
                         + "if the new relationship is the same as the old one.",
                 exception.getMessage());
     }
-
-    @Test
-    public void execute_hasDescriptorInvalidRolelessFail_addsRelationship() {
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String otherRelationshipDescriptor = "siblings";
-        String oldRelationshipDescriptor = "popsicle";
-        String newRelationshipDescriptor = "sibling";
-
-        Relationship oldRelationship = new Relationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), oldRelationshipDescriptor);
-        Relationship otherRelationship = new Relationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000005"), otherRelationshipDescriptor);
-        model.addRelationship(otherRelationship);
-        model.addRelationship(oldRelationship);
-        model.addRolelessDescriptor(otherRelationshipDescriptor);
-        model.addRolelessDescriptor(oldRelationshipDescriptor);
-
-        EditRelationshipCommand editCommand = new EditRelationshipCommand(originUuid, targetUuid,
-                oldRelationshipDescriptor, newRelationshipDescriptor);
-        CommandException exception = assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "Expected CommandException");
-        assertEquals("Sorry, the relation type 'siblings' exists. Either use 'siblings', "
-                        + "or delete it and add the relation type back how you'd like",
-                exception.getMessage());
-    }
 }

@@ -259,11 +259,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public String relationTypeExistsWithOrWithoutS(String relationshipDescriptor) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Relationship> getFilteredRelationshipList() {
             throw new AssertionError("This method should not be called.");
         }
