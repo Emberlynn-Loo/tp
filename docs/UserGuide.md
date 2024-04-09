@@ -215,7 +215,7 @@ Attribute names:
   * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
 * cannot be empty
 * cannot contain `/` or ` ` (space)
-  * if the attribute name contains a space, the portion after the space will errorneously be treated as part of the attribute value
+  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value
 
 Attribute values:
 
