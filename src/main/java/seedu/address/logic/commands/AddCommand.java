@@ -16,9 +16,9 @@ import seedu.address.model.person.attribute.Attribute;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addperson";
 
-    public static final String COMMAND_WORD_SHORT = "a";
+    public static final String COMMAND_WORD_SHORT = "ap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "\n"
