@@ -102,8 +102,8 @@ class DeleteRelationshipCommandTest {
         model.setAddressBook(typicalPersonsAddressBook);
         String originUuid = "0001";
         String targetUuid = "0002";
-        String otherRelationshipDescriptor = "ice cream";
-        String newRelationshipDescriptor = "ice creams";
+        String otherRelationshipDescriptor = "bioparents";
+        String newRelationshipDescriptor = "bioparent";
 
         Relationship otherRelationship = new Relationship(
                 UUID.fromString("00000000-0000-0000-0000-000000000001"),
@@ -115,7 +115,7 @@ class DeleteRelationshipCommandTest {
                 newRelationshipDescriptor);
         CommandException exception = Assertions.assertThrows(CommandException.class, () -> editCommand.execute(model),
                 "Expected CommandException");
-        assertEquals("Sorry, the relation type 'ice cream' exists. Either use 'ice cream', "
+        assertEquals("Sorry, the relation type 'bioparents' exists. Either use 'bioparents', "
                         + "or delete it and add the relation type back how you'd like",
                 exception.getMessage());
     }

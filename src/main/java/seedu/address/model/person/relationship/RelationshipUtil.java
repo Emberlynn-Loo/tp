@@ -623,7 +623,7 @@ public class RelationshipUtil {
     public String relationTypeExistsWithOrWithoutS(String descriptor) {
         String descriptorWithoutS = removeChars(descriptor); //string without any s at the end
         if (descriptor.equals("bioparents") || descriptor.equals("spouses")
-                || descriptor.equals("siblings") || descriptor.equals("friend")) {
+                || descriptor.equals("siblings") || descriptor.equals("friends")) {
             return null;
         } else if (descriptorWithoutS.equals("bioparent") || descriptorWithoutS.equals("spouse")
                 || descriptorWithoutS.equals("sibling") || descriptorWithoutS.equals("friend")) {
