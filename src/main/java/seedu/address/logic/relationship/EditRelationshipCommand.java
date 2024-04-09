@@ -78,20 +78,6 @@ public class EditRelationshipCommand extends Command {
         if (fullTargetUuid == null || fullOriginUuid == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
         }
-        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(oldRelationshipDescriptor);
-        if (relationTypeWithS != null) {
-            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
-                            + "or delete it and add the relation type back how you'd like", relationTypeWithS,
-                    relationTypeWithS);
-            throw new CommandException(errorMessage);
-        }
-        String relationTypeWithS2 = model.relationTypeExistsWithOrWithoutS(newRelationshipDescriptor);
-        if (relationTypeWithS2 != null) {
-            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
-                            + "or delete it and add the relation type back how you'd like", relationTypeWithS2,
-                    relationTypeWithS2);
-            throw new CommandException(errorMessage);
-        }
         try {
             Relationship toEditOff = new Relationship(fullOriginUuid, fullTargetUuid, oldRelationshipDescriptor);
             Relationship toEditIn = new Relationship(fullOriginUuid, fullTargetUuid, newRelationshipDescriptor);

@@ -94,29 +94,4 @@ class DeleteRelationshipCommandTest {
 
         assertThrows(CommandException.class, () -> deleteRelationshipCommand.execute(model));
     }
-
-    @Test
-    public void execute_hasDescriptorInvalidRoleFail_addsRelationship() {
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String otherRelationshipDescriptor = "bioparents";
-        String newRelationshipDescriptor = "bioparent";
-
-        Relationship otherRelationship = new Relationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000005"), otherRelationshipDescriptor);
-        model.addRelationship(otherRelationship);
-        model.addRolelessDescriptor(otherRelationshipDescriptor);
-
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid, targetUuid,
-                newRelationshipDescriptor);
-        CommandException exception = Assertions.assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "Expected CommandException");
-        assertEquals("Sorry, the relation type 'bioparents' exists. Either use 'bioparents', "
-                        + "or delete it and add the relation type back how you'd like",
-                exception.getMessage());
-    }
 }
