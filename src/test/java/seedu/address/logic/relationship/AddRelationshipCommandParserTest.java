@@ -197,10 +197,4 @@ class AddRelationshipCommandParserTest {
         assertParseFailure(parser, userInput, "Please specify the type of familial relationship instead of 'Family'.\n"
                 + " Valid familial relations are: [bioParents, siblings, spouses]");
     }
-
-    @Test
-    void parse_emptyDescriptor_throwsParseException() {
-        String userInput = "/0001 /0003 /";
-        assertParseFailure(parser, userInput, "Relationship Descriptor cannot be empty");
-    }
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.attribute.Attribute;
@@ -150,7 +151,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    void getPersonByUuid_callsGetPersonByUuidOnAddressBook() {
+    void getPersonByUuid_callsGetPersonByUuidOnAddressBook() throws CommandException {
         modelManager.addPerson(HOON);
         Person result = modelManager.getPersonByUuid(HOON.getUuid());
         assertEquals(HOON, result);

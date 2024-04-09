@@ -91,6 +91,15 @@ public class AddCommandTest {
         assertEquals(expected, addCommand.toString());
     }
 
+    @Test
+    public void multipleSameAttributes() {
+        HashMap<String, String> aliceHashMap = new HashMap<>();
+        aliceHashMap.put("Name", "Alice");
+        aliceHashMap.put("name", "Alice");
+        AddCommand addCommand = new AddCommand(aliceHashMap);
+        assertThrows(CommandException.class, () -> addCommand.execute(model));
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -250,7 +259,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
+        public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
+                                                                String rolePerson1, String rolePerson2,
+                                                                Boolean isSiblings) {
             throw new AssertionError("This method should not be called.");
         }
 

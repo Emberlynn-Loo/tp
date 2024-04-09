@@ -9,8 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.
@@ -74,23 +72,17 @@ public class AddRelationshipCommand extends Command {
         if (fullOriginUuid == fullTargetUuid) {
             throw new CommandException("Relationships must be between 2 different people");
         }
-        Boolean endsWithS = relationshipDescriptor.endsWith("s");
-        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
-        if (relationTypeWithS != null) {
-            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
-                                + "or delete it and add the relation type back how you'd like", relationTypeWithS,
-                    relationTypeWithS);
-            throw new CommandException(errorMessage);
-        }
         try {
             if (isRoleBased) {
                 RoleBasedRelationship toAdd;
                 if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
                     toAdd = model.getBioparentsCount(model, originUuid, targetUuid, rolePerson1, rolePerson2);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
-                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                            rolePerson2, true);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {
-                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, rolePerson1, rolePerson2);
+                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                            rolePerson2, false);
                 } else if (relationshipDescriptor.equalsIgnoreCase("Friends")) {
                     throw new CommandException("Sorry, friends cannot have roles");
                 } else {
@@ -133,6 +125,12 @@ public class AddRelationshipCommand extends Command {
                         model.getRoles(relationshipDescriptor).get(1)));
             }
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);
+            if (containsIllegalDescriptors(relationshipDescriptor.toLowerCase())) {
+                throw new CommandException(relationshipDescriptor
+                        + " relationship requires two roles to be specified.\n"
+                        + "Please specify the roles in the format: "
+                        + "\naddRelation /<UUID> <role> /<UUID> <role> /" + relationshipDescriptor);
+            }
             if (model.hasRelationshipWithDescriptor(toAdd)) {
                 String existing = model.getExistingRelationship(toAdd);
                 throw new CommandException(String.format("Sorry, %s", existing));
@@ -156,5 +154,22 @@ public class AddRelationshipCommand extends Command {
         AddRelationshipCommand other = (AddRelationshipCommand) o;
         return other.originUuid.equals(this.originUuid) && other.targetUuid.equals(targetUuid)
                 && other.relationshipDescriptor.equals(this.relationshipDescriptor);
+    }
+
+    /**
+     * Checks if the relationship descriptor contains illegal descriptors
+     *
+     * @param relationshipDescriptor The relationship descriptor
+     * @return A boolean indicating whether the relationship descriptor contains illegal descriptors
+     */
+    public static boolean containsIllegalDescriptors(String relationshipDescriptor) {
+        return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
+                || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
+                || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
+                || relationshipDescriptor.contains("son") || relationshipDescriptor.contains("daughter")
+                || relationshipDescriptor.contains("child") || relationshipDescriptor.contains("offspring")
+                || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
+                || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
+                || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
     }
 }

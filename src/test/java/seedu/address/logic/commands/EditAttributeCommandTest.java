@@ -51,7 +51,7 @@ public class EditAttributeCommandTest {
     public void execute_fail_person() {
         EditAttributeCommand editAttributeCommand = new EditAttributeCommand("0000",
                 Map.of("Name", "Alice"));
-        assertThrows(NullPointerException.class, () -> editAttributeCommand.execute(model));
+        assertThrows(CommandException.class, () -> editAttributeCommand.execute(model));
     }
 
     @Test
@@ -83,6 +83,13 @@ public class EditAttributeCommandTest {
                 Map.of("Random", "Random"));
         editAttributeCommand.execute(model);
         assert(ALICE.getAttribute("Random").getValueAsString().equals("Random"));
+    }
+
+    @Test
+    public void execute_fail_sameAttributes() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new EditAttributeCommand(ALICE.getUuidString().substring(32, 36),
+                Map.of("Name", "Alice", "Name", "Bob")));
     }
 
 }

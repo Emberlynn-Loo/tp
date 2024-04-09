@@ -37,11 +37,15 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
 
         String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
         String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
-        String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap,
-                2, false).toLowerCase();
-
-        if (relationshipDescriptor.isEmpty()) {
+        String relationshipDescriptor = ParserUtil.relationKeysAndValues(relationshipMap, 2, false);
+        if (relationshipDescriptor == null
+                && ParserUtil.relationKeysAndValues(relationshipMap, 2, true) == null) {
             throw new ParseException("Relationship Descriptor cannot be empty");
+        } else if (relationshipDescriptor == null) {
+            relationshipDescriptor =
+                    ParserUtil.relationKeysAndValues(relationshipMap, 2, true).toLowerCase();
+        } else {
+            relationshipDescriptor = relationshipDescriptor.toLowerCase();
         }
 
         String role1;
@@ -61,13 +65,13 @@ public class AddRelationshipCommandParser implements Parser<AddRelationshipComma
             role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
             role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
 
-            if (relationshipDescriptor.equals("family") || relationshipDescriptor.equals("familys")) {
+            if (relationshipDescriptor.toLowerCase().contains("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             return new AddRelationshipCommand(originUuid, targetUuid, relationshipDescriptor, role1, role2);
         } else {
-            if (relationshipDescriptor.equals("family") || relationshipDescriptor.equals("familys")) {
+            if (relationshipDescriptor.toLowerCase().contains("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
                         + " Valid familial relations are: [bioParents, siblings, spouses]");
             }

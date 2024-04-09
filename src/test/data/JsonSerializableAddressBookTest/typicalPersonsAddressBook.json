@@ -61,22 +61,24 @@
     {
       "person1": "00000000-0000-0000-0000-000000000001",
       "person2": "00000000-0000-0000-0000-000000000002",
-      "relationshipDescriptor": "friend"
+      "relationshipDescriptor": "friends"
     },
     {
       "person1": "00000000-0000-0000-0000-000000000003",
       "person2": "00000000-0000-0000-0000-000000000004",
-      "relationshipDescriptor": "friend"
+      "relationshipDescriptor": "friends"
     },
     {
       "person1": "00000000-0000-0000-0000-000000000005",
       "person2": "00000000-0000-0000-0000-000000000006",
-      "relationshipDescriptor": "friend"
+      "relationshipDescriptor": "friends"
     },
     {
       "person1": "00000000-0000-0000-0000-000000000001",
       "person2": "00000000-0000-0000-0000-000000000004",
-      "relationshipDescriptor": "siblings"
+      "relationshipDescriptor": "siblings",
+        "rolePerson1": "brother",
+        "rolePerson2": "sister"
     },
     {
       "person1": "00000000-0000-0000-0000-000000000003",
@@ -85,5 +87,7 @@
       "rolePerson1": "parent",
       "rolePerson2": "child"
     }
-  ]
+  ],
+  "rolelessDescriptors" : [ "friends" ],
+  "roleBasedDescriptors" : [ [ "siblings", "brother", "sister" ], [ "spouses", "husband", "wife" ], [ "bioparents", "parent", "child" ] ]
 }

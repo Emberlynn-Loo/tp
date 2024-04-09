@@ -230,7 +230,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person getPersonByUuid(UUID id) {
+    public Person getPersonByUuid(UUID id) throws CommandException {
         return addressBook.getPersonByUuid(id);
     }
 
@@ -273,7 +273,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
-        return addressBook.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+    public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid,
+                                                            String targetUuid, String rolePerson1, String rolePerson2,
+                                                            Boolean isSiblings) throws CommandException {
+        return addressBook.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                rolePerson2, isSiblings);
     }
 }

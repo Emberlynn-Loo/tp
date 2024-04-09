@@ -16,9 +16,9 @@ import seedu.address.model.person.attribute.Attribute;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addperson";
 
-    public static final String COMMAND_WORD_SHORT = "a";
+    public static final String COMMAND_WORD_SHORT = "ap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "\n"
@@ -59,6 +59,13 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         Attribute[] attributesToAdd = generateAttributeList();
+        for (int i = 0; i < attributesToAdd.length; i++) {
+            for (int j = i; j < attributesToAdd.length; j++) {
+                if (i != j && attributesToAdd[i].getName().equalsIgnoreCase(attributesToAdd[j].getName())) {
+                    throw new CommandException(Messages.MESSAGE_DUPLICATE_ATTRIBUTES);
+                }
+            }
+        }
         Person addedPerson = addPersonToModel(model, attributesToAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(addedPerson)));

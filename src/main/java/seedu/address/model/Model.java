@@ -115,7 +115,7 @@ public interface Model {
 
     UUID getFullUuid(String digits);
 
-    Person getPersonByUuid(UUID id);
+    Person getPersonByUuid(UUID id) throws CommandException;
 
     boolean hasAttribute(String uuidString, String attributeName);
 
@@ -142,5 +142,8 @@ public interface Model {
 
     RoleBasedRelationship getBioparentsCount(Model model, String originUuid,
                                              String targetUuid, String role1, String role2) throws CommandException;
-    String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor);
+
+    RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
+                                                     String rolePerson1, String rolePerson2,
+                                                     Boolean isSiblings) throws CommandException;
 }

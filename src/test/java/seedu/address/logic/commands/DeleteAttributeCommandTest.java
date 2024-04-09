@@ -82,4 +82,13 @@ public class DeleteAttributeCommandTest {
         assertThrows(CommandException.class, () -> deleteAttributeCommand.execute(model));
         ALICE.setAttribute("Name", "Alice Pauline");
     }
+
+    @Test
+    public void execute_same_name() {
+        String[] attributeList = {"Name", "Name"};
+        DeleteAttributeCommand deleteAttributeCommand =
+                new DeleteAttributeCommand(ALICE.getUuidString().substring(32, 36), attributeList);
+        assertThrows(CommandException.class, () -> deleteAttributeCommand.execute(model));
+        ALICE.setAttribute("Name", "Alice Pauline");
+    }
 }

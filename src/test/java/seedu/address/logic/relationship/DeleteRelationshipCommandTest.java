@@ -1,6 +1,5 @@
 package seedu.address.logic.relationship;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -8,17 +7,14 @@ import static seedu.address.testutil.TypicalPersonsUuid.getTypicalAddressBook;
 
 import java.util.UUID;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.relationship.Relationship;
-import seedu.address.testutil.TypicalPersonsUuid;
 
 class DeleteRelationshipCommandTest {
     private Model model;
@@ -93,30 +89,5 @@ class DeleteRelationshipCommandTest {
                 originUuid, targetUuid, relationshipDescriptor);
 
         assertThrows(CommandException.class, () -> deleteRelationshipCommand.execute(model));
-    }
-
-    @Test
-    public void execute_hasDescriptorInvalidRoleFail_addsRelationship() {
-        Model model = new ModelManager();
-        AddressBook typicalPersonsAddressBook = TypicalPersonsUuid.getTypicalAddressBook();
-        model.setAddressBook(typicalPersonsAddressBook);
-        String originUuid = "0001";
-        String targetUuid = "0002";
-        String otherRelationshipDescriptor = "ice cream";
-        String newRelationshipDescriptor = "ice creams";
-
-        Relationship otherRelationship = new Relationship(
-                UUID.fromString("00000000-0000-0000-0000-000000000001"),
-                UUID.fromString("00000000-0000-0000-0000-000000000005"), otherRelationshipDescriptor);
-        model.addRelationship(otherRelationship);
-        model.addRolelessDescriptor(otherRelationshipDescriptor);
-
-        AddRelationshipCommand editCommand = new AddRelationshipCommand(originUuid, targetUuid,
-                newRelationshipDescriptor);
-        CommandException exception = Assertions.assertThrows(CommandException.class, () -> editCommand.execute(model),
-                "Expected CommandException");
-        assertEquals("Sorry, the relation type 'ice cream' exists. Either use 'ice cream', "
-                        + "or delete it and add the relation type back how you'd like",
-                exception.getMessage());
     }
 }

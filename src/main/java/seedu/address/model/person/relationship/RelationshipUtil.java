@@ -28,7 +28,7 @@ public class RelationshipUtil {
             new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
     ));
     protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
-            Arrays.asList("friend"));
+            Arrays.asList("friends"));
     private final ObservableList<Relationship> relationshipsTracker = FXCollections.observableArrayList();
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
@@ -478,10 +478,10 @@ public class RelationshipUtil {
                     + "\nPlease delete them first.");
         }
         validDescriptors.remove(relationType);
-        if (!roleBasedDescriptors.contains(relationType)) {
+        if (roleBasedDescriptors.contains(relationType)) {
             roleBasedDescriptors.remove(relationType);
         }
-        if (!rolelessDescriptors.contains(relationType)) {
+        if (rolelessDescriptors.contains(relationType)) {
             rolelessDescriptors.remove(relationType);
         }
     }
@@ -616,28 +616,79 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if a relationship type exists in the tracker, with or without an 's' at the end.
-     * @param hasS true if the descriptor has an 's' at the end, false otherwise.
-     * @param descriptor The descriptor to check.
-     * @return The descriptor if it exists, null otherwise.
+     * Checks if the specified roles for adding a relationship between two persons are compatible with their genders,
+     * specifically for the relationship types "Siblings" and "Spouses". If the roles are incompatible with the genders
+     * inferred from existing relationships, it throws a CommandException indicating the mismatch.
+     * If the relationship is of type "Siblings", it ensures that the roles provided for each person are consistent with
+     * their genders.
+     * If the relationship is of type "Spouses", it performs the same gender compatibility check as for "Siblings".
+     * If the specified relationship type is "Siblings", it constructs and returns a new SiblingRelationship object
+     * with the provided role information. Otherwise, it constructs and returns a new SpousesRelationship object.
+     *
+     * @param model         The model containing the relationships.
+     * @param originUuid    The UUID of the first person in the relationship.
+     * @param targetUuid    The UUID of the second person in the relationship.
+     * @param role1         The inputted role of the first person.
+     * @param role2         The inputted role of the second person.
+     * @param isSiblings    A boolean indicating if the relationship is of type "Siblings".
+     * @return A RoleBasedRelationship object representing the new relationship.
+     * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
+     *                         from existing relationships.
      */
-    public String relationTypeExistsWithOrWithoutS(Boolean hasS, String descriptor) {
-        if (hasS) {
-            return descriptorExistsValid(removeChars(descriptor));
+    public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
+                                                            String role1, String role2,
+                                                            Boolean isSiblings) throws CommandException {
+        ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
+        UUID fullOriginUuid = model.getFullUuid(originUuid);
+        UUID fullTargetUuid = model.getFullUuid(targetUuid);
+        String genderPerson1 = null;
+        String genderPerson2 = null;
+        for (Relationship r : allRelationships) {
+            if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
+                    || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
+                    && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
+                if (r.getPerson1().equals(fullOriginUuid)) {
+                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                    genderPerson1 = r1.getRole(fullOriginUuid);
+                } else if (r.getPerson2().equals(fullOriginUuid)) {
+                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                    genderPerson1 = r2.getRole(fullOriginUuid);
+                }
+            }
+            if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
+                    || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
+                    && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
+                if (r.getPerson1().equals(fullTargetUuid)) {
+                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                    genderPerson2 = r1.getRole(fullTargetUuid);
+                } else if (r.getPerson2().equals(fullTargetUuid)) {
+                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                    genderPerson2 = r2.getRole(fullTargetUuid);
+                }
+            }
+        }
+        if (genderPerson1 != null || genderPerson2 != null) {
+            if (((genderPerson1.equals("brother") || genderPerson1.equals("husband")) && (role1.equals("sister")
+                    || role1.equals("wife"))) || ((genderPerson1.equals("sister") || genderPerson1.equals("wife"))
+                    && (role1.equals("brother") || role1.equals("husband")))) {
+                throw new CommandException("Sorry, " + originUuid + " has been added as " + genderPerson1 + ".\nPlease "
+                        + "make sure that the role you are inputting for " + originUuid + " matches the gender of "
+                        + genderPerson1 + ".\nIf you want to change the gender of " + originUuid + ", please delete the"
+                        + " relationship with " + genderPerson1 + ".");
+            } else if (((genderPerson2.equals("brother") || genderPerson2.equals("husband")) && (role2.equals("sister")
+                    || role2.equals("wife"))) || ((genderPerson2.equals("sister") || genderPerson2.equals("wife"))
+                    && (role2.equals("brother") || role2.equals("husband")))) {
+                throw new CommandException("Sorry, " + targetUuid + " has been added as " + genderPerson2 + ".\nPlease "
+                        + "make sure that the role you are inputting for " + targetUuid + " matches the gender of "
+                        + genderPerson2 + ".\nIf you want to change the gender of " + targetUuid + ", please delete the"
+                        + " relationship with " + genderPerson2 + ".");
+            }
+        }
+        if (isSiblings) {
+            return new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
         } else {
-            return descriptorExistsValid(descriptor + "s");
+            return new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
         }
-    }
-
-    /**
-     * Removes the last character from the string.
-     * @param str The relationship descriptor to remove the last character from.
-     */
-    public static String removeChars(String str) {
-        if (str != null && !str.trim().isEmpty()) {
-            return str.substring(0, str.length() - 1);
-        }
-        return "";
     }
 
     /**

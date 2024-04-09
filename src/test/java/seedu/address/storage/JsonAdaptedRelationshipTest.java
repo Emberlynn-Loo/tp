@@ -44,18 +44,19 @@ public class JsonAdaptedRelationshipTest {
     @Test
     public void toModelType_validSiblingRelationshipDetails_returnsSiblingRelationship() throws Exception {
         JsonAdaptedRelationship relationship = new JsonAdaptedRelationship(
-                VALID_UUID1.toString(), VALID_UUID2.toString(), VALID_DESCRIPTOR2, VALID_ROLE1, VALID_ROLE2);
+                VALID_UUID1.toString(), VALID_UUID2.toString(), VALID_DESCRIPTOR2, "brother",
+                "sister");
         assertEquals(
-                new SiblingRelationship(VALID_UUID1, VALID_UUID2, VALID_ROLE1, VALID_ROLE2),
+                new SiblingRelationship(VALID_UUID1, VALID_UUID2, "brother", "sister"),
                 relationship.toModelType());
     }
 
     @Test
     public void toModelType_validSpousesRelationshipDetails_returnsSpousesRelationship() throws Exception {
         JsonAdaptedRelationship relationship = new JsonAdaptedRelationship(
-                VALID_UUID1.toString(), VALID_UUID2.toString(), VALID_DESCRIPTOR3, VALID_ROLE1, VALID_ROLE2);
+                VALID_UUID1.toString(), VALID_UUID2.toString(), VALID_DESCRIPTOR3, "husband", "wife");
         assertEquals(
-                new SpousesRelationship(VALID_UUID1, VALID_UUID2, VALID_ROLE1, VALID_ROLE2),
+                new SpousesRelationship(VALID_UUID1, VALID_UUID2, "husband", "wife"),
                 relationship.toModelType());
     }
 

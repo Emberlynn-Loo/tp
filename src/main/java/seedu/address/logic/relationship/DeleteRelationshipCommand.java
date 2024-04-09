@@ -56,14 +56,6 @@ public class DeleteRelationshipCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID);
             }
         }
-        Boolean endsWithS = relationshipDescriptor.endsWith("s");
-        String relationTypeWithS = model.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
-        if (relationTypeWithS != null) {
-            String errorMessage = String.format("Sorry, the relation type '%s' exists. Either use '%s', "
-                            + "or delete it and add the relation type back how you'd like", relationTypeWithS,
-                    relationTypeWithS);
-            throw new CommandException(errorMessage);
-        }
         if (isRelationType) {
             try {
                 model.deleteRelationType(relationshipDescriptor);
