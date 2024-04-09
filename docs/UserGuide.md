@@ -430,8 +430,9 @@ Finds the relationship pathway between 2 input entities.
 
 Format: `anySearch /ORIGINUUID /TARGETUUID`
 
-> [!IMPORTANT]
-> Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
+<div markdown="span" class="alert alert-primary">:warning: **Important:**
+UUIDs are 4 characters long, containing only alphanumeric characters
+</div>
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
 * If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned, 
@@ -449,8 +450,9 @@ Finds the family relationship pathway between 2 input entities.
 
 Format: `familySearch /ORIGINUUID /TARGETUUID`
 
-> [!IMPORTANT]
-> Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
+<div markdown="span" class="alert alert-primary">:warning: **Important:**
+UUIDs are 4 characters long, containing only alphanumeric characters
+</div>
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
 * If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
