@@ -616,19 +616,18 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if a relationship descriptor exists in the tracker, with or without an 's' at the end.
+     * Checks if a relationship type exists in the tracker with or without an 's' at the end.
      * @param descriptor The descriptor to check.
-     * @return The existing descriptor if it exists, null otherwise.
+     * @return The descriptor with an 's' at the end if it exists, null otherwise.
      */
     public String relationTypeExistsWithOrWithoutS(String descriptor) {
-        String descriptornos = removeChars(descriptor); //string without any s at the end
-        for (String validDescriptor : validDescriptors) {
-            String validDescriptorWithoutS = removeChars(validDescriptor);
-            if (descriptor.equals(validDescriptor)) {
-                return null;
-            } else if (descriptornos.equals(validDescriptorWithoutS)) {
-                return validDescriptor;
-            }
+        String descriptorWithoutS = removeChars(descriptor); //string without any s at the end
+        if (descriptor.equals("bioparents") || descriptor.equals("spouses")
+                || descriptor.equals("siblings") || descriptor.equals("friend")) {
+            return null;
+        } else if (descriptorWithoutS.equals("bioparent") || descriptorWithoutS.equals("spouse")
+                || descriptorWithoutS.equals("sibling") || descriptorWithoutS.equals("friend")) {
+            return descriptorWithoutS + "s";
         }
         return null;
     }
