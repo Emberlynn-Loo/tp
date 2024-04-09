@@ -13,33 +13,34 @@ the relationship tree and history of friends and family.
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [Managing Person Profiles](#features---managing-person-profiles)
-    - [Listing all persons](#listing-all-persons--list)
-    - [Adding a person](#adding-a-person--add)
-    - [Locating persons by name](#locating-persons-by-name--find)
+- [Managing Person Profiles](#persons)
+    - [Listing all persons](#listing-all-persons--list-or-l)
+    - [Adding a person](#adding-a-person--add-or-a)
+    - [Locating persons by name](#locating-persons-by-details--find-or-f)
 - [Attributes](#attributes)
-    - [Adding an Attribute](#adding-an-attribute--addattribute)
-    - [Editing an Attribute](#editing-an-attribute--editattribute)
-    - [Deleting an Attribute](#deleting-an-attribute--deleteattribute)
-    - [Deleting a Person](#deleting-a-person--delete)
+    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
+    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
+    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Deleting a Person](#deleting-a-person--delete-or-d)
 - [Managing Person Relationships](#features---managing-person-relationships)
     - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
     - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
     - [Editing a Relationship](#editing-a-relationship--editrelation-or-er)
     - [Deleting a Relationship](#deleting-a-relationship--deleterelation-or-dr)
-    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch)
+    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch-or-as)
 - [General Features](#features---general-features)
-    - [Viewing Help](#viewing-help--help)
-    - [Clearing all Entries](#clearing-all-entries--deleteallpersons)
-    - [Clearing Command Responses](#clearing-command-responses--clear)
-    - [Exiting the Program](#exiting-the-program--exit)
+    - [Viewing Help](#viewing-help--help-or-h)
+    - [Clearing all Entries](#clearing-all-entries--deleteallpersons-or-dap)
+    - [Clearing Command Responses](#clearing-command-section-of-past-responses--clear-or-c)
+    - [Exiting the Program](#exiting-the-program--exit-or-e)
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
+- [Coming Soon](#coming-soon)
 - [Command Summary](#command-summary)
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
 1. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
@@ -64,7 +65,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -105,6 +106,9 @@ Be careful when using this command with your own data as it will delete all your
 
 **:information_source: Notes about the command format:**<br>
 
+* Command keywords are case-insensitive.<br>
+  e.g. `addAttribute` can be `addattribute`, `ADDATTRIBUTE`, etc.
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add /Name NAME`, `NAME` is a parameter which can be used as `add /Name John Doe`.
 
@@ -117,9 +121,9 @@ Be careful when using this command with your own data as it will delete all your
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* The add attribute command is case-insensitive. The attribute name is case-insensitive for defined attributes like Name or Address, but the attribute name for user defined attributes is case-sensitive.
+* UUID are 4 characters long
 
-* The delete attribute command is case-sensitive. It must match the attribute name exactly.
+* Attribute names are not case-sensitive.
 
 * All relationship commands are case-sensitive (must be in lower-case). It must match the relationship type name exactly.
 
@@ -130,9 +134,22 @@ Be careful when using this command with your own data as it will delete all your
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Person Profiles
+## Persons
 
-### Listing all Persons : `list` or `l`
+Every contact you store in Gene-nie is considered a _Person_.
+A person is made up of three pieces of information:
+1. A unique identifier (UUID)
+   1. Each person has a unique UUID that is used to identify them
+   2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
+   3. UUID are 4-characters long
+2. A set of attributes
+3. A set of relationships
+To learn more about attributes and relationships, find their descriptions in [Table of Contents](#table-of-contents).
+
+Have a look at this sample person card. Can you spot where each detail is located?
+![Sample Person Card](images/PersonCard.png)
+
+### Listing all Persons: `list` or `l`
 
 Shows a list of all persons in the address book.
 
@@ -145,7 +162,10 @@ Adds a person to the address book.
 Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of attributes (including 0)
+**A person can have any number of attributes (including 0)!**<br>
+Sometimes, you may know that a person exists in your family tree but you don't know anything about them.
+Gene-nie comes to the rescue by allowing you to create empty persons with no attributes!
+This way, you can still add them to relationships, and fill in their details later.
 </div>
 
 Examples:
@@ -184,14 +204,16 @@ To store information about the relationship between 2 persons, see the relations
 
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
-Generally, the value of attributes are not policed, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+This also means that **duplicate attribute values are not checked**.
 
 However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
 
-1. `Name` attribute with String value
-2. `Phone` attribute with Integer value
-3. `Birthday` attribute with Date value
-4. `Sex` attribute with String enum value. The value can be either `Male` or `Female`
+1. `Name` attribute with String value, and can be any string supported by the command format (see attribute commands below)
+   1. It is a predefined attribute for the purposes of future features.
+2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols)
+3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
+4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
 <div markdown="block" class="alert alert-info">
 Attribute names:
 
@@ -200,7 +222,7 @@ Attribute names:
   * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
 * cannot be empty
 * cannot contain `/` or ` ` (space)
-  * if the attribute name contains a space, the portion after the space will errorneously be treated as part of the attribute value
+  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value
 
 Attribute values:
 
@@ -230,7 +252,7 @@ Examples:
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
-### Deleting attribute from a Person: `deleteAttribute` or `da`
+### Deleting an attribute from a Person: `deleteAttribute` or `da`
 
 Deletes an attribute from a person in the address book.
 
@@ -258,6 +280,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
 * The `UUID` **must be a valid UUID**
 * If the person does not have the specified attribute, the command will not have any effect
+  * If you have used an incorrect attribute name, and wish to edit the attribute name, you must delete the attribute (using the 'incorrect' name) and add a new one instead
 * If the person does not exist, the command will not have any effect
 * If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail
 * The first space after the attribute name is marks the start of the attribute value
@@ -289,11 +312,11 @@ Examples:
 
 ### Listing all relationship types : `listRelations` or `lr`
 
-Shows a list of all current relationshipTypes in the address book.
+Shows a list of all current relationshipTypes in the address book. This includes:
+* Pre-defined relationships (this is why you may see more relationships than used in the contacts list)
+* User-defined relationships
 
 Format: `listRelations` or `lr`
-
-* The command word is not case-sensitive.
 
 ### Adding a relationship : `addRelation` or `ar`
 
@@ -415,8 +438,9 @@ Finds the relationship pathway between 2 input entities.
 
 Format: `anySearch /ORIGINUUID /TARGETUUID`
 
-> [!IMPORTANT]
-> Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
+<div markdown="span" class="alert alert-primary">:warning: **Important:**
+UUIDs are 4 characters long, containing only alphanumeric characters
+</div>
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
 * If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned, 
@@ -434,9 +458,11 @@ Finds the family relationship pathway between 2 input entities.
 
 Format: `familySearch /ORIGINUUID /TARGETUUID`
 
-> [!IMPORTANT]
-> Valid Input UUIDs only include the last 4 digits of a UUID containing only alphanumeric characters
+<div markdown="span" class="alert alert-primary">:warning: **Important:**
+UUIDs are 4 characters long, containing only alphanumeric characters
+</div>
 
+* Unlike `anySearch`, `familySearch` only recognises family relationships, which are `bioparents`, `siblings` and `spouses`
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
 * If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
 else `No Relationship Pathway Found` will be returned
@@ -505,7 +531,8 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 ## FAQ
 
 **Q**: How do I install Java 11, the Java version required by Gene-nie?<br>
-**A**: You can download Java 11 from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+**A**: Download Java 11 JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=11).
+Then, use the "Installers" section of the [installation guide](https://adoptium.net/installation/) to install it.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
@@ -520,6 +547,25 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Coming soon
+
+1. **Display results of find command in "Search Results" panel.**
+Currently, the results of the find command are displayed in the "All Contacts" panel.
+This may not be intuitive due to the existence of the "Search Results" panel.
+
+2. **Extend UUID to have more characters.** Currently, the user-facing UUID system is limited to 4 characters.
+This is expected to be sufficient for most use cases.
+However, in the future, the UUID system may be extended to have more characters.
+
+3. **Utilise the predefined Name attribute.** Currently, the Name attribute behaves like any other user-defined attribute.
+In the future, the Name attribute may be used to provide additional functionality, such as displaying the name of the person in the GUI.
+
+4. **Maximise UI elements automatically.** Currently, UI elements resize when the user types in the command box. This may distract some users.
 
 [Back to Table of Contents](#table-of-contents)
 
