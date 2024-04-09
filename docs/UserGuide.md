@@ -201,7 +201,8 @@ To store information about the relationship between 2 persons, see the relations
 
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
-Generally, the value of attributes are not policed, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+This also means that **duplicate attribute values are not checked**.
 
 However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
 
