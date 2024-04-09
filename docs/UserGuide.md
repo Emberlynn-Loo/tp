@@ -106,6 +106,9 @@ Be careful when using this command with your own data as it will delete all your
 
 **:information_source: Notes about the command format:**<br>
 
+* Command keywords are case-insensitive.<br>
+  e.g. `addAttribute` can be `addattribute`, `ADDATTRIBUTE`, etc.
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add /Name NAME`, `NAME` is a parameter which can be used as `add /Name John Doe`.
 
