@@ -616,28 +616,32 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if a relationship type exists in the tracker, with or without an 's' at the end.
-     * @param hasS true if the descriptor has an 's' at the end, false otherwise.
+     * Checks if a relationship type exists in the tracker with or without an 's' at the end.
      * @param descriptor The descriptor to check.
-     * @return The descriptor if it exists, null otherwise.
+     * @return The descriptor with an 's' at the end if it exists, null otherwise.
      */
-    public String relationTypeExistsWithOrWithoutS(Boolean hasS, String descriptor) {
-        if (hasS) {
-            return descriptorExistsValid(removeChars(descriptor));
-        } else {
-            return descriptorExistsValid(descriptor + "s");
+    public String relationTypeExistsWithOrWithoutS(String descriptor) {
+        String descriptorWithoutS = removeChars(descriptor); //string without any s at the end
+        if (descriptor.equals("bioparents") || descriptor.equals("spouses")
+                || descriptor.equals("siblings") || descriptor.equals("friends")) {
+            return null;
+        } else if (descriptorWithoutS.equals("bioparent") || descriptorWithoutS.equals("spouse")
+                || descriptorWithoutS.equals("sibling") || descriptorWithoutS.equals("friend")) {
+            return descriptorWithoutS + "s";
         }
+        return null;
     }
 
     /**
-     * Removes the last character from the string.
-     * @param str The relationship descriptor to remove the last character from.
+     * Removes all the 's' characters at the end of a string.
+     * @param str The string to remove characters from.
+     * @return The modified string with 's' characters removed from the end.
      */
     public static String removeChars(String str) {
-        if (str != null && !str.trim().isEmpty()) {
-            return str.substring(0, str.length() - 1);
+        while (str.endsWith("s")) {
+            str = str.substring(0, str.length() - 1);
         }
-        return "";
+        return str;
     }
 
     /**

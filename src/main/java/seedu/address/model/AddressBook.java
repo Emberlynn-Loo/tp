@@ -257,7 +257,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return relationships.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
 
-    public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
-        return relationships.relationTypeExistsWithOrWithoutS(endsWithS, relationshipDescriptor);
+    public String relationTypeExistsWithOrWithoutS(String relationshipDescriptor) {
+        return relationships.relationTypeExistsWithOrWithoutS(relationshipDescriptor);
     }
 }

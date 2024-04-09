@@ -259,7 +259,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String relationTypeExistsWithOrWithoutS(Boolean endsWithS, String relationshipDescriptor) {
+        public String relationTypeExistsWithOrWithoutS(String relationshipDescriptor) {
             throw new AssertionError("This method should not be called.");
         }
 
