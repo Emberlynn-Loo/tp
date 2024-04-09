@@ -51,7 +51,7 @@ public class AttributeUtil {
             } catch (NumberFormatException e) {
                 throw new CommandException("Phone number for " + attributeName + " must be a number. "
                         + "A number is only valid if it is a positive integer. "
-                        + "Additionally, please make sure the phone number is lesser than 9 digits.");
+                        + "Additionally, please make sure the phone number is lesser than 11 digits.");
             }
             attribute = new PhoneNumberAttribute("Phone", phoneNumber);
             break;
