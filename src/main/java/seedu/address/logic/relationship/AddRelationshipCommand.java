@@ -170,7 +170,7 @@ public class AddRelationshipCommand extends Command {
      * @param relationshipDescriptor The relationship descriptor
      * @return A boolean indicating whether the relationship descriptor contains illegal descriptors
      */
-    public boolean containsIllegalDescriptors(String relationshipDescriptor) {
+    public static boolean containsIllegalDescriptors(String relationshipDescriptor) {
         return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
                 || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
                 || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
