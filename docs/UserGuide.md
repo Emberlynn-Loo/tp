@@ -561,6 +561,8 @@ However, in the future, the UUID system may be extended to have more characters.
 3. **Utilise the predefined Name attribute.** Currently, the Name attribute behaves like any other user-defined attribute.
 In the future, the Name attribute may be used to provide additional functionality, such as displaying the name of the person in the GUI.
 
+4. **Maximise UI elements automatically.** Currently, UI elements resize when the user types in the command box. This may distract some users.
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
