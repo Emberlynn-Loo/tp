@@ -256,4 +256,31 @@ public class AddressBook implements ReadOnlyAddressBook {
                                                     String role2) throws CommandException {
         return relationships.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
+
+    /**
+     * Checks if the specified roles for adding a relationship between two persons are compatible with their genders,
+     * specifically for the relationship types "Siblings" and "Spouses". If the roles are incompatible with the genders
+     * inferred from existing relationships, it throws a CommandException indicating the mismatch.
+     * If the relationship is of type "Siblings", it ensures that the roles provided for each person are consistent with
+     * their genders.
+     * If the relationship is of type "Spouses", it performs the same gender compatibility check as for "Siblings".
+     * If the specified relationship type is "Siblings", it constructs and returns a new SiblingRelationship object
+     * with the provided role information. Otherwise, it constructs and returns a new SpousesRelationship object.
+     *
+     * @param model         The model containing the relationships.
+     * @param originUuid    The UUID of the first person in the relationship.
+     * @param targetUuid    The UUID of the second person in the relationship.
+     * @param rolePerson1   The inputted role of the first person.
+     * @param rolePerson2   The inputted role of the second person.
+     * @param isSiblings    A boolean indicating if the relationship is of type "Siblings".
+     * @return A RoleBasedRelationship object representing the new relationship.
+     * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
+     *                         from existing relationships.
+     */
+    public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
+                                                            String rolePerson1, String rolePerson2,
+                                                            Boolean isSiblings) throws CommandException {
+        return relationships.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
+                rolePerson2, isSiblings);
+    }
 }

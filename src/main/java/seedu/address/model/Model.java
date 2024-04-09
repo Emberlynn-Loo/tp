@@ -142,4 +142,8 @@ public interface Model {
 
     RoleBasedRelationship getBioparentsCount(Model model, String originUuid,
                                              String targetUuid, String role1, String role2) throws CommandException;
+
+    RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
+                                                     String rolePerson1, String rolePerson2,
+                                                     Boolean isSiblings) throws CommandException;
 }
