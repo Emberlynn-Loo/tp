@@ -2,24 +2,50 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
-{:toc}
+
+<h1 align="center"><i>GENE-NIE DEVELOPER GUIDE</i></h1>
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Acknowledgements](#acknowledgements)
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+    - [Architecture](#architecture)
+    - [UI component](#ui-component)
+    - [Logic component](#logic-component)
+    - [Model component](#model-component)
+        - [Model component - Person](#model-component---person)
+        - [Model component - Attribute](#model-component---attribute)
+        - [Model component - Relationship](#model-component---relationship)
+    - [Storage component](#storage-component)
+    - [Common classes](#common-classes)
+- [Implementation](#implementation)
+    - [Proposed Undo/redo feature](#proposed-undoredo-feature)
+    - [Proposed Implementation](#proposed-implementation)
+    - [Design considerations](#design-considerations)
+- [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+
+--------------------------------------------------------------------------------------------------------------------
+## Introduction
+
+This is the developer guide for Gene-nie, a desktop application for managing family members and their relationships. It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a developer, this guide will help you understand the architecture of Gene-nie and how to extend its features.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+## Acknowledgements
 
-* Some code generated using GitHub Copilot, where commented as such in the code.
+Some code generated using GitHub Copilot, where commented as such in the code.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+## Setting up, getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design**
+## Design
 
 <div markdown="span" class="alert alert-primary">
 
@@ -66,6 +92,10 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
@@ -82,6 +112,10 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` and `Relationship` objects residing in the `Model`.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Logic component
 
@@ -113,6 +147,10 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Model component
 
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -138,10 +176,11 @@ The `Person` component,
 * contains details about the person, stored as `Attribute` objects.
     * The `Person` component,
         * stores the Unique User ID or UUID of the person
-        * stores the `Attribute` objects in the `Person` object in the hash map
-        * stores the `Relationship` objects in the `Person` object in the hash map
+        * stores any number of `Attribute` objects in the `Person` object in the hash map
+        * stores any number of `Relationship` objects in the `Person` object in the hash map
+        * does not require to have any `Attribute` objects or `Relationship` objects
     * The `Unique User ID` component,
-        * stores the Unique User ID or UUID of the person
+        * acts as the unique identifier for a person
         * the UUID is generated by the system and is unique for each person
         * it is used for identifying the person in the system whenever calls are made to the system
         * does not depend on the other components (as the `Unique User ID` is a standalone store of details about the `Person`)
@@ -174,6 +213,10 @@ The `Relationship` component,
 * can be `RoleBasedRelationship`,
     * which contains labels for each `Person` in the relationship.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -185,13 +228,19 @@ The `Storage` component,
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -279,9 +328,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -289,9 +340,11 @@ _{more aspects and alternatives to be added}_
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## Appendix: Requirements
 
 ### Product scope
 
