@@ -23,7 +23,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+ **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -95,16 +95,15 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</div>
+**Note** : The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+*Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.*
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -126,7 +125,7 @@ The `Model` component,
 * stores the address book data where
     * `Person` objects are contained in a `UniquePersonList` object.
     * `Relationship` objects are contained in a `RelationshipUtil` object.
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that is 'observed' e.g. the UI is bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -137,13 +136,33 @@ The `Model` component,
 The `Person` component,
 
 * contains details about the person, stored as `Attribute` objects.
-    * The `Attribute` component,
-        * stores details about a `Person`.
-        * stores the `Attribute` objects in the `Person` object in the hash map.
-        * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
-            * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints.
-        * does not depend on the other components (as the `Attribute` are standalone stores of details about the `Person`)
+    * The `Person` component,
+        * stores the Unique User ID or UUID of the person
+        * stores the `Attribute` objects in the `Person` object in the hash map
+        * stores the `Relationship` objects in the `Person` object in the hash map
+    * The `Unique User ID` component,
+        * stores the Unique User ID or UUID of the person
+        * the UUID is generated by the system and is unique for each person
+        * it is used for identifying the person in the system whenever calls are made to the system
+        * does not depend on the other components (as the `Unique User ID` is a standalone store of details about the `Person`)
 
+#### Model component - Attribute
+
+<img src="images/AttributeClassDiagram.png" width="550" />
+
+* The `Attribute` component,
+  * is used to store details about a `Person`
+  * each attribute has a `name` and a `value`
+  * stores the `Attribute` objects in the `Person` object in the hash map.
+  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`) which allows for the user to instantiate their own attributes with a name and string value
+    * `StringAttribute` - stores a string value
+    * `IntegerAttribute` - stores an integer value
+    * `DateAttribute` - stores a date value
+  * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints relevant to their validity
+    * `NameAttribute` - stores the name of the person
+    * `PhoneNumberAttribute` - stores the phone number of the person and must be an integer of less than 10 digits
+    * `GenderAttribute` - stores the gender of the person and must be either `Male` or `Female`
+  * does not depend on the other components (as the `Attribute` are standalone stores of details about the `Person`)
 #### Model component - Relationship
 
 <img src="images/RelationshipClassDiagram.png" width="550" />
