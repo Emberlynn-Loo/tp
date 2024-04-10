@@ -29,10 +29,9 @@ RelationshipUtil *-down-> "*" Relationship
 Relationship <|-- RoleBasedRelationship
 Relationship <|-- FriendsRelationship
 
-
-BioParentsRelationship -up-|> RoleBasedRelationship
 FamilyRelationship -up-|> RoleBasedRelationship
 
+BioParentsRelationship -up-|> FamilyRelationship
 SpouseRelationship -up-|> FamilyRelationship
 SiblingRelationship -up-|> FamilyRelationship
 

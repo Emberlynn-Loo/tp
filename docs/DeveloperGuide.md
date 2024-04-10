@@ -126,7 +126,7 @@ The `Model` component,
 * stores the address book data where
     * `Person` objects are contained in a `UniquePersonList` object.
     * `Relationship` objects are contained in a `RelationshipUtil` object.
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Person` and `Relationship` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` and `ObservableList<Relationship>` respectively that can be 'observed' i.e. the UI can be bound to these lists so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -151,9 +151,15 @@ The `Person` component,
 The `Relationship` component,
 
 * contains details about a relationship between two persons.
-* `Person` objects connected by a `Relationship` object are stored as UUIDs.
-* can be `RoleBasedRelationship`,
-    * which contains labels for each `Person` in the relationship.
+* has a `relationType` that defines the type of relationship.
+* stores UUIDs of `Person` objects that are connected by the `Relationship` object.
+* can be a general `Relationship` which allows the user to define their own `relationType` or a specific one that has a predefined `RelationType`. 
+    * `FriendsRelationship` is a relationship class that has a predefined `relationType` of `friends`.
+* can be a general `RoleBasedRelationship` which allows the user to define their own `RelationType` and roles for each Person or a specific one that has those predefined. 
+    * `FamilyRelationship` is a abstract class that extends from `RoleBasedRelationship`. It is the superclass of `BioParentsRelationship`, `SpousesRelationship` and `SiblingsRelationship`.
+      * `BioParentsRelationship` is a relationship class that has a predefined `relationType` of `bioparents` and has predefined roles `parent` and `child`.
+      * `SpousesRelationship` is a relationship class that has a predefined `relationType` of `spouses` and has predefined roles `husband` and `wife`.
+      * `SiblingsRelationship` is a relationship class that has a predefined `relationType` of `siblings` and has predefined roles `brother` and `sister`.
 
 ### Storage component
 
@@ -162,7 +168,7 @@ The `Relationship` component,
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both Gene-nie data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -290,15 +296,15 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​ | I want to …​                    | So that I can…​                                                        |
-|----------|--------| ----------------------------- | ---------------------------------------------------------------------- |
-| `* * *`  | user   | Create a new person with a Unique User ID        | Ensure every person in my address book is distinct                 |
-| `* * *`  | user   | Add custom attributes to each person              |Store personal information relevant to each individual                                                                        |
-| `* * *`  | user   | Establish and record relationships between people               | Visualize connections between people                                   |
-| `* * *`  | user   | Find the relationship path between people        | Understand how everyone is connected |
-| `* *`    | user   | Have clear success or failure messages after actions | Ensure that the intended action has taken place                |
-| `* *`    | user   | Sort and search a person by their attributes       | Find specific individuals more easily                                                |
-| `* * *`  | user   | Have my data automatically saved once i exit the app and loaded once i start the app        | Seamless experience across different sessions |
+| Priority | As a …​ | I want to …​                                                                         | So that I can…​                                        |
+|----------|---------|--------------------------------------------------------------------------------------|--------------------------------------------------------|
+| `* * *`  | user    | Create a new person with a Unique User ID                                            | Ensure every person in my address book is distinct     |
+| `* * *`  | user    | Add custom attributes to each person                                                 | Store personal information relevant to each individual |
+| `* * *`  | user    | Establish and record relationships between people                                    | Visualize connections between people                   |
+| `* * *`  | user    | Find the relationship path between people                                            | Understand how everyone is connected                   |
+| `* *`    | user    | Have clear success or failure messages after actions                                 | Ensure that the intended action has taken place        |
+| `* *`    | user    | Sort and search a person by their attributes                                         | Find specific individuals more easily                  |
+| `* * *`  | user    | Have my data automatically saved once i exit the app and loaded once i start the app | Seamless experience across different sessions          |
 
 *{More to be added}*
 
@@ -712,40 +718,348 @@ testers are expected to do more *exploratory* testing.
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
+   2. Double-click the jar file. <br> If nothing happens after double-clicking the jar file, run `java -jar Gene-nie.jar` in the folder containing the jar file. <br>
+      **Expected Outcome**: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location.
+    2. Close the window.
+    3. Re-launch the app by double-clicking the jar file.<br>
+        **Expected Outcome**: The most recent window size and location is retained.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Listing all persons
+**Prerequisites**: There should be at least one person in Gene-nie.
+1. Listing all persons:
+    1. **Test case:** `list` <br>
+       **Expected Outcome:** A list of all persons with their details is shown.
+
+
+### Help
+1. Seeking help:
+    1. **Test case:** `help` <br>
+       **Expected Outcome:** A new window is opened with a link to the help page.
+
+
+### Adding a person
+1. Adding a person with no attributes:
+    1. **Test case:** `addperson` <br>
+       **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "No attributes found".
+
+   
+2. Adding a person with one attribute:
+    1. **Test case:** `addperson /Name John` <br>
+       **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays the attribute added.
+
+
+3. Adding a person with multiple attributes:
+    1. **Test case:** `addperson /Name John /Phone 98765432 /Email John@example.com` <br>
+       **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays all the attributes added.
+
+
+4. Adding a person with duplicate attributes:
+    1. **Test case:** `addperson /Name John /Name Chad` <br>
+       **Expected Outcome:** The last attribute value is taken. A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "Name: Chad".
+
+
+5. Adding a person with an invalid attribute:
+    1. **Test case:** `addperson /Name` <br>
+       **Expected Outcome:** Error message highlighted in red is shown. The command format and an example is also shown in the error message.
+    2. **Test case:** `addperson /Sex dhdkag` <br>
+       **Expected Outcome:** Error message highlighted in red is shown. It reads "Sex must only be male or female for Sex."
+
 
 ### Deleting a person
+**Prerequisites**: There should be at least one person in Gene-nie.
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person with a valid uuid:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. <br>
+       **Test case:** `delete /UUID` <br>
+       **Expected Outcome:** The person with the given UUID is removed from Gene-nie. Details of the deleted person is shown in the status message.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete <UUID>`<br>
-      (replace `<UUID>` with uuid of person to delete)<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+2. Deleting a person with an invalid uuid:
+    1. **Test case:** `delete /!!!!` <br>
+       **Expected Outcome:** No person is deleted. An error message is shown, indicating that the UUID provided is invalid.
 
-   1. Test case: `delete <UUID>`<br>
-      (replace `<UUID>` with uuid of person to delete)<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete <UUID>`, `...` (where person with`<UUID>` does not exist)<br>
-      Expected: Similar to previous.
+3. Deleting a person with no uuid provided:
+    1. **Test case:** `delete` <br>
+       **Expected Outcome:** No person is deleted. An error message is shown, indicating that the command format is invalid.
 
-### Saving data
 
-1. Dealing with corrupted data files
+### Adding attributes to existing persons
+**Prerequisites**: There should be at least one person in Gene-nie.
 
-   1. Go to the folder where the Gene-nie jar file is located, using your file explorer.
-   2. Enter the `data` folder.
-   3. Delete the `addressbook.json` file.
+1. Adding an attribute to a person with a valid uuid:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. <br>
+       **Test case:** `addattribute /UUID /Phone 12345678` <br>
+       **Expected Outcome:** The attribute is added to the person with the given UUID. The new attribute is shown in the attributes panel of the person.
+
+
+2. Adding multiple attributes to a person with a valid uuid:\
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. <br>
+       **Test case:** `addattribute /UUID /Phone 12345678 /Email john@example.com` <br>
+       **Expected Outcome:** The attributes are added to the person with the given UUID. The new attributes are shown in the attributes panel of the person.
+
+
+3. Adding an attribute to a person with an invalid uuid:
+    1. **Test case:** `addattribute /!!!! /Phone 12345678` <br>
+       **Expected Outcome:** No attribute is added. An error message is shown, saying "Person not found."
+
+
+4. Adding an attribute with no uuid provided:
+    1. **Test case:** `addattribute /Phone 12345678` <br>
+       **Expected Outcome:** No attribute is added. An error message is shown, indicating that the command format is invalid.
+
+
+5. Adding a duplicate attribute to a person:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. <br>
+       **Test case:** `addattribute /UUID /Phone 12345678 /Phone 87654321` <br>
+       **Expected Outcome:** No attribute is added. An error message is shown, indicating that the attribute is a duplicate.
+
+
+### Editing attributes of existing persons
+**Prerequisites**: There should be at least one person in Gene-nie, and that person should have at least one attribute.
+
+1. Editing an attribute of a person with a valid uuid and valid attribute:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. Person must also have the attribute `Phone`. <br>
+       **Test case:** `editattribute /UUID /Phone 12345678` <br>
+       **Expected Outcome:** The attribute is edited for the person with the given UUID. The new attribute is shown in the attributes panel of the person.
+
+
+2. Editing an attribute of a person with an invalid uuid:
+    1. **Test case:** `editattribute /!!!! /Phone 12345678` <br>
+       **Expected Outcome:** No attribute is edited. An error message is shown, saying "Person not found."
+
+
+3. Editing an attribute of a person without the attribute provided:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. The person must NOT have the attribute `Email`. <br>
+       **Test case:** `editattribute /UUID /Email john@example.com` <br>
+       **Expected Outcome:** No attribute is edited. An error message is shown, indicating that the attribute does not exist and cannot be edited.
+
+
+4. Editing an attribute of a person with no uuid provided:
+    1. **Test case:** `editattribute /Phone 12345678` <br>
+       **Expected Outcome:** No attribute is edited. An error message is shown, indicating that the command format is invalid.
+
+
+### Deleting attributes of existing persons
+**Prerequisites**: There should be at least one person in Gene-nie, and that person should have at least one attribute.
+
+1. Deleting an attribute of a person with a valid uuid and valid attribute:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. Person must also have the attribute `Phone`. <br>
+       **Test case:** `deleteattribute /UUID /Phone` <br>
+       **Expected Outcome:** The attribute is deleted for the person with the given UUID. The attribute is removed from the attributes panel of the person.
+
+
+2. Deleting multiple attributes of a person with a valid uuid and valid attributes:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. Person must also have the attributes `Phone` and `Email`. <br>
+       **Test case:** `deleteattribute /UUID /Phone /Email` <br>
+       **Expected Outcome:** The attributes are deleted for the person with the given UUID. The attributes are removed from the attributes panel of the person.
+
+
+3. Deleting an attribute of a person with an invalid uuid:
+    1. **Test case:** `deleteattribute /!!!! /Phone` <br>
+       **Expected Outcome:** No attribute is deleted. An error message is shown, saying that the UUID provided is invalid.
+
+
+4. Deleting an attribute of a person without the attribute provided:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. The person must NOT have the attribute `Email`. <br>
+       **Test case:** `deleteattribute /UUID /Email` <br>
+       **Expected Outcome:** No attribute is deleted. An error message is shown, indicating that the attribute is not found.
+
+
+### Finding persons
+**Prerequisites**: There should be at least one person in Gene-nie.
+
+1. Finding persons by attribute name:
+    1. **Additional Prerequisites**: The persons should have the attribute `Name`. <br>
+       **Test case:** `find /Name` <br>
+       **Expected Outcome:** A list of persons with the specified attribute name `Name` is shown.
+
+
+2. Finding persons by attribute value:
+    1. **Additional Prerequisites**: The persons should have an attribute with the value `John`. <br>
+       **Test case:** `find /John` <br>
+       **Expected Outcome:** A list of persons with the specified attribute containing the value `John` is shown.
+
+
+3. Finding persons by uuid:
+    1. **Additional Prerequisites**: Replace the UUID in the test case with a valid UUID (e.g. 0001) from your list of persons. <br>
+       **Test case:** `find /UUID` <br>
+       **Expected Outcome:** The person with the specified UUID is shown.
+
+
+4. Finding persons using an attribute name/value that does not exist:
+    1. **Additional Prerequisites**: All persons do not have the attribute `Country` and do not have any attribute with the value `Singapore`. <br>
+       **Test case:** `find /Country` <br>
+       **Expected Outcome:** The left panel is empty, with no person found.
+    2. **Test case:** `find /Singapore` <br>
+       **Expected Outcome:** The left panel is empty, with no person found.
+
+
+5. Finding persons using an invalid uuid:
+    1. **Test case:** `find /!!!!` <br>
+       **Expected Outcome:** The left panel is empty, with no person found.
+
+
+### Listing all valid relationship types
+
+1. Listing all valid relationship types:
+    1. **Test case:** `listrelations` <br>
+       **Expected Outcome:** A list of all valid relationship types is shown.
+
+
+### Adding relationships between persons
+**Prerequisites**: There should be at least two persons in Gene-nie.
+
+1. Adding a roleless relationship between two persons with valid uuids:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `addrelation /UUID1 /UUID2 /friends` <br>
+       **Expected Outcome:** A relationship of type `friends` is added between the two persons with the given UUIDs. The relationship is shown in the relationships panel of both persons.
+
+
+2. Adding a role-based relationship between two persons with valid uuids:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `addrelation /UUID1 husband /UUID2 wife /spouses` <br>
+       **Expected Outcome:** A relationship of type `spouses` is added between the two persons with the given UUIDs. The relationship is shown in the relationships panel of both persons, each with their respective role.
+
+
+3. Adding a relationship between two persons with an invalid uuid:
+    1. **Test case:** `addrelation /!!!! /UUID2 /friends` <br>
+       **Expected Outcome:** No relationship is added. An error message is shown, indicating that the UUID provided is invalid.
+
+
+4. Adding a relationship between two persons with no relationship type provided:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `addrelation /UUID1 /UUID2` <br>
+       **Expected Outcome:** No relationship is added. An error message is shown, indicating that the command format is invalid.
+
+
+5. Adding a relationship between two persons with an invalid relationship type:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `addrelation /UUID1 /UUID2 /!!!!` <br>
+       **Expected Outcome:** No relationship is added. An error message is shown, indicating that the relationship type provided is invalid.
+
+
+### Editing relationships between persons
+**Prerequisites**: There should be at least two persons in Gene-nie, and they should have at least one relationship between them.
+
+1. Editing a relationship between two persons with valid uuids and valid relationship type from a roleless relationship to a roleless relationship:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must have a relationship of type `friends`. <br>
+       **Test case:** `editrelation /UUID1 /UUID2 /friends /colleagues` <br>
+       **Expected Outcome:** The relationship type is edited for the two persons with the given UUIDs. The relationship is shown in the relationships panel of both persons with the new relationship type.
+
+
+2. Editing a relationship between two persons with valid uuids and valid relationship type from a role-based relationship to a role-based relationship:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must have a relationship of type `siblings` with roles `brother` and `sister` respectively. <br>
+       **Test case:** `editrelation /UUID1 husband /UUID2 wife /siblings /spouses` <br>
+       **Expected Outcome:** The relationship type is edited for the two persons with the given UUIDs. The relationship is shown in the relationships panel of both persons with the new relationship type and roles.
+
+
+3. Editing a relationship between two persons with an invalid uuid:
+    1. **Test case:** `editrelation /!!!! /UUID2 /friends /colleagues` <br>
+       **Expected Outcome:** No relationship is edited. An error message is shown, indicating that the UUID provided is invalid.
+
+
+4. Editing a relationship between two persons with an invalid relationship type:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `editrelation /UUID1 /UUID2 /friends /!!!!` <br>
+       **Expected Outcome:** No relationship is edited. An error message is shown, indicating that the relationship type provided is invalid.
+
+
+5. Editing a relationship between two persons with the old relationship type not present:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must NOT have a relationship of type `colleagues`. <br>
+       **Test case:** `editrelation /UUID1 /UUID2 /colleagues /friends` <br>
+       **Expected Outcome:** No relationship is edited. An error message is shown, indicating that the relationship `colleagues` does not exist.
+
+
+### Deleting relationships between persons
+**Prerequisites**: There should be at least two persons in Gene-nie, and they should have at least one relationship between them.
+
+1. Deleting a relationship between two persons with valid uuids and valid relationship type:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must have a relationship of type `friends`. <br>
+       **Test case:** `deleterelation /UUID1 /UUID2 /friends` <br>
+       **Expected Outcome:** The relationship is deleted for the two persons with the given UUIDs. The relationship is removed from the relationships panel of both persons.
+
+
+2. Deleting a relationship between two persons with an invalid uuid:
+    1. **Test case:** `deleterelation /!!!! /UUID2 /friends` <br>
+       **Expected Outcome:** No relationship is deleted. An error message is shown, indicating that the UUID provided is invalid.
+
+
+3. Deleting a relationship between two persons without the relationship present:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must NOT have a relationship of type `colleagues`. <br>
+       **Test case:** `deleterelation /UUID1 /UUID2 /colleagues` <br>
+       **Expected Outcome:** No relationship is deleted. An error message is shown, indicating that the relationship `colleagues` does not exist.
+
+
+4. Deleting a relationship between two persons with no relationship type provided:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. <br>
+       **Test case:** `deleterelation /UUID1 /UUID2` <br>
+       **Expected Outcome:** No relationship is deleted. An error message is shown, indicating that the command format is invalid.
+
+
+### Finding the relationship path between two persons
+**Prerequisites**: There should be at least two persons in Gene-nie, and they should have at least one relationship between them.
+
+1. Finding the general relationship path between two persons with valid uuids:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must have at least one relationship between them, or be indirectly related through multiple relationships. <br>
+       **Test case:** `anySearch /UUID1 /UUID2` <br>
+       **Expected Outcome:** The relationship path between the two persons with the given UUIDs is shown.
+
+
+2. Finding the family relationship path between two persons with valid uuids:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must have at least one family relationship between them, or be indirectly related through multiple family relationships. These family relationships types include "bioparents", "spouses" and "siblings". <br>
+       **Test case:** `familySearch /UUID1 /UUID2` <br>
+       **Expected Outcome:** The family relationship path between the two persons with the given UUIDs is shown.
+
+
+3. Finding the family relationship path between two persons with no valid path between them:
+    1. **Additional Prerequisites**: Replace the UUIDs in the test case with valid UUIDs (e.g. 0001 and 0002) from your list of persons. The persons must NOT have a valid relationship path between them. <br>
+       **Test case:** `anySearch /UUID1 /UUID2` <br>
+       **Expected Outcome:** The left panel is empty, with no relationship path found.
+
+
+4. Finding the relationship path between two persons with a uuid that does not exist in Gene-nie:
+    1. **Test case:** `anySearch /!!!! /UUID2` <br>
+       **Expected Outcome:** An error message is shown, saying "You have not added the contacts of the people you are looking for!"
+
+
+### Deleting all persons
+**Prerequisites**: There should be at least one person in Gene-nie.
+
+1. Deleting all persons:
+    1. **Test case:** `deleteallpersons` <br>
+       **Expected Outcome:** All persons are deleted. The left panel is empty, with no persons found.
+
+
+### Clearing command responses
+
+1. Clearing the command responses:
+    1. **Test case:** `clear` <br>
+       **Expected Outcome:** All command responses are cleared from the command box.
+
+
+### Issues with saving data
+
+1. Dealing with missing data file: <br>
+
+   **Test case:** Remove the data file to simulate a missing file
+    1. Go to the location of the data file indicated in the bottom left corner of the application.
+    2. Delete the file named `addressbook.json`.
+    3. Relaunch Gene-nie. <br>
+       **Expected Outcome:** A new file with sample person data is created. Sample person data is shown in the application.
+
+
+2. Dealing with corrupted file: <br>
+   **Test case:** Modify the data file to simulate a corrupted data file
+    1. Go to the location of the data file indicated in the bottom left corner of the application.
+    2. Open the file named `addressbook.json`.
+    3. Modify the file. For example, you could remove the first few lines of the file.
+    4. Relaunch Gene-nie. <br>
+       **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
 
