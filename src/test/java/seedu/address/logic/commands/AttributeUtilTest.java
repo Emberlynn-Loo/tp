@@ -92,4 +92,14 @@ public class AttributeUtilTest {
     public void sex_attributeValueNull_throwsError() {
         assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("Sex", null));
     }
+
+    @Test
+    public void phone_invalidPhone_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("phone", "-1"));
+    }
+
+    @Test
+    public void phone_invalidPhoneLength_throwsError() {
+        assertThrows(CommandException.class, () -> AttributeUtil.createAttribute("phone", "123456789"));
+    }
 }
