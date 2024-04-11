@@ -1,4 +1,4 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_RELATIONSHIPS;
@@ -7,8 +7,6 @@ import java.util.UUID;
 
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.PersonInRelationshipPathwayPredicate;
@@ -72,8 +70,8 @@ public class FamilySearchCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.relationship.FamilySearchCommand // instanceof handles nulls
-                && originUuid.equals(((seedu.address.logic.relationship.FamilySearchCommand) other).originUuid)
-                && targetUuid.equals(((seedu.address.logic.relationship.FamilySearchCommand) other).targetUuid));
+                || (other instanceof FamilySearchCommand // instanceof handles nulls
+                && originUuid.equals(((FamilySearchCommand) other).originUuid)
+                && targetUuid.equals(((FamilySearchCommand) other).targetUuid));
     }
 }

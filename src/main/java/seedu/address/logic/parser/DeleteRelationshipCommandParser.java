@@ -1,13 +1,12 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.LinkedHashMap;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.DeleteRelationshipCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

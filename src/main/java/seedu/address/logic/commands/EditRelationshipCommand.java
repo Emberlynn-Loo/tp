@@ -1,10 +1,8 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.commands;
 
 import java.util.UUID;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -105,8 +103,20 @@ public class EditRelationshipCommand extends Command {
                 if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
                     toAdd = model.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Siblings")) {
+                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
+                        model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
+                    }
+                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
+                        model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
+                    }
                     toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
+                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
+                        model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
+                    }
+                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
+                        model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
+                    }
                     toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
                 } else if (newRelationshipDescriptor.equalsIgnoreCase("Friends")) {
                     throw new CommandException("Sorry, friends cannot have roles");

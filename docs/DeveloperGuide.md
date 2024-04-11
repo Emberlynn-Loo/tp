@@ -735,287 +735,174 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Gene-nie` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: Assessing help page**
+
+**MSS**
+
+1. User requests to view the help page.
+2. Gene-nie displays a message with a link to the help page.
+
+    Use case ends.
+
+**Use case: Listing all persons**
+
+**MSS**
+
+1. User requests to view the list of persons.
+2. Gene-nie displays a list of all students along with their details.
+
+    Use case ends.
 
 **Use case: Add a new person**
 
 **MSS**
 
-1.  User requests to add a new person to Gene-nie.
-2.  Gene-nie prompts user for details of new person.
-3.  User enters the necessary information.
-4.  Gene-nie adds person with the provided details.
-5.  Gene-nie displays new person added and confirmation message.
+1. User requests to add a new person with their attributes to Gene-nie.
+2. Gene-nie adds the person with the provided attributes.
+3. Gene-nie displays new person added and confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. User enters incomplete or invalid information.
 
-    * 3a1. Gene-nie shows an error message.
+* 1a. User enters an invalid command format.
+    * 1a1. Gene-nie shows an error message.
 
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
+      Use case ends.
+* 1b. User enters an invalid attribute.
+    * 1b1. Gene-nie shows an error message.
 
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+      Use case ends.
 
 **Use case: Delete a person**
 
 **MSS**
 
-1.  User requests to list persons.
-2.  Gene-nie displays a list of persons.
-3.  User selects a specific person in the list to delete by providing the person’s UUID.
-4.  Gene-nie deletes the person.
-5.  Gene-nie displays confirmation message.
+1. User selects a specific person in the list to delete by providing the person’s UUID.
+2. Gene-nie deletes the person.
+3. Gene-nie displays confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
-
-    * 2a1. Gene-nie informs the user the list is empty.
+* 1a. Given UUID is invalid or does not exist.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
-
-* 3a. Given UUID is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-      Use case resumes at step 4.
 
 **Use case: Add an attribute to a person**
 
 **MSS**
 
-1.  User requests to add an attribute to a person.
-2.  Gene-nie prompts user to enter the person’s UUID and attribute details.
-3.  User enters UUID and attribute information.
-4.  Gene-nie adds attribute details to specific person’s profile.
-5.  Gene-nie displays attribute in person’s profile and confirmation message.
+1. User requests to add an attribute to a person by providing the person's UUID and new attribute.
+2. Gene-nie adds attribute details to specific person’s profile.
+3. Gene-nie displays attribute in person’s profile and confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Attribute details are invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Attribute details are invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUID is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUID is invalid or does not exist.
+    * 1b1. Gene-nie shows an error message.
 
       Use case ends.
 
-**Use case: Edit to add an attribute to a person**
+**Use case: Edit an attribute of a person**
 
 **MSS**
 
-1.  User requests to edit to add an attribute to a person.
-2.  Gene-nie prompts user to enter the person’s UUID and attribute details to add.
-3.  User enters UUID and attribute information.
-4.  Gene-nie adds attribute details to specific person’s profile.
-5.  Gene-nie displays attribute in person’s profile and confirmation message.
+1. User requests to edit an attribute of a person by providing the person's UUID and the attribute they want to edit, along with the new attribute value.
+2. Gene-nie updates attribute details to specific person’s profile.
+3. Gene-nie updates the new attribute in person’s profile and confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Attribute details are invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Attribute details are invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUID is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUID is invalid or does not exist.
+    * 1b1. Gene-nie shows an error message.
 
       Use case ends.
 
-**Use case: Edit to delete an attribute to a person**
+**Use case: Delete an attribute of a person**
 
 **MSS**
 
-1.  User requests to edit to delete an attribute to a person.
-2.  Gene-nie prompts user to enter the person’s UUID and attribute to delete.
-3.  User enters UUID and attribute information.
-4.  Gene-nie deletes attribute in specific person’s profile.
-5.  Gene-nie displays confirmation message.
+1. User requests to delete an attribute of a person by providing the person's UUID and the attribute they want to delete.
+2. Gene-nie deletes the attribute from the specified person's profile.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Attribute details are invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Attribute details are invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUID is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUID is invalid or does not exist.
+    * 1b1. Gene-nie shows an error message.
 
       Use case ends.
-
-**Use case: Delete a person**
-
-**MSS**
-
-1.  User requests to delete a person.
-2.  Gene-nie prompts user for details of person.
-3.  User enters person’s UUID.
-4.  Gene-nie deletes person.
-5.  Gene-nie displays confirmation message.
-
-    Use case ends.
-
-**Extensions**
-
-* 3a. Given UUID is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
 
 **Use case: Find persons by attribute**
 
 **MSS**
 
-1.  User requests to find persons by attribute.
-2.  Gene-nie prompts user for attribute and attribute value(s).
-3.  User enters attribute name and attribute value(s).
-4.  Gene-nie displays list of persons with each of the specified attributes.
+1. User requests to find persons by attribute by entering the attribute name/value.
+2. Gene-nie displays list of persons with each of the specified attribute name/value.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Attribute details are invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Attribute details are invalid or does not exist.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 4a. The list is empty.
-
-    * 4a1. Gene-nie informs the user the list is empty.
-
-      Use case ends.
-
-**Use case: Find persons by relationship to User**
+**Use case: List all valid relationTypes**
 
 **MSS**
 
-1.  User requests to find persons by relationship.
-2.  Gene-nie prompts user for relationship to User.
-3.  User enters relationship type.
-4.  Gene-nie displays list of persons with specified relationship to User.
+1. User requests to list all valid relationTypes.
+2. Gene-nie displays list of all current relationTypes.
 
     Use case ends.
-
-**Extensions**
-
-* 3a. Relationship is invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
-
-      Use case ends.
 
 **Use case: Add a relationship between two persons**
 
 **MSS**
 
-1.  User requests to add a relationship between two persons.
-2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
-3.  User enters both persons UUID and relationship type.
-4.  Gene-nie creates a relationship with the provided details.
-5.  Gene-nie displays new relationship added under both persons’ profiles and confirmation message.
+1. User requests to add a relationship between two persons by providing both persons UUID and the relationship type.
+2. Gene-nie creates a relationship with the provided details.
+3. Gene-nie displays new relationship added under both persons’ profiles and confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Relationship type is invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Relationship type is invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUIDs are invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUIDs are invalid or does not exist.
+    * 1b1. Gene-nie shows an error message.
 
       Use case ends.
 
@@ -1023,37 +910,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to edit a specific relationship between two persons.
-2.  Gene-nie prompts user for UUIDs of both persons and previous and new relationship type.
-3.  User enters both persons UUID and previous and new relationship type.
-4.  Gene-nie edits the specified relationship with the provided details.
-5.  Gene-nie displays edited relationship under both persons’ profiles and confirmation message.
+1. User requests to edit a specific relationship between two persons by providing both persons UUID, the existing and new relationship type.
+2. Gene-nie edits the specified relationship with the provided details.
+3. Gene-nie displays edited relationship under both persons’ profiles and confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Relationship types are invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Relationship types are invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUIDs are invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUIDs are invalid or does not exist.
+    * 1b1. Gene-nie shows an error message.
 
       Use case ends.
 
@@ -1061,48 +932,70 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to delete a specific relationship between two persons.
-2.  Gene-nie prompts user for UUIDs of both persons and relationship type.
-3.  User enters both persons UUID and specified relationship type.
-4.  Gene-nie deletes specified relationship.
-5.  Gene-nie displays confirmation message.
+1. User requests to delete a specific relationship between two persons by providing both persons UUID and the relationship type.
+2. Gene-nie deletes the specified relationship.
+3. Gene-nie displays confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Relationship type is invalid.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1a. Relationship type is invalid.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
 
-* 3b. Given UUIDs are invalid or does not exist.
-
-    * 3a1. Gene-nie shows an error message.
-
-    * 3a2. Gene-nie prompts User to enter the correct and complete information.
-
-      Steps 3a1-3a2 are repeated until the data entered are correct.
-
-      Use case resumes from step 4.
+* 1b. Given UUIDs are invalid or does not exist.
+    * 1a1. Gene-nie shows an error message.
 
       Use case ends.
+
+**Use case: Search a relationship pathway between two persons**
+
+**MSS**
+
+1. User requests to search for a relationship pathway between two persons by providing both persons UUID and the relationship type.
+2. Gene-nie displays the relationship pathway.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Given UUIDs are invalid or does not exist.
+    * 1a1. Gene-nie shows an error message.
+
+      Use case ends. 
+
+* 1b. No relationship pathway exists between the two persons.
+    * 1a1. Gene-nie says that there is no relationship pathway found.
+
+    Use case ends.
+
+**Use case: Deleting all persons**
+
+**MSS**
+
+1. User requests to delete all persons from Gene-nie.
+2. Gene-nie deletes all persons and displays the updated view.
+
+    Use case ends.
+
+**Use case: Clearing command history**
+
+**MSS**
+
+1. User requests to clear command history
+2. Gene-nie clears the whole command history.
+
+    Use case ends.
 
 **Use case: Exit Gene-nie**
 
 **MSS**
 
-1.  User requests to exit Gene-nie.
-2.  Gene-nie displays goodbye message.
-3.  Gene-nie saves current data.
-4.  Gene-nie closes the application window.
+1. User requests to exit Gene-nie.
+2. Gene-nie saves current data.
+3. Gene-nie closes the application window.
 
     Use case ends.
 
@@ -1126,6 +1019,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Command Line Interface (CLI)**: A text-driven user interface used for program execution, file management, and overall computer interaction.
+* **Graphical User Interface (GUI)**: An operating system interface reliant on graphics, utilising icons, menus, and a mouse for user interaction.
+* **Main Success Scenario (MSS)**: Describes the most direct interaction path for a given use case, assuming no errors or complications.
+* **Actor**: Within use cases, an actor represents the role a person assumes while interacting with the system.
+* **Application Programming Interface(API)**: Facilitates communication between distinct components of a program.
+* **Architecture**: In the realm of software, architecture illustrates the systematic organization of the entire system.
+* **Framework**: Comprises pre-written code with predefined classes and functions, aiding developers in constructing software.
 
 --------------------------------------------------------------------------------------------------------------------
 

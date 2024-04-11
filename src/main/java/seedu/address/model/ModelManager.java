@@ -279,4 +279,14 @@ public class ModelManager implements Model {
         return addressBook.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
                 rolePerson2, isSiblings);
     }
+
+    @Override
+    public void genderCheck(Model model, String uuid, String gender) throws CommandException {
+        addressBook.genderCheck(model, uuid, gender);
+    }
+
+    @Override
+    public void genderMatch(String rolePerson1, String uuid, String uuidShort) {
+        addressBook.genderMatch(rolePerson1, uuid, uuidShort);
+    }
 }

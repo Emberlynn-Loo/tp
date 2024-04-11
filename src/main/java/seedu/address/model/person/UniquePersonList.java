@@ -215,4 +215,20 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return false;
     }
+
+    /**
+     * Adds an attribute to a person identified by UUID.
+     * Iterates through the list of persons until the matching UUID is found, then adds the specified attribute.
+     *
+     * @param gender The gender of the person assumed from the relationship roles.
+     * @param uuidString The UUID of the person to whom the relationship is to be added.
+     * @param uuidShort The last 4 digits of the UUID of the person to whom the relationships is to be added.
+     */
+    public void genderMatch(String gender, String uuidString, String uuidShort) {
+        for (Person person : internalList) {
+            if (person.getUuidString().equals(uuidString)) {
+                person.genderMatch(gender, uuidShort);
+            }
+        }
+    }
 }

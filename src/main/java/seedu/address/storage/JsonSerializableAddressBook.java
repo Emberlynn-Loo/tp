@@ -3,7 +3,9 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,6 +19,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
+import seedu.address.model.person.relationship.SiblingRelationship;
+import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -64,6 +68,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+        HashMap<UUID, String> personGenders = new HashMap<>();
         for (JsonAdaptedPersonAttr jsonAdaptedPersonAttr : persons) {
             Person person = jsonAdaptedPersonAttr.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -92,6 +97,46 @@ class JsonSerializableAddressBook {
                     throw new IllegalValueException("Invalid role-based relationship descriptor "
                             + relationship.getRelationshipDescriptor() + " found");
                 }
+            }
+            if (relationship instanceof SiblingRelationship) {
+                SiblingRelationship siblingRelationship = (SiblingRelationship) relationship;
+                UUID person1Uuid = siblingRelationship.getPerson1();
+                UUID person2Uuid = siblingRelationship.getPerson2();
+                String rolePerson1 = siblingRelationship.getRole(person1Uuid);
+                String rolePerson2 = siblingRelationship.getRole(person2Uuid);
+
+                String person1Gender = rolePerson1.equals("brother") ? "male" : "female";
+                String person2Gender = rolePerson2.equals("brother") ? "male" : "female";
+
+                if (personGenders.containsKey(person1Uuid) && !personGenders.get(person1Uuid).equals(person1Gender)) {
+                    throw new IllegalValueException("Inconsistent gender for person with UUID " + person1Uuid);
+                }
+                if (personGenders.containsKey(person2Uuid) && !personGenders.get(person2Uuid).equals(person2Gender)) {
+                    throw new IllegalValueException("Inconsistent gender for person with UUID " + person2Uuid);
+                }
+
+                personGenders.put(person1Uuid, person1Gender);
+                personGenders.put(person2Uuid, person2Gender);
+            }
+            if (relationship instanceof SpousesRelationship) {
+                SpousesRelationship spousesRelationship = (SpousesRelationship) relationship;
+                UUID person1Uuid = spousesRelationship.getPerson1();
+                UUID person2Uuid = spousesRelationship.getPerson2();
+                String rolePerson1 = spousesRelationship.getRole(person1Uuid);
+                String rolePerson2 = spousesRelationship.getRole(person2Uuid);
+
+                String person1Gender = rolePerson1.equals("husband") ? "male" : "female";
+                String person2Gender = rolePerson2.equals("husband") ? "male" : "female";
+
+                if (personGenders.containsKey(person1Uuid) && !personGenders.get(person1Uuid).equals(person1Gender)) {
+                    throw new IllegalValueException("Inconsistent gender for person with UUID " + person1Uuid);
+                }
+                if (personGenders.containsKey(person2Uuid) && !personGenders.get(person2Uuid).equals(person2Gender)) {
+                    throw new IllegalValueException("Inconsistent gender for person with UUID " + person2Uuid);
+                }
+
+                personGenders.put(person1Uuid, person1Gender);
+                personGenders.put(person2Uuid, person2Gender);
             }
             if (addressBook.hasRelationship(relationship)) {
                 throw new IllegalValueException("Duplicate relationship found.");
