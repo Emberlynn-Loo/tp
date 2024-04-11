@@ -284,4 +284,9 @@ public class ModelManager implements Model {
     public void genderCheck(Model model, String uuid, String gender) throws CommandException {
         addressBook.genderCheck(model, uuid, gender);
     }
+
+    @Override
+    public void genderMatch(String rolePerson1, String uuid, String uuidShort) {
+        addressBook.genderMatch(rolePerson1, uuid, uuidShort);
+    }
 }

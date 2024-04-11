@@ -215,4 +215,12 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return false;
     }
+
+    public void genderMatch(String gender, String uuidString, String uuidShort) {
+        for (Person person : internalList) {
+            if (person.getUuidString().equals(uuidString)) {
+                person.genderMatch(gender, uuidShort);
+            }
+        }
+    }
 }
