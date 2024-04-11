@@ -397,6 +397,8 @@ The following activity diagram sheds more light on exactly what happens a user e
   * Pros: Straightforward implementation where the attribute rewrites over all existing data.
   * Cons: Might cause confusion for the user when adding an attribute that already exists.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 ### Edit Attribute feature
 
@@ -457,6 +459,72 @@ The following activity diagram provides a more detailed view of what happens whe
 * **Alternative 2:** The `Model` class does not check if the person already has the attribute before editing it and creates a new attribute.
   * Pros: Straightforward implementation where the attribute rewrites over all existing data.
   * Cons: Might cause confusion for the user when editing an attribute that does not exist.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete Attribute feature
+
+#### Implementation
+
+The Delete Attribute mechanism is facilitated by the `DeleteAttributeCommand` and `DeleteAttributeCommandParser`.
+The `DeleteAttributeCommand` class extends the `Command` class.
+
+Step 1: The user inputs a command to delete one or more attributes from a person, such as: `deleteattribute /f8d9 /Name /Phone`.
+
+Step 2: The `LogicManager` component receives this command as a string and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the command keyword `deleteattribute` and initiates a new `DeleteAttributeCommandParser`.
+
+Step 4: The `DeleteAttributeCommandParser` analyzes the rest of the command `/f8d9 /Name /Phone` and creates a new `DeleteAttributeCommand` with the specified `UUID` and the `attributes` to be deleted.
+
+Step 5: The `DeleteAttributeCommand` is executed.
+
+* It first uses `Model#getFullUuid(String)` to obtain the complete `UUID` of the person specified in the `DeleteAttributeCommand`.
+* It then retrieves the person associated with the provided `UUID` by calling `Model#getPersonByUuid(UUID)`.
+
+Step 6: For each `attribute` listed to be deleted, `DeleteAttributeCommand#execute` performs the following checks and actions through the `Model`:
+
+* It verifies if the person already has the specified `attribute` by calling `Person#hasAttribute(String)`. If the `attribute` does not exist, a `CommandException` is thrown indicating that the `attribute` cannot be deleted because it does not exist.
+* If the `attribute` exists, it is removed from the person's `attributes list`.
+* If the attribute is successfully deleted, the `DeleteAttributeCommand` updates the person's attributes list by calling `Person#deleteAttribute(String)`.
+
+Step 7: If all specified `attributes` exist and are successfully deleted, `DeleteAttributeCommand#execute` returns a `CommandResult` object to the `LogicManager`, indicating that the `attributes` were deleted successfully.
+
+This workflow ensures that attributes are only deleted if they exist for the specified person, maintaining data integrity and providing clear user feedback if an attempt is made to delete an attribute that does not exist.
+
+The following sequence diagram illustrates how the `DeleteAttribute` command functions:
+
+![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `deleteattribute` command:
+
+![AttributeDeleteActivityDiagram](images/DeleteAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute names are stored before being deleted:**
+
+* **Alternative 1 (current choice):** The `DeleteAttributeCommand` class stores the attribute names to be deleted in an array.
+  * Pros: Simple and straightforward.
+  * Cons: Leads to additional checks being required to ensure that there are not multiples of the same attributes to be deleted in one command.
+* **Alternative 2:** The `DeleteAttributeCommand` class stores the attribute names to be deleted in an arraylist.
+  * Pros: Ensures that only one instance of an attribute is allowed to be parsed for deletion.
+  * Cons: Harder to implement and maintain.
+
+**Aspect: Deleting a non-existent attribute of a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before deleting it.
+  * Pros: Ensures that the user can only delete existing attributes and prevents the deletion of non-existent attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before deleting it.
+  * Pros: Straightforward implementation where the attribute is deleted without any checks.
+  * Cons: Might cause confusion for the user when deleting an attribute that does not exist.
+
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops
