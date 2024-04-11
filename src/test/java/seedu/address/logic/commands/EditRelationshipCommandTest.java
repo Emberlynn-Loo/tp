@@ -1,4 +1,4 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -644,53 +644,45 @@ public class RelationshipUtil {
         String genderPerson1 = null;
         String genderPerson2 = null;
         for (Relationship r : allRelationships) {
-            if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
-                    || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
-                    && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
-                if (r.getPerson1().equals(fullOriginUuid)) {
-                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                    genderPerson1 = r1.getRole(fullOriginUuid);
-                } else if (r.getPerson2().equals(fullOriginUuid)) {
-                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                    genderPerson1 = r2.getRole(fullOriginUuid);
-                }
-            }
-            if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
-                    || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
-                    && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
-                if (r.getPerson1().equals(fullTargetUuid)) {
-                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                    genderPerson2 = r1.getRole(fullTargetUuid);
-                } else if (r.getPerson2().equals(fullTargetUuid)) {
-                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                    genderPerson2 = r2.getRole(fullTargetUuid);
-                }
-            }
+            genderPerson1 = validateGender(r, fullOriginUuid, genderPerson1);
+            genderPerson2 = validateGender(r, fullTargetUuid, genderPerson2);
         }
         if (genderPerson1 != null) {
-            if (((genderPerson1.equals("brother") || genderPerson1.equals("husband")) && (role1.equals("sister")
-                    || role1.equals("wife"))) || ((genderPerson1.equals("sister") || genderPerson1.equals("wife"))
-                    && (role1.equals("brother") || role1.equals("husband")))) {
-                throw new CommandException("Sorry, " + originUuid + " has been added as " + genderPerson1 + ".\nPlease "
-                        + "make sure that the role you are inputting for " + originUuid + " matches the gender of "
-                        + genderPerson1 + ".\nIf you want to change the gender of " + originUuid + ", please delete the"
-                        + " relationship with " + genderPerson1 + ".");
-            }
+            genderError(genderPerson1, role1, originUuid);
         }
         if (genderPerson2 != null) {
-            if (((genderPerson2.equals("brother") || genderPerson2.equals("husband")) && (role2.equals("sister")
-                    || role2.equals("wife"))) || ((genderPerson2.equals("sister") || genderPerson2.equals("wife"))
-                    && (role2.equals("brother") || role2.equals("husband")))) {
-                throw new CommandException("Sorry, " + targetUuid + " has been added as " + genderPerson2 + ".\nPlease "
-                        + "make sure that the role you are inputting for " + targetUuid + " matches the gender of "
-                        + genderPerson2 + ".\nIf you want to change the gender of " + targetUuid + ", please delete the"
-                        + " relationship with " + genderPerson2 + ".");
-            }
+            genderError(genderPerson2, role2, targetUuid);
         }
         if (isSiblings) {
             return new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
         } else {
             return new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+        }
+    }
+
+    private String validateGender(Relationship relationship, UUID fullUuid, String gender) {
+        if ((relationship.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
+                || relationship.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
+                && (relationship.getPerson1().equals(fullUuid) || relationship.getPerson2().equals(fullUuid))) {
+            if (relationship.getPerson1().equals(fullUuid)) {
+                RoleBasedRelationship r1 = (RoleBasedRelationship) relationship;
+                return r1.getRole(fullUuid);
+            } else if (relationship.getPerson2().equals(fullUuid)) {
+                RoleBasedRelationship r2 = (RoleBasedRelationship) relationship;
+                return r2.getRole(fullUuid);
+            }
+        }
+        return gender;
+    }
+
+    private void genderError(String gender, String role, String uuid) throws CommandException {
+        if (((gender.equals("brother") || gender.equals("husband")) && (role.equals("sister")
+                || role.equals("wife"))) || ((gender.equals("sister") || gender.equals("wife"))
+                && (role.equals("brother") || role.equals("husband")))) {
+            throw new CommandException("Sorry, " + uuid + " has been added as " + gender + ".\nPlease "
+                    + "make sure that the role you are inputting for " + uuid + " matches the gender of "
+                    + gender + ".\nIf you want to change the gender of " + uuid + ", please delete the"
+                    + " relationship with " + gender + ".");
         }
     }
 
@@ -711,29 +703,32 @@ public class RelationshipUtil {
             if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
                     || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
                     && (r.getPerson1().equals(fulluuid) || r.getPerson2().equals(fulluuid))) {
-                if (r.getPerson1().equals(fulluuid)) {
-                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                    genderMatch = r1.getRole(fulluuid);
-                } else if (r.getPerson2().equals(fulluuid)) {
-                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                    genderMatch = r2.getRole(fulluuid);
-                }
+                genderMatch = getGenderMatch(r, fulluuid);
             }
             String message = "Sorry, " + uuid + " has been added as " + genderMatch + " in their "
                     + "relationships.\nPlease make sure that the role you are inputting for " + uuid
                     + " matches the gender of " + genderMatch + ".\nIf you want to change the gender of "
                     + uuid + ", please delete the" + " relationship with " + genderMatch + ".";
-            if (genderMatch != null && (genderMatch.equals("brother") || genderMatch.equals("husband"))) {
-                if (gender.equalsIgnoreCase("female") || gender.equalsIgnoreCase("f")) {
-                    throw new CommandException(message);
-                }
-            } else if (genderMatch != null && (genderMatch.equals("sister") || genderMatch.equals("wife"))) {
-                if (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("m")) {
-                    throw new CommandException(message);
-                }
+            if (genderMatch != null && (genderMatch.equals("brother") || genderMatch.equals("husband"))
+                    && (gender.equalsIgnoreCase("female") || gender.equalsIgnoreCase("f"))) {
+                throw new CommandException(message);
+            } else if (genderMatch != null && (genderMatch.equals("sister") || genderMatch.equals("wife"))
+                    && (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("m"))) {
+                throw new CommandException(message);
             }
             genderMatch = null;
         }
+    }
+
+    private String getGenderMatch(Relationship relationship, UUID fullUuid) {
+        if (relationship.getPerson1().equals(fullUuid)) {
+            RoleBasedRelationship r1 = (RoleBasedRelationship) relationship;
+            return r1.getRole(fullUuid);
+        } else if (relationship.getPerson2().equals(fullUuid)) {
+            RoleBasedRelationship r2 = (RoleBasedRelationship) relationship;
+            return r2.getRole(fullUuid);
+        }
+        return null;
     }
 
     /**
