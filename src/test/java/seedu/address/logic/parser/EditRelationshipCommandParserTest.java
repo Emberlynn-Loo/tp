@@ -1,8 +1,9 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.parser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.EditRelationshipCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class EditRelationshipCommandParserTest {

@@ -1,21 +1,21 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.parser.Parser;
+import seedu.address.logic.commands.AnySearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FamilySearchCommand object
+ * Parses input arguments and creates a new AnySearchCommand object
  */
-public class FamilySearchCommandParser implements Parser<FamilySearchCommand> {
+public class AnySearchCommandParser implements Parser<AnySearchCommand> {
     /**
-     * Parses a userInput into the arguments to search for family relationship links between 2 persons
+     * Parses a userInput into the arguments to search for relationship links between 2 persons
      * @param userInput user-input command
-     * @return an FamilySearchCommand with the necessary arguments
+     * @return an AnySearchCommand with the necessary arguments
      */
-    public FamilySearchCommand parse(String userInput) throws ParseException {
+    public AnySearchCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         String trimmedInput = userInput.trim();
         String[] parts = trimmedInput.split("/");
@@ -24,6 +24,6 @@ public class FamilySearchCommandParser implements Parser<FamilySearchCommand> {
         }
         String originUuid = parts[1].trim();
         String targetUuid = parts[2].trim();
-        return new FamilySearchCommand(originUuid, targetUuid);
+        return new AnySearchCommand(originUuid, targetUuid);
     }
 }

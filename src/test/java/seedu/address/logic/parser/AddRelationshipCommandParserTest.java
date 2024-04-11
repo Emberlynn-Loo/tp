@@ -1,4 +1,4 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -12,8 +12,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddRelationshipCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

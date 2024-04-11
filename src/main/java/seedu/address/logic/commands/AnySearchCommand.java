@@ -1,4 +1,4 @@
-package seedu.address.logic.relationship;
+package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_RELATIONSHIPS;
@@ -7,8 +7,6 @@ import java.util.UUID;
 
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.PersonInRelationshipPathwayPredicate;
