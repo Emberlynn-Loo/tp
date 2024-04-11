@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+!define GUI_CONTROLLER_COLOR #E65100
+!define DIALOG_CONTAINER_COLOR #FF8F00
+!define IMAGE_CONTAINER_COLOR #F57F17
+!define SCROLLPANE_COLOR #E65100
+!define CLIINPUT_COLOR #BF360C
+
+actor User as user USER_COLOR
+participant "GUI Controller" as controller GUI_CONTROLLER_COLOR
+participant "CommandSectionDialogContainer" as dialogContainer DIALOG_CONTAINER_COLOR
+participant "CommandBoxImageContainer" as imageContainer IMAGE_CONTAINER_COLOR
+participant "CommandSectionDialogScrollPane" as scrollPane SCROLLPANE_COLOR
+participant "CLIInput" as cliInput CLIINPUT_COLOR
+
+user -> controller : input("c" or "clear")
+activate controller
+
+controller -> dialogContainer : getChildren().clear()
+activate dialogContainer
+dialogContainer --> controller
+deactivate dialogContainer
+destroy dialogContainer
+
+controller -> imageContainer : setVisible(false)
+activate imageContainer
+imageContainer --> controller
+deactivate imageContainer
+
+controller -> imageContainer : setManaged(false)
+activate imageContainer
+imageContainer --> controller
+deactivate imageContainer
+destroy imageContainer
+
+controller -> scrollPane : getHeight()
+activate scrollPane
+scrollPane --> controller : return height
+deactivate scrollPane
+destroy scrollPane
+
+alt if height <= 150
+    controller -> controller : addWelcomeDialogNoText()
+else
+    controller -> controller : addWelcomeDialog()
+end
+
+controller -> cliInput : setText("")
+activate cliInput
+cliInput --> controller : input cleared
+deactivate cliInput
+destroy cliInput
+
+controller --> user : clear complete
+deactivate controller
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User inputs "c" or "clear";
+
+:Clear command text area;
+:Clear command dialog container;
+:Hide image container;
+if (Dialog scroll pane height <= 150) then (yes)
+  :Display short welcome dialog;
+else (no)
+  :Display standard welcome dialog;
+endif
+
+:Set isDisplayingCommand to false;
+:Clear CLI input field;
+
+stop
+@enduml

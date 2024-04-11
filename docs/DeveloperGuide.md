@@ -586,6 +586,57 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Clear terminal feature
+The `ClearCommand` provides the capability to clear the terminal screen. The operation is designed to provide a clean and uncluttered interface for the user.
+
+#### Implementation
+
+The `ClearCommand` is straightforward in its execution: it clears the terminal screen by printing a series of newline characters. The command extends the `Command` class.
+This feature is implemented within the `GUI controller` class, responsible for handling user input and updating the GUI components accordingly.
+
+Process Overview
+When the user inputs c or clear and presses the enter key, the following actions are performed:
+
+Step 1: The `command text` input area is cleared.
+Step 2: The `command dialog` container, which displays the command's output or feedback to the user, is also cleared.
+Step 3: If an image or any additional GUI component is displayed as part of the command's output, it is hidden.
+Step 4: The application checks the height of the command section `dialog scroll pane`. If it is less than or equal to 150 pixels, a short welcome dialog is added. Otherwise, a standard welcome dialog is displayed.
+Step 5: The flag `isDisplayingCommand` is set to false, indicating that no command output is currently being displayed.
+
+The following sequence diagram illustrates how the `Clear Terminal` command functions:
+
+![ClearTerminalSequenceDiagram](images/ClearTerminalSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `clear` command:
+
+![ClearTerminalActivityDiagram](images/ClearTerminalActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the terminal is cleared:**
+
+* **Alternative 1 (current choice):** The `GUIController` class is responsible for clearing the terminal screen.
+  * Pros: Centralized logic for clearing the terminal screen.
+  * Cons: Might lead to a bloated `GUIController` class if additional functionalities are added in the future.
+* **Alternative 2:** Splitting of clearing the terminal screen into a separate class.
+  * Pros: Simple and straightforward.
+  * Cons: Might result in many overlapping classes and methods.
+
+**Aspect: Display of welcome dialog after clearing the terminal:**
+
+* **Alternative 1 (current choice):** The application displays a short welcome dialog if the height of the command section dialog scroll pane is less than or equal to 150 pixels.
+  * Pros: Provides a clean and uncluttered interface for the user.
+  * Cons: Might lead to a cluttered interface if the user has a large number of commands.
+* **Alternative 2:** The application does not display a welcome dialog after clearing the terminal screen.
+  * Pros: Provides a clean and uncluttered interface for the user.
+  * Cons: Might lead to a lack of feedback for the user after clearing the terminal screen.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Delete All Persons feature
 The `DeleteAllCommand` provides the capability to delete all persons from the address book. The operation is irreversible and is designed to provide a quick and efficient way to clear the address book.
 
