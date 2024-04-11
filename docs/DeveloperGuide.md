@@ -527,6 +527,64 @@ The following activity diagram provides a more detailed view of what happens whe
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+
+### Find Attribute or UUID feature
+The `FindCommand` provides the capability to search for persons within the address book whose names contain any of the specified keywords. The operation is case-insensitive and enhances the user experience by enabling efficient and flexible searches.
+
+#### Implementation
+
+The `FindCommand` is responsible for filtering the list of all persons in the address book to those whose names contain any of the specified keywords. The command updates the `model's filtered person list` to reflect only the search results.
+The find operation is facilitated by the `NameContainsKeywordsPredicate` class, the `FindCommandParser` class and the `FindCommand` class.
+The `FindCommand` class extends the `Command` class.
+
+Here's a step-by-step description of the FindCommand execution process:
+
+Step 1: The user issues the `find` command along with the key-phrases to search for.
+
+Step 2: The `LogicManager` receives the string input and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` employs the `FindCommandParser` to extract the keywords from the input and instantiate a `FindCommand` with a `NameContainsKeywordsPredicate`.
+
+Step 4: The `FindCommand` is executed, which involves the following steps:
+
+* It calls `Model#updateFilteredPersonList(predicate)` to filter the list of persons using the `NameContainsKeywordsPredicate`.
+* It updates the relationship list to show all relationships via `Model#updateFilteredRelationshipList(PREDICATE_SHOW_ALL_RELATIONSHIPS)`.
+
+Step 5: The `FindCommand` concludes by returning a `CommandResult` that includes a message about the number of persons found and the `person` objects which are contain the keywords given.
+
+The following sequence diagram illustrates how the `Find` command functions:
+
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `Predicate`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `find` command:
+
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the search is performed:**
+
+* **Alternative 1 (current choice):** The `NameContainsKeywordsPredicate` class is responsible for filtering the list of persons based on the keywords.
+  * Pros: Modular approach. Easy to extend and change the implementation of the search in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `FindCommand` class is responsible for filtering the list of persons based on the keywords.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Case sensitivity of the search:**
+
+* **Alternative 1 (current choice):** The search is case-insensitive.
+  * Pros: Enhances user experience by enabling efficient and flexible searches.
+  * Cons: Might lead to unexpected search results if the user is not aware of the case-insensitivity.
+* **Alternative 2:** The search is case-sensitive.
+  * Pros: Ensures that the search results are accurate and precise.
+  * Cons: Might limit the user's ability to search flexibly.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
