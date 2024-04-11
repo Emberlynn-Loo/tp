@@ -10,28 +10,23 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddAttributeCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddRelationshipCommand;
+import seedu.address.logic.commands.AnySearchCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAttributeCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteRelationshipCommand;
 import seedu.address.logic.commands.EditAttributeCommand;
+import seedu.address.logic.commands.EditRelationshipCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FamilySearchCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListRelationshipTypesCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.relationship.AddRelationshipCommand;
-import seedu.address.logic.relationship.AddRelationshipCommandParser;
-import seedu.address.logic.relationship.AnySearchCommand;
-import seedu.address.logic.relationship.AnySearchCommandParser;
-import seedu.address.logic.relationship.DeleteRelationshipCommand;
-import seedu.address.logic.relationship.DeleteRelationshipCommandParser;
-import seedu.address.logic.relationship.EditRelationshipCommand;
-import seedu.address.logic.relationship.EditRelationshipCommandParser;
-import seedu.address.logic.relationship.FamilySearchCommand;
-import seedu.address.logic.relationship.FamilySearchCommandParser;
-import seedu.address.logic.relationship.ListRelationshipTypesCommand;
 
 /**
  * Parses user input.
