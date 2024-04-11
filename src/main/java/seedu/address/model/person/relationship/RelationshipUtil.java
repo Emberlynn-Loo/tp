@@ -667,7 +667,7 @@ public class RelationshipUtil {
                 }
             }
         }
-        if (genderPerson1 != null || genderPerson2 != null) {
+        if (genderPerson1 != null) {
             if (((genderPerson1.equals("brother") || genderPerson1.equals("husband")) && (role1.equals("sister")
                     || role1.equals("wife"))) || ((genderPerson1.equals("sister") || genderPerson1.equals("wife"))
                     && (role1.equals("brother") || role1.equals("husband")))) {
@@ -675,7 +675,10 @@ public class RelationshipUtil {
                         + "make sure that the role you are inputting for " + originUuid + " matches the gender of "
                         + genderPerson1 + ".\nIf you want to change the gender of " + originUuid + ", please delete the"
                         + " relationship with " + genderPerson1 + ".");
-            } else if (((genderPerson2.equals("brother") || genderPerson2.equals("husband")) && (role2.equals("sister")
+            }
+        }
+        if (genderPerson2 != null) {
+            if (((genderPerson2.equals("brother") || genderPerson2.equals("husband")) && (role2.equals("sister")
                     || role2.equals("wife"))) || ((genderPerson2.equals("sister") || genderPerson2.equals("wife"))
                     && (role2.equals("brother") || role2.equals("husband")))) {
                 throw new CommandException("Sorry, " + targetUuid + " has been added as " + genderPerson2 + ".\nPlease "
