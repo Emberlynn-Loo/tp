@@ -724,11 +724,11 @@ public class RelationshipUtil {
                     + " matches the gender of " + genderMatch + ".\nIf you want to change the gender of "
                     + uuid + ", please delete the" + " relationship with " + genderMatch + ".";
             if (genderMatch != null && (genderMatch.equals("brother") || genderMatch.equals("husband"))) {
-                if (gender.equalsIgnoreCase("female")) {
+                if (gender.equalsIgnoreCase("female") || gender.equalsIgnoreCase("f")) {
                     throw new CommandException(message);
                 }
             } else if (genderMatch != null && (genderMatch.equals("sister") || genderMatch.equals("wife"))) {
-                if (gender.equalsIgnoreCase("male")) {
+                if (gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("m")) {
                     throw new CommandException(message);
                 }
             }
