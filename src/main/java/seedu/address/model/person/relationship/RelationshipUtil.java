@@ -625,12 +625,12 @@ public class RelationshipUtil {
      * If the specified relationship type is "Siblings", it constructs and returns a new SiblingRelationship object
      * with the provided role information. Otherwise, it constructs and returns a new SpousesRelationship object.
      *
-     * @param model         The model containing the relationships.
-     * @param originUuid    The UUID of the first person in the relationship.
-     * @param targetUuid    The UUID of the second person in the relationship.
-     * @param role1         The inputted role of the first person.
-     * @param role2         The inputted role of the second person.
-     * @param isSiblings    A boolean indicating if the relationship is of type "Siblings".
+     * @param model The model containing the relationships.
+     * @param originUuid The UUID of the first person in the relationship.
+     * @param targetUuid The UUID of the second person in the relationship.
+     * @param role1 The inputted role of the first person.
+     * @param role2 The inputted role of the second person.
+     * @param isSiblings A boolean indicating if the relationship is of type "Siblings".
      * @return A RoleBasedRelationship object representing the new relationship.
      * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
      *                          from existing relationships.
@@ -689,9 +689,9 @@ public class RelationshipUtil {
     /**
      * Checks if the inputted gender of a person matches the gender inferred from existing relationship roles.
      *
-     * @param model         The model containing the relationships.
-     * @param uuid          The last 4 digits of the UUID of a person.
-     * @param gender        The gender input of a person.
+     * @param model The model containing the relationships.
+     * @param uuid  The last 4 digits of the UUID of a person.
+     * @param gender The gender input of a person.
      * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
      *                          from existing relationships.
      */
