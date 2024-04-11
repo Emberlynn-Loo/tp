@@ -21,6 +21,7 @@ Class JsonSerializableAddressBook
 Class JsonAdaptedPersonAttr
 Class JsonAdaptedAttribute
 Class JsonAdaptedRelationship
+Class JsonAdaptedRelationshipDescriptors
 }
 
 }
@@ -38,8 +39,9 @@ Storage -right-|> AddressBookStorage
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonAddressBookStorage .up.|> AddressBookStorage
 JsonAddressBookStorage ..> JsonSerializableAddressBook
-JsonSerializableAddressBook ..> JsonAdaptedPersonAttr
+JsonSerializableAddressBook --> "*" JsonAdaptedPersonAttr
+JsonSerializableAddressBook --> "*" JsonAdaptedRelationship
+JsonSerializableAddressBook --> "1" JsonAdaptedRelationshipDescriptors
 JsonAdaptedPersonAttr --> "*" JsonAdaptedAttribute
-JsonAdaptedPersonAttr --> "*" JsonAdaptedRelationship
 
 @enduml
