@@ -342,8 +342,8 @@ _{more aspects and alternatives to be added}_
 #### Implementation
 
 The Add Attribute mechanism is facilitated by the `AddAttributeCommand` and `AddAttributeParser`.
-The `AddAttributeCommand` class is responsible for adding an attribute to a person object. 
 The `AddAttributeCommand` class extends the `Command` class.
+
 Given below is an example usage scenario and how adding attributes to a person works by.
 
 Step 1: The user enters a command to add an attribute to a person, for example: `addattribute /1234 /Phone 12345678`.
@@ -396,6 +396,67 @@ The following activity diagram sheds more light on exactly what happens a user e
 * **Alternative 2:** The `Model` class does not check if the person already has the attribute before adding it.
   * Pros: Straightforward implementation where the attribute rewrites over all existing data.
   * Cons: Might cause confusion for the user when adding an attribute that already exists.
+
+--------------------------------------------------------------------------------------------------------------------
+### Edit Attribute feature
+
+#### Implementation
+
+The Edit Attribute mechanism is facilitated by the `EditAttributeCommand` and `EditCommandParser`.
+The `EditAttributeCommand` class extends the `Command` class.
+
+Step 1: The user inputs a command to edit an attribute of a person, such as: `editattribute /4000 /Name John Doe /Phone 12345678`.
+
+Step 2: The `LogicManager` component receives this command as a string and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` identifies the command keyword `editattribute` and initializes a new `EditAttributeParser`.
+
+Step 4: The `EditAttributeParser` processes the rest of the command `/4000 /Name John Doe /Phone 12345678` and generates a new `EditAttributeCommand` with the specified `UUID` and `attributes` to be edited.
+
+Step 5: The `EditAttributeCommand` is executed.
+
+Step 6: `EditAttributeCommand#execute` performs the following actions through the `Model`:
+
+* It calls `Model#getFullUuid(String)` to fetch the complete `UUID` for the person specified in the `EditAttributeCommand`.
+* It retrieves the `person` associated with the provided `UUID` by calling `Model#getPersonByUuid(UUID)`.
+* For each `attribute` to be edited, it checks if the person already has the attribute with `Person#hasAttribute(String)`. If the attribute does not exist, an exception is thrown indicating that the attribute cannot be edited because it does not exist.
+
+Step 7: If the person does have the attribute, `EditAttributeCommand` updates the person's attribute by calling:
+
+* `AttributeUtil#createAttribute(String, String)` to create a new `attribute` object with the new value.
+* `Person#updateAttribute(Attribute)` to update the existing `attribute` with the new one.
+
+Step 8: After successfully editing the attributes, `EditAttributeCommand#execute` returns a `CommandResult` object to the `LogicManager`, indicating that the attributes were edited successfully.
+
+The following sequence diagram illustrates how the `EditAttribute` command functions:
+
+![AttributeEditSequenceDiagram](images/AttributeEditSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `editattribute` command:
+
+![AttributeEditActivityDiagram](images/EditAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute is updated:**
+
+* **Alternative 1 (current choice):** The `AttributeUtil` class is responsible for creating the object during the command execution.
+  * Pros: Modular approach. Easy to extend and change the implementation of the attribute creation in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `EditAttributeCommand` class is responsible for creating the object during the command execution.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Editing a non-existent attribute of a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before editing it.
+  * Pros: Ensures that the user can only edit existing attributes and prevents the creation of new attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before editing it and creates a new attribute.
+  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Cons: Might cause confusion for the user when editing an attribute that does not exist.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops

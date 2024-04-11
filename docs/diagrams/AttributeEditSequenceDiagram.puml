@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Attribute" as attribute ATTRIBUTE_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+
+user -[USER_COLOR]> ui : "editAttribute /uuid 1234 /name newValue"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("editAttribute /uuid 1234 /name newValue")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : findPerson(uuid)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : return person object
+deactivate model
+
+logic -[LOGIC_COLOR]> model : person.hasAttribute(name)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : return true if exists
+deactivate model
+
+logic -[LOGIC_COLOR]> attribute : CreateAttribute(name, newValue)
+activate attribute ATTRIBUTE_COLOR
+
+attribute --[ATTRIBUTE_COLOR]> logic : return edited attribute
+deactivate attribute
+destroy attribute
+
+logic -[LOGIC_COLOR]> model : person.updateAttribute(editedAttribute)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : person updated
+deactivate model
+destroy model
+
+logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+storage --[STORAGE_COLOR]> storage : file saved
+deactivate storage STORAGE_COLOR_T1
+
+storage --[STORAGE_COLOR]> logic : save complete
+deactivate storage
+destroy storage
+
+logic --[LOGIC_COLOR]> ui : CommandResult("Attribute edited successfully.")
+deactivate logic
+
+ui--[UI_COLOR]> user : display "Attribute edited successfully."
+deactivate ui
+@enduml
