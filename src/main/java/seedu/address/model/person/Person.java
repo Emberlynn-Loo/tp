@@ -163,6 +163,27 @@ public class Person {
         }
     }
 
+    /**
+     * Checks that the sex attribute of the person matching the uuid matches the assumed gender form relationship roles.
+     *
+     * @param gender The type of the attribute to delete.
+     * @param uuid The type of the attribute to delete.
+     */
+    public void genderMatch(String gender, String uuid) {
+        String genderRole;
+        if (gender.equalsIgnoreCase("brother") || gender.equalsIgnoreCase("husband")) {
+            genderRole = "MALE";
+        } else {
+            genderRole = "FEMALE";
+        }
+        String attributeGender = attributes.get("Sex").getValueAsString();
+        if (!attributeGender.equals(genderRole)) {
+            throw new IllegalArgumentException("Sex attribute of " + uuid + " does not match the gender of your "
+                    + "inputted role.\nIf you'd like to change the gender of the person, please change the sex "
+                    + "attribute by deleting and re-adding it as the gender you want.");
+        }
+    }
+
 
     static void assertValidAttribute(Attribute attribute) {
         if (attribute == null) {

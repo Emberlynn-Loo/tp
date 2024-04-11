@@ -53,6 +53,7 @@ public class ParserUtil {
         }
         return attributeMap;
     }
+
     /**
      * Removes the first item from a string list
      *
