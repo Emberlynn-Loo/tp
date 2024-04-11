@@ -1,0 +1,27 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+skinparam ArrowFontStyle plain
+
+start
+
+:User enters command;
+
+:Parse command for UUID and attribute details;
+
+if (Does person exist?) then (yes)
+  if (Does person already have this attribute?) then (yes)
+    :Inform user: Attribute already exists;
+  else (no)
+    :Create new attribute;
+    :Add attribute to person;
+    :Save updated person to storage;
+    :Inform user: Attribute added successfully;
+  endif
+else (no)
+  :Inform user: Person not found;
+endif
+
+stop
+@enduml

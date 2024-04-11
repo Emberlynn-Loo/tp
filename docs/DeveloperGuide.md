@@ -337,6 +337,67 @@ _{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Add Attribute feature
+
+#### Implementation
+
+The Add Attribute mechanism is facilitated by the `AddAttributeCommand` and `AddAttributeParser`.
+The `AddAttributeCommand` class is responsible for adding an attribute to a person object. 
+The `AddAttributeCommand` class extends the `Command` class.
+Given below is an example usage scenario and how adding attributes to a person works by.
+
+Step 1: The user enters a command to add an attribute to a person, for example: `addattribute /1234 /Phone 12345678`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `addattribute` keyword and creates a new `AddAttributeParser`.
+
+Step 4: The `AddAttributeParser` parses the rest of the command `/1234 /Phone 12345678` and creates a new `AddAttributeCommand` with the provided UUID and attribute.
+
+Step 5: The `AddAttributeCommand` is executed.
+
+Step 6: `AddAttributeCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AddAttribute` command.
+* `Model#getPersonByUuid(UUID)` It retrieves the person with the provided `UUID` from the `Model`.
+* `Model#hasAttribute(String, String)` It checks whether the person given already has the attribute that we are adding. 
+
+Step 7: If the person does not have the attribute, the `AddAttributeCommand` adds the attribute to the person object by calling the following methods from `AttributeUtil`:
+* `AttributeUtil#createAttribute(String, String)` It creates a new attribute with the provided name and value.
+
+Step 8: `AddAttributeCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how the `AddAttribute` shows how the `AddAttribute` command works:
+
+![AttributeAdditionSequenceDiagram](images/AttributeAdditionSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram sheds more light on exactly what happens a user executes the `addattribute` command:
+
+![AttributeAdditionActivityDiagram](images/AddAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute is created:**
+
+* **Alternative 1 (current choice):** The `AttribueteUtil` class is responsible for creation of the object during the execution of the command.
+  * Pros: Modular approach. Easy to extend and change the implementation of the attribute creation in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `AddAttributeCommand` class is responsible for creation of the object during the execution of the command.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Addition of existing attribute to a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before adding it.
+  * Pros: Ensures that the person does not have duplicate attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before adding it.
+  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Cons: Might cause confusion for the user when adding an attribute that already exists.
+
+--------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
@@ -423,7 +484,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. Gene-nieinforms the user the list is empty.
+    * 2a1. Gene-nie informs the user the list is empty.
 
       Use case ends.
 
@@ -816,29 +877,29 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding a person
 1. Adding a person with no attributes:
-    1. **Test case:** `addperson` <br>
+    1. **Test case:** `add` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "No attributes found".
 
    
 2. Adding a person with one attribute:
-    1. **Test case:** `addperson /Name John` <br>
+    1. **Test case:** `add /Name John` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays the attribute added.
 
 
 3. Adding a person with multiple attributes:
-    1. **Test case:** `addperson /Name John /Phone 98765432 /Email John@example.com` <br>
+    1. **Test case:** `add /Name John /Phone 98765432 /Email John@example.com` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays all the attributes added.
 
 
 4. Adding a person with duplicate attributes:
-    1. **Test case:** `addperson /Name John /Name Chad` <br>
+    1. **Test case:** `add /Name John /Name Chad` <br>
        **Expected Outcome:** The last attribute value is taken. A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "Name: Chad".
 
 
 5. Adding a person with an invalid attribute:
-    1. **Test case:** `addperson /Name` <br>
+    1. **Test case:** `add /Name` <br>
        **Expected Outcome:** Error message highlighted in red is shown. The command format and an example is also shown in the error message.
-    2. **Test case:** `addperson /Sex dhdkag` <br>
+    2. **Test case:** `add /Sex dhdkag` <br>
        **Expected Outcome:** Error message highlighted in red is shown. It reads "Sex must only be male or female for Sex."
 
 
