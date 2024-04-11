@@ -270,6 +270,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void genderMatch(String rolePerson1, String uuid, String shortUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Relationship> getFilteredRelationshipList() {
             throw new AssertionError("This method should not be called.");
         }

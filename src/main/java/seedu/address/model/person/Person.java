@@ -11,7 +11,10 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.attribute.*;
+import seedu.address.model.person.attribute.Attribute;
+import seedu.address.model.person.attribute.NameAttribute;
+import seedu.address.model.person.attribute.PhoneNumberAttribute;
+import seedu.address.model.person.attribute.StringAttribute;
 
 /**
  * Represents a Person in the address book.
@@ -160,6 +163,12 @@ public class Person {
         }
     }
 
+    /**
+     * Checks that the sex attribute of the person matching the uuid matches the assumed gender form relationship roles.
+     *
+     * @param gender The type of the attribute to delete.
+     * @param uuid The type of the attribute to delete.
+     */
     public void genderMatch(String gender, String uuid) {
         String genderRole;
         if (gender.equalsIgnoreCase("brother") || gender.equalsIgnoreCase("husband")) {
@@ -169,9 +178,9 @@ public class Person {
         }
         String attributeGender = attributes.get("Sex").getValueAsString();
         if (!attributeGender.equals(genderRole)) {
-            throw new IllegalArgumentException("Sex attribute of " + uuid + " does not match the gender of your inputted "
-                    + "role.\nIf you'd like to change the gender of the person, please change the sex attribute by "
-                    + "deleting and re-adding it as the gender you want.");
+            throw new IllegalArgumentException("Sex attribute of " + uuid + " does not match the gender of your "
+                    + "inputted role.\nIf you'd like to change the gender of the person, please change the sex "
+                    + "attribute by deleting and re-adding it as the gender you want.");
         }
     }
 
