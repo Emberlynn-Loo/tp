@@ -54,7 +54,7 @@ public class EditAttributeCommand extends Command {
             }
 
             if (attributeName.equalsIgnoreCase("sex")) {
-                model.genderCheck(model, uuid, attributeValue);
+                model.genderCheck(uuidToUse, attributeValue);
             }
 
             Attribute attribute = AttributeUtil.createAttribute(attributeName, attributeValue);

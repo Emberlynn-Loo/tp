@@ -102,6 +102,8 @@ class JsonSerializableAddressBook {
                 SiblingRelationship siblingRelationship = (SiblingRelationship) relationship;
                 UUID person1Uuid = siblingRelationship.getPerson1();
                 UUID person2Uuid = siblingRelationship.getPerson2();
+                String uuid1 = person1Uuid.toString();
+                String uuid2 = person2Uuid.toString();
                 String rolePerson1 = siblingRelationship.getRole(person1Uuid);
                 String rolePerson2 = siblingRelationship.getRole(person2Uuid);
 
@@ -117,11 +119,27 @@ class JsonSerializableAddressBook {
 
                 personGenders.put(person1Uuid, person1Gender);
                 personGenders.put(person2Uuid, person2Gender);
+                try {
+                    addressBook.genderMatch(rolePerson1, uuid1, uuid1.substring(uuid1.length() - 4));
+                } catch (Exception e) {
+                    throw new IllegalValueException(
+                            "Relationship role " + rolePerson1 + " does not match with "
+                                    + uuid1 + "'s sex attribute gender");
+                }
+                try {
+                    addressBook.genderMatch(rolePerson2, uuid2, uuid2.substring(uuid2.length() - 4));
+                } catch (Exception e) {
+                    throw new IllegalValueException(
+                            "Relationship role " + rolePerson2 + " does not match with "
+                                    + uuid2 + "'s sex attribute gender");
+                }
             }
             if (relationship instanceof SpousesRelationship) {
                 SpousesRelationship spousesRelationship = (SpousesRelationship) relationship;
                 UUID person1Uuid = spousesRelationship.getPerson1();
                 UUID person2Uuid = spousesRelationship.getPerson2();
+                String uuid1 = person1Uuid.toString();
+                String uuid2 = person2Uuid.toString();
                 String rolePerson1 = spousesRelationship.getRole(person1Uuid);
                 String rolePerson2 = spousesRelationship.getRole(person2Uuid);
 
@@ -137,9 +155,35 @@ class JsonSerializableAddressBook {
 
                 personGenders.put(person1Uuid, person1Gender);
                 personGenders.put(person2Uuid, person2Gender);
+                try {
+                    addressBook.genderMatch(rolePerson1, uuid1, uuid1.substring(uuid1.length() - 4));
+                } catch (Exception e) {
+                    throw new IllegalValueException(
+                            "Relationship role " + rolePerson1 + " does not match with "
+                                    + uuid1 + "'s sex attribute gender");
+                }
+                try {
+                    addressBook.genderMatch(rolePerson2, uuid2, uuid2.substring(uuid2.length() - 4));
+                } catch (Exception e) {
+                    throw new IllegalValueException(
+                            "Relationship role " + rolePerson2 + " does not match with "
+                                    + uuid2 + "'s sex attribute gender");
+                }
             }
             if (addressBook.hasRelationship(relationship)) {
                 throw new IllegalValueException("Duplicate relationship found.");
+            }
+            // Check sex attribute gender with existing relationships (if it exists)
+            for (Person person : addressBook.getPersonList()) {
+                if (person.hasAttribute("Sex")) {
+                    try {
+                        addressBook.genderCheck(person.getUuid(),
+                                person.getAttribute("Sex").getValueAsString());
+                    } catch (Exception e) {
+                        throw new IllegalValueException("Sex attribute gender of" + person.getUuid().toString()
+                                + " does not match with existing relationships");
+                    }
+                }
             }
             addressBook.addRelationship(relationship);
         }

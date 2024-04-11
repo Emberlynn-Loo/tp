@@ -176,11 +176,13 @@ public class Person {
         } else {
             genderRole = "FEMALE";
         }
-        String attributeGender = attributes.get("Sex").getValueAsString();
-        if (!attributeGender.equals(genderRole)) {
-            throw new IllegalArgumentException("Sex attribute of " + uuid + " does not match the gender of your "
-                    + "inputted role.\nIf you'd like to change the gender of the person, please change the sex "
-                    + "attribute by deleting and re-adding it as the gender you want.");
+        if (attributes.containsKey("Sex")) {
+            String attributeGender = attributes.get("Sex").getValueAsString();
+            if (!attributeGender.equals(genderRole)) {
+                throw new IllegalArgumentException("Sex attribute of " + uuid + " does not match the gender of your "
+                        + "inputted role.\nIf you'd like to change the gender of the person, please change the sex "
+                        + "attribute by deleting and re-adding it as the gender you want.");
+            }
         }
     }
 
