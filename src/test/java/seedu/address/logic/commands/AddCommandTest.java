@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -32,7 +31,7 @@ import seedu.address.model.person.relationship.RoleBasedRelationship;
 
 public class AddCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -58,28 +57,28 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        HashMap aliceHashMap = new HashMap();
-        HashMap bobHashMap = new HashMap();
+        HashMap<String, String> aliceHashMap = new HashMap<>();
+        HashMap<String, String> bobHashMap = new HashMap<String, String>();
         aliceHashMap.put("Name", "Alice");
         bobHashMap.put("Name", "Bob");
         AddCommand addAliceCommand = new AddCommand(aliceHashMap);
         AddCommand addBobCommand = new AddCommand(bobHashMap);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
         AddCommand addAliceCommandCopy = new AddCommand(aliceHashMap);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertNotEquals(1, addAliceCommand);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertNotEquals(null, addAliceCommand);
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertNotEquals(addAliceCommand, addBobCommand);
     }
 
     @Test
@@ -262,6 +261,11 @@ public class AddCommandTest {
         public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
                                                                 String rolePerson1, String rolePerson2,
                                                                 Boolean isSiblings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void genderCheck(Model model, String uuid, String gender) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 

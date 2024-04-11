@@ -633,7 +633,7 @@ public class RelationshipUtil {
      * @param isSiblings    A boolean indicating if the relationship is of type "Siblings".
      * @return A RoleBasedRelationship object representing the new relationship.
      * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
-     *                         from existing relationships.
+     *                          from existing relationships.
      */
     public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
                                                             String role1, String role2,
@@ -691,6 +691,48 @@ public class RelationshipUtil {
             return new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
         } else {
             return new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
+        }
+    }
+
+    /**
+     * Checks if the inputted gender of a person matches the gender inferred from existing relationship roles.
+     *
+     * @param model         The model containing the relationships.
+     * @param uuid          The last 4 digits of the UUID of a person.
+     * @param gender        The gender input of a person.
+     * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
+     *                          from existing relationships.
+     */
+    public void genderCheck(Model model, String uuid, String gender) throws CommandException {
+        UUID fulluuid = model.getFullUuid(uuid.toString());
+        ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
+        String genderMatch = null;
+        for (Relationship r : allRelationships) {
+            if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
+                    || r.getRelationshipDescriptor().equalsIgnoreCase("Spouses"))
+                    && (r.getPerson1().equals(fulluuid) || r.getPerson2().equals(fulluuid))) {
+                if (r.getPerson1().equals(fulluuid)) {
+                    RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+                    genderMatch = r1.getRole(fulluuid);
+                } else if (r.getPerson2().equals(fulluuid)) {
+                    RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+                    genderMatch = r2.getRole(fulluuid);
+                }
+            }
+            String message = "Sorry, " + uuid + " has been added as " + genderMatch + " in their "
+                    + "relationships.\nPlease make sure that the role you are inputting for " + uuid
+                    + " matches the gender of " + genderMatch + ".\nIf you want to change the gender of "
+                    + uuid + ", please delete the" + " relationship with " + genderMatch + ".";
+            if (genderMatch != null && (genderMatch.equals("brother") || genderMatch.equals("husband"))) {
+                if (gender.equalsIgnoreCase("female")) {
+                    throw new CommandException(message);
+                }
+            } else if (genderMatch != null && (genderMatch.equals("sister") || genderMatch.equals("wife"))) {
+                if (gender.equalsIgnoreCase("male")) {
+                    throw new CommandException(message);
+                }
+            }
+            genderMatch = null;
         }
     }
 
