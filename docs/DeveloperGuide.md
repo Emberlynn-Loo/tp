@@ -585,6 +585,61 @@ The following activity diagram provides a more detailed view of what happens whe
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+
+### Delete All Persons feature
+The `DeleteAllCommand` provides the capability to delete all persons from the address book. The operation is irreversible and is designed to provide a quick and efficient way to clear the address book.
+
+#### Implementation
+
+The `ClearCommand` is straightforward in its execution: it replaces the current address book model with a new, empty instance of `AddressBook`, and also resets any relationship descriptors that might be associated with the address book entries.
+The `ClearCommand` class extends the `Command` class.
+
+This is the command execution flow for the `ClearCommand`:
+
+Step 1: The user inputs the command to clear the address book using the keyword `deleteallpersons` or the shorthand `dap`.
+
+Step 2: The input is parsed by the `LogicManager`, which identifies the command as a `ClearCommand`.
+
+Step 3: The `ClearCommand#execute(Model model)` method is called.
+
+* Within the execute method, the `ClearCommand` calls `model.setAddressBook(new AddressBook())` to replace the current address book with a new, empty instance.
+* It then calls `model.resetRelationshipDescriptors()` to clear any existing relationship descriptors.
+
+Step 4: After clearing the address book and relationships, the command returns a new `CommandResult` with a success message indicating that the address book has been cleared.
+
+The following sequence diagram illustrates how the `Clear` command functions:
+
+![ClearSequenceDiagram](images/ClearSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `deleteallpersons` command:
+
+![ClearActivityDiagram](images/ClearActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the address book is cleared:**
+
+* **Alternative 1 (current choice):** The `Model` component is responsible for clearing the address book, attributes and relationship descriptors.
+  * Pros: Centralized logic for clearing the address book and relationships.
+  * Cons: Might lead to a bloated `Model` class if additional functionalities are added in the future.
+* **Alternative 2:** Splitting of clearing address book, attribute and relationship descriptors into separate classes.
+  * Pros: Simple and straightforward.
+  * Cons: Might result in many overlapping classes and methods.
+
+**Aspect: Irreversibility of the clear operation:**
+
+* **Alternative 1 (current choice):** The clear operation is irreversible.
+  * Pros: Prevents accidental data loss by requiring user confirmation before clearing the address book.
+  * Cons: Might lead to data loss if the user executes the command unintentionally.
+* **Alternative 2:** The clear operation is reversible.
+  * Pros: Provides a safety net for users who might accidentally clear the address book.
+  * Cons: Might lead to data clutter if the user is unable to clear the address book.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)

@@ -31,21 +31,25 @@ activate parser ABPARSER_COLOR
 parser -[ABPARSER_COLOR]> findCommand : new FindCommand(keywords)
 activate findCommand FINDCOMMAND_COLOR
 deactivate parser
+destroy parser
 
 findCommand -[FINDCOMMAND_COLOR]> predicate : new NameContainsKeywordsPredicate(keywords)
 activate predicate PREDICATE_COLOR
 
 predicate -[PREDICATE_COLOR]> findCommand : predicate
 deactivate predicate
+destroy predicate
 
 findCommand -[FINDCOMMAND_COLOR]> model : updateFilteredPersonList(predicate)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> findCommand : filtered list updated
 deactivate model
+destroy model
 
 findCommand -[FINDCOMMAND_COLOR]> logic : CommandResult("X persons found")
 deactivate findCommand
+destroy findCommand
 
 logic -[LOGIC_COLOR]> ui : display "X persons found"
 deactivate logic
