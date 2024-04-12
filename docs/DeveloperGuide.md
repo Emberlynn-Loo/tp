@@ -44,9 +44,13 @@ title: Developer Guide
       - [Design considerations](#design-considerations)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 - [Appendix: Requirements](#appendix-requirements)
-  - 
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Cases](#use-cases)
+  - [Glossary](#glossary)
 - [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-
+- [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -748,7 +752,7 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Appendix: Requirements
+## **Appendix: Requirements**
 
 ### Product scope
 
@@ -1431,3 +1435,30 @@ testers are expected to do more *exploratory* testing.
     4. Relaunch Gene-nie. <br>
        **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+### C.1 - Display results of find command in "Search Results" tab
+
+Currently, the results of the `find` command are displayed in the left panel of the application. This enhancement aims to display the results in the separate already implemented tab called "Search Results" to improve the user experience. This will allow users to view the search results without losing sight of the main list of persons.
+
+* Proposed Enhancement:
+  * Display the results of the `find` command in the "Search Results" tab. This tab will be updated with the search results each time the `find` command is executed. The results will be displayed in a similar format to the current display in the left panel. The "Search Results" tab will be cleared when the user executes a new `find` command or closes the application.
+
+* Implementation Details:
+  * Update the `find` command to use the alternate `CommandResult` constructor.
+  * Return the appropriate `CommandResult(findSucessMessage, false, false, true)` to indicate that the search results should be displayed in the "Search Results" tab.
+  * Update the `MainWindow` to display the search results in the "Search Results" tab.
+
+### C.2 - Improve error handling for invalid commands
+
+Currently, the application displays a generic error message when an invalid such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
+
+* Proposed Enhancement:
+  * Improve error handling for invalid commands by ensuring the correct error message is returned.
+
+* Implementation Details:
+  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Update the error handling logic to check for the specific command entered by the user.
+  * Return a specific error message based on the invalid command entered by the user.
