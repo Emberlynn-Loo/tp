@@ -11,7 +11,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.personlistsection.AllContactsSection;
-import seedu.address.ui.personlistsection.AnyListSection;
+import seedu.address.ui.personlistsection.SearchResultSection;
 
 /**
  * Represents the display section in the user interface.
@@ -22,7 +22,7 @@ import seedu.address.ui.personlistsection.AnyListSection;
 public class DisplaySection extends UiPart<Region> {
     private static final String FXML = "display-section/DisplaySection.fxml";
     private AllContactsSection allContactsSection;
-    private AnyListSection anyListSection;
+    private SearchResultSection searchResultSection;
     @FXML
     private VBox displaySection;
     @FXML
@@ -40,7 +40,7 @@ public class DisplaySection extends UiPart<Region> {
     public DisplaySection(Logic logic) {
         super(FXML);
         this.allContactsSection = new AllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
-        this.anyListSection = new AnyListSection();
+        this.searchResultSection = new SearchResultSection();
     }
     /**
      * Displays the "All Contacts" section.
@@ -67,21 +67,21 @@ public class DisplaySection extends UiPart<Region> {
      * Displays a custom list section named "Any List".
      * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
      */
-    public void displayAnyListSection() {
+    public void displaySearchResultSection() {
         headerTitle.setText("Search Result");
-        renderSection(anyListSection.getRoot());
+        renderSection(searchResultSection.getRoot());
     }
 
     /**
-     * updates AnyListSection
+     * updates SearchResultSection
      * @param persons people involved in relationships
      * @param relationships relationships in the pathway
      */
-    public void displayUpdatedAnyListSection(ObservableList<Person> persons,
-                                             ObservableList<Relationship> relationships) {
+    public void displayUpdatedSearchResultSection(ObservableList<Person> persons,
+                                                  ObservableList<Relationship> relationships) {
         headerTitle.setText("Search Result");
-        anyListSection.update(persons, relationships);
-        renderSection(anyListSection.getRoot());
+        searchResultSection.update(persons, relationships);
+        renderSection(searchResultSection.getRoot());
     }
     /**
      * Renders the given UI part within the body of the display section.

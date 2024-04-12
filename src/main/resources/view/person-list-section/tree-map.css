@@ -41,7 +41,6 @@
     -fx-border-radius: 7;
     -fx-background-radius: 7;
     -fx-font-family: 'Montserrat';
-    -fx-translate-y: -10;
     -fx-font-size: 15;
 }
 .person-tag:hover {

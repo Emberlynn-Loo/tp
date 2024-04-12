@@ -10,22 +10,22 @@ import seedu.address.ui.UiPart;
 /**
  * A button in the footer of the ResultsSection.
  */
-public class FooterButton extends UiPart<Region> {
+public class NavBarButton extends UiPart<Region> {
     private static final String FXML = "display-section/NavBarButton.fxml";
     @FXML
-    private VBox footerButtonContainer;
+    private VBox navButtonContainer;
     @FXML
-    private Button footerButton;
+    private Button navButton;
     /**
      * Creates a Footer button component.
      * @param label The label of the button.
      * @param handler The function to be executed on clicking the button.
      */
-    public FooterButton(String label, Runnable handler) {
+    public NavBarButton(String label, Runnable handler) {
         super(FXML);
 
-        footerButton.setText(label);
-        footerButton.setOnAction((event) -> {
+        navButton.setText(label);
+        navButton.setOnAction((event) -> {
             handler.run();
         });
     }
@@ -34,22 +34,22 @@ public class FooterButton extends UiPart<Region> {
      * Adds the selected style of the button.
      */
     public void addSelectedStyle() {
-        footerButtonContainer.getStyleClass().add("footer-button-container-selected");
-        footerButton.getStyleClass().add("footer-button-selected");
+        navButtonContainer.getStyleClass().add("nav-button-container-selected");
+        navButton.getStyleClass().add("nav-button-selected");
         Circle deco = new Circle();
         deco.setRadius(3);
-        deco.getStyleClass().add("footer-button-selected-deco");
-        footerButtonContainer.getChildren().add(deco);
+        deco.getStyleClass().add("nav-button-selected-deco");
+        navButtonContainer.getChildren().add(deco);
     }
 
     /**
      * Clears the selected style of the button.
      */
     public void clearSelectedStyle() {
-        footerButton.getStyleClass().remove("footer-button-selected");
-        footerButtonContainer.getStyleClass().remove("footer-button-container-selected");
-        footerButtonContainer.getChildren()
-                .remove(footerButtonContainer.lookup(".footer-button-selected-deco"));
+        navButton.getStyleClass().remove("nav-button-selected");
+        navButtonContainer.getStyleClass().remove("nav-button-container-selected");
+        navButtonContainer.getChildren()
+                .remove(navButtonContainer.lookup(".nav-button-selected-deco"));
     }
 }
 

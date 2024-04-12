@@ -1,4 +1,4 @@
-.anyListSection_treeMapContainer {
+.searchResultSection_treeMapContainer {
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-background-color: transparent;
@@ -7,5 +7,5 @@
     -fx-max-height: 350;
 }
 
-.anyListSection_personListPlaceHolder {
+.searchResultSection_personListPlaceHolder {
 }

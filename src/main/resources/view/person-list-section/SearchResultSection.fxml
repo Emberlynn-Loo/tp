@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import java.net.URL?>
+<VBox spacing="10" alignment="CENTER" fillWidth="true" styleClass="searchResultSection_container" VBox.vgrow="ALWAYS" fx:id="searchResultSection" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@search-result-section.css" />
+    </stylesheets>
+    <VBox fx:id="treeMapPlaceHolder" styleClass="searchResultSection_treeMapContainer" VBox.vgrow="ALWAYS" alignment="CENTER"/>
+    <VBox fx:id="personListPlaceHolder" styleClass="searchResultSection_personListPlaceHolder" VBox.vgrow="ALWAYS" alignment="CENTER"/>
+</VBox>
+
