@@ -1,0 +1,18 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User inputs "find" command with keywords;
+
+:Parse command for keywords;
+if (Valid keywords?) then (yes)
+  :Create NameContainsKeywordsPredicate\nwith keywords;
+  :Update filtered person list\nin Model using predicate;
+  :Display filtered persons to user;
+else (no)
+  :Inform user of invalid syntax;
+endif
+
+stop
+@enduml

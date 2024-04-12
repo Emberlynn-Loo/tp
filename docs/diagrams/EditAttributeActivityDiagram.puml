@@ -1,0 +1,25 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+
+:User inputs edit command;
+
+:Parse command for UUID and attribute details;
+
+if (Does person exist?) then (yes)
+  if (Does attribute exist for person?) then (yes)
+    :Create attribute with new value;
+    :Update person with edited attribute;
+    :Save updated person to storage;
+    :Inform user: Attribute edited successfully;
+  else (no)
+    :Inform user: Attribute does not exist;
+  endif
+else (no)
+  :Inform user: Person not found;
+endif
+
+stop
+@enduml

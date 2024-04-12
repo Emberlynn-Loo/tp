@@ -1,0 +1,21 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "deleteallpersons" command;
+
+:Parse command;
+
+if (Command is ClearCommand) then (yes)
+  :Instantiate ClearCommand;
+  :Execute ClearCommand;
+  :Clear the address book;
+  :Reset relationship descriptors;
+  :Return success message;
+else (no)
+  :Return command error;
+endif
+
+stop
+@enduml

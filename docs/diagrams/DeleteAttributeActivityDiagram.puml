@@ -1,0 +1,26 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "deleteattribute" command;
+
+:Parse command for UUID and attribute names;
+if (Does person exist?) then (yes)
+  :Find person associated with UUID;
+  while (Are there more attributes to delete?) is (yes)
+    if (Does attribute exist for person?) then (yes)
+      :Delete attribute;
+    else (no)
+      :Inform user attribute does not exist;
+      stop
+    endif
+  endwhile (no)
+  :Save changes to address book;
+  :Inform user of success;
+else (no)
+  :Inform user person does not exist;
+endif
+
+stop
+@enduml
