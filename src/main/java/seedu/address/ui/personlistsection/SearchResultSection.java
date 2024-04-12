@@ -12,8 +12,8 @@ import seedu.address.ui.UiPart;
 /**
  * A subsection within the displaySection that display All contacts
  */
-public class AnyListSection extends UiPart<Region> {
-    private static final String FXML = "person-list-section/AnyListSection.fxml";
+public class SearchResultSection extends UiPart<Region> {
+    private static final String FXML = "person-list-section/SearchResultSection.fxml";
     private PersonList personList;
     private TreeMapFlowPane treeMapFlowPane;
     @FXML
@@ -24,7 +24,7 @@ public class AnyListSection extends UiPart<Region> {
     /**
      * Instantiates a anyListSection.
      */
-    public AnyListSection() {
+    public SearchResultSection() {
         super(FXML);
         this.personList = new PersonList("You Have To Use AnySearch First");
         this.treeMapFlowPane = new TreeMapFlowPane();

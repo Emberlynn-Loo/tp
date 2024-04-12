@@ -1,7 +1,7 @@
-.footer-button-section {
+.nav-button-section {
     -fx-padding: 0;
     -fx-spacing: 20;
 }
-.footer-buttons-deco {
+.nav-buttons-deco {
     -fx-fill: -black;
 }

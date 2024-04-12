@@ -40,7 +40,7 @@ public class CustomPlaceholder extends UiPart<Region> {
     public CustomPlaceholder(String text, int fontSize) {
         super(FXML);
         placeholderText.setText(text);
-        placeholderText.setFont(new Font("Raleway", fontSize));
+        placeholderText.setFont(new Font("Montserrat", fontSize));
     }
     public void setImageSize(int width, int height) {
         imageContainer.setFitWidth(width);

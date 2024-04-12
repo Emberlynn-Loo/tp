@@ -6,11 +6,11 @@
 
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="footerButtonContainer" alignment="CENTER" styleClass="footer-button-container" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fillWidth="false">
+<VBox fx:id="navButtonContainer" alignment="CENTER" styleClass="nav-button-container" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fillWidth="false">
     <stylesheets>
         <URL value="@nav-bar-button.css" />
     </stylesheets>
 
-    <Button fx:id="footerButton" styleClass="footer-button" />
+    <Button fx:id="navButton" styleClass="nav-button" />
 </VBox>
 
