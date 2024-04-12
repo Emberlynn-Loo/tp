@@ -3,7 +3,6 @@ package seedu.address.ui.displaysection;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 import seedu.address.ui.UiPart;
 
 /**
