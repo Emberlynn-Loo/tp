@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AttributeUtil;
 import seedu.address.model.person.attribute.Attribute;
-import seedu.address.model.person.attribute.NameAttribute;
-import seedu.address.model.person.attribute.StringAttribute;
 
 /**
  * Jackson-friendly version of {@link Attribute}.
@@ -46,10 +44,10 @@ class JsonAdaptedAttribute {
         if (!name.matches("[a-zA-Z]+")) {
             throw new IllegalValueException("Attribute name contains more than one word.");
         }
-        if (name.equals("Name") || name.equals("name")) {
-            return new NameAttribute("Name", value);
-        } else {
-            return new StringAttribute(AttributeUtil.capitalizeAttributeName(name), value);
+        try {
+            return AttributeUtil.createAttribute(name, value);
+        } catch (Exception e) {
+            throw new IllegalValueException("Invalid attribute type or value in JSON.");
         }
     }
 }

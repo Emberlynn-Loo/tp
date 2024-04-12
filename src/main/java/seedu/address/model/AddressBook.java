@@ -284,8 +284,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                 rolePerson2, isSiblings);
     }
 
-    public void genderCheck(Model model, String uuid, String gender) throws CommandException {
-        relationships.genderCheck(model, uuid, gender);
+    public void genderCheck(UUID uuid, String gender) throws CommandException {
+        relationships.genderCheck(uuid, gender);
     }
 
     public void genderMatch(String rolePerson1, String uuid, String shortUuid) {

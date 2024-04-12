@@ -265,7 +265,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void genderCheck(Model model, String uuid, String gender) {
+        public void genderCheck(UUID uuid, String gender) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -147,7 +147,7 @@ public interface Model {
                                                      String rolePerson1, String rolePerson2,
                                                      Boolean isSiblings) throws CommandException;
 
-    void genderCheck(Model model, String uuid, String gender) throws CommandException;
+    void genderCheck(UUID uuid, String gender) throws CommandException;
 
     void genderMatch(String rolePerson1, String uuid, String shortUuid);
 }
