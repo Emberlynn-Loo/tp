@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+actor User as user USER_COLOR
+participant ":UI" as ui UI_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AnySearchCommandParser" as AnySearchCommandParser LOGIC_COLOR
+participant "d:AnySearchCommand" as AnySearchCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+user -[USER_COLOR]> ui : "anySearch /1234 /5678"
+activate ui
+ui -> LogicManager : execute("anySearch /1234 /5678")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("anySearch /1234 /5678")
+activate AddressBookParser
+create AnySearchCommandParser
+AddressBookParser -> AnySearchCommandParser ++
+return
+AddressBookParser -> AnySearchCommandParser ++: parse("/1234 /5678")
+create AnySearchCommand
+AnySearchCommandParser -> AnySearchCommand ++
+return d
+return d
+return d
+
+destroy AnySearchCommandParser
+
+LogicManager --> AnySearchCommand ++: execute()
+AnySearchCommand --> Model ++: getFullUuid(originUuid)
+return
+AnySearchCommand --> Model ++: getFullUuid(targetUuid)
+return
+AnySearchCommand --> Model ++: anySearch(originUuid, targetUuid)
+return
+AnySearchCommand --> Model ++: updateFilteredPersonList(predicate)
+return
+AnySearchCommand --> Model ++: updateFilteredRelationshipList(predicate)
+return
+
+create CommandResult
+AnySearchCommand --> CommandResult ++
+return r
+
+return r
+
+LogicManager --> ui : r
+deactivate LogicManager
+return display relationship pathway
+deactivate ui
+@enduml
