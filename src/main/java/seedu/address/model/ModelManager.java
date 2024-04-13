@@ -289,4 +289,33 @@ public class ModelManager implements Model {
     public void genderMatch(String rolePerson1, String uuid, String uuidShort) {
         addressBook.genderMatch(rolePerson1, uuid, uuidShort);
     }
+
+    @Override
+    public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                          String originUuid, String targetUuid, String rolePerson1,
+                                                          String rolePerson2,
+                                                          String relationshipDescriptor) throws CommandException {
+        return addressBook.getRelationshipRoleBased(fullOriginUuid, fullTargetUuid, model, originUuid, targetUuid,
+                rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    @Override
+    public void validateRoleBasedRelation(String rolePerson1, String rolePerson2,
+                                          String relationshipDescriptor) throws CommandException {
+        addressBook.validateRoleBasedRelation(rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    @Override
+    public void validateRoleless(String role1, String role2, String newRelationshipDescriptor) throws CommandException {
+        addressBook.validateRoleless(role1, role2, newRelationshipDescriptor);
+    }
+
+    @Override
+    public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid, String originUuid,
+                                   String targetUuid, String role1, String role2, Model model,
+                                   String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                                   boolean b) throws CommandException {
+        addressBook.relationshipChecks(toEditIn, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, role1,
+                role2, model, oldRelationshipDescriptor, newRelationshipDescriptor, b);
+    }
 }

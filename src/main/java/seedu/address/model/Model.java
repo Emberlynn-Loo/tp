@@ -150,4 +150,19 @@ public interface Model {
     void genderCheck(UUID uuid, String gender) throws CommandException;
 
     void genderMatch(String rolePerson1, String uuid, String shortUuid);
+
+    RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                   String originUuid, String targetUuid, String rolePerson1,
+                                                   String rolePerson2,
+                                                   String relationshipDescriptor) throws CommandException;
+
+    void validateRoleBasedRelation(String rolePerson1, String rolePerson2, String relationshipDescriptor)
+            throws CommandException;
+
+    void validateRoleless(String role1, String role2, String newRelationshipDescriptor) throws CommandException;
+
+    void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid, String originUuid,
+                            String targetUuid, String role1, String role2, Model model,
+                            String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                            boolean b) throws CommandException;
 }

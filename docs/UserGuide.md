@@ -3,12 +3,12 @@ layout: page
 title: User Guide
 ---
 
-<h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
-<p align="center">
-Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you 
-keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
-the relationship tree and history of friends and family.
-</p>
+<h1 align="center"><i>GENE-NIE</i></h1>
+<p align="left">
+
+Welcome fellow **genealogy enthusiasts**!
+
+Glad to see you have found your way to this user guide. Keep reading to find out how to navigate and unlock the full capabilities of your magical companion, **Gene-nie**. 
 
 ## Table of Contents
 
@@ -37,6 +37,31 @@ the relationship tree and history of friends and family.
 - [Known Issues](#known-issues)
 - [Coming Soon](#coming-soon)
 - [Command Summary](#command-summary)
+--------------------------------------------------------------------------------------------------------------------
+
+## About Gene-nie
+Ever find yourself struggling to keep track of all the people and their relationships to each other in a family tree? 
+
+Gene-nie works magic!
+
+Be prepared to be enchanted as
+
+Keep reading to find out
+
+Gene-nie works magic.
+just like it's name susggests...
+Gene-nie is a desktop app for managing your family tree. It is optimised for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Gene-nie can help you manage your family tree faster than traditional GUI apps.
+
+Specifically designed for **genealogy enthusiasts**, Gene-nie will enchant you by helping them manage both their contacts and the relationships among them.
+Gene-nie acts as your personal autobiographer, helping you manage your
+the relationship tree and history of friends and family.
+</p>
+
+
+
+
+
+
 
 ## Quick start
 
@@ -403,7 +428,7 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 Examples:
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
-### Deleting a relationship : `deleteRelation` or `dr`
+### Deleting a relationship : `deleteRelation` or `dr` 
 
 Deletes the relationship between two people in the address book.
 

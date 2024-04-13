@@ -291,4 +291,29 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void genderMatch(String rolePerson1, String uuid, String shortUuid) {
         persons.genderMatch(rolePerson1, uuid, shortUuid);
     }
+
+    public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                          String originUuid, String targetUuid, String rolePerson1,
+                                                          String rolePerson2,
+                                                          String relationshipDescriptor) throws CommandException {
+        return relationships.getRelationshipRoleBased(fullOriginUuid, fullTargetUuid, model, originUuid, targetUuid,
+                rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    public void validateRoleBasedRelation(String rolePerson1, String rolePerson2,
+                                          String relationshipDescriptor) throws CommandException {
+        relationships.validateRoleBasedRelation(rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    public void validateRoleless(String role1, String role2, String newRelationshipDescriptor) throws CommandException {
+        relationships.validateRoleless(role1, role2, newRelationshipDescriptor);
+    }
+
+    public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid, String originUuid,
+                                   String targetUuid, String role1, String role2, Model model,
+                                   String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                                   boolean b) throws CommandException {
+        relationships.relationshipChecks(toEditIn, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, role1,
+                role2, model, oldRelationshipDescriptor, newRelationshipDescriptor, b);
+    }
 }

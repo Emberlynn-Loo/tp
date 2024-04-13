@@ -64,87 +64,21 @@ public class AddRelationshipCommand extends Command {
         boolean isRoleBased = (rolePerson1 != null) && (rolePerson2 != null);
         UUID fullOriginUuid = model.getFullUuid(originUuid);
         UUID fullTargetUuid = model.getFullUuid(targetUuid);
-        if (fullTargetUuid == null || fullOriginUuid == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID + originUuid + " and " + targetUuid);
-        }
-        if (fullOriginUuid == fullTargetUuid) {
-            throw new CommandException("Relationships must be between 2 different people");
-        }
+        checkUuid(fullOriginUuid, fullTargetUuid);
         try {
             if (isRoleBased) {
-                RoleBasedRelationship toAdd;
-                if (relationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    toAdd = model.getBioparentsCount(model, originUuid, targetUuid, rolePerson1, rolePerson2);
-                } else if (relationshipDescriptor.equalsIgnoreCase("Siblings")) {
-                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
-                        model.genderMatch(rolePerson1, fullOriginUuid.toString(), originUuid);
-                    }
-                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
-                        model.genderMatch(rolePerson2, fullTargetUuid.toString(), targetUuid);
-                    }
-                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
-                            rolePerson2, true);
-                } else if (relationshipDescriptor.equalsIgnoreCase("Spouses")) {
-                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
-                        model.genderMatch(rolePerson1, fullOriginUuid.toString(), originUuid);
-                    }
-                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
-                        model.genderMatch(rolePerson2, fullTargetUuid.toString(), targetUuid);
-                    }
-                    toAdd = model.checkSiblingsSpousesGender(model, originUuid, targetUuid, rolePerson1,
-                            rolePerson2, false);
-                } else if (relationshipDescriptor.equalsIgnoreCase("Friends")) {
-                    throw new CommandException("Sorry, friends cannot have roles");
-                } else {
-                    toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
-                            relationshipDescriptor, rolePerson1, rolePerson2);
-                }
-                if (model.isRelationRoleless(relationshipDescriptor)) {
-                    throw new CommandException(String.format("Sorry, you did not add %s as a "
-                            + "role based relationship."
-                            + "\nIf you want to use it, please delete the roles"
-                            + "\nIf you want to make it a role based relationship, please delete the "
-                            + "relationtype and add it again.", relationshipDescriptor));
-                }
-                if (model.isRelationRoleBased(relationshipDescriptor)) {
-                    if (!(rolePerson1.equals(model.getRoles(relationshipDescriptor).get(0))
-                            || rolePerson1.equals(model.getRoles(relationshipDescriptor).get(1)))
-                            || !(rolePerson2.equals(model.getRoles(relationshipDescriptor).get(0))
-                            || rolePerson2.equals(model.getRoles(relationshipDescriptor).get(1)))) {
-                        throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
-                                        + "\nIf you want to change the roles, please delete the"
-                                        + "\nrelationtype and add it again.",
-                                model.getRoles(relationshipDescriptor).get(0),
-                                model.getRoles(relationshipDescriptor).get(1)));
-                    }
-                }
-                if (model.hasRelationshipWithDescriptor(toAdd)) {
-                    String existing = model.getExistingRelationship(toAdd);
-                    throw new CommandException(String.format("Sorry, %s", existing));
-                }
+                RoleBasedRelationship toAdd = model.getRelationshipRoleBased(fullOriginUuid, fullTargetUuid, model,
+                        originUuid, targetUuid, rolePerson1, rolePerson2, relationshipDescriptor);
+                model.validateRoleBasedRelation(rolePerson1, rolePerson2, relationshipDescriptor);
+                model.relationshipChecks(toAdd, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, rolePerson1,
+                        rolePerson2, model, null, relationshipDescriptor, true);
                 model.addRelationship(toAdd);
                 model.addRolebasedDescriptor(relationshipDescriptor, rolePerson1, rolePerson2);
                 return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
             }
-            if (model.isRelationRoleBased(relationshipDescriptor)) {
-                throw new CommandException(String.format("Sorry, you added %s as a role based relationship."
-                        + "\nIf you want to use it, please use the roles you added: [%s, %s]"
-                        + "\nIf you want to make it a role based relationship, please delete the"
-                        + "\nrelationtype and add it again.", relationshipDescriptor,
-                        model.getRoles(relationshipDescriptor).get(0),
-                        model.getRoles(relationshipDescriptor).get(1)));
-            }
+            model.validateRoleless(rolePerson1, rolePerson2, relationshipDescriptor);
             Relationship toAdd = new Relationship(fullOriginUuid, fullTargetUuid, relationshipDescriptor);
-            if (containsIllegalDescriptors(relationshipDescriptor.toLowerCase())) {
-                throw new CommandException(relationshipDescriptor
-                        + " relationship requires two roles to be specified.\n"
-                        + "Please specify the roles in the format: "
-                        + "\naddRelation /<UUID> <role> /<UUID> <role> /" + relationshipDescriptor);
-            }
-            if (model.hasRelationshipWithDescriptor(toAdd)) {
-                String existing = model.getExistingRelationship(toAdd);
-                throw new CommandException(String.format("Sorry, %s", existing));
-            }
+            checkRoleless(model, toAdd);
             model.addRelationship(toAdd);
             model.addRolelessDescriptor(relationshipDescriptor);
             return new CommandResult(MESSAGE_ADD_RELATIONSHIP_SUCCESS);
@@ -181,5 +115,41 @@ public class AddRelationshipCommand extends Command {
                 || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
                 || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
                 || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
+    }
+
+    /**
+     * Checks if the relationship descriptor contains illegal descriptors
+     *
+     * @param model The model
+     * @param toAdd The relationship to add
+     * @throws CommandException If the relationship descriptor contains illegal descriptors
+     */
+    public void checkRoleless(Model model, Relationship toAdd) throws CommandException {
+        if (containsIllegalDescriptors(relationshipDescriptor.toLowerCase())) {
+            throw new CommandException(relationshipDescriptor
+                    + " relationship requires two roles to be specified.\n"
+                    + "Please specify the roles in the format: "
+                    + "\naddRelation /<UUID> <role> /<UUID> <role> /" + relationshipDescriptor);
+        }
+        if (model.hasRelationshipWithDescriptor(toAdd)) {
+            String existing = model.getExistingRelationship(toAdd);
+            throw new CommandException(String.format("Sorry, %s", existing));
+        }
+    }
+
+    /**
+     * Checks if the UUIDs are valid
+     *
+     * @param fullOriginUuid The full origin UUID
+     * @param fullTargetUuid The full target UUID
+     * @throws CommandException If the UUIDs are invalid
+     */
+    public void checkUuid(UUID fullOriginUuid, UUID fullTargetUuid) throws CommandException {
+        if (fullTargetUuid == null || fullOriginUuid == null) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_UUID + originUuid + " and " + targetUuid);
+        }
+        if (fullOriginUuid == fullTargetUuid) {
+            throw new CommandException("Relationships must be between 2 different people");
+        }
     }
 }
