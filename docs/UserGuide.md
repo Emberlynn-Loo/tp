@@ -5,7 +5,7 @@ title: User Guide
 
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
-Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you 
+Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you
 keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
 the relationship tree and history of friends and family.
 </p>
@@ -78,9 +78,9 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01` : Adds a contact with the specified attributes to the Address Book.
 
    * `delete /0001` : Deletes the contact with the `UUID` "0001".
-   
+
    * `addAttribute /12db /Pet Dog` : Adds the attribute Pet with the value Dog to the person with the `UUID` "12db".
-   
+
    * `deleteAttribute /12db /Pet` : Deletes the attribute Pet from the person with the `UUID` "12db".
 
    * `addRelation /12db parent /34ab child /bioparents` : Adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
@@ -431,7 +431,7 @@ Examples:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. 
+* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
 * Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
@@ -516,7 +516,7 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 </div>
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
-* If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned, 
+* If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned,
 else `No Relationship Pathway Found` will be returned
     - Example: `anySearch /10cb /980c` suppose 980c is the friend of 10cb mother, `anySearch` will then return the descriptor
 `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c`
@@ -537,7 +537,7 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 
 * Unlike `anySearch`, `familySearch` only recognises family relationships, which are `bioparents`, `siblings` and `spouses`
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
-* If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
+* If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned,
 else `No Relationship Pathway Found` will be returned
     - Example: `familySearch /10cb /980c` suppose 980c is the grandfather of 10cb, `familySearch` will then return the descriptor
 `10cb -> (bioParents) child of --> 5964 --> (bioParents) child of --> 980c`
