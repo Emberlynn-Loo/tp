@@ -13,15 +13,20 @@ the relationship tree and history of friends and family.
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [Managing Person Profiles](#persons)
-    - [Listing all persons](#listing-all-persons--list-or-l)
+- [Command Format](#command-format)
+- [Persons](#persons)
+- [Features](#features)
+  - [Attributes](#attributes)
+  - [Relationships](#relationships)
+- [Features - Managing Person Profiles](#features---managing-persons)
+    - [Listing all Persons](#listing-all-persons--list-or-l)
     - [Adding a person](#adding-a-person--add-or-a)
-    - [Locating persons by name](#locating-persons-by-details--find-or-f)
-- [Attributes](#attributes)
-    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
-    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
-    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Locating persons by details](#locating-persons-by-details--find-or-f)
     - [Deleting a Person](#deleting-a-person--delete-or-d)
+- [Features - Managing Attributes of Persons](#features---managing-attributes-of-persons)
+    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
+    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
 - [Managing Person Relationships](#features---managing-person-relationships)
     - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
     - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
@@ -42,15 +47,15 @@ the relationship tree and history of friends and family.
 
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
-1. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
+2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
-1. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
+3. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
+
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
 </div>
-
-4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
 
 <div markdown="span" class="alert alert-primary">:question: **for Linux users:**
 In your terminal, type `cd (path)`, replacing `(path)` with the _home folder_ path.
@@ -65,7 +70,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -88,13 +93,19 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
 
    * `deleteAllPersons` : When you are done with experimenting with the sample data, you can delete all the persons in Gene-nie to begin building your own contacts list!
 
-<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
-Be careful when using this command with your own data as it will delete all your contacts!
-</div>
-
    * `exit` : Exits the app. All your contacts will be saved for when you next return.
 
-6. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
+2. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
+
+3. Refer to the [Command Summary](#command-summary) for a quick summary of all commands.
+
+<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
+Be careful when using the deleteAllPersons command with your own data as it will delete all your contacts and is irreversible. Use with caution!
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+The app will resize and expand initially to fit the size of your screen. You can resize the app window to your liking. However, we recommend the app to be fullscreen for the best experience!
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -130,6 +141,7 @@ Be careful when using this command with your own data as it will delete all your
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -144,22 +156,102 @@ A person is made up of three pieces of information:
    3. UUID are 4-characters long
 2. A set of attributes
 3. A set of relationships
-To learn more about attributes and relationships, find their descriptions in [Table of Contents](#table-of-contents).
+To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
 
 Have a look at this sample person card. Can you spot where each detail is located?
 ![Sample Person Card](images/PersonCard.png)
 
-### Listing all Persons: `list` or `l`
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Features
+
+Gene-nie has 3 main features:
+1. Managing Persons
+2. Managing Attributes of Persons
+3. Managing Person Relationships
+
+### Attributes
+
+Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
+Attributes are what you use to store any information about a person that is about that particular person.
+To store information about the relationship between 2 persons, see the relationship feature instead.
+
+Each attribute has a name and a value. They can be added, edited or deleted.
+You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
+Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+However, **duplicate attribute values are  checked** and will not be added to the same person.
+
+1. **Attribute names** are case-insensitive and will be converted to a consistent case. However, we do not restrict the length of your names. So with great power comes great responsibility! Having too long a name will cause the UI to be ugly so do choose wisely! We recommend keeping it short and sweet!
+2. **Attribute values** are case-sensitive and will be stored as is.
+3. You will be able to define your own **Attribute name!** and it will be of **Attribute value** type String, other than the predefined attributes listed below.
+
+For your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
+
+1. `Name` attribute with String value, and can be any string supported by the command format (see attribute commands below)
+    1. It is a predefined attribute for the purposes of future features.
+2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols)
+3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
+    1. Our application supports a wide range of date inputs to accommodate various historical and genealogical data. You can enter dates using the following format: YYYY-MM-DD.
+    2. Year (YYYY): The year can range from -9999 to today's date! This lets you represent of historical dates and more easily track your family history! This range is dictated by the limits of the DateTime object used in our application. Negative years are used to denote years BCE (Before the Common Era).
+    3. While our application supports a wide range of years, the input still requires valid months and days corresponding to the Gregorian calendar. For example, `2023-02-29` is invalid because `2023` is not a leap year.
+4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
+    1. This attribute is used to check whether the relationship is valid or not. For example, a person cannot be a `bioparents` of a person with the same `Sex` attribute.
+    2. The valid inputs for `Male` attributes are `male` and `m`. The inputs are not case-sensitive.
+    3. The valid inputs for `Female` attributes are `female` and `f`. The inputs are not case-sensitive.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Gene-nie is our comprehensive family storage device. We acknowledge historical and genealogical uses where ancient dates (e.g., BCE dates) may be necessary. Therefore, negative years (denoting BCE) are considered valid when entered in accordance with the above guidelines.
+</div>
+
+<div markdown="block" class="alert alert-info">
+Attribute names:
+
+* are case-insensitive
+* will automatically be converted to a consistent case
+    * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
+* cannot be empty
+* cannot contain `/` or ` ` (space)
+    * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value and throw the relevant error
+    * if you forget to add the space to the attribute name, the attribute name will be stored as the whole string without spaces
+
+Attribute values:
+
+* are case-sensitive
+* cannot be empty
+* cannot contain `/`
+* will be of type String, other than the predefined attributes listed above
+* cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
+</div>
+
+### Relationships
+
+Relationships are one of 3 types of information in a person's profile, with the other 2 being the UUID and attributes.
+Relationships are what you use to store information about the relationship between 2 persons.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Features - Managing Persons
+
+### Listing all Persons : `list` or `l`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a Person: `add` or `a`
+### Adding a Person : `add` or `a`
 
 Adds a person to the address book.
 
 Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+
+* Adds a person to the address book with the specified attributes or none at all!
+* You can add multiple attributes in one command!
+* The order of the attributes does not matter.
+* Additionally, duplicate attributes will be parsed and the last entered duplicate attribute will be stored.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 **A person can have any number of attributes (including 0)!**<br>
@@ -172,7 +264,7 @@ Examples:
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by details: `find` or `f`
+### Locating persons by details : `find` or `f`
 
 Finds persons whose details contain any of the given phrases.
 
@@ -180,7 +272,11 @@ Format: `find /PHRASE [/MORE_PHRASES] ...`
 
 * Between phrases,
   * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
+  * The search will also work if user wants to find a person using a specified UUID
+  * Furthermore, the search will return all persons whose "details" "contain" the phrase and does not need to be exclusively only phrases or UUID
     * e.g. `/Hans /Bo` will return `Hans Gruber`, `Bo Yang`
+    * e.g. `/12db` will return the person with UUID `12db`
+    * e.g. `/12db /Hans` will return the person with UUID `12db` and `Hans Gruber`
   * The order of the phrases do not matter.
     * e.g. `find /Hans /Bo` will return the same results as `find /Bo /Hans`
 * Within a phrase,
@@ -196,99 +292,6 @@ Examples:
 * `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
   ![result for 'find /alex /david'](images/findAlexDavidResult.png)
 
-### Attributes
-
-Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
-Attributes are what you use to store any information about a person that is about that particular person.
-To store information about the relationship between 2 persons, see the relationship feature instead.
-
-Each attribute has a name and a value. They can be added, edited or deleted.
-You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
-Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
-This also means that **duplicate attribute values are not checked**.
-
-However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
-
-1. `Name` attribute with String value, and can be any string supported by the command format (see attribute commands below)
-   1. It is a predefined attribute for the purposes of future features.
-2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols)
-3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
-4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
-<div markdown="block" class="alert alert-info">
-Attribute names:
-
-* are case-insensitive
-* will automatically be converted to a consistent case
-  * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
-* cannot be empty
-* cannot contain `/` or ` ` (space)
-  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value
-
-Attribute values:
-
-* are case-sensitive
-* cannot be empty
-* cannot contain `/`
-* will be of type String, other than the predefined attributes listed above
-* cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
-</div>
-
-
-### Adding Attributes to a Person: `addAttribute` or `aa`
-
-Adds an attribute to a person in the address book.
-
-Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE`
-
-* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
-* The first space after the attribute name is marks the start of the attribute value
-* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
-
-Examples:
-* `addAttribute /12db /Pet Dog` adds the attribute Pet with the value Dog to the person with the UUID 12db
-* `addAttribute /12db /Pet Cat` adds the attribute Pet with the value Cat to the person with the UUID 12db
-* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
-* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
-
-### Deleting an attribute from a Person: `deleteAttribute` or `da`
-
-Deletes an attribute from a person in the address book.
-
-Format: `deleteAttribute /UUID /ATTRIBUTE_NAME`
-
-* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
-* If the person does not have the specified attribute, the command will not have any effect
-* If the person does not exist, the command will not have any effect
-* If the attribute does not exist, the command will not have any effect
-* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
-
-Examples:
-* `deleteAttribute /12db /Pet` deletes the attribute Pet from the person with the UUID 12db
-* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
-
-### Editing an Attribute of a Person: `editAttribute` or `ea`
-
-Edit attributes of a person in the address book.
-
-Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
-
-* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
-* The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
-* If the person does not have the specified attribute, the command will not have any effect
-  * If you have used an incorrect attribute name, and wish to edit the attribute name, you must delete the attribute (using the 'incorrect' name) and add a new one instead
-* If the person does not exist, the command will not have any effect
-* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Integer, and the new value is a String, the command will fail
-* The first space after the attribute name is marks the start of the attribute value
-* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
-
-Examples:
-* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db
-
 ### Deleting a Person : `delete` or `d`
 
 Deletes the specified person from the address book.
@@ -303,6 +306,76 @@ Format: `delete /UUID`
 Examples:
 * `delete /12db` deletes the person with the `UUID` "12db"
 * `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Features - Managing Attributes of Persons
+
+### Adding Attributes to a Person: `addAttribute` or `aa`
+
+Adds an attribute to a person in the address book.
+
+Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+
+* Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
+* You can add multiple attributes in one command!
+* Duplicate attribute names are checked and will not be allowed for the command to be parsed
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* The first space after the attribute name is marks the start of the attribute value
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
+
+Examples:
+* `addAttribute /12db /Pet Dog /Nickname Klien` adds the attribute Pet with the value Dog and the attribute Nickname with the value Klien to the person with the UUID 12db
+* `addAttribute /12db /Pet Cat /Pet Dog` does not add the attribute to the person with UUID 12db as the attribute name is duplicated and instead throws an error
+* `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
+* `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
+
+### Deleting an attribute from a Person: `deleteAttribute` or `da`
+
+Deletes an attribute from a person in the address book.
+
+Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
+
+* Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
+* You are allowed to delete multiple attributes in one command
+* However, duplicate attribute names are checked and will not be allowed for the command to be parsed
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect
+* If the person does not exist, the command will not have any effect
+* If the attribute does not exist, the command will not have any effect
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
+
+Examples:
+* `deleteAttribute /12db /Pet /Nickname` deletes the attribute Pet and Nickname from the person with the UUID 12db
+* `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
+* `deleteAttribute /12db /Pet /Pet` does not delete the attribute Pet from the person with the UUID 12db as the attribute name is duplicated and instead throws an error
+
+### Editing an Attribute of a Person: `editAttribute` or `ea`
+
+Edit attributes of a person in the address book.
+
+Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+
+* Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
+* Multiple attributes are allowed to be edited simultaneously in one command
+* Duplicate attribute names are checked and will not be allowed for the command to be parsed
+* The `UUID` refers to the unique identifier of the person shown in the displayed person list
+* The `UUID` **must be a valid UUID**
+* If the person does not have the specified attribute, the command will not have any effect and will throw an error
+  * If you have used an incorrect attribute name, and wish to edit the attribute name, you must delete the attribute (using the 'incorrect' name) and add a new one instead
+* If the person does not exist, the command will not have any effect and will throw an error
+* If the attribute is of a different type, the command will fail and throw an error. E.g. if the attribute is of type Date, and the new value is a String, the command will fail
+  * However, if the attribute is of type String, and the new value is intended to be another type, the command will succeed and the attribute value will be converted to a String
+* The first space after the attribute name is marks the start of the attribute value
+* See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
+
+Examples:
+* `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db
+* `editAttribute /12db /Pet Cat /Nickname Elvis` edits the attribute Pet to have the value Cat and the attribute Nickname to have the value Elvis for the person with the UUID 12db
 
 [Back to Table of Contents](#table-of-contents)
 

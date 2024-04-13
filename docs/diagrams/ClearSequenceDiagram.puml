@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+!define CLEARCOMMAND_COLOR #FF7700
+
+actor User as user USER_COLOR
+participant ":UI" as ui UI_COLOR
+participant ":LogicManager" as logic LOGIC_COLOR
+participant ":ClearCommand" as clearCommand CLEARCOMMAND_COLOR
+participant ":Model" as model MODEL_COLOR
+
+user -> ui : deleteallpersons
+activate ui
+
+ui -> logic : execute(deleteallpersons)
+activate logic
+
+logic -> clearCommand : new ClearCommand()
+activate clearCommand
+
+clearCommand -> model : setAddressBook(new AddressBook())
+activate model
+model --> clearCommand : address book cleared
+deactivate model
+
+clearCommand -> model : resetRelationshipDescriptors()
+activate model
+model --> clearCommand : relationships reset
+deactivate model
+destroy model
+
+clearCommand --> logic : CommandResult("Address book has been cleared!")
+deactivate clearCommand
+destroy clearCommand
+
+logic --> ui : display "Address book has been cleared!"
+deactivate logic
+destroy logic
+
+ui --> user : show "Address book has been cleared!"
+deactivate ui
+@enduml

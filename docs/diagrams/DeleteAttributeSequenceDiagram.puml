@@ -6,13 +6,13 @@ Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
-Participant ":Attribute" as attribute ATTRIBUTE_COLOR
+Participant ":Person" as person PERSON_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "addAttribute /1234 /name value"
+user -[USER_COLOR]> ui : "deleteattribute /uuid 1234 /name1 /name2"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("addAttribute /1234 /name value")
+ui -[UI_COLOR]> logic : execute("deleteattribute /uuid 1234 /name1 /name2")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : findPerson(uuid)
@@ -20,20 +20,20 @@ activate model MODEL_COLOR
 
 model --[MODEL_COLOR]> logic : return person object
 deactivate model
-
-logic -[LOGIC_COLOR]> attribute : new Attribute(name, value)
-activate attribute ATTRIBUTE_COLOR
-
-attribute --[ATTRIBUTE_COLOR]> logic : return attribute
-deactivate attribute
-destroy attribute
-
-logic -[LOGIC_COLOR]> model : person.addAttribute(attribute)
-activate model MODEL_COLOR
-
-model --[MODEL_COLOR]> logic : person updated
-deactivate model
 destroy model
+
+loop for each attribute
+    logic -[LOGIC_COLOR]> person : hasAttribute(attributeName)
+    activate person PERSON_COLOR
+
+    person --[PERSON_COLOR]> logic : return true if exists
+    deactivate person
+
+    logic -[LOGIC_COLOR]> person : deleteAttribute(attributeName)
+    activate person PERSON_COLOR
+    person --[PERSON_COLOR]> logic : attribute deleted
+    deactivate person
+end
 
 logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
 activate storage STORAGE_COLOR
@@ -47,9 +47,9 @@ storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
 destroy storage
 
-logic --[LOGIC_COLOR]> ui : CommandResult("Attribute added successfully.")
+logic --[LOGIC_COLOR]> ui : CommandResult("Attributes deleted successfully.")
 deactivate logic
 
-ui--[UI_COLOR]> user : display "Attribute added successfully."
+ui--[UI_COLOR]> user : display "Attributes deleted successfully."
 deactivate ui
 @enduml

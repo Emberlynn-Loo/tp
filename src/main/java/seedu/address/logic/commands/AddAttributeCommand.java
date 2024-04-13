@@ -58,7 +58,7 @@ public class AddAttributeCommand extends Command {
                 throw new CommandException("Attribute " + attributeName + " already exists.");
             }
             if (attributeName.equalsIgnoreCase("sex")) {
-                model.genderCheck(model, uuid, attributeValue);
+                model.genderCheck(uuidToUse, attributeValue);
             }
             Attribute attribute = AttributeUtil.createAttribute(attributeName, attributeValue);
             person.updateAttribute(attribute);

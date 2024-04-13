@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+' Color definitions
+!define USER_COLOR #000000
+!define UI_COLOR #1D8900
+!define LOGIC_COLOR #3333C4
+!define MODEL_COLOR #9D0012
+!define FINDCOMMAND_COLOR #FF5733
+!define ABPARSER_COLOR #A9DCDF
+!define PREDICATE_COLOR #FAA1A1
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":AddressBookParser" as parser ABPARSER_COLOR
+Participant ":FindCommand" as findCommand FINDCOMMAND_COLOR
+Participant ":NameContainsKeywordsPredicate" as predicate PREDICATE_COLOR
+Participant ":Model" as model MODEL_COLOR
+
+user -[USER_COLOR]> ui : enter "find /alice /bob"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("find /alice /bob")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> parser : parseCommand("find /alice /bob")
+activate parser ABPARSER_COLOR
+
+parser -[ABPARSER_COLOR]> findCommand : new FindCommand(keywords)
+activate findCommand FINDCOMMAND_COLOR
+deactivate parser
+destroy parser
+
+findCommand -[FINDCOMMAND_COLOR]> predicate : new NameContainsKeywordsPredicate(keywords)
+activate predicate PREDICATE_COLOR
+
+predicate -[PREDICATE_COLOR]> findCommand : predicate
+deactivate predicate
+destroy predicate
+
+findCommand -[FINDCOMMAND_COLOR]> model : updateFilteredPersonList(predicate)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> findCommand : filtered list updated
+deactivate model
+destroy model
+
+findCommand -[FINDCOMMAND_COLOR]> logic : CommandResult("X persons found")
+deactivate findCommand
+destroy findCommand
+
+logic -[LOGIC_COLOR]> ui : display "X persons found"
+deactivate logic
+
+ui -[UI_COLOR]> user : show result
+deactivate ui
+
+@enduml

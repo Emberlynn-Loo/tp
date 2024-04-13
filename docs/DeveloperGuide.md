@@ -30,7 +30,42 @@ title: Developer Guide
     - [Delete Relationship feature](#delete-relationship-feature)
         - [Deleting a relationship](#scenario-1---deleting-a-relationship)
         - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
+    - [Add Attribute feature](#add-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Edit Attribute feature](#edit-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Delete Attribute feature](#delete-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Find Attribute or UUID feature](#find-attribute-or-uuid-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Add relationship feature](#add-relationship-feature)
+      - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
+      - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
+    - [Edit Relationship feature](#edit-relationship-feature)
+        - [Editing a roleless relationship](#scenario-1---editing-a-roleless-relationship)
+        - [Editing a relationship with roles](#scenario-2---editing-a-relationship-with-roles)
+    - [Delete Relationship feature](#delete-relationship-feature)
+        - [Deleting a relationship](#scenario-1---deleting-a-relationship)
+        - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
+    - [Clear Terminal feature](#clear-terminal-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Delete All Persons feature](#delete-all-persons-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Cases](#use-cases)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+- [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -197,11 +232,13 @@ The `Person` component,
 * The `Attribute` component,
   * is used to store details about a `Person`
   * each attribute has a `name` and a `value`
-  * stores the `Attribute` objects in the `Person` object in the hash map.
-  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`) which allows for the user to instantiate their own attributes with a name and string value
+  * stored `Attribute` objects in the `Person` object in the hash map
+  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
     * `StringAttribute` - stores a string value
     * `IntegerAttribute` - stores an integer value
     * `DateAttribute` - stores a date value
+  * Users are able to create their own attributes using the `StringAttribute` class
+    * They will have their own `String` name and `String` value
   * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints relevant to their validity
     * `NameAttribute` - stores the name of the person
     * `PhoneNumberAttribute` - stores the phone number of the person and must be an integer of less than 10 digits
@@ -458,6 +495,381 @@ The following activity diagram sheds more light on exactly what happens a user e
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Add Attribute feature
+
+An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.
+
+#### Implementation
+
+The Add Attribute mechanism is facilitated by the `AddAttributeCommand` and `AddAttributeParser`.
+The `AddAttributeCommand` class extends the `Command` class.
+
+Given below is an example usage scenario and how adding attributes to a person works by.
+
+Step 1: The user enters a command to add an attribute to a person, for example: `addattribute /1234 /Phone 12345678`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `addattribute` keyword and creates a new `AddAttributeParser`.
+
+Step 4: The `AddAttributeParser` parses the rest of the command `/1234 /Phone 12345678` and creates a new `AddAttributeCommand` with the provided UUID and attribute.
+
+Step 5: The `AddAttributeCommand` is executed.
+
+Step 6: `AddAttributeCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AddAttribute` command.
+* `Model#getPersonByUuid(UUID)` It retrieves the person with the provided `UUID` from the `Model`.
+* `Model#hasAttribute(String, String)` It checks whether the person given already has the attribute that we are adding. 
+
+Step 7: If the person does not have the attribute, the `AddAttributeCommand` adds the attribute to the person object by calling the following methods from `AttributeUtil`:
+* `AttributeUtil#createAttribute(String, String)` It creates a new attribute with the provided name and value.
+
+Step 8: `AddAttributeCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how the `AddAttribute` shows how the `AddAttribute` command works:
+
+![AttributeAdditionSequenceDiagram](images/AttributeAdditionSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `addattribute` command:
+
+![AttributeAdditionActivityDiagram](images/AddAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute is created:**
+
+* **Alternative 1 (current choice):** The `AttribueteUtil` class is responsible for creation of the object during the execution of the command.
+  * Pros: Modular approach. Easy to extend and change the implementation of the attribute creation in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `AddAttributeCommand` class is responsible for creation of the object during the execution of the command.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Addition of existing attribute to a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before adding it.
+  * Pros: Ensures that the person does not have duplicate attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before adding it.
+  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Cons: Might cause confusion for the user when adding an attribute that already exists.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+### Edit Attribute feature
+
+An `EditAttribute` feature that allows users to edit attributes of a person in the address book. This feature ensures that only existing attributes are edited, maintaining data integrity.
+
+#### Implementation
+
+The Edit Attribute mechanism is facilitated by the `EditAttributeCommand` and `EditCommandParser`.
+The `EditAttributeCommand` class extends the `Command` class.
+
+Step 1: The user inputs a command to edit an attribute of a person, such as: `editattribute /4000 /Name John Doe /Phone 12345678`.
+
+Step 2: The `LogicManager` component receives this command as a string and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` identifies the command keyword `editattribute` and initializes a new `EditAttributeParser`.
+
+Step 4: The `EditAttributeParser` processes the rest of the command `/4000 /Name John Doe /Phone 12345678` and generates a new `EditAttributeCommand` with the specified `UUID` and `attributes` to be edited.
+
+Step 5: The `EditAttributeCommand` is executed.
+
+Step 6: `EditAttributeCommand#execute` performs the following actions through the `Model`:
+
+* It calls `Model#getFullUuid(String)` to fetch the complete `UUID` for the person specified in the `EditAttributeCommand`.
+* It retrieves the `person` associated with the provided `UUID` by calling `Model#getPersonByUuid(UUID)`.
+* For each `attribute` to be edited, it checks if the person already has the attribute with `Person#hasAttribute(String)`. If the attribute does not exist, an exception is thrown indicating that the attribute cannot be edited because it does not exist.
+
+Step 7: If the person does have the attribute, `EditAttributeCommand` updates the person's attribute by calling:
+
+* `AttributeUtil#createAttribute(String, String)` to create a new `attribute` object with the new value.
+* `Person#updateAttribute(Attribute)` to update the existing `attribute` with the new one.
+
+Step 8: After successfully editing the attributes, `EditAttributeCommand#execute` returns a `CommandResult` object to the `LogicManager`, indicating that the attributes were edited successfully.
+
+The following sequence diagram illustrates how the `EditAttribute` command functions:
+
+![AttributeEditSequenceDiagram](images/AttributeEditSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `editattribute` command:
+
+![AttributeEditActivityDiagram](images/EditAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute is updated:**
+
+* **Alternative 1 (current choice):** The `AttributeUtil` class is responsible for creating the object during the command execution.
+  * Pros: Modular approach. Easy to extend and change the implementation of the attribute creation in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `EditAttributeCommand` class is responsible for creating the object during the command execution.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Editing a non-existent attribute of a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before editing it.
+  * Pros: Ensures that the user can only edit existing attributes and prevents the creation of new attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before editing it and creates a new attribute.
+  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Cons: Might cause confusion for the user when editing an attribute that does not exist.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete Attribute feature
+
+The `DeleteAttribute` feature that allows users to delete attributes of a person in the address book. This feature ensures that only existing attributes are deleted, maintaining data integrity.
+
+#### Implementation
+
+The Delete Attribute mechanism is facilitated by the `DeleteAttributeCommand` and `DeleteAttributeCommandParser`.
+The `DeleteAttributeCommand` class extends the `Command` class.
+
+Step 1: The user inputs a command to delete one or more attributes from a person, such as: `deleteattribute /f8d9 /Name /Phone`.
+
+Step 2: The `LogicManager` component receives this command as a string and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the command keyword `deleteattribute` and initiates a new `DeleteAttributeCommandParser`.
+
+Step 4: The `DeleteAttributeCommandParser` analyzes the rest of the command `/f8d9 /Name /Phone` and creates a new `DeleteAttributeCommand` with the specified `UUID` and the `attributes` to be deleted.
+
+Step 5: The `DeleteAttributeCommand` is executed.
+
+* It first uses `Model#getFullUuid(String)` to obtain the complete `UUID` of the person specified in the `DeleteAttributeCommand`.
+* It then retrieves the person associated with the provided `UUID` by calling `Model#getPersonByUuid(UUID)`.
+
+Step 6: For each `attribute` listed to be deleted, `DeleteAttributeCommand#execute` performs the following checks and actions through the `Model`:
+
+* It verifies if the person already has the specified `attribute` by calling `Person#hasAttribute(String)`. If the `attribute` does not exist, a `CommandException` is thrown indicating that the `attribute` cannot be deleted because it does not exist.
+* If the `attribute` exists, it is removed from the person's `attributes list`.
+* If the attribute is successfully deleted, the `DeleteAttributeCommand` updates the person's attributes list by calling `Person#deleteAttribute(String)`.
+
+Step 7: If all specified `attributes` exist and are successfully deleted, `DeleteAttributeCommand#execute` returns a `CommandResult` object to the `LogicManager`, indicating that the `attributes` were deleted successfully.
+
+This workflow ensures that attributes are only deleted if they exist for the specified person, maintaining data integrity and providing clear user feedback if an attempt is made to delete an attribute that does not exist.
+
+The following sequence diagram illustrates how the `DeleteAttribute` command functions:
+
+![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `deleteattribute` command:
+
+![AttributeDeleteActivityDiagram](images/DeleteAttributeActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the attribute names are stored before being deleted:**
+
+* **Alternative 1 (current choice):** The `DeleteAttributeCommand` class stores the attribute names to be deleted in an array.
+  * Pros: Simple and straightforward.
+  * Cons: Leads to additional checks being required to ensure that there are not multiples of the same attributes to be deleted in one command.
+* **Alternative 2:** The `DeleteAttributeCommand` class stores the attribute names to be deleted in an arraylist.
+  * Pros: Ensures that only one instance of an attribute is allowed to be parsed for deletion.
+  * Cons: Harder to implement and maintain.
+
+**Aspect: Deleting a non-existent attribute of a person:**
+
+* **Alternative 1 (current choice):** The `Model` component checks if the person already has the attribute before deleting it.
+  * Pros: Ensures that the user can only delete existing attributes and prevents the deletion of non-existent attributes.
+  * Cons: Might cause performance issues if the person has a large number of attributes.
+* **Alternative 2:** The `Model` class does not check if the person already has the attribute before deleting it.
+  * Pros: Straightforward implementation where the attribute is deleted without any checks.
+  * Cons: Might cause confusion for the user when deleting an attribute that does not exist.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Find Attribute or UUID feature
+
+The `FindCommand` provides the capability to search for persons within the address book whose names contain any of the specified keywords. The operation is case-insensitive and enhances the user experience by enabling efficient and flexible searches.
+
+#### Implementation
+
+The `FindCommand` is responsible for filtering the list of all persons in the address book to those whose names contain any of the specified keywords. The command updates the `model's filtered person list` to reflect only the search results.
+The find operation is facilitated by the `NameContainsKeywordsPredicate` class, the `FindCommandParser` class and the `FindCommand` class.
+The `FindCommand` class extends the `Command` class.
+
+Here's a step-by-step description of the FindCommand execution process:
+
+Step 1: The user issues the `find` command along with the key-phrases to search for.
+
+Step 2: The `LogicManager` receives the string input and forwards it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` employs the `FindCommandParser` to extract the keywords from the input and instantiate a `FindCommand` with a `NameContainsKeywordsPredicate`.
+
+Step 4: The `FindCommand` is executed, which involves the following steps:
+
+* It calls `Model#updateFilteredPersonList(predicate)` to filter the list of persons using the `NameContainsKeywordsPredicate`.
+* It updates the relationship list to show all relationships via `Model#updateFilteredRelationshipList(PREDICATE_SHOW_ALL_RELATIONSHIPS)`.
+
+Step 5: The `FindCommand` concludes by returning a `CommandResult` that includes a message about the number of persons found and the `person` objects which are contain the keywords given.
+
+The following sequence diagram illustrates how the `Find` command functions:
+
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `FindCommand`, `NameContainsKeywordsPredicate` and `Model` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `find` command:
+
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the search is performed:**
+
+* **Alternative 1 (current choice):** The `NameContainsKeywordsPredicate` class is responsible for filtering the list of persons based on the keywords.
+  * Pros: Modular approach. Easy to extend and change the implementation of the search in the future.
+  * Cons: Might be over engineering for a simple task.
+* **Alternative 2:** The `FindCommand` class is responsible for filtering the list of persons based on the keywords.
+  * Pros: Simple and straightforward.
+  * Cons: Might lead to a bloated class.
+
+**Aspect: Case sensitivity of the search:**
+
+* **Alternative 1 (current choice):** The search is case-insensitive.
+  * Pros: Enhances user experience by enabling efficient and flexible searches.
+  * Cons: Might lead to unexpected search results if the user is not aware of the case-insensitivity.
+* **Alternative 2:** The search is case-sensitive.
+  * Pros: Ensures that the search results are accurate and precise.
+  * Cons: Might limit the user's ability to search flexibly.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Clear terminal feature
+
+The `ClearCommand` provides the capability to clear the terminal screen. The operation is designed to provide a clean and uncluttered interface for the user.
+
+#### Implementation
+
+The `ClearCommand` is straightforward in its execution: it clears the terminal screen by printing a series of newline characters. The command extends the `Command` class.
+This feature is implemented within the `GUI controller` class, responsible for handling user input and updating the GUI components accordingly.
+
+Process Overview
+When the user inputs c or clear and presses the enter key, the following actions are performed:
+
+Step 1: The `command text` input area is cleared.
+Step 2: The `command dialog` container, which displays the command's output or feedback to the user, is also cleared.
+Step 3: If an image or any additional GUI component is displayed as part of the command's output, it is hidden.
+Step 4: The application checks the height of the command section `dialog scroll pane`. If it is less than or equal to 150 pixels, a short welcome dialog is added. Otherwise, a standard welcome dialog is displayed.
+Step 5: The flag `isDisplayingCommand` is set to false, indicating that no command output is currently being displayed.
+
+The following sequence diagram illustrates how the `Clear Terminal` command functions:
+
+![ClearTerminalSequenceDiagram](images/ClearTerminalSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `clear` command:
+
+![ClearTerminalActivityDiagram](images/ClearTerminalActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the terminal is cleared:**
+
+* **Alternative 1 (current choice):** The `GUIController` class is responsible for clearing the terminal screen.
+  * Pros: Centralized logic for clearing the terminal screen.
+  * Cons: Might lead to a bloated `GUIController` class if additional functionalities are added in the future.
+* **Alternative 2:** Splitting of clearing the terminal screen into a separate class.
+  * Pros: Simple and straightforward.
+  * Cons: Might result in many overlapping classes and methods.
+
+**Aspect: Display of welcome dialog after clearing the terminal:**
+
+* **Alternative 1 (current choice):** The application displays a short welcome dialog if the height of the command section dialog scroll pane is less than or equal to 150 pixels.
+  * Pros: Provides a clean and uncluttered interface for the user.
+  * Cons: Might lead to a cluttered interface if the user has a large number of commands.
+* **Alternative 2:** The application does not display a welcome dialog after clearing the terminal screen.
+  * Pros: Provides a clean and uncluttered interface for the user.
+  * Cons: Might lead to a lack of feedback for the user after clearing the terminal screen.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete All Persons feature
+
+The `DeleteAllCommand` provides the capability to delete all persons from the address book. The operation is irreversible and is designed to provide a quick and efficient way to clear the address book.
+
+#### Implementation
+
+The `ClearCommand` is straightforward in its execution: it replaces the current address book model with a new, empty instance of `AddressBook`, and also resets any relationship descriptors that might be associated with the address book entries.
+The `ClearCommand` class extends the `Command` class.
+
+This is the command execution flow for the `ClearCommand`:
+
+Step 1: The user inputs the command to clear the address book using the keyword `deleteallpersons` or the shorthand `dap`.
+
+Step 2: The input is parsed by the `LogicManager`, which identifies the command as a `ClearCommand`.
+
+Step 3: The `ClearCommand#execute(Model model)` method is called.
+
+* Within the execute method, the `ClearCommand` calls `model.setAddressBook(new AddressBook())` to replace the current address book with a new, empty instance.
+* It then calls `model.resetRelationshipDescriptors()` to clear any existing relationship descriptors.
+
+Step 4: After clearing the address book and relationships, the command returns a new `CommandResult` with a success message indicating that the address book has been cleared.
+
+The following sequence diagram illustrates how the `Clear` command functions:
+
+![ClearSequenceDiagram](images/ClearSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Model`, `ClearCommand` and `LogicManager` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram provides a more detailed view of what happens when a user executes the `deleteallpersons` command:
+
+![ClearActivityDiagram](images/ClearActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the address book is cleared:**
+
+* **Alternative 1 (current choice):** The `Model` component is responsible for clearing the address book, attributes and relationship descriptors.
+  * Pros: Centralized logic for clearing the address book and relationships.
+  * Cons: Might lead to a bloated `Model` class if additional functionalities are added in the future.
+* **Alternative 2:** Splitting of clearing address book, attribute and relationship descriptors into separate classes.
+  * Pros: Simple and straightforward.
+  * Cons: Might result in many overlapping classes and methods.
+
+**Aspect: Irreversibility of the clear operation:**
+
+* **Alternative 1 (current choice):** The clear operation is irreversible.
+  * Pros: Prevents accidental data loss by requiring user confirmation before clearing the address book.
+  * Cons: Might lead to data loss if the user executes the command unintentionally.
+* **Alternative 2:** The clear operation is reversible.
+  * Pros: Provides a safety net for users who might accidentally clear the address book.
+  * Cons: Might lead to data clutter if the user is unable to clear the address book.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
@@ -470,7 +882,7 @@ The following activity diagram sheds more light on exactly what happens a user e
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Appendix: Requirements
+## **Appendix: Requirements**
 
 ### Product scope
 
@@ -496,8 +908,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user    | Have clear success or failure messages after actions                                 | Ensure that the intended action has taken place        |
 | `* *`    | user    | Sort and search a person by their attributes                                         | Find specific individuals more easily                  |
 | `* * *`  | user    | Have my data automatically saved once i exit the app and loaded once i start the app | Seamless experience across different sessions          |
-
-*{More to be added}*
 
 ### Use cases
 
@@ -532,6 +942,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 **Extensions**
+
 
 * 1a. User enters an invalid command format.
     * 1a1. Gene-nie shows an error message.
@@ -1151,4 +1562,32 @@ testers are expected to do more *exploratory* testing.
     2. Open the file named `addressbook.json`.
     3. Modify the file. For example, you could remove the first few lines of the file.
     4. Relaunch Gene-nie. <br>
-       **Expected Outcome:** The left panel is now empty. No person records are shown in the application.
+       **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+### C.1 - Display results of find command in "Search Results" tab
+
+Currently, the results of the `find` command are displayed in the left panel of the application. This enhancement aims to display the results in the separate already implemented tab called "Search Results" to improve the user experience. This will allow users to view the search results without losing sight of the main list of persons.
+
+* Proposed Enhancement:
+  * Display the results of the `find` command in the "Search Results" tab. This tab will be updated with the search results each time the `find` command is executed. The results will be displayed in a similar format to the current display in the left panel. The "Search Results" tab will be cleared when the user executes a new `find` command or closes the application.
+
+* Implementation Details:
+  * Update the `find` command to use the alternate `CommandResult` constructor.
+  * Return the appropriate `CommandResult(findSucessMessage, false, false, true)` to indicate that the search results should be displayed in the "Search Results" tab.
+  * Update the `MainWindow` to display the search results in the "Search Results" tab.
+
+### C.2 - Improve error handling for invalid commands
+
+Currently, the application displays a generic error message when an invalid such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
+
+* Proposed Enhancement:
+  * Improve error handling for invalid commands by ensuring the correct error message is returned.
+
+* Implementation Details:
+  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Update the error handling logic to check for the specific command entered by the user.
+  * Return a specific error message based on the invalid command entered by the user.

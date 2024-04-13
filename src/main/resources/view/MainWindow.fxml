@@ -21,7 +21,6 @@
       <stylesheets>
         <URL value="@theme.css" />
         <URL value="@NewCliTheme.css" />
-        <URL value="@Extensions.css" />
       </stylesheets>
 
       <VBox fillWidth="true" styleClass="main-window_container" fx:id="mainWindowContainer" alignment="CENTER">

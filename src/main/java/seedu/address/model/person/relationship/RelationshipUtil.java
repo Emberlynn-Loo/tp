@@ -24,7 +24,11 @@ import seedu.address.model.Model;
 public class RelationshipUtil {
     protected static ArrayList<ArrayList<String>> roleBasedDescriptors = new ArrayList<>(Arrays.asList(
             new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+            new ArrayList<>(Arrays.asList("siblings", "brother", "brother")),
+            new ArrayList<>(Arrays.asList("siblings", "sister", "sister")),
             new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+            new ArrayList<>(Arrays.asList("spouses", "husband", "husband")),
+            new ArrayList<>(Arrays.asList("spouses", "wife", "wife")),
             new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
     ));
     protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
@@ -689,15 +693,14 @@ public class RelationshipUtil {
     /**
      * Checks if the inputted gender of a person matches the gender inferred from existing relationship roles.
      *
-     * @param model         The model containing the relationships.
-     * @param uuid          The last 4 digits of the UUID of a person.
+     * @param fulluuid      The full uuid of a person.
      * @param gender        The gender input of a person.
      * @throws CommandException If the roles provided for the persons are incompatible with their genders as inferred
      *                          from existing relationships.
      */
-    public void genderCheck(Model model, String uuid, String gender) throws CommandException {
-        UUID fulluuid = model.getFullUuid(uuid.toString());
-        ObservableList<Relationship> allRelationships = model.getFilteredRelationshipList();
+    public void genderCheck(UUID fulluuid, String gender) throws CommandException {
+        String uuid = fulluuid.toString().substring(fulluuid.toString().length() - 4);
+        ObservableList<Relationship> allRelationships = this.internalUnmodifiableList;
         String genderMatch = null;
         for (Relationship r : allRelationships) {
             if ((r.getRelationshipDescriptor().equalsIgnoreCase("Siblings")
