@@ -26,8 +26,8 @@ title: Developer Guide
     - [Delete Attribute feature](#delete-attribute-feature)
     - [Find Attribute or UUID feature](#find-attribute-or-uuid-feature)
     - [Add relationship feature](#add-relationship-feature)
-      - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
-      - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
+        - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
+        - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
     - [Edit Relationship feature](#edit-relationship-feature)
         - [Editing a roleless relationship](#scenario-1---editing-a-roleless-relationship)
         - [Editing a relationship with roles](#scenario-2---editing-a-relationship-with-roles)
@@ -36,6 +36,7 @@ title: Developer Guide
         - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
     - [Clear Terminal feature](#clear-terminal-feature)
     - [Delete All Persons feature](#delete-all-persons-feature)
+    - [AnySearch feature](#anysearch-feature)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
@@ -849,6 +850,73 @@ The following activity diagram provides a more detailed view of what happens whe
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+
+### AnySearch feature
+
+#### Implementation
+
+The AnySearch mechanism is facilitated by the `AnySearchCommand` and `AnySearchCommandParser`.
+The `AnySearchCommand` class extends the `Command` class and implements the following operation:
+* `AnySearchCommand#execute()` — Searches for the relationship pathway between two persons.
+
+Given below is an example usage scenario and how the AnySearch feature behaves at each step.
+
+Step 1: The user executes `anySearch /1234 /5678` to search for the relationship pathway between two persons.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `anySearch` keyword and creates a new `AnySearchCommandParser`. The `AnySearchCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678`.
+
+Step 4: `AnySearchCommandParser#parse` then returns a new `AnySearchCommand` object with the parsed Uuid details.
+
+Step 5: `AnySearchCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AnySearch` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#anySearch(fullOriginUuid, fullTargetUuid)` It communicates with the `Model` to search for the relationship pathway between the two persons.
+* `Model#updateFilteredPersonList(predicate)` It communicates with the `Model` to update the filtered person list with the results of the search.
+* `Model#updateFilteredRelationshipList(predicate)` It communicates with the `Model` to update the filtered relationship list with the results of the search.
+
+Step 6: `AnySearchCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how the AnySearch feature works:
+
+![AnySearchSequenceDiagram](images/AnySearchSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for AnySearchCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `anySearch` command:
+
+![AnySearchActivityDiagram](images/AnySearchActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the relationship pathway is searched:**
+
+* **Alternative 1 (current choice):** The `AnySearchCommand` searches for the relationship pathway between two persons using Breadth-First-Search(BFS).
+    * Pros: Efficient and scalable for large address books.
+    * Cons: Might be overkill for small address books.
+* **Alternative 2:** The `AnySearchCommand` searches for the relationship pathway between two persons using Depth-First-Search(DFS).
+    * Pros: Simple and straightforward.
+    * Cons: Might be less efficient for large address books.
+
+**Aspect: Display of relationship pathway:**
+
+* **Alternative 1 (current choice):** The `AnySearchCommand` displays the shortest relationship pathway between two persons.
+    * Pros: Provides a clear and concise output for the user.
+    * Cons: Might not display all possible relationship pathways.
+* **Alternative 2:** The `AnySearchCommand` displays all possible relationship pathways between two persons.
+    * Pros: Provides a comprehensive view of the relationship pathways.
+    * Cons: Might lead to information overload for the user.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
