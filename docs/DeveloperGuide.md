@@ -21,27 +21,10 @@ title: Developer Guide
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
 - [Implementation](#implementation)
-    - [Add relationship feature](#add-relationship-feature)
-        - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
-        - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
-    - [Edit Relationship feature](#edit-relationship-feature)
-        - [Editing a roleless relationship](#scenario-1---editing-a-roleless-relationship)
-        - [Editing a relationship with roles](#scenario-2---editing-a-relationship-with-roles)
-    - [Delete Relationship feature](#delete-relationship-feature)
-        - [Deleting a relationship](#scenario-1---deleting-a-relationship)
-        - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
     - [Add Attribute feature](#add-attribute-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
     - [Edit Attribute feature](#edit-attribute-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
     - [Delete Attribute feature](#delete-attribute-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
     - [Find Attribute or UUID feature](#find-attribute-or-uuid-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
     - [Add relationship feature](#add-relationship-feature)
       - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
       - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
@@ -52,11 +35,7 @@ title: Developer Guide
         - [Deleting a relationship](#scenario-1---deleting-a-relationship)
         - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
     - [Clear Terminal feature](#clear-terminal-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
     - [Delete All Persons feature](#delete-all-persons-feature)
-      - [Implementation](#implementation)
-      - [Design considerations](#design-considerations)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
@@ -291,209 +270,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-### Edit Relationship feature
-
-#### Implementation
-
-The Edit relationship mechanism is facilitated by the `EditRelationshipCommand` and `EditRelationshipCommandParser`.
-The `EditRelationshipCommand` class extends the `Command` class and implements the following operation:
-* `EditRelationshipCommand#execute()` — Edits a relationship between two persons.
-
-#### Scenario 1 - Editing a roleless relationship
-
-Given below is an example usage scenario and how editing a roleless relationship behaves at each step.
-
-Step 1: The user executes `editRelation /1234 /5678 /friends /colleagues` to edit a roleless relationship.
-
-Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
-
-Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends /colleagues`.
-
-Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details into a hashmap. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
-
-Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
-
-Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
-
-Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
-
-* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
-* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
-* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
-* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor. If it is, an exception is thrown stating that the `newRelationshipDescriptor` already exists, and can't be added as a roleless relationshipDescriptor.
-* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
-* `Model#addRolelessDescriptor(newRelationshipDescriptor)` It communicates with the `Model` to add the `newRelationshipDescriptor`.
-* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship .
-
-Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
-
-The following sequence diagram shows how editing a roleless relationship works:
-
-![RolelessRelationshipEditingSequenceDiagram](images/RolelessRelationshipEditingSequenceDiagram.png)
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Note:**
-* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-#### Scenario 2 - Editing a relationship with roles
-
-Given below is an example usage scenario and how editing a relationship with roles behaves at each step.
-
-Step 1: The user executes `editRelation /1234 husband /5678 wife /partners /spouses` to edit a relationship with roles.
-
-Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
-
-Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 husband /5678 wife /partners /spouses`.
-
-Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
-
-Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
-
-Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
-
-Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
-
-* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
-* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
-* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
-* `Model#hasAttribute(Uuid, "Sex")` It checks whether the attribute `Sex` exists for the person with the given Uuid.
-* `Model#genderMatch(role, UuidString, Uuid)` It checks whether the role gender matches with the gender of the "Sex" attribute of the person with the given Uuid. This method is only called if the "Sex" attribute exists for the person.
-* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor.
-* `Model#getRoles(newRelationshipDescriptor)` It communicates with the `Model` to retrieve the roles of the relationship with the provided `newRelationshipDescriptor`.
-* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
-* `Model#addRoleBasedDescriptor(newRelationshipDescriptor, role1, role2)` It communicates with the `Model` to add the new relationship descriptor with the provided roles.
-* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship.
-
-Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
-
-The following sequence diagram shows how editing a relationship with roles works:
-
-![RoleBasedRelationshipEditingSequenceDiagram](images/RoleBasedRelationshipEditingSequenceDiagram.png)
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Note:**
-* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The following activity diagram sheds more light on exactly what happens a user executes the `editrelation` command:
-
-![RelationshipEditingActivityDiagram](images/RelationshipEditingActivityDiagram.png)
-
-#### Design considerations
-
-**Aspect: How the relationship is edited:**
-
-* **Alternative 1 (current choice):** The `EditRelationshipCommand` deletes the old relationship and adds the new relationship.
-    * Pros: Straightforward implementation.
-    * Cons: May cause performance issues if the person has a large number of relationships.
-* **Alternative 2:** The `EditRelationshipCommand` updates the old relationship with the new relationship.
-    * Pros: More efficient as it does not require deleting and adding relationships.
-    * Cons: More complex implementation.
-
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
-### Delete Relationship feature
-
-#### Implementation
-
-The Delete relationship mechanism is facilitated by the `DeleteRelationshipCommand` and `DeleteRelationshipCommandParser`.
-The `DeleteRelationshipCommand` class extends the `Command` class and implements the following operation:
-* `DeleteRelationshipCommand#execute()` — Deletes a relationship between two persons.
-
-#### Scenario 1 - Deleting a relationship
-
-Given below is an example usage scenario and how deleting a relationship behaves at each step.
-
-Step 1: The user executes `deleteRelation /1234 /5678 /friends` to delete a relationship.
-
-Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
-
-Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends`.
-
-Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
-
-Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
-
-Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
-
-Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
-
-* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `DeleteRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
-* `Model#hasRelationshipWithDescriptor(toDelete)` It checks whether the relationship to be deleted between the two persons exists. If it does not, the method throws an exception stating that the relationship does not exist and cannot be deleted.
-* `Model#deleteRelationship(toDelete)` It communicates with the `Model` to delete the relationship.
-
-Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
-
-The following sequence diagram shows how deleting a relationship works:
-
-![RelationshipDeletingSequenceDiagram](images/RelationshipDeletingSequenceDiagram.png)
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Note:**
-* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-#### Scenario 2 - Deleting a relationType
-
-Given below is an example usage scenario and how deleting a relationType behaves at each step.
-
-Step 1: The user executes `deleteRelation /colleagues` to delete a relationType.
-
-Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
-
-Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/friends`.
-
-Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the relationship descriptor is valid. It then returns a `LinkedHashMap<String, String>` containing the relationship Descriptor.
-
-Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
-
-Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
-
-Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
-
-* `Model#deleteRelationType(toDelete)` It communicates with the `Model` to delete the relationType. If the relationType does not exist, an exception is thrown stating that the relationType does not exist and cannot be deleted.
-
-Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
-
-The following sequence diagram shows how deleting a relationType works:
-
-![RelationTypeDeletingSequenceDiagram](images/RelationTypeDeletingSequenceDiagram.png)
-
-<div markdown="block" class="alert alert-info">
-
-:information_source: **Note:**
-* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The following activity diagram sheds more light on exactly what happens a user executes the `deleterelation` command:
-
-![RelationshipDeletingActivityDiagram](images/RelationshipDeletingActivityDiagram.png)
-
-#### Design considerations
-
-**Aspect: How the relationship vs relationType is deleted:**
-
-* **Alternative 1 (current choice):** The `DeleteRelationshipCommand` deletes the relationship/relationType based on whether the user provides the UUIDs of the persons.
-    * Pros: Straightforward implementation.
-    * Cons: May cause confusion for the user whether the relationship or relationType is being deleted.
-* **Alternative 2:** Have a separate command for deleting the relationType specifically.
-    * Pros: More explicit for the user.
-    * Cons: More commands to implement, resulting in a more complex overall system.
-
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
 
 ### Add Attribute feature
 
@@ -754,6 +530,209 @@ The following activity diagram provides a more detailed view of what happens whe
 * **Alternative 2:** The search is case-sensitive.
   * Pros: Ensures that the search results are accurate and precise.
   * Cons: Might limit the user's ability to search flexibly.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Edit Relationship feature
+
+#### Implementation
+
+The Edit relationship mechanism is facilitated by the `EditRelationshipCommand` and `EditRelationshipCommandParser`.
+The `EditRelationshipCommand` class extends the `Command` class and implements the following operation:
+* `EditRelationshipCommand#execute()` — Edits a relationship between two persons.
+
+#### Scenario 1 - Editing a roleless relationship
+
+Given below is an example usage scenario and how editing a roleless relationship behaves at each step.
+
+Step 1: The user executes `editRelation /1234 /5678 /friends /colleagues` to edit a roleless relationship.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends /colleagues`.
+
+Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details into a hashmap. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
+
+Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
+* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor. If it is, an exception is thrown stating that the `newRelationshipDescriptor` already exists, and can't be added as a roleless relationshipDescriptor.
+* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
+* `Model#addRolelessDescriptor(newRelationshipDescriptor)` It communicates with the `Model` to add the `newRelationshipDescriptor`.
+* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship .
+
+Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how editing a roleless relationship works:
+
+![RolelessRelationshipEditingSequenceDiagram](images/RolelessRelationshipEditingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Scenario 2 - Editing a relationship with roles
+
+Given below is an example usage scenario and how editing a relationship with roles behaves at each step.
+
+Step 1: The user executes `editRelation /1234 husband /5678 wife /partners /spouses` to edit a relationship with roles.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 husband /5678 wife /partners /spouses`.
+
+Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
+
+Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
+* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#hasAttribute(Uuid, "Sex")` It checks whether the attribute `Sex` exists for the person with the given Uuid.
+* `Model#genderMatch(role, UuidString, Uuid)` It checks whether the role gender matches with the gender of the "Sex" attribute of the person with the given Uuid. This method is only called if the "Sex" attribute exists for the person.
+* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor.
+* `Model#getRoles(newRelationshipDescriptor)` It communicates with the `Model` to retrieve the roles of the relationship with the provided `newRelationshipDescriptor`.
+* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
+* `Model#addRoleBasedDescriptor(newRelationshipDescriptor, role1, role2)` It communicates with the `Model` to add the new relationship descriptor with the provided roles.
+* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship.
+
+Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how editing a relationship with roles works:
+
+![RoleBasedRelationshipEditingSequenceDiagram](images/RoleBasedRelationshipEditingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `editrelation` command:
+
+![RelationshipEditingActivityDiagram](images/RelationshipEditingActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the relationship is edited:**
+
+* **Alternative 1 (current choice):** The `EditRelationshipCommand` deletes the old relationship and adds the new relationship.
+    * Pros: Straightforward implementation.
+    * Cons: May cause performance issues if the person has a large number of relationships.
+* **Alternative 2:** The `EditRelationshipCommand` updates the old relationship with the new relationship.
+    * Pros: More efficient as it does not require deleting and adding relationships.
+    * Cons: More complex implementation.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete Relationship feature
+
+#### Implementation
+
+The Delete relationship mechanism is facilitated by the `DeleteRelationshipCommand` and `DeleteRelationshipCommandParser`.
+The `DeleteRelationshipCommand` class extends the `Command` class and implements the following operation:
+* `DeleteRelationshipCommand#execute()` — Deletes a relationship between two persons.
+
+#### Scenario 1 - Deleting a relationship
+
+Given below is an example usage scenario and how deleting a relationship behaves at each step.
+
+Step 1: The user executes `deleteRelation /1234 /5678 /friends` to delete a relationship.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends`.
+
+Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
+
+Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `DeleteRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toDelete)` It checks whether the relationship to be deleted between the two persons exists. If it does not, the method throws an exception stating that the relationship does not exist and cannot be deleted.
+* `Model#deleteRelationship(toDelete)` It communicates with the `Model` to delete the relationship.
+
+Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a relationship works:
+
+![RelationshipDeletingSequenceDiagram](images/RelationshipDeletingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Scenario 2 - Deleting a relationType
+
+Given below is an example usage scenario and how deleting a relationType behaves at each step.
+
+Step 1: The user executes `deleteRelation /colleagues` to delete a relationType.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/friends`.
+
+Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the relationship descriptor is valid. It then returns a `LinkedHashMap<String, String>` containing the relationship Descriptor.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
+
+Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#deleteRelationType(toDelete)` It communicates with the `Model` to delete the relationType. If the relationType does not exist, an exception is thrown stating that the relationType does not exist and cannot be deleted.
+
+Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a relationType works:
+
+![RelationTypeDeletingSequenceDiagram](images/RelationTypeDeletingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `deleterelation` command:
+
+![RelationshipDeletingActivityDiagram](images/RelationshipDeletingActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the relationship vs relationType is deleted:**
+
+* **Alternative 1 (current choice):** The `DeleteRelationshipCommand` deletes the relationship/relationType based on whether the user provides the UUIDs of the persons.
+    * Pros: Straightforward implementation.
+    * Cons: May cause confusion for the user whether the relationship or relationType is being deleted.
+* **Alternative 2:** Have a separate command for deleting the relationType specifically.
+    * Pros: More explicit for the user.
+    * Cons: More commands to implement, resulting in a more complex overall system.
 
 [Back to Table of Contents](#table-of-contents)
 
