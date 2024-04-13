@@ -82,26 +82,26 @@ public class JsonAdaptedRelationship {
         }
     }
 
-    public boolean siblingsRoleCheck() {
+    private boolean siblingsRoleCheck() {
         return (!((rolePerson1.equals("brother") && rolePerson2.equals("brother"))
                 || (rolePerson1.equals("sister") && rolePerson2.equals("sister"))
                 || (rolePerson1.equals("brother") && rolePerson2.equals("sister"))
                 || (rolePerson1.equals("sister") && rolePerson2.equals("brother"))));
     }
 
-    public boolean spousesRoleCheck() {
+    private boolean spousesRoleCheck() {
         return (!((rolePerson1.equals("husband") && rolePerson2.equals("husband"))
                 || (rolePerson1.equals("wife") && rolePerson2.equals("wife"))
                 || (rolePerson1.equals("husband") && rolePerson2.equals("wife"))
                 || (rolePerson1.equals("wife") && rolePerson2.equals("husband"))));
     }
 
-    public boolean bioParentsRoleCheck() {
+    private boolean bioParentsRoleCheck() {
         return ((!rolePerson1.equals("parent") && !rolePerson2.equals("parent"))
                 || (!rolePerson1.equals("child") && !rolePerson2.equals("child")));
     }
 
-    public Relationship checkRoles(String descriptorCheck) throws IllegalValueException {
+    private Relationship checkRoles(String descriptorCheck) throws IllegalValueException {
         switch (descriptorCheck) {
         case "bioparents":
             if (bioParentsRoleCheck()) {

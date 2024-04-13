@@ -129,7 +129,8 @@ class JsonSerializableAddressBook {
         }
     }
 
-    private void handleRoleBasedRelationship(Relationship relationship, Pair<ArrayList<String>, ArrayList<ArrayList<String>>> pairOfDescriptors) throws IllegalValueException {
+    private void handleRoleBasedRelationship(Relationship relationship, Pair<ArrayList<String>,
+            ArrayList<ArrayList<String>>> pairOfDescriptors) throws IllegalValueException {
         ArrayList<String> roleBasedDescriptor = new ArrayList<>(Arrays.asList(
                 relationship.getRelationshipDescriptor(), (
                         (RoleBasedRelationship) relationship).getRole(relationship.getPerson1()), (
@@ -143,7 +144,8 @@ class JsonSerializableAddressBook {
         }
     }
 
-    private void handleSiblingRelationship(Relationship relationship, HashMap<UUID, String> personGenders, AddressBook addressBook) throws IllegalValueException {
+    private void handleSiblingRelationship(Relationship relationship, HashMap<UUID, String> personGenders,
+                                           AddressBook addressBook) throws IllegalValueException {
         SiblingRelationship siblingRelationship = (SiblingRelationship) relationship;
         UUID person1Uuid = siblingRelationship.getPerson1();
         UUID person2Uuid = siblingRelationship.getPerson2();
@@ -164,7 +166,8 @@ class JsonSerializableAddressBook {
         checkGenderMatch(rolePerson2, uuid2, addressBook);
     }
 
-    private void handleSpousesRelationship(Relationship relationship, HashMap<UUID, String> personGenders, AddressBook addressBook) throws IllegalValueException {
+    private void handleSpousesRelationship(Relationship relationship, HashMap<UUID, String> personGenders,
+                                           AddressBook addressBook) throws IllegalValueException {
         SpousesRelationship spousesRelationship = (SpousesRelationship) relationship;
         UUID person1Uuid = spousesRelationship.getPerson1();
         UUID person2Uuid = spousesRelationship.getPerson2();
@@ -185,7 +188,8 @@ class JsonSerializableAddressBook {
         checkGenderMatch(rolePerson2, uuid2, addressBook);
     }
 
-    private void checkGenderConsistency(UUID personUuid, String gender, HashMap<UUID, String> personGenders) throws IllegalValueException {
+    private void checkGenderConsistency(UUID personUuid, String gender, HashMap<UUID,
+            String> personGenders) throws IllegalValueException {
         if (personGenders.containsKey(personUuid) && !personGenders.get(personUuid).equals(gender)) {
             throw new IllegalValueException("Inconsistent gender for person with UUID " + personUuid);
         }
