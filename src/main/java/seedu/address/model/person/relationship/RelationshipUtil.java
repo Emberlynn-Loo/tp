@@ -32,7 +32,7 @@ public class RelationshipUtil {
             new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
     ));
     protected static ArrayList<String> rolelessDescriptors = new ArrayList<>(
-            Arrays.asList("friends"));
+            List.of("friends"));
     private final ObservableList<Relationship> relationshipsTracker = FXCollections.observableArrayList();
     private final ObservableList<Relationship> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(relationshipsTracker);
@@ -83,13 +83,14 @@ public class RelationshipUtil {
      */
     public boolean hasRelationshipWithDescriptor(Relationship toFind) {
         for (Relationship relationship : relationshipsTracker) {
-            if ((relationship.getPerson1().equals(toFind.getPerson1()) && relationship.getPerson2()
+            boolean personsMatch = ((relationship.getPerson1().equals(toFind.getPerson1()) && relationship.getPerson2()
                     .equals(toFind.getPerson2()))
                     || (relationship.getPerson1().equals(toFind.getPerson2()) && relationship.getPerson2()
-                    .equals(toFind.getPerson1()))) {
-                if (relationship.getRelationshipDescriptor().equalsIgnoreCase(toFind.getRelationshipDescriptor())) {
-                    return true;
-                }
+                    .equals(toFind.getPerson1())));
+
+            if (personsMatch
+                    && relationship.getRelationshipDescriptor().equalsIgnoreCase(toFind.getRelationshipDescriptor())) {
+                return true;
             }
         }
         return false;
@@ -108,21 +109,6 @@ public class RelationshipUtil {
             }
         }
         return false;
-    }
-
-    /**
-     * Checks if a relationship with a specific descriptor exists in the tracker.
-     *
-     * @param descriptor The descriptor to find.
-     * @return true if the relationship exists, false otherwise.
-     */
-    public String descriptorExistsValid(String descriptor) {
-        for (String relationship : validDescriptors) {
-            if (relationship.equals(descriptor)) {
-                return relationship;
-            }
-        }
-        return null;
     }
 
     /**
@@ -193,59 +179,8 @@ public class RelationshipUtil {
      *
      * @param origin The UUID of the origin entity from which the search begins.
      * @param target The UUID of the target entity the search aims to find a path to.
-     * @return a listcontaining the relationship descriptors in the order
-     * encountered from the origin to the target. If no path exists, returns an empty list.
-     */
-    public ArrayList<String> anySearchDescriptors(UUID origin, UUID target) {
-        ArrayList<String> result = new ArrayList<>();
-        HashSet<UUID> visited = new HashSet<>();
-        Pair[] parent = new Pair[relationshipsTracker.size()];
-        ArrayList<Pair> frontier = new ArrayList<>();
-        frontier.add(new Pair(origin, -1));
-        ; //since we came from nowhere
-        visited.add(origin);
-        while (!frontier.isEmpty()) {
-            ArrayList<Pair> nextFrontier = new ArrayList<>();
-            for (Pair currentNode : frontier) {
-                UUID start = currentNode.uuid;
-                for (int i = 0; i < relationshipsTracker.size(); i++) {
-                    Relationship current = relationshipsTracker.get(i);
-                    UUID nextUuid = current.containsUuid(start);
-                    if (nextUuid == null) {
-                        continue;
-                    }
-                    if (nextUuid.equals(target)) {
-                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
-                        int currentIdx = i;
-                        while (currentIdx != -1) {
-                            Pair parentPair = parent[currentIdx];
-                            Relationship edge = relationshipsTracker.get(currentIdx);
-                            result.add(0, edge.getRelativeRelationshipDescriptor(parentPair.uuid));
-                            currentIdx = parentPair.relationshipPairIndex;
-                        }
-                        return result;
-                    }
-                    if (!visited.contains(nextUuid)) {
-                        visited.add(nextUuid);
-                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
-                        nextFrontier.add(new Pair(nextUuid, i));
-                    }
-                }
-            }
-            frontier = nextFrontier;
-        }
-        return result;
-    }
-
-    /**
-     * Performs a breadth-first search (BFS) through the relationships tracker to find a path
-     * of relationship descriptors between two UUIDs, representing the origin and target entities.
-     * This method considers all types of relationships in the search.
-     *
-     * @param origin The UUID of the origin entity from which the search begins.
-     * @param target The UUID of the target entity the search aims to find a path to.
-     * @return a listcontaining the relationship descriptors in the order
-     * encountered from the origin to the target. If no path exists, returns an empty list.
+     * @return a list containing the relationship descriptors in the order
+     *     encountered from the origin to the target. If no path exists, returns an empty list.
      */
     public ResultContainer anySearchForTreeMap(UUID origin, UUID target) {
         ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
@@ -255,7 +190,6 @@ public class RelationshipUtil {
         Pair[] parent = new Pair[relationshipsTracker.size()];
         ArrayList<Pair> frontier = new ArrayList<>();
         frontier.add(new Pair(origin, -1));
-        ; //since we came from nowhere
         visited.add(origin);
 
         while (!frontier.isEmpty()) {
@@ -269,38 +203,21 @@ public class RelationshipUtil {
                         continue;
                     }
                     if (nextUuid.equals(target)) {
-                        relatedPersonsUuid.add(nextUuid);
-                        relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(nextUuid));
-                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
+                        relatedPersonsUuid.add(nextUuid); //
+                        relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(nextUuid)); //
+                        parent[i] = new Pair(start, currentNode.relationshipPairIndex); //
                         int currentIdx = i;
                         while (currentIdx != -1) {
-                            Pair parentPair = parent[currentIdx];
-                            Relationship edge = relationshipsTracker.get(currentIdx);
-                            relationships.add(edge);
-                            relatedPersonsUuid.add(parentPair.uuid);
+                            Pair parentPair = parent[currentIdx]; //
+                            Relationship edge = relationshipsTracker.get(currentIdx); //
+                            relationships.add(edge); //
+                            relatedPersonsUuid.add(parentPair.uuid); //
                             relationshipPathwayBuilder.add(
                                     edge.getRelativeRelationshipDescriptorWithoutUuid(parentPair.uuid));
                             relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(parentPair.uuid));
                             currentIdx = parentPair.relationshipPairIndex;
                         }
-                        Collections.reverse(relatedPersonsUuid);
-                        Collections.reverse(relationships);
-                        Collections.reverse(relationshipPathwayBuilder);
-                        StringBuilder relationshipPathwayCompactor = new StringBuilder();
-                        int idx = 0;
-                        while (idx < relationshipPathwayBuilder.size()) {
-                            if (idx == 0) {
-                                relationshipPathwayCompactor.append(relationshipPathwayBuilder.get(idx));
-                                idx++;
-                            } else {
-                                String toAdd = String.format(" --> %s --> %s", relationshipPathwayBuilder.get(idx),
-                                        relationshipPathwayBuilder.get(idx + 1));
-                                relationshipPathwayCompactor.append(toAdd);
-                                idx += 2;
-                            }
-                        }
-                        return new ResultContainer(relatedPersonsUuid, relationships,
-                                relationshipPathwayCompactor.toString());
+                        return container(relatedPersonsUuid, relationships, relationshipPathwayBuilder);
                     }
                     if (!visited.contains(nextUuid)) {
                         visited.add(nextUuid);
@@ -314,60 +231,27 @@ public class RelationshipUtil {
         return null;
     }
 
-    /**
-     * Searches for a path of family relationships between two entities identified by their UUIDs,
-     * specifically considering only those relationships that are instances of FamilyRelationship.
-     * Utilizes a breadth-first search (BFS) strategy to navigate through the relationships tracker.
-     *
-     * @param origin The UUID of the entity from which to start the search.
-     * @param target The UUID of the entity to find a path to, using only family relationships.
-     * @return A list listing the family relationship descriptors from the origin
-     * to the target, in order encountered. Returns an empty list if no such path exists.
-     */
-    public ArrayList<String> familySearchDescriptors(UUID origin, UUID target) {
-        ArrayList<String> result = new ArrayList<>();
-        HashSet<UUID> visited = new HashSet<>();
-        Pair[] parent = new Pair[relationshipsTracker.size()];
-        ArrayList<Pair> frontier = new ArrayList<>();
-        frontier.add(new Pair(origin, -1));
-        ; //since we came from nowhere
-        visited.add(origin);
-        while (!frontier.isEmpty()) {
-            ArrayList<Pair> nextFrontier = new ArrayList<>();
-            for (Pair currentNode : frontier) {
-                UUID start = currentNode.uuid;
-                for (int i = 0; i < relationshipsTracker.size(); i++) {
-                    Relationship current = relationshipsTracker.get(i);
-                    if (!(current instanceof FamilyRelationship)) {
-                        continue;
-                    }
-                    UUID nextUuid = current.containsUuid(start);
-                    if (nextUuid == null) {
-                        continue;
-                    }
-                    if (nextUuid.equals(target)) {
-                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
-                        int currentIdx = i;
-                        while (currentIdx != -1) {
-                            Pair parentPair = parent[currentIdx];
-                            Relationship edge = relationshipsTracker.get(currentIdx);
-                            result.add(0, edge.getRelativeRelationshipDescriptor(parentPair.uuid));
-                            currentIdx = parentPair.relationshipPairIndex;
-                        }
-                        return result;
-                    }
-                    if (!visited.contains(nextUuid)) {
-                        visited.add(nextUuid);
-                        parent[i] = new Pair(start, currentNode.relationshipPairIndex);
-                        nextFrontier.add(new Pair(nextUuid, i));
-                    }
-                }
+    private ResultContainer container(ArrayList<UUID> relatedPersonsUuid, ArrayList<Relationship> relationships,
+                                      ArrayList<String> relationshipPathwayBuilder) {
+        Collections.reverse(relatedPersonsUuid);
+        Collections.reverse(relationships);
+        Collections.reverse(relationshipPathwayBuilder);
+        StringBuilder relationshipPathwayCompactor = new StringBuilder();
+        int idx = 0;
+        while (idx < relationshipPathwayBuilder.size()) {
+            if (idx == 0) {
+                relationshipPathwayCompactor.append(relationshipPathwayBuilder.get(idx));
+                idx++;
+            } else {
+                String toAdd = String.format(" --> %s --> %s", relationshipPathwayBuilder.get(idx),
+                        relationshipPathwayBuilder.get(idx + 1));
+                relationshipPathwayCompactor.append(toAdd);
+                idx += 2;
             }
-            frontier = nextFrontier;
         }
-        return result;
+        return new ResultContainer(relatedPersonsUuid, relationships,
+                relationshipPathwayCompactor.toString());
     }
-
 
     /**
      * Searches for a path of family relationships between two entities identified by their UUIDs,
@@ -377,7 +261,7 @@ public class RelationshipUtil {
      * @param origin The UUID of the entity from which to start the search.
      * @param target The UUID of the entity to find a path to, using only family relationships.
      * @return A ResultContainer listing the family relationship descriptors from the origin
-     * to the target, in order encountered. Returns null if no such path exists.
+     *     to the target, in order encountered. Returns null if no such path exists.
      */
     public ResultContainer familySearchForTreeMap(UUID origin, UUID target) {
         ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
@@ -387,7 +271,6 @@ public class RelationshipUtil {
         Pair[] parent = new Pair[relationshipsTracker.size()];
         ArrayList<Pair> frontier = new ArrayList<>();
         frontier.add(new Pair(origin, -1));
-        ; //since we came from nowhere
         visited.add(origin);
 
         while (!frontier.isEmpty()) {
@@ -418,24 +301,7 @@ public class RelationshipUtil {
                             relationshipPathwayBuilder.add(getLastFourCharacterOfUuid(parentPair.uuid));
                             currentIdx = parentPair.relationshipPairIndex;
                         }
-                        Collections.reverse(relatedPersonsUuid);
-                        Collections.reverse(relationships);
-                        Collections.reverse(relationshipPathwayBuilder);
-                        StringBuilder relationshipPathwayCompactor = new StringBuilder();
-                        int idx = 0;
-                        while (idx < relationshipPathwayBuilder.size()) {
-                            if (idx == 0) {
-                                relationshipPathwayCompactor.append(relationshipPathwayBuilder.get(idx));
-                                idx++;
-                            } else {
-                                String toAdd = String.format(" --> %s --> %s", relationshipPathwayBuilder.get(idx),
-                                        relationshipPathwayBuilder.get(idx + 1));
-                                relationshipPathwayCompactor.append(toAdd);
-                                idx += 2;
-                            }
-                        }
-                        return new ResultContainer(relatedPersonsUuid, relationships,
-                                relationshipPathwayCompactor.toString());
+                        return container(relatedPersonsUuid, relationships, relationshipPathwayBuilder);
                     }
                     if (!visited.contains(nextUuid)) {
                         visited.add(nextUuid);
@@ -560,19 +426,21 @@ public class RelationshipUtil {
      */
     public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid1, UUID uuid2) {
         for (Relationship storedRelationship : relationshipsTracker) {
-            if (storedRelationship instanceof RoleBasedRelationship) {
-                RoleBasedRelationship storedRoleBasedRelationship = (RoleBasedRelationship) storedRelationship;
-                if (storedRoleBasedRelationship.equals(relationship)) {
-                    String storedRole1 = storedRoleBasedRelationship.getRole(uuid1);
-                    String storedRole2 = storedRoleBasedRelationship.getRole(uuid2);
-                    String newRole1 = relationship.getRole(uuid1);
-                    String newRole2 = relationship.getRole(uuid2);
-                    if (storedRole1.equals(newRole1) && storedRole2.equals(newRole2)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+            if (!(storedRelationship instanceof RoleBasedRelationship)) {
+                continue;
+            }
+            RoleBasedRelationship storedRoleBasedRelationship = (RoleBasedRelationship) storedRelationship;
+            if (!(storedRoleBasedRelationship.equals(relationship))) {
+                continue;
+            }
+            String storedRole1 = storedRoleBasedRelationship.getRole(uuid1);
+            String storedRole2 = storedRoleBasedRelationship.getRole(uuid2);
+            String newRole1 = relationship.getRole(uuid1);
+            String newRole2 = relationship.getRole(uuid2);
+            if (storedRole1.equals(newRole1) && storedRole2.equals(newRole2)) {
+                return true;
+            } else {
+                return false;
             }
         }
         return false;
@@ -601,8 +469,14 @@ public class RelationshipUtil {
         int originBioParentsCount = 0;
         int targetBioParentsCount = 0;
         for (Relationship r : allRelationships) {
-            originBioParentsCount = originBioParentsCount + bioParentsRelationshipCheck(fullOriginUuid, r);
-            targetBioParentsCount = targetBioParentsCount + bioParentsRelationshipCheck(fullTargetUuid, r);
+            if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                    && (r.getPerson1().equals(fullOriginUuid) || r.getPerson2().equals(fullOriginUuid))) {
+                originBioParentsCount = originBioParentsCount + bioParentsRelationshipCheck(fullOriginUuid, r);
+            }
+            if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
+                    && (r.getPerson1().equals(fullTargetUuid) || r.getPerson2().equals(fullTargetUuid))) {
+                targetBioParentsCount = targetBioParentsCount + bioParentsRelationshipCheck(fullTargetUuid, r);
+            }
         }
         if (originBioParentsCount >= 2) {
             throw new CommandException("Sorry, " + originUuid + " already has 2 bioparent relationships");
@@ -616,18 +490,15 @@ public class RelationshipUtil {
 
     private int bioParentsRelationshipCheck(UUID uuid, Relationship r) {
         int number = 0;
-        if (r.getRelationshipDescriptor().equalsIgnoreCase("Bioparents")
-                && (r.getPerson1().equals(uuid) || r.getPerson2().equals(uuid))) {
-            if (r.getPerson1().equals(uuid)) {
-                RoleBasedRelationship r1 = (RoleBasedRelationship) r;
-                if (r1.getRole(uuid).equals("child")) {
-                    number++;
-                }
-            } else if (r.getPerson2().equals(uuid)) {
-                RoleBasedRelationship r2 = (RoleBasedRelationship) r;
-                if (r2.getRole(uuid).equals("child")) {
-                    number++;
-                }
+        if (r.getPerson1().equals(uuid)) {
+            RoleBasedRelationship r1 = (RoleBasedRelationship) r;
+            if (r1.getRole(uuid).equals("child")) {
+                number++;
+            }
+        } else if (r.getPerson2().equals(uuid)) {
+            RoleBasedRelationship r2 = (RoleBasedRelationship) r;
+            if (r2.getRole(uuid).equals("child")) {
+                number++;
             }
         }
         return number;
@@ -779,9 +650,9 @@ public class RelationshipUtil {
     public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
                                                           String originUuid, String targetUuid, String role1,
                                                           String role2, String descriptor) throws CommandException {
-        if(descriptor.equalsIgnoreCase("Bioparents")) {
+        if (descriptor.equalsIgnoreCase("Bioparents")) {
             return getBioparentsCount(model, originUuid, targetUuid, role1, role2);
-        } else if(descriptor.equalsIgnoreCase("Siblings")) {
+        } else if (descriptor.equalsIgnoreCase("Siblings")) {
             if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
                 model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
             }
@@ -789,7 +660,7 @@ public class RelationshipUtil {
                 model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
             }
             return model.checkSiblingsSpousesGender(model, originUuid, targetUuid, role1, role2, true);
-        } else if(descriptor.equalsIgnoreCase("Spouses")) {
+        } else if (descriptor.equalsIgnoreCase("Spouses")) {
             if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
                 model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
             }
@@ -797,7 +668,7 @@ public class RelationshipUtil {
                 model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
             }
             return model.checkSiblingsSpousesGender(model, originUuid, targetUuid, role1, role2, false);
-        } else if(descriptor.equalsIgnoreCase("Friends")) {
+        } else if (descriptor.equalsIgnoreCase("Friends")) {
             throw new CommandException("Sorry, friends cannot have roles");
         } else {
             return new RoleBasedRelationship(fullOriginUuid, fullTargetUuid, descriptor, role1, role2);
@@ -870,8 +741,9 @@ public class RelationshipUtil {
      * @param oldRelationshipDescriptor The descriptor of the existing relationship.
      * @param newRelationshipDescriptor The descriptor of the new relationship.
      * @param isAdd                     A boolean indicating if the operation is an add operation.
-     * @throws CommandException If the relationship descriptor is invalid, the roles are incompatible with the descriptor,
-     *                          or if the relationship already exists in the tracker.
+     * @throws CommandException If the relationship descriptor is invalid,
+     *     the roles are incompatible with the descriptor,
+     *     or if the relationship already exists in the tracker.
      */
     public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid,
                                    String originUuid, String targetUuid, String role1, String role2,

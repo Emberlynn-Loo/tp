@@ -22,6 +22,7 @@ public class AddRelationshipCommand extends Command {
 
     private String rolePerson1;
     private String rolePerson2;
+
     /**
      * Constructor takes in the string arguments needed to be passed into the relationship constructor and performs
      * the addition of the relationship

@@ -8,8 +8,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.

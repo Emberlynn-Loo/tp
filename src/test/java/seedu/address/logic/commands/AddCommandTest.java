@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -213,11 +212,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<String> getRoles(String descriptor) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ResultContainer anySearch(UUID originUuid, UUID targetUuid) {
             throw new AssertionError("This method should not be called.");
         }
@@ -247,17 +241,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isRelationRoleless(String descriptor) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
-                                                        String role1, String role2) throws CommandException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
                                                                 String rolePerson1, String rolePerson2,
                                                                 Boolean isSiblings) {
@@ -271,6 +254,35 @@ public class AddCommandTest {
 
         @Override
         public void genderMatch(String rolePerson1, String uuid, String shortUuid) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                              String originUuid, String targetUuid, String rolePerson1,
+                                                              String rolePerson2,
+                                                              String relationshipDescriptor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void validateRoleBasedRelation(String rolePerson1, String rolePerson2,
+                                              String relationshipDescriptor) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void validateRoleless(String role1, String role2, String newRelationshipDescriptor) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid,
+                                       String originUuid, String targetUuid, String role1, String role2, Model model,
+                                       String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                                       boolean b) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -295,11 +307,6 @@ public class AddCommandTest {
 
         @Override
         public void deleteRelationType(String relationType) {
-        }
-
-        @Override
-        public boolean isRelationRoleBased(String descriptor) {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override

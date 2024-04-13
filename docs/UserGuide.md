@@ -3,25 +3,30 @@ layout: page
 title: User Guide
 ---
 
-<h1 align="center"><i>GENE-NIE</i></h1>
-<p align="left">
-
-Welcome fellow **genealogy enthusiasts**!
-
-Glad to see you have found your way to this user guide. Keep reading to find out how to navigate and unlock the full capabilities of your magical companion, **Gene-nie**. 
+<h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
+<p align="center">
+Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you
+keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
+the relationship tree and history of friends and family.
+</p>
 
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [Managing Person Profiles](#persons)
-    - [Listing all persons](#listing-all-persons--list-or-l)
+- [Command Format](#command-format)
+- [Persons](#persons)
+- [Features](#features)
+    - [Attributes](#attributes)
+    - [Relationships](#relationships)
+- [Features - Managing Person Profiles](#features---managing-persons)
+    - [Listing all Persons](#listing-all-persons--list-or-l)
     - [Adding a person](#adding-a-person--add-or-a)
-    - [Locating persons by name](#locating-persons-by-details--find-or-f)
-- [Attributes](#attributes)
-    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
-    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
-    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Locating persons by details](#locating-persons-by-details--find-or-f)
     - [Deleting a Person](#deleting-a-person--delete-or-d)
+- [Features - Managing Attributes of Persons](#features---managing-attributes-of-persons)
+    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
+    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
+    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
 - [Managing Person Relationships](#features---managing-person-relationships)
     - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
     - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
@@ -37,31 +42,6 @@ Glad to see you have found your way to this user guide. Keep reading to find out
 - [Known Issues](#known-issues)
 - [Coming Soon](#coming-soon)
 - [Command Summary](#command-summary)
---------------------------------------------------------------------------------------------------------------------
-
-## About Gene-nie
-Ever find yourself struggling to keep track of all the people and their relationships to each other in a family tree? 
-
-Gene-nie works magic!
-
-Be prepared to be enchanted as
-
-Keep reading to find out
-
-Gene-nie works magic.
-just like it's name susggests...
-Gene-nie is a desktop app for managing your family tree. It is optimised for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Gene-nie can help you manage your family tree faster than traditional GUI apps.
-
-Specifically designed for **genealogy enthusiasts**, Gene-nie will enchant you by helping them manage both their contacts and the relationships among them.
-Gene-nie acts as your personal autobiographer, helping you manage your
-the relationship tree and history of friends and family.
-</p>
-
-
-
-
-
-
 
 ## Quick start
 

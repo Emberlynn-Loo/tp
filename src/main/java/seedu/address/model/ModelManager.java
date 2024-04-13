@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -145,11 +144,6 @@ public class ModelManager implements Model {
         addressBook.deleteRelationType(relationType);
     }
 
-    @Override
-    public boolean isRelationRoleBased(String descriptor) {
-        return addressBook.isRelationRoleBased(descriptor);
-    }
-
     public String getExistingRelationship(Relationship toGet) {
         return addressBook.getExistingRelationship(toGet);
     }
@@ -157,11 +151,6 @@ public class ModelManager implements Model {
     @Override
     public void deleteRelationshipsOfPerson(UUID personUuid) {
         addressBook.deleteRelationshipsOfPerson(personUuid);
-    }
-
-    @Override
-    public List<String> getRoles(String descriptor) {
-        return addressBook.getRoles(descriptor);
     }
 
     @Override
@@ -259,17 +248,6 @@ public class ModelManager implements Model {
     @Override
     public boolean hasAttribute(String uuidString, String attributeName) {
         return addressBook.hasAttribute(uuidString, attributeName);
-    }
-
-    @Override
-    public boolean isRelationRoleless(String descriptor) {
-        return addressBook.isRelationRoleless(descriptor);
-    }
-
-    @Override
-    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
-                                                    String role1, String role2) throws CommandException {
-        return addressBook.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
 
     @Override

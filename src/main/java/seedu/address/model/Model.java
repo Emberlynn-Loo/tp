@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -123,11 +122,7 @@ public interface Model {
 
     void deleteRelationType(String relationType);
 
-    boolean isRelationRoleBased(String descriptor);
-
     void deleteRelationshipsOfPerson(UUID personUuid);
-
-    List<String> getRoles(String descriptor);
 
     ResultContainer anySearch(UUID originUuid, UUID targetUuid);
 
@@ -138,10 +133,6 @@ public interface Model {
     void resetRelationshipDescriptors();
 
     boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2);
-    boolean isRelationRoleless(String descriptor);
-
-    RoleBasedRelationship getBioparentsCount(Model model, String originUuid,
-                                             String targetUuid, String role1, String role2) throws CommandException;
 
     RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid, String targetUuid,
                                                      String rolePerson1, String rolePerson2,
