@@ -297,7 +297,7 @@ Step 6: `AddAttributeCommand#execute` calls the following methods from `Model`:
 
 * `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AddAttribute` command.
 * `Model#getPersonByUuid(UUID)` It retrieves the person with the provided `UUID` from the `Model`.
-* `Model#hasAttribute(String, String)` It checks whether the person given already has the attribute that we are adding. 
+* `Model#hasAttribute(String, String)` It checks whether the person given already has the attribute that we are adding.
 
 Step 7: If the person does not have the attribute, the `AddAttributeCommand` adds the attribute to the person object by calling the following methods from `AttributeUtil`:
 * `AttributeUtil#createAttribute(String, String)` It creates a new attribute with the provided name and value.
@@ -1187,7 +1187,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. Given UUIDs are invalid or does not exist.
     * 1a1. Gene-nie shows an error message.
 
-      Use case ends. 
+      Use case ends.
 
 * 1b. No relationship pathway exists between the two persons.
     * 1a1. Gene-nie says that there is no relationship pathway found.
@@ -1296,7 +1296,7 @@ testers are expected to do more *exploratory* testing.
     1. **Test case:** `add` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "No attributes found".
 
-   
+
 2. Adding a person with one attribute:
     1. **Test case:** `add /Name John` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays the attribute added.
@@ -1609,7 +1609,7 @@ testers are expected to do more *exploratory* testing.
     2. Open the file named `addressbook.json`.
     3. Modify the file. For example, you could remove the first few lines of the file.
     4. Relaunch Gene-nie. <br>
-       **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
+       **Expected Outcome:** The left panel is now empty. No person records are shown in the application.
 
 --------------------------------------------------------------------------------------------------------------------
 
