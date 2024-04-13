@@ -21,9 +21,15 @@ title: Developer Guide
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
 - [Implementation](#implementation)
-    - [Proposed Undo/redo feature](#proposed-undoredo-feature)
-    - [Proposed Implementation](#proposed-implementation)
-    - [Design considerations](#design-considerations)
+    - [Add relationship feature](#add-relationship-feature)
+        - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
+        - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
+    - [Edit Relationship feature](#edit-relationship-feature)
+        - [Editing a roleless relationship](#scenario-1---editing-a-roleless-relationship)
+        - [Editing a relationship with roles](#scenario-2---editing-a-relationship-with-roles)
+    - [Delete Relationship feature](#delete-relationship-feature)
+        - [Deleting a relationship](#scenario-1---deleting-a-relationship)
+        - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -249,90 +255,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
 ### Edit Relationship feature
 
 #### Implementation
@@ -341,7 +263,7 @@ The Edit relationship mechanism is facilitated by the `EditRelationshipCommand` 
 The `EditRelationshipCommand` class extends the `Command` class and implements the following operation:
 * `EditRelationshipCommand#execute()` — Edits a relationship between two persons.
 
-#### Scenario 1: Editing a roleless relationship
+#### Scenario 1 - Editing a roleless relationship
 
 Given below is an example usage scenario and how editing a roleless relationship behaves at each step.
 
@@ -380,7 +302,7 @@ The following sequence diagram shows how editing a roleless relationship works:
 
 </div>
 
-#### Scenario 2: Editing a relationship with roles
+#### Scenario 2 - Editing a relationship with roles
 
 Given below is an example usage scenario and how editing a relationship with roles behaves at each step.
 
@@ -449,7 +371,7 @@ The Delete relationship mechanism is facilitated by the `DeleteRelationshipComma
 The `DeleteRelationshipCommand` class extends the `Command` class and implements the following operation:
 * `DeleteRelationshipCommand#execute()` — Deletes a relationship between two persons.
 
-#### Scenario 1: Deleting a relationship
+#### Scenario 1 - Deleting a relationship
 
 Given below is an example usage scenario and how deleting a relationship behaves at each step.
 
@@ -484,7 +406,7 @@ The following sequence diagram shows how deleting a relationship works:
 
 </div>
 
-#### Scenario 2: Deleting a relationType
+#### Scenario 2 - Deleting a relationType
 
 Given below is an example usage scenario and how deleting a relationType behaves at each step.
 
@@ -913,29 +835,29 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding a person
 1. Adding a person with no attributes:
-    1. **Test case:** `addperson` <br>
+    1. **Test case:** `add` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "No attributes found".
 
    
 2. Adding a person with one attribute:
-    1. **Test case:** `addperson /Name John` <br>
+    1. **Test case:** `add /Name John` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays the attribute added.
 
 
 3. Adding a person with multiple attributes:
-    1. **Test case:** `addperson /Name John /Phone 98765432 /Email John@example.com` <br>
+    1. **Test case:** `add /Name John /Phone 98765432 /Email John@example.com` <br>
        **Expected Outcome:** A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays all the attributes added.
 
 
 4. Adding a person with duplicate attributes:
-    1. **Test case:** `addperson /Name John /Name Chad` <br>
+    1. **Test case:** `add /Name John /Name Chad` <br>
        **Expected Outcome:** The last attribute value is taken. A new person with a random UUID shown on the left panel of the PersonCard is added to Gene-nie. Attributes panel displays "Name: Chad".
 
 
 5. Adding a person with an invalid attribute:
-    1. **Test case:** `addperson /Name` <br>
+    1. **Test case:** `add /Name` <br>
        **Expected Outcome:** Error message highlighted in red is shown. The command format and an example is also shown in the error message.
-    2. **Test case:** `addperson /Sex dhdkag` <br>
+    2. **Test case:** `add /Sex dhdkag` <br>
        **Expected Outcome:** Error message highlighted in red is shown. It reads "Sex must only be male or female for Sex."
 
 
