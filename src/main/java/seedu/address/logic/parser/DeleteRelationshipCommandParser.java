@@ -29,7 +29,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
                     2, false).toLowerCase();
             if (relationshipDescriptor.equals("familys") || relationshipDescriptor.equals("family")) {
                 throw new ParseException("Please specify the type of familial relationship instead of 'Family'.\n"
-                        + "Valid familial relations are: [bioParents, siblings, spouses]");
+                        + " Valid familial relations are: [bioParents, siblings, spouses]");
             }
             return new DeleteRelationshipCommand(originUuid, targetUuid, relationshipDescriptor);
         } else {
