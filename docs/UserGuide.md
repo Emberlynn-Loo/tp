@@ -14,7 +14,7 @@ the relationship tree and history of friends and family.
 
 - [Quick Start](#quick-start)
 - [Managing Person Profiles](#persons)
-    - [Listing all persons](#listing-all-persons--list-or-l)
+    - [Listing all Persons](#listing-all-persons--list-or-l)
     - [Adding a person](#adding-a-person--add-or-a)
     - [Locating persons by name](#locating-persons-by-details--find-or-f)
 - [Attributes](#attributes)
@@ -42,9 +42,9 @@ the relationship tree and history of friends and family.
 
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
-1. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
+2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
 
-1. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
+3. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
@@ -65,7 +65,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -94,7 +94,7 @@ Be careful when using this command with your own data as it will delete all your
 
    * `exit` : Exits the app. All your contacts will be saved for when you next return.
 
-6. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
+2. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -129,6 +129,7 @@ Be careful when using this command with your own data as it will delete all your
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
+
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -205,7 +206,7 @@ To store information about the relationship between 2 persons, see the relations
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
 Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
-This also means that **duplicate attribute values are not checked**.
+However, **duplicate attribute values are  checked** and will not be added to the same person.
 
 However, for your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
 
@@ -213,7 +214,14 @@ However, for your convenience, Gene-nie has some predefined attributes that you 
    1. It is a predefined attribute for the purposes of future features.
 2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols)
 3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
+   1. Our application supports a wide range of date inputs to accommodate various historical and genealogical data. You can enter dates using the following format: YYYY-MM-DD. 
+   2. Year (YYYY): The year can range from -9999 to today's date! This lets you represent of historical dates and more easily track your family history! This range is dictated by the limits of the DateTime object used in our application. Negative years are used to denote years BCE (Before the Common Era).
+   3. While our application supports a wide range of years, the input still requires valid months and days corresponding to the Gregorian calendar. For example, `2023-02-29` is invalid because `2023` is not a leap year.
+   4. Gene-nie is our comprehensive family storage device. We acknowledge historical and genealogical uses where ancient dates (e.g., BCE dates) may be necessary. Therefore, negative years (denoting BCE) are considered valid when entered in accordance with the above guidelines.
 4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
+   1. This attribute is used to check whether the relationship is valid or not. For example, a person cannot be a `bioparents` of a person with the same `Sex` attribute.
+   2. The valid inputs for `Male` attributes are `male` and `m`. The inputs are not case-sensitive.
+   3. The valid inputs for `Female` attributes are `female` and `f`. The inputs are not case-sensitive.
 <div markdown="block" class="alert alert-info">
 Attribute names:
 
@@ -222,7 +230,8 @@ Attribute names:
   * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
 * cannot be empty
 * cannot contain `/` or ` ` (space)
-  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value
+  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value and throw the relevant error
+  * if you forget to add the space to the attribute name, the attribute name will be stored as the whole string without spaces
 
 Attribute values:
 
