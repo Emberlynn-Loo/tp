@@ -210,9 +210,9 @@ The `Relationship` component,
 * contains details about a relationship between two persons.
 * has a `relationType` that defines the type of relationship.
 * stores UUIDs of `Person` objects that are connected by the `Relationship` object.
-* can be a general `Relationship` which allows the user to define their own `relationType` or a specific one that has a predefined `RelationType`. 
+* can be a general `Relationship` which allows the user to define their own `relationType` or a specific one that has a predefined `RelationType`.
     * `FriendsRelationship` is a relationship class that has a predefined `relationType` of `friends`.
-* can be a general `RoleBasedRelationship` which allows the user to define their own `RelationType` and roles for each Person or a specific one that has those predefined. 
+* can be a general `RoleBasedRelationship` which allows the user to define their own `RelationType` and roles for each Person or a specific one that has those predefined.
     * `FamilyRelationship` is a abstract class that extends from `RoleBasedRelationship`. It is the superclass of `BioParentsRelationship`, `SpousesRelationship` and `SiblingsRelationship`.
       * `BioParentsRelationship` is a relationship class that has a predefined `relationType` of `bioparents` and has predefined roles `parent` and `child`.
       * `SpousesRelationship` is a relationship class that has a predefined `relationType` of `spouses` and has predefined roles `husband` and `wife`.
@@ -494,7 +494,7 @@ Step 2: When `LogicManager` is called upon to execute this command, it will pass
 
 Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/friends`.
 
-Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the relationship descriptor is valid. It then returns a `LinkedHashMap<String, String>` containing the relationship Descriptor. 
+Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the relationship descriptor is valid. It then returns a `LinkedHashMap<String, String>` containing the relationship Descriptor.
 
 Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
 
@@ -559,8 +559,7 @@ The following activity diagram sheds more light on exactly what happens a user e
 * Wants to visualize connections between family members
 * Often only has provisional or partial information about their family members
 
-
-**Value proposition**: Gene-nie puts connections between people at the forefront.
+**Value proposition**: Gene-nie puts connections between people at the forefront. It allows users to easily visualize and understand the relationships between people in their lives. It also allows users to store personal information about each individual, making it a one-stop solution for managing relationships.
 
 ### User stories
 
@@ -1230,5 +1229,4 @@ testers are expected to do more *exploratory* testing.
     2. Open the file named `addressbook.json`.
     3. Modify the file. For example, you could remove the first few lines of the file.
     4. Relaunch Gene-nie. <br>
-       **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
-
+       **Expected Outcome:** The left panel is now empty. No person records are shown in the application.
