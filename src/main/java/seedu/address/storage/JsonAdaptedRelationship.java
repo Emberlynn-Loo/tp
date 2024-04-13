@@ -70,42 +70,7 @@ public class JsonAdaptedRelationship {
             throw new IllegalValueException("Relation type family is not allowed in JSON.");
         }
         if (rolePerson1 != null && rolePerson2 != null) {
-            switch (descriptorCheck) {
-            case "bioparents":
-                if ((!rolePerson1.equals("parent") && !rolePerson2.equals("parent"))
-                        || ((!rolePerson1.equals("child") && !rolePerson2.equals("child")))) {
-                    throw new IllegalValueException("Bioparents relationship must have one parent and child role.");
-                }
-                return new BioParentsRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
-                        rolePerson2);
-            case "siblings":
-                if (!((rolePerson1.equals("brother") && rolePerson2.equals("brother"))
-                        || (rolePerson1.equals("sister") && rolePerson2.equals("sister"))
-                        || (rolePerson1.equals("brother") && rolePerson2.equals("sister"))
-                        || (rolePerson1.equals("sister") && rolePerson2.equals("brother")))) {
-                    throw new IllegalValueException("Siblings relationship must have 'brother' or 'sister' role.");
-                }
-                return new SiblingRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
-                        rolePerson2);
-            case "spouses":
-                if (!((rolePerson1.equals("husband") && rolePerson2.equals("husband"))
-                        || (rolePerson1.equals("wife") && rolePerson2.equals("wife"))
-                        || (rolePerson1.equals("husband") && rolePerson2.equals("wife"))
-                        || (rolePerson1.equals("wife") && rolePerson2.equals("husband")))) {
-                    throw new IllegalValueException("Spouses relationship must have 'husband' or 'wife' role.");
-                }
-                return new SpousesRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
-                        rolePerson2);
-            default:
-                if (!rolePerson1.matches("[a-zA-Z]+")) {
-                    throw new IllegalValueException(rolePerson1 + " contains more than 1 word or special characters");
-                }
-                if (!rolePerson2.matches("[a-zA-Z]+")) {
-                    throw new IllegalValueException(rolePerson2 + " contains more than 1 word or special characters");
-                }
-                return new RoleBasedRelationship(UUID.fromString(person1), UUID.fromString(person2),
-                        relationshipDescriptor, rolePerson1, rolePerson2);
-            }
+            return checkRoles(descriptorCheck);
         } else {
             if (AddRelationshipCommand.containsIllegalDescriptors(descriptorCheck)
                     || descriptorCheck.equals("siblings") || descriptorCheck.equals("spouses")
@@ -115,5 +80,56 @@ public class JsonAdaptedRelationship {
             }
             return new Relationship(UUID.fromString(person1), UUID.fromString(person2), relationshipDescriptor);
         }
+    }
+
+    public boolean siblingsRoleCheck() {
+        return (!((rolePerson1.equals("brother") && rolePerson2.equals("brother"))
+                || (rolePerson1.equals("sister") && rolePerson2.equals("sister"))
+                || (rolePerson1.equals("brother") && rolePerson2.equals("sister"))
+                || (rolePerson1.equals("sister") && rolePerson2.equals("brother"))));
+    }
+
+    public boolean spousesRoleCheck() {
+        return (!((rolePerson1.equals("husband") && rolePerson2.equals("husband"))
+                || (rolePerson1.equals("wife") && rolePerson2.equals("wife"))
+                || (rolePerson1.equals("husband") && rolePerson2.equals("wife"))
+                || (rolePerson1.equals("wife") && rolePerson2.equals("husband"))));
+    }
+
+    public boolean bioParentsRoleCheck() {
+        return ((!rolePerson1.equals("parent") && !rolePerson2.equals("parent"))
+                || (!rolePerson1.equals("child") && !rolePerson2.equals("child")));
+    }
+
+    public Relationship checkRoles(String descriptorCheck) throws IllegalValueException {
+        switch (descriptorCheck) {
+        case "bioparents":
+            if (bioParentsRoleCheck()) {
+                throw new IllegalValueException("Bioparents relationship must have one parent and child role.");
+            }
+            return new BioParentsRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                    rolePerson2);
+        case "siblings":
+            if (siblingsRoleCheck()) {
+                throw new IllegalValueException("Siblings relationship must have 'brother' or 'sister' role.");
+            }
+            return new SiblingRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                    rolePerson2);
+        case "spouses":
+            if (spousesRoleCheck()) {
+                throw new IllegalValueException("Spouses relationship must have 'husband' or 'wife' role.");
+            }
+            return new SpousesRelationship(UUID.fromString(person1), UUID.fromString(person2), rolePerson1,
+                    rolePerson2);
+        default:
+            if (!rolePerson1.matches("[a-zA-Z]+")) {
+                throw new IllegalValueException(rolePerson1 + " contains more than 1 word or special characters");
+            }
+            if (!rolePerson2.matches("[a-zA-Z]+")) {
+                throw new IllegalValueException(rolePerson2 + " contains more than 1 word or special characters");
+            }
+        }
+        return new RoleBasedRelationship(UUID.fromString(person1), UUID.fromString(person2),
+                relationshipDescriptor, rolePerson1, rolePerson2);
     }
 }
