@@ -22,9 +22,35 @@ title: Developer Guide
     - [Common classes](#common-classes)
 - [Implementation](#implementation)
     - [Proposed Undo/redo feature](#proposed-undoredo-feature)
-    - [Proposed Implementation](#proposed-implementation)
-    - [Design considerations](#design-considerations)
+      - [Proposed Implementation](#proposed-implementation)
+      - [Design considerations](#design-considerations)
+    - [Add Attribute feature](#add-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Edit Attribute feature](#edit-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Delete Attribute feature](#delete-attribute-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Find Attribute or UUID feature](#find-attribute-or-uuid-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Clear Terminal feature](#clear-terminal-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
+    - [Delete All Persons feature](#delete-all-persons-feature)
+      - [Implementation](#implementation)
+      - [Design considerations](#design-considerations)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Cases](#use-cases)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+- [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -191,11 +217,13 @@ The `Person` component,
 * The `Attribute` component,
   * is used to store details about a `Person`
   * each attribute has a `name` and a `value`
-  * stores the `Attribute` objects in the `Person` object in the hash map.
-  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`) which allows for the user to instantiate their own attributes with a name and string value
+  * stored `Attribute` objects in the `Person` object in the hash map
+  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
     * `StringAttribute` - stores a string value
     * `IntegerAttribute` - stores an integer value
     * `DateAttribute` - stores a date value
+  * Users are able to create their own attributes using the `StringAttribute` class
+    * They will have their own `String` name and `String` value
   * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints relevant to their validity
     * `NameAttribute` - stores the name of the person
     * `PhoneNumberAttribute` - stores the phone number of the person and must be an integer of less than 10 digits
@@ -339,6 +367,8 @@ _{more aspects and alternatives to be added}_
 
 ### Add Attribute feature
 
+An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.
+
 #### Implementation
 
 The Add Attribute mechanism is facilitated by the `AddAttributeCommand` and `AddAttributeParser`.
@@ -371,7 +401,9 @@ The following sequence diagram shows how the `AddAttribute` shows how the `AddAt
 
 ![AttributeAdditionSequenceDiagram](images/AttributeAdditionSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram sheds more light on exactly what happens a user executes the `addattribute` command:
 
@@ -401,6 +433,8 @@ The following activity diagram sheds more light on exactly what happens a user e
 
 --------------------------------------------------------------------------------------------------------------------
 ### Edit Attribute feature
+
+An `EditAttribute` feature that allows users to edit attributes of a person in the address book. This feature ensures that only existing attributes are edited, maintaining data integrity.
 
 #### Implementation
 
@@ -434,7 +468,9 @@ The following sequence diagram illustrates how the `EditAttribute` command funct
 
 ![AttributeEditSequenceDiagram](images/AttributeEditSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `editattribute` command:
 
@@ -465,6 +501,8 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Delete Attribute feature
+
+The `DeleteAttribute` feature that allows users to delete attributes of a person in the address book. This feature ensures that only existing attributes are deleted, maintaining data integrity.
 
 #### Implementation
 
@@ -498,7 +536,9 @@ The following sequence diagram illustrates how the `DeleteAttribute` command fun
 
 ![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `deleteattribute` command:
 
@@ -529,6 +569,7 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Find Attribute or UUID feature
+
 The `FindCommand` provides the capability to search for persons within the address book whose names contain any of the specified keywords. The operation is case-insensitive and enhances the user experience by enabling efficient and flexible searches.
 
 #### Implementation
@@ -556,7 +597,9 @@ The following sequence diagram illustrates how the `Find` command functions:
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Predicate`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `FindCommand`, `NameContainsKeywordsPredicate` and `Model` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `find` command:
 
@@ -587,6 +630,7 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Clear terminal feature
+
 The `ClearCommand` provides the capability to clear the terminal screen. The operation is designed to provide a clean and uncluttered interface for the user.
 
 #### Implementation
@@ -607,7 +651,9 @@ The following sequence diagram illustrates how the `Clear Terminal` command func
 
 ![ClearTerminalSequenceDiagram](images/ClearTerminalSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `clear` command:
 
@@ -638,6 +684,7 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Delete All Persons feature
+
 The `DeleteAllCommand` provides the capability to delete all persons from the address book. The operation is irreversible and is designed to provide a quick and efficient way to clear the address book.
 
 #### Implementation
@@ -662,7 +709,9 @@ The following sequence diagram illustrates how the `Clear` command functions:
 
 ![ClearSequenceDiagram](images/ClearSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Model`, `ClearCommand` and `LogicManager` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `deleteallpersons` command:
 
@@ -703,7 +752,7 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Appendix: Requirements
+## **Appendix: Requirements**
 
 ### Product scope
 
@@ -730,8 +779,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user    | Have clear success or failure messages after actions                                 | Ensure that the intended action has taken place        |
 | `* *`    | user    | Sort and search a person by their attributes                                         | Find specific individuals more easily                  |
 | `* * *`  | user    | Have my data automatically saved once i exit the app and loaded once i start the app | Seamless experience across different sessions          |
-
-*{More to be added}*
 
 ### Use cases
 
@@ -1388,3 +1435,30 @@ testers are expected to do more *exploratory* testing.
     4. Relaunch Gene-nie. <br>
        **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+### C.1 - Display results of find command in "Search Results" tab
+
+Currently, the results of the `find` command are displayed in the left panel of the application. This enhancement aims to display the results in the separate already implemented tab called "Search Results" to improve the user experience. This will allow users to view the search results without losing sight of the main list of persons.
+
+* Proposed Enhancement:
+  * Display the results of the `find` command in the "Search Results" tab. This tab will be updated with the search results each time the `find` command is executed. The results will be displayed in a similar format to the current display in the left panel. The "Search Results" tab will be cleared when the user executes a new `find` command or closes the application.
+
+* Implementation Details:
+  * Update the `find` command to use the alternate `CommandResult` constructor.
+  * Return the appropriate `CommandResult(findSucessMessage, false, false, true)` to indicate that the search results should be displayed in the "Search Results" tab.
+  * Update the `MainWindow` to display the search results in the "Search Results" tab.
+
+### C.2 - Improve error handling for invalid commands
+
+Currently, the application displays a generic error message when an invalid such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
+
+* Proposed Enhancement:
+  * Improve error handling for invalid commands by ensuring the correct error message is returned.
+
+* Implementation Details:
+  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Update the error handling logic to check for the specific command entered by the user.
+  * Return a specific error message based on the invalid command entered by the user.
