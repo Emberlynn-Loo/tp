@@ -17,11 +17,11 @@ the relationship tree and history of friends and family.
 - [Persons](#persons)
 - [Features](#features)
   - [Attributes](#attributes)
-  - [Reltaionships](#relationships)
+  - [Relationships](#relationships)
 - [Features - Managing Person Profiles](#features---managing-persons)
     - [Listing all Persons](#listing-all-persons--list-or-l)
     - [Adding a person](#adding-a-person--add-or-a)
-    - [Locating persons by name](#locating-persons-by-details--find-or-f)
+    - [Locating persons by details](#locating-persons-by-details--find-or-f)
     - [Deleting a Person](#deleting-a-person--delete-or-d)
 - [Features - Managing Attributes of Persons](#features---managing-attributes-of-persons)
     - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
@@ -161,9 +161,16 @@ To learn more about attributes and relationships, find their descriptions in [Re
 Have a look at this sample person card. Can you spot where each detail is located?
 ![Sample Person Card](images/PersonCard.png)
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+Gene-nie has 3 main features:
+1. Managing Persons
+2. Managing Attributes of Persons
+3. Managing Person Relationships
 
 ### Attributes
 
@@ -229,13 +236,13 @@ Relationships are what you use to store information about the relationship betwe
 
 ## Features - Managing Persons
 
-### Listing all Persons: `list` or `l`
+### Listing all Persons : `list` or `l`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a Person: `add` or `a`
+### Adding a Person : `add` or `a`
 
 Adds a person to the address book.
 
@@ -257,7 +264,7 @@ Examples:
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by details: `find` or `f`
+### Locating persons by details : `find` or `f`
 
 Finds persons whose details contain any of the given phrases.
 
