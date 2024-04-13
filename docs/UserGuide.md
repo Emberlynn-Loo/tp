@@ -15,8 +15,9 @@ the relationship tree and history of friends and family.
 - [Quick Start](#quick-start)
 - [Command Format](#command-format)
 - [Persons](#persons)
-- [Features - Managing Attributes](#features---managing-attributes)
+- [Features](#features)
   - [Attributes](#attributes)
+  - [Reltaionships](#relationships)
 - [Features - Managing Person Profiles](#features---managing-persons)
     - [Listing all Persons](#listing-all-persons--list-or-l)
     - [Adding a person](#adding-a-person--add-or-a)
@@ -155,14 +156,14 @@ A person is made up of three pieces of information:
    3. UUID are 4-characters long
 2. A set of attributes
 3. A set of relationships
-To learn more about attributes and relationships, find their descriptions in [Table of Contents](#table-of-contents).
+To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
 
 Have a look at this sample person card. Can you spot where each detail is located?
 ![Sample Person Card](images/PersonCard.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Attributes
+## Features
 
 ### Attributes
 
@@ -216,6 +217,11 @@ Attribute values:
 * will be of type String, other than the predefined attributes listed above
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
+
+### Relationships
+
+Relationships are one of 3 types of information in a person's profile, with the other 2 being the UUID and attributes.
+Relationships are what you use to store information about the relationship between 2 persons.
 
 [Back to Table of Contents](#table-of-contents)
 
