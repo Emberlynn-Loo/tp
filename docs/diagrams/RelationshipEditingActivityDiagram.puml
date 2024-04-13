@@ -1,0 +1,40 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "editRelation" command;
+
+:Parse command for UUIDs and relationship descriptors;
+if (Do persons exist) then (yes)
+  :Execute editing relationship;
+  if (Does old relationship exist) then (yes)
+    if (Does new relationship already exist) then (yes)
+      :Inform user relationship already exists;
+      stop
+    else (no)
+      if (Is new relationship role-based) then (yes)
+        if (Are the gender roles valid) then (yes)
+          :Add new role-based relationship and roles;
+        else (no)
+          :Inform user relationship is invalid;
+          stop
+        endif
+        :Delete old role-based relationship;
+      else (no)
+        :Add new roleless relationship;
+        :Delete old roleless relationship;
+      endif
+    endif
+  else (no)
+    :Inform user old relationship does not exist;
+    stop
+  endif
+:Save changes to address book;
+:Inform user of success;
+stop
+else (no)
+  :Inform user persons do not exist;
+  stop
+endif
+@enduml
