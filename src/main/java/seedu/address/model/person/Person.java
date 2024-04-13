@@ -281,7 +281,7 @@ public class Person {
     }
     /**
      * Sorts the keys in the attribute Map in lexicographical order, after the function will convert the Map into
-     * an array of array of Strings of size 2, where the first element is the descriptor of the key and the second
+     * an array of Strings of size 2, where the first element is the descriptor of the key and the second
      * element of each element String array is the String of the attribute value
      * @return
      */

@@ -55,6 +55,9 @@ public class PersonCard extends UiPart<Region> {
             }
         }
     }
+    /**
+     * Fills the attributes box with the attributes of the person.
+     */
     private void fillAttributesBox() {
         personCardAttributes.getChildren().clear();
         String[][] attributeStrings = person.allAttributesAsPairs();
@@ -67,6 +70,9 @@ public class PersonCard extends UiPart<Region> {
             }
         }
     }
+    /**
+     * Sets the attributes box to display a message indicating that no attributes were found.
+     */
     public void setEmptyAttributeBox() {
         CustomPlaceholder emptyAttributePlaceholder =
                 new CustomPlaceholder("No Attributes Found", 20);
@@ -86,6 +92,9 @@ public class PersonCard extends UiPart<Region> {
         Tooltip.install(relationshipTag, relationshipToolTip);
         relationshipToolTip.setShowDelay(Duration.seconds(0.05));
     }
+    /**
+     * Adds a label to the ModuleCard that indicates that the module has no relationships.
+     */
     private void addEmptyRelationshipTag() {
         Label relationshipTag = new Label("Person has no relations");
         relationshipTag.getStyleClass().addAll("personCard-tag", "personCard-empty", "h3");

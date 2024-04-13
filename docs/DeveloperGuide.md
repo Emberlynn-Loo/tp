@@ -21,10 +21,30 @@ title: Developer Guide
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
 - [Implementation](#implementation)
-    - [Proposed Undo/redo feature](#proposed-undoredo-feature)
-    - [Proposed Implementation](#proposed-implementation)
-    - [Design considerations](#design-considerations)
+    - [Add Attribute feature](#add-attribute-feature)
+    - [Edit Attribute feature](#edit-attribute-feature)
+    - [Delete Attribute feature](#delete-attribute-feature)
+    - [Find Attribute or UUID feature](#find-attribute-or-uuid-feature)
+    - [Add relationship feature](#add-relationship-feature)
+      - [Adding a roleless relationship](#scenario-1---adding-a-roleless-relationship)
+      - [Adding a role-based relationship](#scenario-2---adding-a-role-based-relationship)
+    - [Edit Relationship feature](#edit-relationship-feature)
+        - [Editing a roleless relationship](#scenario-1---editing-a-roleless-relationship)
+        - [Editing a relationship with roles](#scenario-2---editing-a-relationship-with-roles)
+    - [Delete Relationship feature](#delete-relationship-feature)
+        - [Deleting a relationship](#scenario-1---deleting-a-relationship)
+        - [Deleting a relationType](#scenario-2---deleting-a-relationtype)
+    - [Clear Terminal feature](#clear-terminal-feature)
+    - [Delete All Persons feature](#delete-all-persons-feature)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product Scope](#product-scope)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Cases](#use-cases)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+- [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -191,11 +211,13 @@ The `Person` component,
 * The `Attribute` component,
   * is used to store details about a `Person`
   * each attribute has a `name` and a `value`
-  * stores the `Attribute` objects in the `Person` object in the hash map.
-  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`) which allows for the user to instantiate their own attributes with a name and string value
+  * stored `Attribute` objects in the `Person` object in the hash map
+  * Has general types of attributes (`StringAttribute`, `IntegerAttribute`, `DateAttribute`)
     * `StringAttribute` - stores a string value
     * `IntegerAttribute` - stores an integer value
     * `DateAttribute` - stores a date value
+  * Users are able to create their own attributes using the `StringAttribute` class
+    * They will have their own `String` name and `String` value
   * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints relevant to their validity
     * `NameAttribute` - stores the name of the person
     * `PhoneNumberAttribute` - stores the phone number of the person and must be an integer of less than 10 digits
@@ -210,9 +232,9 @@ The `Relationship` component,
 * contains details about a relationship between two persons.
 * has a `relationType` that defines the type of relationship.
 * stores UUIDs of `Person` objects that are connected by the `Relationship` object.
-* can be a general `Relationship` which allows the user to define their own `relationType` or a specific one that has a predefined `RelationType`. 
+* can be a general `Relationship` which allows the user to define their own `relationType` or a specific one that has a predefined `RelationType`.
     * `FriendsRelationship` is a relationship class that has a predefined `relationType` of `friends`.
-* can be a general `RoleBasedRelationship` which allows the user to define their own `RelationType` and roles for each Person or a specific one that has those predefined. 
+* can be a general `RoleBasedRelationship` which allows the user to define their own `RelationType` and roles for each Person or a specific one that has those predefined.
     * `FamilyRelationship` is a abstract class that extends from `RoleBasedRelationship`. It is the superclass of `BioParentsRelationship`, `SpousesRelationship` and `SiblingsRelationship`.
       * `BioParentsRelationship` is a relationship class that has a predefined `relationType` of `bioparents` and has predefined roles `parent` and `child`.
       * `SpousesRelationship` is a relationship class that has a predefined `relationType` of `spouses` and has predefined roles `husband` and `wife`.
@@ -249,95 +271,9 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
 ### Add Attribute feature
+
+An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.
 
 #### Implementation
 
@@ -371,7 +307,9 @@ The following sequence diagram shows how the `AddAttribute` shows how the `AddAt
 
 ![AttributeAdditionSequenceDiagram](images/AttributeAdditionSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram sheds more light on exactly what happens a user executes the `addattribute` command:
 
@@ -401,6 +339,8 @@ The following activity diagram sheds more light on exactly what happens a user e
 
 --------------------------------------------------------------------------------------------------------------------
 ### Edit Attribute feature
+
+An `EditAttribute` feature that allows users to edit attributes of a person in the address book. This feature ensures that only existing attributes are edited, maintaining data integrity.
 
 #### Implementation
 
@@ -434,7 +374,9 @@ The following sequence diagram illustrates how the `EditAttribute` command funct
 
 ![AttributeEditSequenceDiagram](images/AttributeEditSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `editattribute` command:
 
@@ -465,6 +407,8 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Delete Attribute feature
+
+The `DeleteAttribute` feature that allows users to delete attributes of a person in the address book. This feature ensures that only existing attributes are deleted, maintaining data integrity.
 
 #### Implementation
 
@@ -498,7 +442,9 @@ The following sequence diagram illustrates how the `DeleteAttribute` command fun
 
 ![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `deleteattribute` command:
 
@@ -529,6 +475,7 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Find Attribute or UUID feature
+
 The `FindCommand` provides the capability to search for persons within the address book whose names contain any of the specified keywords. The operation is case-insensitive and enhances the user experience by enabling efficient and flexible searches.
 
 #### Implementation
@@ -556,7 +503,9 @@ The following sequence diagram illustrates how the `Find` command functions:
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Predicate`, `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `FindCommand`, `NameContainsKeywordsPredicate` and `Model` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `find` command:
 
@@ -586,7 +535,211 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Edit Relationship feature
+
+#### Implementation
+
+The Edit relationship mechanism is facilitated by the `EditRelationshipCommand` and `EditRelationshipCommandParser`.
+The `EditRelationshipCommand` class extends the `Command` class and implements the following operation:
+* `EditRelationshipCommand#execute()` — Edits a relationship between two persons.
+
+#### Scenario 1 - Editing a roleless relationship
+
+Given below is an example usage scenario and how editing a roleless relationship behaves at each step.
+
+Step 1: The user executes `editRelation /1234 /5678 /friends /colleagues` to edit a roleless relationship.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends /colleagues`.
+
+Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details into a hashmap. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
+
+Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
+* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor. If it is, an exception is thrown stating that the `newRelationshipDescriptor` already exists, and can't be added as a roleless relationshipDescriptor.
+* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
+* `Model#addRolelessDescriptor(newRelationshipDescriptor)` It communicates with the `Model` to add the `newRelationshipDescriptor`.
+* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship .
+
+Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how editing a roleless relationship works:
+
+![RolelessRelationshipEditingSequenceDiagram](images/RolelessRelationshipEditingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Scenario 2 - Editing a relationship with roles
+
+Given below is an example usage scenario and how editing a relationship with roles behaves at each step.
+
+Step 1: The user executes `editRelation /1234 husband /5678 wife /partners /spouses` to edit a relationship with roles.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `editRelation` keyword and creates a new `EditRelationshipCommandParser`. The `EditRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 husband /5678 wife /partners /spouses`.
+
+Step 4: `ParserUtil#getRelationshipHashMapEdit(details)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the key/value according to the `boolean`(`true`: get value, `false`: get key) from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the result. This method will be called multiple times to extract the correct `originUuid`, `targetUuid`, `oldRelationshipDescriptor` and `newRelationshipDescriptor`.
+
+Step 6: `EditRelationshipCommandParser#parse` then returns a new `EditRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `EditRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `EditRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toEditOff)` It checks whether the relationship to be edited between the two persons exists.
+* `Model#hasRelationshipWithDescriptor(toEditIn)` It checks whether the relationship to be edited to between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#hasAttribute(Uuid, "Sex")` It checks whether the attribute `Sex` exists for the person with the given Uuid.
+* `Model#genderMatch(role, UuidString, Uuid)` It checks whether the role gender matches with the gender of the "Sex" attribute of the person with the given Uuid. This method is only called if the "Sex" attribute exists for the person.
+* `Model#isRelationRoleBased(newRelationshipDescriptor)` It checks whether the `newRelationshipDescriptor` is a existing role-based relationshipDescriptor.
+* `Model#getRoles(newRelationshipDescriptor)` It communicates with the `Model` to retrieve the roles of the relationship with the provided `newRelationshipDescriptor`.
+* `Model#addRelationship(toEditIn)` It communicates with the `Model` to add the new relationship.
+* `Model#addRoleBasedDescriptor(newRelationshipDescriptor, role1, role2)` It communicates with the `Model` to add the new relationship descriptor with the provided roles.
+* `Model#deleteRelationship(toEditOff)` It communicates with the `Model` to delete the old relationship.
+
+Step 8: `EditRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how editing a relationship with roles works:
+
+![RoleBasedRelationshipEditingSequenceDiagram](images/RoleBasedRelationshipEditingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for EditRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `editrelation` command:
+
+![RelationshipEditingActivityDiagram](images/RelationshipEditingActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the relationship is edited:**
+
+* **Alternative 1 (current choice):** The `EditRelationshipCommand` deletes the old relationship and adds the new relationship.
+    * Pros: Straightforward implementation.
+    * Cons: May cause performance issues if the person has a large number of relationships.
+* **Alternative 2:** The `EditRelationshipCommand` updates the old relationship with the new relationship.
+    * Pros: More efficient as it does not require deleting and adding relationships.
+    * Cons: More complex implementation.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete Relationship feature
+
+#### Implementation
+
+The Delete relationship mechanism is facilitated by the `DeleteRelationshipCommand` and `DeleteRelationshipCommandParser`.
+The `DeleteRelationshipCommand` class extends the `Command` class and implements the following operation:
+* `DeleteRelationshipCommand#execute()` — Deletes a relationship between two persons.
+
+#### Scenario 1 - Deleting a relationship
+
+Given below is an example usage scenario and how deleting a relationship behaves at each step.
+
+Step 1: The user executes `deleteRelation /1234 /5678 /friends` to delete a relationship.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends`.
+
+Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
+
+Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `DeleteRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasRelationshipWithDescriptor(toDelete)` It checks whether the relationship to be deleted between the two persons exists. If it does not, the method throws an exception stating that the relationship does not exist and cannot be deleted.
+* `Model#deleteRelationship(toDelete)` It communicates with the `Model` to delete the relationship.
+
+Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a relationship works:
+
+![RelationshipDeletingSequenceDiagram](images/RelationshipDeletingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Scenario 2 - Deleting a relationType
+
+Given below is an example usage scenario and how deleting a relationType behaves at each step.
+
+Step 1: The user executes `deleteRelation /colleagues` to delete a relationType.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `deleteRelation` keyword and creates a new `DeleteRelationshipCommandParser`. The `DeleteRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/friends`.
+
+Step 4: `ParserUtil#getRelationshipHashMapDelete(details, hasUuids)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the relationship descriptor is valid. It then returns a `LinkedHashMap<String, String>` containing the relationship Descriptor.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key or value of the relationship details. This method is called once to extract the `relationshipDescriptor`.
+
+Step 6: `DeleteRelationshipCommandParser#parse` then returns a new `DeleteRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `DeleteRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#deleteRelationType(toDelete)` It communicates with the `Model` to delete the relationType. If the relationType does not exist, an exception is thrown stating that the relationType does not exist and cannot be deleted.
+
+Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a relationType works:
+
+![RelationTypeDeletingSequenceDiagram](images/RelationTypeDeletingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for DeleteRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `deleterelation` command:
+
+![RelationshipDeletingActivityDiagram](images/RelationshipDeletingActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How the relationship vs relationType is deleted:**
+
+* **Alternative 1 (current choice):** The `DeleteRelationshipCommand` deletes the relationship/relationType based on whether the user provides the UUIDs of the persons.
+    * Pros: Straightforward implementation.
+    * Cons: May cause confusion for the user whether the relationship or relationType is being deleted.
+* **Alternative 2:** Have a separate command for deleting the relationType specifically.
+    * Pros: More explicit for the user.
+    * Cons: More commands to implement, resulting in a more complex overall system.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Clear terminal feature
+
 The `ClearCommand` provides the capability to clear the terminal screen. The operation is designed to provide a clean and uncluttered interface for the user.
 
 #### Implementation
@@ -607,7 +760,9 @@ The following sequence diagram illustrates how the `Clear Terminal` command func
 
 ![ClearTerminalSequenceDiagram](images/ClearTerminalSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `GUIController` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `clear` command:
 
@@ -638,6 +793,7 @@ The following activity diagram provides a more detailed view of what happens whe
 --------------------------------------------------------------------------------------------------------------------
 
 ### Delete All Persons feature
+
 The `DeleteAllCommand` provides the capability to delete all persons from the address book. The operation is irreversible and is designed to provide a quick and efficient way to clear the address book.
 
 #### Implementation
@@ -662,7 +818,9 @@ The following sequence diagram illustrates how the `Clear` command functions:
 
 ![ClearSequenceDiagram](images/ClearSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `Model` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Model`, `ClearCommand` and `LogicManager` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram provides a more detailed view of what happens when a user executes the `deleteallpersons` command:
 
@@ -703,7 +861,7 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Appendix: Requirements
+## **Appendix: Requirements**
 
 ### Product scope
 
@@ -714,8 +872,7 @@ The following activity diagram provides a more detailed view of what happens whe
 * Wants to visualize connections between family members
 * Often only has provisional or partial information about their family members
 
-
-**Value proposition**: Gene-nie puts connections between people at the forefront.
+**Value proposition**: Gene-nie puts connections between people at the forefront. It allows users to easily visualize and understand the relationships between people in their lives. It also allows users to store personal information about each individual, making it a one-stop solution for managing relationships.
 
 ### User stories
 
@@ -730,8 +887,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user    | Have clear success or failure messages after actions                                 | Ensure that the intended action has taken place        |
 | `* *`    | user    | Sort and search a person by their attributes                                         | Find specific individuals more easily                  |
 | `* * *`  | user    | Have my data automatically saved once i exit the app and loaded once i start the app | Seamless experience across different sessions          |
-
-*{More to be added}*
 
 ### Use cases
 
@@ -1388,3 +1543,30 @@ testers are expected to do more *exploratory* testing.
     4. Relaunch Gene-nie. <br>
        **Expected Outcome:** The left panel is now empty. No person records are shown in the application. 
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+### C.1 - Display results of find command in "Search Results" tab
+
+Currently, the results of the `find` command are displayed in the left panel of the application. This enhancement aims to display the results in the separate already implemented tab called "Search Results" to improve the user experience. This will allow users to view the search results without losing sight of the main list of persons.
+
+* Proposed Enhancement:
+  * Display the results of the `find` command in the "Search Results" tab. This tab will be updated with the search results each time the `find` command is executed. The results will be displayed in a similar format to the current display in the left panel. The "Search Results" tab will be cleared when the user executes a new `find` command or closes the application.
+
+* Implementation Details:
+  * Update the `find` command to use the alternate `CommandResult` constructor.
+  * Return the appropriate `CommandResult(findSucessMessage, false, false, true)` to indicate that the search results should be displayed in the "Search Results" tab.
+  * Update the `MainWindow` to display the search results in the "Search Results" tab.
+
+### C.2 - Improve error handling for invalid commands
+
+Currently, the application displays a generic error message when an invalid such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
+
+* Proposed Enhancement:
+  * Improve error handling for invalid commands by ensuring the correct error message is returned.
+
+* Implementation Details:
+  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Update the error handling logic to check for the specific command entered by the user.
+  * Return a specific error message based on the invalid command entered by the user.

@@ -16,6 +16,9 @@ public class PersonInRelationshipPathwayPredicate implements Predicate<Person> {
         this.personUuids = personUuids;
     }
 
+    /**
+     * Tests that a {@code Person}'s {@code UUID} matches any of the UUIDs given.
+     */
     @Override
     public boolean test(Person person) {
         return personUuids.stream().anyMatch(uuid ->

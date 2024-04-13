@@ -16,6 +16,9 @@ public class RelationshipInRelationshipPathwayPredicate implements Predicate<Rel
         this.relationships = relationships;
     }
 
+    /**
+     * Tests that a {@code Person}'s {@code UUID} matches any of the UUIDs given.
+     */
     @Override
     public boolean test(Relationship relationship) {
         return relationships.stream().anyMatch(r ->
