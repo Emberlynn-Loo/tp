@@ -50,11 +50,11 @@ the relationship tree and history of friends and family.
 
 3. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
 </div>
-
-4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
 
 <div markdown="span" class="alert alert-primary">:question: **for Linux users:**
 In your terminal, type `cd (path)`, replacing `(path)` with the _home folder_ path.
@@ -92,15 +92,15 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
 
    * `deleteAllPersons` : When you are done with experimenting with the sample data, you can delete all the persons in Gene-nie to begin building your own contacts list!
 
-<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
-Be careful when using this command with your own data as it will delete all your contacts!
-</div>
-
    * `exit` : Exits the app. All your contacts will be saved for when you next return.
 
 2. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
 
 3. Refer to the [Command Summary](#command-summary) for a quick summary of all commands.
+
+<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
+Be careful when using the deleteAllPersons command with your own data as it will delete all your contacts and is irreversible. Use with caution!
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 The app will resize and expand initially to fit the size of your screen. You can resize the app window to your liking. However, we recommend the app to be fullscreen for the best experience!
@@ -188,11 +188,15 @@ For your convenience, Gene-nie has some predefined attributes that you can use, 
     1. Our application supports a wide range of date inputs to accommodate various historical and genealogical data. You can enter dates using the following format: YYYY-MM-DD.
     2. Year (YYYY): The year can range from -9999 to today's date! This lets you represent of historical dates and more easily track your family history! This range is dictated by the limits of the DateTime object used in our application. Negative years are used to denote years BCE (Before the Common Era).
     3. While our application supports a wide range of years, the input still requires valid months and days corresponding to the Gregorian calendar. For example, `2023-02-29` is invalid because `2023` is not a leap year.
-    4. Gene-nie is our comprehensive family storage device. We acknowledge historical and genealogical uses where ancient dates (e.g., BCE dates) may be necessary. Therefore, negative years (denoting BCE) are considered valid when entered in accordance with the above guidelines.
 4. `Sex` attribute with String value, limited to `Male` or `Female` (not case-sensitive)
     1. This attribute is used to check whether the relationship is valid or not. For example, a person cannot be a `bioparents` of a person with the same `Sex` attribute.
     2. The valid inputs for `Male` attributes are `male` and `m`. The inputs are not case-sensitive.
     3. The valid inputs for `Female` attributes are `female` and `f`. The inputs are not case-sensitive.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Gene-nie is our comprehensive family storage device. We acknowledge historical and genealogical uses where ancient dates (e.g., BCE dates) may be necessary. Therefore, negative years (denoting BCE) are considered valid when entered in accordance with the above guidelines.
+</div>
+
 <div markdown="block" class="alert alert-info">
 Attribute names:
 
