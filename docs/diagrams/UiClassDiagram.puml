@@ -1,4 +1,4 @@
-@startuml
+ @startuml
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
@@ -11,11 +11,15 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class StatusBarFooter
+Class CommandSection
+Class NavBar
 Class DisplaySection
-Class FooterButtonSection
 Class AllContactsSection
+Class SearchResultSection
+Class NavBarButton
+Class TreeMapFlowPane
 Class PersonList
-Class AnyListSection
+Class PersonCard
 }
 
 package Model <<Rectangle>> {
@@ -33,35 +37,31 @@ UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow -down-> "1" HelpWindow
-MainWindow *-down-> "1" FooterButtonSection
+MainWindow *-down-> "1" CommandSection
+CommandSection .right.> Logic
+MainWindow *-down-> "1" NavBar
+NavBar *-down-> "*" NavBarButton
 MainWindow *-down-> "1" DisplaySection
-
 HelpWindow -right[hidden]-> StatusBarFooter
-StatusBarFooter -right[hidden]-> FooterButtonSection
-FooterButtonSection -right[hidden]-> DisplaySection
-
+StatusBarFooter -right[hidden]-> NavBar
+NavBar -right[hidden]-> DisplaySection
 DisplaySection *-down-> "1" AllContactsSection
 AllContactsSection *-down> "1" PersonList
-
-DisplaySection *--> "1" AnyListSection
-AnyListSection *---> "1" PersonList
-
-AllContactsSection -right[hidden]-> AnyListSection
-
+DisplaySection *--> "1" SearchResultSection
+SearchResultSection *---> "1" PersonList
+SearchResultSection *---> "1" TreeMapFlowPane
+TreeMapFlowPane .right.> Model
+PersonList -> "*" PersonCard
+AllContactsSection -right[hidden]-> SearchResultSection
 MainWindow -left|> UiPart
-
-
 StatusBarFooter ----|> UiPart
 HelpWindow ----|> UiPart
-FooterButtonSection ----|> UiPart
+NavBar ----|> UiPart
 DisplaySection ----|> UiPart
-AnyListSection -|> UiPart
-
-
+SearchResultSection -|> UiPart
 AllContactsSection ----|> UiPart
 PersonList ---|> UiPart
-
-PersonList .right.> Model
+PersonCard .right.> Model
 UiManager -right> Logic
 MainWindow -right> Logic
 
