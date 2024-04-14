@@ -119,7 +119,7 @@ If you encounter any issues or have any questions, please refer to the [FAQ](#fa
 
 Additionally, there will be symbols to help you navigate through this guide:
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively. </div>
+<div markdown="span" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use <span class="hello_span">Gene-nie</span> more effectively. </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls. </div>
 
@@ -134,14 +134,16 @@ Additionally, there will be symbols to help you navigate through this guide:
 </div>
 
 <span class="hello_span">Gene-nie</span> has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of <span class="hello_span">Gene-nie</span>.
-
 <div class="img_container">
-    <img src="/images/Gene-nieMainScreen.png" alt="Gene-nieMainScreen.png">
+    <figure>
+        <img src="{{site.baseurl}}/images/Gene-nieMainScreen.png" alt="Gene-nieMainScreen.png">
+        <figcaption>Figure 1: Genie Main Figure</figcaption>
+    </figure>
 </div>
 
 1. <span class="hello_span">Command Box</span>:
 
-   * The command box is where you can enter your commands to interact with **Gene-nie**.
+   * The command box is where you can enter your commands to interact with <span class="hello_span">Gene-nie</span>.
    * Type your command and press Enter to execute it.
    * You can locate the list of commands to use in the [Command Summary](#command-summary) section.
 2. <span class="hello_span">Command Result</span>:
@@ -151,16 +153,16 @@ Additionally, there will be symbols to help you navigate through this guide:
    * If your command fails, the result will be displayed in a red card.
 3. <span class="hello_span">Person List Panel</span>:
 
-   * The person list panel displays all the contacts you have added to **Gene-nie**.
+   * The person list panel displays all the contacts you have added to <span class="hello_span">Gene-nie</span>.
    * Each contact is displayed as a card with their details.
    * You can scroll through the contacts using the scroll bar on the right.
 4. <span class="hello_span">Menu Bar</span>:
 
-   * The menu bar contains the main menu options for **Gene-nie**.
+   * The menu bar contains the main menu options for <span class="hello_span">Gene-nie</span>.
    * You can access the help menu and exit the app from the menu bar.
 5. <span class="hello_span">Panel Switcher</span>:
 
-   * The panel switcher allows you to switch between different panels in **Gene-nie**.
+   * The panel switcher allows you to switch between different panels in <span class="hello_span">Gene-nie</span>.
    * You can switch between the "All Contacts", "Search Results".
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can resize the app window to your liking. We recommend the app to be fullscreen for the best experience!</div>
 
@@ -169,44 +171,60 @@ Now that you are familiar with the main screen of <span class="hello_span">Gene-
 The Search Result Panel is where you can view the results of your `anySearch` and `familySearch` queries. It displays the contacts that match your search criteria including their relationship pathway. You can view the details of each contact and perform actions on them. Let's take a closer look at the Search Result Panel.
 
 <div class="img_container">
-    <img src="/images/geneniesearchresult.png" alt="Gene-nieMainScreen.png">
+    <figure>
+        <img src="{{site.baseurl}}/images/geneniesearchresult.png" alt="picture showing a search result section">
+        <figcaption>Figure 2: Genie Search Result</figcaption>
+    </figure>
 </div>
 
-1. **Person List Panel**:
+1. <span class="hello_span">Person List Panel</span>:
+
    * The person list panel displays all the contacts that match your search criteria.
    * Each contact is displayed as a card with their details.
    * You can scroll through the contacts using the scroll bar on the right.
-2. **Relationship Pathway Display**:
+2. <span class="hello_span">Relationship Pathway Display</span>:
+
    * The relationship pathway displays the relationship between the contacts in the search result.
    * You can view the relationship pathway between the contacts to understand how they are related.
-3. **CLI Output**:
+3. <span class="hello_span">CLI Output</span>
+
    * The CLI output displays the results of your search query in the CLI.
    * You can view the details of the contacts that match your search criteria.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can switch between the "All Contacts" and "Search Results" panels using the panel switcher.</div>
 
-Having a mastery of the panels in **Gene-nie**, now we will introduce to you the individual components of the _person card_ in **Gene-nie**!
+Having a mastery of the panels in <span class="hello_span">Gene-nie</span>, now we will introduce to you the individual components of the _person card_ in <span class="hello_span">Gene-nie</span>!
 
-The person card is where you can view the details of each contact you have added to **Gene-nie**. It displays the unique identifier, attributes, and relationships of the contact. Let's take a closer look at the person card.
+The person card is where you can view the details of each contact you have added to <span class="hello_span">Gene-nie</span>. It displays the unique identifier, attributes, and relationships of the contact. Let's take a closer look at the person card.
+<div class="img_container">
+    <figure>
+        <img src="images/Gene-niePersonCard.png" alt="Gene-niePersonCard.png">
+        <figcaption>Figure 3: Gene-ie Person Card</figcaption>
+    </figure>
+</div>
 
-![Gene-niePersonCard.png](images/Gene-niePersonCard.png)
+1. <span class="hello_span">Unique Identifier (UUID):</span>:
 
-1. **Unique Identifier (UUID)**:
    * The unique identifier (UUID) is a 4-character code that is used to identify the contact.
    * You can view the UUID of the contact on the left of the person card.
-2. **Attributes Display**:
-   * The attributes are the details of the contact that you have added to **Gene-nie**.
+2. <span class="hello_span">Attribute Display:</span>:
+
+   * The attributes are the details of the contact that you have added to <span class="hello_span">Gene-nie</span>.
    * You can view the attributes of the contact in the right of the person card.
-3. **Relationships Display**:
-   * The relationships are the connections between the contact and other contacts in **Gene-nie**.
+3. <span class="hello_span">Relationship Display:</span>:
+
+   * The relationships are the connections between the contact and other contacts in <span class="hello_span">Gene-nie</span>.
    * You can view the relationships of the contact on the bottom of the person card.
 
-Now that you are familiar with the user interface of **Gene-nie**, let us quickly start you on the magical world of **Gene-nie**!
+Now that you are familiar with the user interface of <span class="hello_span">Gene-nie</span>, let us quickly start you on the magical world of <span class="hello_span">Gene-nie</span>!
 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-## Quick start
+
+<div class="section_header_h2">
+    <h2><a href="#quick-start" id="quick-start">Quick Start</a></h2>
+</div>
 
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
@@ -216,7 +234,13 @@ Now that you are familiar with the user interface of **Gene-nie**, let us quickl
 
 4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie. An example is shown below.
 
-![terminalExample.png](images/terminalExample.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/terminalExample.png" alt="terminalExample.png">
+        <figcaption>Figure 4: Terminal Window Running Command</figcaption>
+    </figure>
+</div>
+
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To ensure a smooth experience, it is recommended to keep the `Gene-nie.jar` file in a dedicated folder, with no other files in it.
@@ -232,8 +256,14 @@ Navigate to the _home folder_ in File Explorer, then type `cmd` in the address b
 Navigate to the _home folder_ in Finder, then right-click and select "New Terminal at Folder".
 </div>
 
-   A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/Ui.png" alt="Ui.png">
+        <figcaption>Figure 5: User Interface Containing Sample Data</figcaption>
+    </figure>
+</div>
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
 
@@ -245,7 +275,7 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
 The app will resize and expand initially to fit the size of your screen. You can resize the app window to your liking. However, we recommend the app to be fullscreen for the best experience!
 </div>
 
-*Congratulations! You have successfully set up **Gene-nie** and are ready to start managing your contacts! But before we leave you, let us quickly run through the Command Line Interface (CLI).*
+*Congratulations! You have successfully set up <span class="hello_span">Gene-nie</span> and are ready to start managing your contacts! But before we leave you, let us quickly run through the Command Line Interface (CLI).*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -253,27 +283,27 @@ The app will resize and expand initially to fit the size of your screen. You can
 
 ## Using the Command Line Interface (CLI)
 
-**Gene-nie** is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
+<span class="hello_span">Gene-nie</span> is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
 
 If you are still worried about using the CLI, let us demystify it for you! In fact, this is all there is to it:
 
 ![CLIinterface.png](images/CLIinterface.png)
 
-Recall that the image above shows you the CLI interface of **Gene-nie**. 
+Recall that the image above shows you the CLI interface of <span class="hello_span">Gene-nie</span>. 
 It is akin to the magic words Aladdin uses to command the Genie! 
 
-You can key in your commands and **Gene-nie** will respond to your commands *if correct*!
+You can key in your commands and <span class="hello_span">Gene-nie</span> will respond to your commands *if correct*!
 
 Using CLI offers many advantages, such as:
-* If you can _type as fast you can think_, **Gene-nie** can help you work magic faster!
+* If you can _type as fast you can think_, <span class="hello_span">Gene-nie</span> can help you work magic faster!
 * It takes up _lesser memory and resources_ compared to a Graphical User Interface (GUI) app.
 * It is _cool_! You can impress your friends with your command-line skills!
 
 However, to make full use of our CLI interface, you need to: 
-* Familiarise yourself with the commands available in **Gene-nie**.
+* Familiarise yourself with the commands available in <span class="hello_span">Gene-nie</span>.
 * Ensure you key in the correct commands _accurately_ to get the desired results.
 
-Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure that you follow the [Command Formats](#command-format) below and you will be able to use **Gene-nie** with ease!
+Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure that you follow the [Command Formats](#command-format) below and you will be able to use <span class="hello_span">Gene-nie</span> with ease!
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -310,7 +340,7 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 Be careful when inputting commands into the CLI interface. Especially when accidentally inputting a space in the command name, the command may result in the wrong execution or error message being thrown!
 </div>
 
-Now that you are familiar with the command format, let us bring you through a short tutorial of how to use our magical app **Gene-nie**! Happy learning!
+Now that you are familiar with the command format, let us bring you through a short tutorial of how to use our magical app <span class="hello_span">Gene-nie</span>! Happy learning!
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -318,8 +348,8 @@ Now that you are familiar with the command format, let us bring you through a sh
 
 ## Tutorial
 
-We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use **Gene-nie**!
-Regardless of your skill level, we will guide you through the basics of using **Gene-nie**!
+We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use <span class="hello_span">Gene-nie</span>!
+Regardless of your skill level, we will guide you through the basics of using <span class="hello_span">Gene-nie</span>!
 
 Firstly, let us open the app! If you have forgotten how to you can refer to the [Quick Start](#quick-start) section above!
 
@@ -328,34 +358,34 @@ You will be greeted with our interface below populated with some sample data rea
 ![Gene-nieStartImage.png](images/Gene-nieStartImage.png)
 
 Before we continue, make sure that you understand:
-* The [Command Format](#command-format) of **Gene-nie**
-* The [User Interface](#user-interface) of **Gene-nie**
-* The [Command Line Interface (CLI)](#using-the-command-line-interface--cli-) of **Gene-nie**
+* The [Command Format](#command-format) of <span class="hello_span">Gene-nie</span>
+* The [User Interface](#user-interface) of <span class="hello_span">Gene-nie</span>
+* The [Command Line Interface (CLI)](#using-the-command-line-interface--cli-) of <span class="hello_span">Gene-nie</span>
 
-Now, let us start with the basics of **Gene-nie**!
+Now, let us start with the basics of <span class="hello_span">Gene-nie</span>!
 
 ### Clearing the Sample Data!
 
-Before we start if you aren't a fan of the imaginary friends we gave you, let us clear the sample data in **Gene-nie**! We will use the `deleteAllPersons` command to clear all the sample data! This leaves you with a clean slate to start your genealogy journey!
+Before we start if you aren't a fan of the imaginary friends we gave you, let us clear the sample data in <span class="hello_span">Gene-nie</span>! We will use the `deleteAllPersons` command to clear all the sample data! This leaves you with a clean slate to start your genealogy journey!
 
 ![cleangenie.png](images/cleangenie.png)
 
 ### Adding yourself!
 
-Now that we have a clean slate, let us add you into **Gene-nie**! We will use the `add` command to add yourself into **Gene-nie**! You can add your name, phone number, email, address, or any other details you wish to add! If you want to you are even able to add a person without any attributes!
-Type this command `add /name Your Name /phone Your Number /email youremail@email.com` to add yourself into **Gene-nie**!
+Now that we have a clean slate, let us add you into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add yourself into <span class="hello_span">Gene-nie</span>! You can add your name, phone number, email, address, or any other details you wish to add! If you want to you are even able to add a person without any attributes!
+Type this command `add /name Your Name /phone Your Number /email youremail@email.com` to add yourself into <span class="hello_span">Gene-nie</span>!
 
 ![addyou.png](images/addyou.png)
 
 ### Adding your Friend!
 
-Now that you have added yourself, let us add your friend into **Gene-nie**! We will use the `add` command to add your friend into **Gene-nie**!
+Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
 
 ![addfriend.png](images/addfriend.png)
 
 ### Editing you/your friend's details!
 
-Now that you have added yourself and your friend into **Gene-nie**, you can edit your details or your friend's details using the `editAttribute` command! You can edit any attribute you have added to yourself or your friend! Make sure that you follow the [Attribute format](#attributes) when editing the details!
+Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, you can edit your details or your friend's details using the `editAttribute` command! You can edit any attribute you have added to yourself or your friend! Make sure that you follow the [Attribute format](#attributes) when editing the details!
 Type this command `editAttribute /UUID /AttributeName New Value` to edit the attribute of yourself or your friend!
 
 ![editdetails.png](images/editdetails.png)
@@ -364,32 +394,32 @@ Well done! You have successfully edited the address of your friend! You can also
 
 ### Adding the Relationship!
 
-Now that you have added yourself and your friend into **Gene-nie**, let us add the relationship between you and your friend! We will use the `addRelation` command to add the relationship between you and your friend! You can add any relationship you wish to add between you and your friend! Make sure that you follow the [Relationship format](#relationships) when adding the relationship!
+Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, let us add the relationship between you and your friend! We will use the `addRelation` command to add the relationship between you and your friend! You can add any relationship you wish to add between you and your friend! Make sure that you follow the [Relationship format](#relationships) when adding the relationship!
 Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relationship between you and your friend!
 
 ![addrelation.png](images/addrelation.png)
 
 Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
 
-Congratulations! You have successfully completed the tutorial of **Gene-nie**! You are now ready to start your magical genealogy journey with **Gene-nie**!
+Congratulations! You have successfully completed the tutorial of <span class="hello_span">Gene-nie</span>! You are now ready to start your magical genealogy journey with <span class="hello_span">Gene-nie</span>!
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** If you are unsure of the commands to use, you can always refer to the [Command Summary](#command-summary) section for a quick summary of all commands available in **Gene-nie**!</div>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** If you are unsure of the commands to use, you can always refer to the [Command Summary](#command-summary) section for a quick summary of all commands available in <span class="hello_span">Gene-nie</span>!</div>
 
-Now that you are a master of **Gene-nie**, let us bring you through the [features](#features) of **Gene-nie**!
+Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
-In the world of genealogy, **Gene-nie** is your magical assistant that helps you manage your contacts and relationships with ease!
-**Gene-nie** works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
+In the world of genealogy, <span class="hello_span">Gene-nie</span> is your magical assistant that helps you manage your contacts and relationships with ease!
+<span class="hello_span">Gene-nie</span> works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
 It's not just a genie in a bottle, it is a genie in a jar! A jar of magic that helps you manage your contacts and relationships with ease!
 
-**Gene-nie** has 3 main features:
+<span class="hello_span">Gene-nie</span> has 3 main features:
 1. Managing Persons
 2. Managing Attributes of Persons
 3. Managing Person Relationships
 
-Let us dive into the magical world of **Gene-nie**!
+Let us dive into the magical world of <span class="hello_span">Gene-nie</span>!
 
 ### Persons
 
@@ -465,7 +495,7 @@ Attribute values:
 
 ### Relationships
 
-In this magical world of **Gene-nie**, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, **Gene-nie** remembers stored information about each person in the form of **Relationships**.
+In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of **Relationships**.
 
 Relationships are what you use to store information about the relationship between 2 persons.
 

@@ -201,9 +201,18 @@
     font-style: Italic;
 }
 .img_container {
-    padding: 20px;
+    padding: 15px 15px 0px 15px;
     border-radius: 10px;
     background-color: #F7DED0;
+
+    & figcaption {
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 0;
+        color: #5e291b;
+        margin-top: 5px;
+    }
 }
 
 ol {
@@ -237,6 +246,9 @@ ol {
   letter-spacing: -1px;
   line-height: 1.15;
   text-align: center;
+  font-style: italic;
+  color: #6B240C;
+  font-weight: 700;
 
   @media screen and (min-width: $on-large) {
     @include relative-font-size(2.625);
