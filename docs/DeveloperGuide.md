@@ -20,6 +20,8 @@ title_name: Developer Guide
     - [Storage component](#storage-component)
     - [Common classes](#common-classes)
 - [Implementation](#implementation)
+    - [Add Person feature](#add-person-feature)
+    - [Delete Person feature](#delete-person-feature)
     - [Add Attribute feature](#add-attribute-feature)
     - [Edit Attribute feature](#edit-attribute-feature)
     - [Delete Attribute feature](#delete-attribute-feature)
@@ -221,8 +223,9 @@ The `Person` component,
   * Has specific types of attributes (e.g. `NameAttribute`, `PhoneNumberAttribute`) with unique constraints relevant to their validity
     * `NameAttribute` - stores the name of the person
     * `PhoneNumberAttribute` - stores the phone number of the person and must be an integer of less than 10 digits
-    * `GenderAttribute` - stores the gender of the person and must be either `Male` or `Female`
+    * `SexAttribute` - stores the gender of the person and must be either `Male` or `Female`
   * does not depend on the other components (as the `Attribute` are standalone stores of details about the `Person`)
+
 #### Model component - Relationship
 
 <img src="images/RelationshipClassDiagram.png" width="550" />
@@ -309,6 +312,8 @@ The following sequence diagram shows how adding a person works:
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+</div>
+
 The following activity diagram sheds more light on exactly what happens when a user executes the 'add' command:
 
 ![AddPersonActivityDiagram](images/AddPersonActivityDiagram.png)
@@ -363,6 +368,8 @@ The following sequence diagram shows how deleting a person works:
 ![DeletePersonSequenceDiagram](images/DeletePersonSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram sheds more light on exactly what happens when a user executes the 'delete' command:
 
@@ -1832,7 +1839,7 @@ Currently, the results of the `find` command are displayed in the left panel of 
 
 ### C.2 - Improve error handling for invalid commands
 
-Currently, the application displays a generic error message when an invalid such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
+Currently, the application displays a generic error message when an invalid command such as `add attribute` is entered. The current implementation returns the wrong error message and does not provide the user with enough information to correct the error. This enhancement aims to improve the error handling for invalid commands to provide more specific and helpful error messages to the user.
 
 * Proposed Enhancement:
   * Improve error handling for invalid commands by ensuring the correct error message is returned.
@@ -1841,3 +1848,75 @@ Currently, the application displays a generic error message when an invalid such
   * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
   * Update the error handling logic to check for the specific command entered by the user.
   * Return a specific error message based on the invalid command entered by the user.
+
+### C.3 - Improve saving of valid relationship descriptors
+
+Currently, the application saves the relationship descriptors to the list of valid descriptors everytime the user enters a new relationship with that specific descriptor. As there are no checks performed to ensure that the descriptor is unique, the relationship descriptor can be saved multiple times in the list. This enhancement aims to improve the saving of valid relationship descriptors by checking if the descriptor already exists in the list before saving it.
+
+* Proposed Enhancement:
+  * Improve the saving of valid relationship descriptors by checking if the descriptor already exists in the list before saving it.
+
+* Implementation Details:
+  * Update the `addrelation` and `editrelation` command to check if the relationship descriptor already exists in the list of valid descriptors.
+  * If the descriptor already exists, do not save it again. If the descriptor does not exist, save it to the list of valid descriptors.
+  * Display an appropriate message to the user indicating whether the descriptor was saved or not.
+
+### C.4 - Improve error handling for duplicate relationship types
+
+Currently, the application allows for users to add any relationTypes with no limitations unless the exact relationType already exists. Thus, the current implementation does not take into account for varied spellings of the same word even if they already exist (e.g., "friend" and "friends"), resulting in potential confusion for users. This enhancement aims to improve the error handling for duplicate relation types to provide clearer guidance to users encountering duplicate relation types.
+
+* Proposed Enhancement:
+  * Improve error handling for duplicate relation types by checking for similar relation types before adding a new relation type.
+
+* Implementation Details:
+    * Update the `addrelation` and `editrelation` command to check for similar relation types before adding a new relation type.
+    * If a similar relation type already exists, display an error message to the user indicating that the relation type already exists.
+    * Provide suggestions for similar relation types to help the user choose the correct relation type.
+
+### C.5 - Improve display result for UUIDs in certain error messages
+
+Currently, when displaying errors for duplicate UUIDs, the application shows the full UUIDs in the error message. This can be confusing for users as the UUIDs are long and not easily readable. This enhancement aims to improve the display of UUIDs in error messages to make them more user-friendly.
+
+* Proposed Enhancement:
+  * Improve the display of UUIDs in error messages by showing only the first few characters of the UUID.
+
+* Implementation Details:
+    * Update the error messages for duplicate UUIDs to show only the first few characters of the UUID.
+    * Provide a tooltip or additional information for users to view the full UUID if needed.
+
+### C.6 - Add support for extendable roles for relationships
+
+Currently, the application allows for users to add any relationTypes with little limitation in regard to spelling. Thus, users are able to add any roles and relation types that they want to for custom relationships, including roles and relation types that are not valid words (e.g. aaa). This enhancement aims to improve the checking of roles for custom relationships.
+
+* Proposed Enhancement:
+    * Improve the checking of roles for custom relationships by checking for similar roles before adding a new role.
+
+* Implementation Details:
+    * Update the `addrelation` and `editrelation` command to check for valid roles before adding the relationship.
+    * Use an external library or dictionary to check if the roles are valid words.
+    * Display an error message to the user if the role is not a valid word.
+
+### C.7 - Improve changing of roles for a specific relationship type
+
+Currently, when the user wants to change the roles for a specific relationship type, they would first need to delete all the relationships with that relation type, then delete the relation type from the database, and then redefine it by adding a new relationship with the new roles. This process is cumbersome and time-consuming. This enhancement aims to improve the changing of roles for a specific relationship type by allowing users to directly edit the roles for a specific relationship type.
+
+* Proposed Enhancement:
+  * Improve the changing of roles for a specific relationship type by allowing users to directly edit the roles for that relationship type.
+
+* Implementation Details:
+    * Update the `editrelation` command to allow users to change the roles for a specific relationship type.
+    * Provide a command format that allows users to specify the relationship type and the new roles for that relationship type.
+    * Display a confirmation message to the user indicating that the roles for the relationship type have been successfully changed.
+
+### C.8 - Improve the checking of valid roles with respect to the relationType
+
+Currently, the application only supports a few pre-defined relationships with fixed roles (e.g., "spouses" with roles "husband" and "wife"). Users are able to add any roles that they want to for custom role-based relationships. Thus, they are able to add roles unrelated to the relation type (e.g. roles of brother and sister in cousins relationship). This enhancement aims to improve the checking of valid roles with respect to the relationType.
+
+* Proposed Enhancement:
+    * Improve the checking of valid roles with respect to the relationType by ensuring that the roles are appropriate for the relationType.
+
+* Implementation Details:
+    * Update the `addrelation` and `editrelation` command to check for valid roles with respect to the relationType.
+    * Use an external library or dictionary to define a set of valid roles for each relationType.
+    * Ensure that the roles provided by the user match the valid roles for that relationType.
+    * Display an error message to the user if the roles are not appropriate for the relationType.
