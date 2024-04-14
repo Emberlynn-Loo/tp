@@ -106,6 +106,8 @@ Through the magic of <span class="hello_span">Gene-nie</span> you are able to
 
 Whether you are an expert genealogist or a budding enthusiast, this guide will help you get started with <span class="hello_span">Gene-nie</span>.
 
+<span class="hello_span">I see that you are eager to start your genealogy journey!</span> Let my friends give you a short introduction...
+
 We will walk you through every step, from the basics of adding a person and their relationships to advanced features that will empower you in your journey of genealogy.
 
 <span class="h3_span">Novice Users:</span>
@@ -137,6 +139,8 @@ Additionally, there will be symbols to help you navigate through this guide:
 <div class="section_header_h2">
     <h2><a href="#user-interface" id="user-interface">User Interface</a></h2>
 </div>
+
+<span class="hello_span">You look lost, let my friends show you the way that I work!</span>
 
 <span class="hello_span">Gene-nie</span> has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of <span class="hello_span">Gene-nie</span>.
 <div class="img_container">
@@ -231,6 +235,8 @@ Now that you are familiar with the user interface of <span class="hello_span">Ge
     <h2><a href="#quick-start" id="quick-start">Quick Start</a></h2>
 </div>
 
+Ah, I see that you are excited to command me... <span class="hello_span">Let me show you how to make me work my magic quickly!!</span>
+
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
 2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
@@ -294,6 +300,8 @@ The app will resize and expand initially to fit the size of your screen. You can
     </h2>
 </div>
 
+<span class="hello_span">I see that you are nervous... Don't be!</span> It is as easy as ABC! Let my friends show you the way...
+
 <span class="hello_span">Gene-nie</span> is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
 
 If you are still worried about using the CLI, let us demystify it for you! In fact, this is all there is to it:
@@ -327,6 +335,8 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 <div class="section_header_h2">
     <h2><a href="#command-format" id="command-format">Command Format</a></h2>
 </div>
+
+Ah, you wish to command me to do your bidding! Fret not! I will show you the way... But make sure to <span class="hello_span">REMEMBER THESE FORMATS OR ELSE!!!!</span>
 
 <span class="h3_span">Notes about the command format:</span>
 
@@ -367,7 +377,9 @@ Now that you are familiar with the command format, let us bring you through a sh
     <h2><a href="#tutorial" id="tutorial">Tutorial</a></h2>
 </div>
 
-We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use <span class="hello_span">Gene-nie</span>!
+<span class="hello_span"> I can show you the world! Shining, shimmering, splendid!</span> You better pay attention to my friends...
+
+To properly make use of <span class="hello_span">Gene-nie</span>, let us take you through a tutorial of how to utilise <span class="hello_span">Gene-nie</span>!
 Regardless of your skill level, we will guide you through the basics of using <span class="hello_span">Gene-nie</span>!
 
 Firstly, let us open the app! If you have forgotten how to you can refer to the [Quick Start](#quick-start) section above!
@@ -456,17 +468,21 @@ Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relati
 
 Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
 
-Congratulations! You have successfully completed the tutorial of <span class="hello_span">Gene-nie</span>! You are now ready to start your magical genealogy journey with <span class="hello_span">Gene-nie</span>!
+<span class="hello_span">HA HA HA...Congratulations! I never doubted you.</span> You have successfully mastered how to use me! You are now ready to start your magical genealogy journey with me! That wasn't so hard, was it?
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** If you are unsure of the commands to use, you can always refer to the [Command Summary](#command-summary) section for a quick summary of all commands available in <span class="hello_span">Gene-nie</span>!</div>
 
 Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
+
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section_header_h2">
     <h2><a href="#features">Features</a></h2>
 </div>
+
+<span class="hello_span">Ah, you wish to know more about me!</span> Let me show you the magical features I use to help you manage your contacts and relationships!
 
 In the world of genealogy, <span class="hello_span">Gene-nie</span> is your magical assistant that helps you manage your contacts and relationships with ease!
 <span class="hello_span">Gene-nie</span> works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
@@ -482,6 +498,8 @@ Let us dive into the magical world of <span class="hello_span">Gene-nie</span>!
 <div class="section_header_h3">
     <h3><a href="#persons">Persons</a></h3>
 </div>
+
+It seems like you are trying to remember specific details of your friends and family... <span class="hello_span">Let me magic away this issue for you!</span>
 
 In the world of Gene-nie, we believe that every contact is unique and special! Every friend or family you store in Gene-nie is considered a _Person_.
 
@@ -508,6 +526,8 @@ Have a look at this sample person card. Can you spot where each detail is locate
 <div class="section_header_h3">
     <h3><a href="#attributes">Attributes</a></h3>
 </div>
+
+<span class="hello_span">Ah...</span> It seems you're trying to remember specific details of your friends and family... <span class="hello_span">Let me help!</span>
 
 Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of **Attributes**.
 
@@ -565,6 +585,8 @@ Attribute values:
     <h3><a href="#relationships">Relationships</a></h3>
 </div>
 
+You wish to know more about the relationships between your friends and family... <span class="hello_span">Let me show you the way!</span>
+
 In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of **Relationships**.
 
 Relationships are what you use to store information about the relationship between 2 persons.
@@ -576,7 +598,7 @@ Relationships are what you use to store information about the relationship betwe
     <h2><a href="#features---managing-persons">Features - Managing Person Profiles</a></h2>
 </div>
 
-<span class="hello_span">HO HO HO it seems that you are trying to manage your contacts! Let me guide you through the magical world of managing person profiles in Gene-nie!</span>
+<span class="hello_span">HO HO HO...</span> it seems that you are trying to manage your contacts! Let me guide you through the magical world of managing person profiles in Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#listing-all-persons--list-or-l">Listing all Persons</a></h3>
@@ -670,7 +692,7 @@ Examples:
     <h2><a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a></h2>
 </div>
 
-<span class="hello_span">AHHHHH... It seems that you are now trying to manage the attributes of your contacts! Let me guide you through the magical world of managing attributes of persons in Gene-nie!</span>
+<span class="hello_span">AHHHHH...</span> It seems that you are now trying to manage the attributes of your contacts! Let me guide you through the magical world of managing attributes of persons in Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute</a></h3>
@@ -749,7 +771,7 @@ Examples:
     <h2><a href="#features---managing-person-relationships">Managing Person Relationships</a></h2>
 </div>
 
-<span class="hello_span">WOW!!!! It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!</span>
+<span class="hello_span">WOW!!!!</span> It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types</a></h3>
@@ -934,7 +956,7 @@ else `No Relationship Pathway Found` will be returned
     <h2><a href="#features---general-features">General Features</a></h2>
 </div>
 
-<span class="hello_span">INTERESTING!!! It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!</span>
+<span class="hello_span">INTERESTING!!!</span> It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#viewing-help--help-or-h">Viewing Help</a></h3>
