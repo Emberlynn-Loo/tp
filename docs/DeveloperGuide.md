@@ -308,6 +308,8 @@ The following sequence diagram shows how adding a person works:
 
 ![AddPersonSequenceDiagram](images/AddPersonSequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 The following activity diagram sheds more light on exactly what happens when a user executes the 'add' command:
 
 ![AddPersonActivityDiagram](images/AddPersonActivityDiagram.png)
@@ -357,6 +359,8 @@ Step 7: The `DeleteCommand#execute` method returns the `CommandResult` object to
 The following sequence diagram shows how deleting a person works:
 
 ![DeletePersonSequenceDiagram](images/DeletePersonSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The following activity diagram sheds more light on exactly what happens when a user executes the 'delete' command:
 
