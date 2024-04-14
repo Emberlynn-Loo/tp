@@ -1,9 +1,8 @@
 ---
 layout: page
-title: Developer Guide
+title: GENE-NIE DEVELOPER GUIDE
+title_name: Developer Guide
 ---
-
-<h1 align="center"><i>GENE-NIE DEVELOPER GUIDE</i></h1>
 
 ## Table of Contents
 

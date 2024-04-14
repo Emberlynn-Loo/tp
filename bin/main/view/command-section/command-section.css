@@ -1,0 +1,92 @@
+.command-section_container {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 20;
+    -fx-max-width: 500;
+    -fx-min-width: 200;
+}
+.command-section_scrollpane {
+    -fx-background-color: #EFBC9B;
+}
+command-section_scrollpane .viewport {
+    -fx-background-color: #EFBC9B;
+}
+.command-section_dialog-container {
+    -fx-padding: 15;
+    -fx-background-color: -black;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+.command-section_dialog-label {
+    -fx-font-size: 15;
+    -fx-font-family: "Orbitron";
+    -fx-alignment: center-left;
+    -fx-text-fill: -black;
+    -fx-padding: 5 10 5 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+#command-section_dialog-label-welcome {
+    -fx-font-size: 15;
+    -fx-font-family: "Orbitron";
+    -fx-alignment: center;
+    -fx-text-fill: -white;
+    -fx-padding: 5 10 5 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.success {
+    -fx-background-color: #B7E0A6;
+}
+
+.failure {
+    -fx-background-color: #D8524B;
+}
+
+.failure-text {
+    -fx-text-fill: #D8524B;
+}
+.command-section_command-box-placeholder {
+}
+
+.command-section_scrollpane .scroll-bar:vertical .increment-arrow,
+.command-section_scrollpane .scroll-bar:vertical .decrement-arrow,
+.command-section_scrollpane .scroll-bar:vertical .increment-button,
+.command-section_scrollpane .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    -fx-shape: "";
+}
+
+.command-section_scrollpane .scroll-bar:vertical .thumb {
+    -fx-background-color: #d3d3d3;;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+    -fx-pref-height: 30;
+}
+.command-section_scrollpane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-opacity: 0;
+}
+.command-section_scrollpane:hover .scroll-bar:vertical,
+.command-section_scrollpane:focus .scroll-bar {
+    -fx-opacity: 1;
+}
+
+.cli-input {
+    -fx-font-family: 'Orbitron Medium';
+    -fx-padding: 15 20;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: #D6DAC8;
+    -fx-opacity: 1;
+    -fx-text-font-weight: 500;
+    -fx-prompt-text-fill: -black;
+    -fx-prompt-text-font-weight: bold;
+    -fx-max-width: 400;
+    -fx-min-width: 100;
+    -fx-font-size: 15;
+}

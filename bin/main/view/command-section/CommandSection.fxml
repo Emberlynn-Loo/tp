@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<VBox minWidth="100" spacing="20" alignment="CENTER" fillWidth="true" styleClass="command-section_container" VBox.vgrow="ALWAYS" fx:id="commandSectionContainer" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@command-section.css"/>
+    </stylesheets>
+    <ScrollPane minViewportHeight="100" minHeight="100" hbarPolicy="NEVER" vbarPolicy="ALWAYS" fx:id="commandSectionDialogScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="command-section_scrollpane">
+        <VBox fx:id="commandSectionDialogContainer" styleClass="command-section_dialog-container" VBox.vgrow="ALWAYS" spacing="10" minHeight="100"/>
+    </ScrollPane>
+    <VBox fx:id="commandBoxContainer" styleClass="command-section_command-box-placeholder" VBox.vgrow="NEVER" alignment="TOP_CENTER" minHeight="200" spacing="10">
+        <StackPane alignment="CENTER" id="cli-input-container">
+            <TextField onAction="#handleCommandEntered" fx:id="cliInput" promptText="Type your command here..." styleClass="cli-input" />
+        </StackPane>
+        <ImageView fitHeight="150" fitWidth="150" preserveRatio="true" fx:id="commandBoxImageContainer"/>
+    </VBox>
+</VBox>
+
+

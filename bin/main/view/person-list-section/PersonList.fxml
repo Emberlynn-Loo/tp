@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
+<VBox fx:id="personListVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="150.0" minWidth="400.0" stylesheets="@person-list.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER">
+   <children>
+      <ScrollPane VBox.vgrow="ALWAYS" id="personListContainerId" fx:id="personListScrollPane" hbarPolicy="NEVER" minHeight="100" minViewportHeight="100" styleClass="personList_container" stylesheets="@person-list.css" vbarPolicy="ALWAYS" fitToWidth="true">
+         <content>
+            <VBox fillWidth="true" fx:id="personListCardVbox" alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="100" minWidth="550.0" styleClass="personList_vbox_container" stylesheets="@person-list.css" spacing="10" VBox.vgrow="ALWAYS">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" height="101.06" radius="47.065" width="89.2">
+                     <color>
+                        <Color red="0.8421052694320679" green="0.5497075915336609" blue="0.2573099434375763" />
+                     </color>
+                  </DropShadow>
+               </effect></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
