@@ -36,7 +36,6 @@ public class RoleBasedRelationship extends Relationship {
 
     @Override
     public String getRelativeRelationshipDescriptorWithoutUuid(UUID origin) {
-        UUID target = origin.equals(this.person1) ? this.person2 : this.person1;
         String originRole = getRoleDescriptor(origin);
         return String.format(" (%s) %s of ", relationshipDescriptor, originRole);
     }

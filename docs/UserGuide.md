@@ -476,7 +476,7 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 Examples:
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
-### Deleting a relationship : `deleteRelation` or `dr`
+### Deleting a relationship : `deleteRelation` or `dr` 
 
 Deletes the relationship between two people in the address book.
 

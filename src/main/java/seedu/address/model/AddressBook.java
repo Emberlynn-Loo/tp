@@ -155,13 +155,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     public void deleteRelationship(Relationship toDelete) {
         relationships.deleteRelationship(toDelete);
-    };
+    }
     public boolean hasRelationship(Relationship toFind) {
         return relationships.hasRelationship(toFind);
-    };
+    }
     public boolean hasRelationshipWithDescriptor(Relationship toFind) {
         return relationships.hasRelationshipWithDescriptor(toFind);
-    };
+    }
     public String getExistingRelationship(Relationship toGet) {
         return relationships.getExistingRelationship(toGet);
     }
@@ -236,25 +236,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         relationships.deleteRelationType(relationType);
     }
 
-    public boolean isRelationRoleBased(String descriptor) {
-        return relationships.isRelationRoleBased(descriptor);
-    }
-
-    public List<String> getRoles(String descriptor) {
-        return relationships.getRoles(descriptor);
-    }
-
     public boolean hasRelationshipWithRoles(RoleBasedRelationship relationship, UUID uuid, UUID uuid2) {
         return relationships.hasRelationshipWithRoles(relationship, uuid, uuid2);
-    }
-
-    public boolean isRelationRoleless(String descriptor) {
-        return relationships.isRelationRoleless(descriptor);
-    }
-
-    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid, String role1,
-                                                    String role2) throws CommandException {
-        return relationships.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
     }
 
     /**
@@ -290,5 +273,49 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void genderMatch(String rolePerson1, String uuid, String shortUuid) {
         persons.genderMatch(rolePerson1, uuid, shortUuid);
+    }
+
+    public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                          String originUuid, String targetUuid, String rolePerson1,
+                                                          String rolePerson2,
+                                                          String relationshipDescriptor) throws CommandException {
+        return relationships.getRelationshipRoleBased(fullOriginUuid, fullTargetUuid, model, originUuid, targetUuid,
+                rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    public void validateRoleBasedRelation(String rolePerson1, String rolePerson2,
+                                          String relationshipDescriptor) throws CommandException {
+        relationships.validateRoleBasedRelation(rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    public void validateRoleless(String role1, String role2, String newRelationshipDescriptor) throws CommandException {
+        relationships.validateRoleless(role1, role2, newRelationshipDescriptor);
+    }
+
+    /**
+     * Checks if the specified relationship can be edited. It ensures that the relationship to be edited exists in the
+     * model, and that the new relationship descriptor is valid. If the relationship is valid, it returns the
+     * Relationship object to be edited.
+     *
+     * @param toEditIn                  The relationship to be edited.
+     * @param fullOriginUuid            The UUID of the first person in the relationship.
+     * @param fullTargetUuid            The UUID of the second person in the relationship.
+     * @param originUuid                The UUID of the first person in the relationship as a String.
+     * @param targetUuid                The UUID of the second person in the relationship as a String.
+     * @param role1                     The role of the first person in the relationship.
+     * @param role2                     The role of the second person in the relationship.
+     * @param model                     The model containing the relationships.
+     * @param oldRelationshipDescriptor The old relationship descriptor.
+     * @param newRelationshipDescriptor The new relationship descriptor.
+     * @param b                         A boolean indicating if the relationship is role-based.
+     * @throws CommandException If the relationship to be edited does not exist in the model, or if the new relationship
+     *                         descriptor is invalid.
+     */
+    public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid, String originUuid,
+                                   String targetUuid, String role1, String role2, Model model,
+                                   String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                                   boolean b) throws CommandException {
+        relationships.relationshipChecks(toEditIn, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, role1,
+                role2, model, oldRelationshipDescriptor, newRelationshipDescriptor, b);
     }
 }

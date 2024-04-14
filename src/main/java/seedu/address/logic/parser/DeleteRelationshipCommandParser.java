@@ -21,18 +21,7 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
      * @throws IllegalArgumentException If the user input is invalid.
      */
     public DeleteRelationshipCommand parse(String userInput) throws ParseException, CommandException {
-        requireNonNull(userInput);
-        String[] parts = userInput.split("/", -1);
-        if (parts.length != 4 && parts.length != 2) {
-            throw new ParseException(Messages.MESSAGE_INVALID_DELETE_RELATIONSHIP_COMMAND_FORMAT);
-        }
-        parts = ParserUtil.removeFirstItemFromStringList(parts);
-        boolean hasUuids = false;
-        if (parts.length == 3) {
-            hasUuids = true;
-        }
-        LinkedHashMap<String, String> relationshipMap = ParserUtil.getRelationshipHashMapDelete(parts, hasUuids);
-
+        LinkedHashMap<String, String> relationshipMap = getRelationshipHashDelete(userInput);
         if (relationshipMap.size() == 3) {
             String originUuid = ParserUtil.relationKeysAndValues(relationshipMap, 0, false);
             String targetUuid = ParserUtil.relationKeysAndValues(relationshipMap, 1, false);
@@ -53,5 +42,20 @@ public class DeleteRelationshipCommandParser implements Parser<DeleteRelationshi
             }
             return new DeleteRelationshipCommand(relationshipDescriptor, true);
         }
+    }
+
+    public LinkedHashMap<String, String> getRelationshipHashDelete(String userInput) throws ParseException,
+            CommandException {
+        requireNonNull(userInput);
+        String[] parts = userInput.split("/", -1);
+        if (parts.length != 4 && parts.length != 2) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DELETE_RELATIONSHIP_COMMAND_FORMAT);
+        }
+        parts = ParserUtil.removeFirstItemFromStringList(parts);
+        boolean hasUuids = false;
+        if (parts.length == 3) {
+            hasUuids = true;
+        }
+        return ParserUtil.getRelationshipHashMapDelete(parts, hasUuids);
     }
 }
