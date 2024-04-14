@@ -257,17 +257,17 @@ table {
   border-collapse: collapse;
   border: 1px solid $table-border-color;
   tr {
-    background-color: #FFEBB2;
+    background-color: #fff8f5;
   }
   th, td {
     padding: ($spacing-unit / 3) ($spacing-unit / 2);
   }
   th {
-    background-color: #DBA979;
-    border: 1px solid #8B322C;
+    background-color: #F7DED0;
+    border: 1px solid black;
   }
   td {
-    border: 1px solid #DD5746;
+    border: 1px solid black;
   }
 
   @include media-query($on-laptop) {
