@@ -108,15 +108,15 @@ Whether you are an expert genealogist or a budding enthusiast, this guide will h
 
 We will walk you through every step, from the basics of adding a person and their relationships to advanced features that will empower you in your journey of genealogy.
 
-<span class="hello_span">Novice Users:</span>
+<span class="h3_span">Novice Users:</span>
 * If you are new to genealogy, we recommend you start with the [Quick Start](#quick-start) section.
 * This section will guide you through the installation process and provide you with a quick overview of the app's features.
 
-<span class="hello_span">Amateur Users:</span>
+<span class="h3_span">Amateur Users:</span>
 * If you are familiar with genealogy, you can skip the [Quick Start](#quick-start) section and proceed to the [Features](#features) section.
 * This section will provide you with a detailed explanation of the app's features and how to use them.
 
-<span class="hello_span">Advanced Users:</span>
+<span class="h3_span">Advanced Users:</span>
 * If you are an expert genealogist, you can skip the [Features](#features) section and proceed to the [Command Summary](#command-summary) section.
 * This section will provide you with a quick summary of all the commands available in <span class="hello_span">Gene-nie</span>.
 
@@ -142,30 +142,30 @@ Additionally, there will be symbols to help you navigate through this guide:
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/Gene-nieMainScreen.png" alt="Gene-nieMainScreen.png">
-        <figcaption>Figure 1: Genie Main Figure</figcaption>
+        <figcaption class="img_container_figCaption">Figure 1: Gene-nie Main Figure</figcaption>
     </figure>
 </div>
 
-1. <span class="hello_span">Command Box</span>:
+1. <span class="h3_span">Command Box</span>:
 
    * The command box is where you can enter your commands to interact with <span class="hello_span">Gene-nie</span>.
    * Type your command and press Enter to execute it.
    * You can locate the list of commands to use in the [Command Summary](#command-summary) section.
-2. <span class="hello_span">Command Result</span>:
+2. <span class="h3_span">Command Result</span>:
 
    * The command result panel displays the result of your command.
    * If your command is successful, the result will be displayed in a green card.
    * If your command fails, the result will be displayed in a red card.
-3. <span class="hello_span">Person List Panel</span>:
+3. <span class="h3_span">Person List Panel</span>:
 
    * The person list panel displays all the contacts you have added to <span class="hello_span">Gene-nie</span>.
    * Each contact is displayed as a card with their details.
    * You can scroll through the contacts using the scroll bar on the right.
-4. <span class="hello_span">Menu Bar</span>:
+4. <span class="h3_span">Menu Bar</span>:
 
    * The menu bar contains the main menu options for <span class="hello_span">Gene-nie</span>.
    * You can access the help menu and exit the app from the menu bar.
-5. <span class="hello_span">Panel Switcher</span>:
+5. <span class="h3_span">Panel Switcher</span>:
 
    * The panel switcher allows you to switch between different panels in <span class="hello_span">Gene-nie</span>.
    * You can switch between the "All Contacts", "Search Results".
@@ -178,20 +178,20 @@ The Search Result Panel is where you can view the results of your `anySearch` an
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/geneniesearchresult.png" alt="picture showing a search result section">
-        <figcaption>Figure 2: Genie Search Result</figcaption>
+        <figcaption class="img_container_figCaption">Figure 2: Gene-nie Search Result</figcaption>
     </figure>
 </div>
 
-1. <span class="hello_span">Person List Panel</span>:
+1. <span class="h3_span">Person List Panel</span>:
 
    * The person list panel displays all the contacts that match your search criteria.
    * Each contact is displayed as a card with their details.
    * You can scroll through the contacts using the scroll bar on the right.
-2. <span class="hello_span">Relationship Pathway Display</span>:
+2. <span class="h3_span">Relationship Pathway Display</span>:
 
    * The relationship pathway displays the relationship between the contacts in the search result.
    * You can view the relationship pathway between the contacts to understand how they are related.
-3. <span class="hello_span">CLI Output</span>
+3. <span class="h3_span">CLI Output:</span>
 
    * The CLI output displays the results of your search query in the CLI.
    * You can view the details of the contacts that match your search criteria.
@@ -204,19 +204,19 @@ The person card is where you can view the details of each contact you have added
 <div class="img_container">
     <figure>
         <img src="images/Gene-niePersonCard.png" alt="Gene-niePersonCard.png">
-        <figcaption>Figure 3: Gene-ie Person Card</figcaption>
+        <figcaption class="img_container_figCaption">Figure 3: Gene-nie Person Card</figcaption>
     </figure>
 </div>
 
-1. <span class="hello_span">Unique Identifier (UUID):</span>:
+1. <span class="h3_span">Unique Identifier (UUID):</span>
 
    * The unique identifier (UUID) is a 4-character code that is used to identify the contact.
    * You can view the UUID of the contact on the left of the person card.
-2. <span class="hello_span">Attribute Display:</span>:
+2. <span class="h3_span">Attribute Display:</span>
 
    * The attributes are the details of the contact that you have added to <span class="hello_span">Gene-nie</span>.
    * You can view the attributes of the contact in the right of the person card.
-3. <span class="hello_span">Relationship Display:</span>:
+3. <span class="h3_span">Relationship Display:</span>
 
    * The relationships are the connections between the contact and other contacts in <span class="hello_span">Gene-nie</span>.
    * You can view the relationships of the contact on the bottom of the person card.
@@ -242,7 +242,7 @@ Now that you are familiar with the user interface of <span class="hello_span">Ge
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/terminalExample.png" alt="terminalExample.png">
-        <figcaption>Figure 4: Terminal Window Running Command</figcaption>
+        <figcaption class="img_container_figCaption">Figure 4: Terminal Window Running Command</figcaption>
     </figure>
 </div>
 
@@ -266,7 +266,7 @@ A window similar to the below should appear in a few seconds. Note how the app c
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/Ui.png" alt="Ui.png">
-        <figcaption>Figure 5: User Interface Containing Sample Data</figcaption>
+        <figcaption class="img_container_figCaption">Figure 5: Gene-nie User Interface Containing Sample Data</figcaption>
     </figure>
 </div>
 
@@ -287,7 +287,11 @@ The app will resize and expand initially to fit the size of your screen. You can
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section_header_h2">
-    <h2><a href="#using-the-command-line-interface--cli-">Using the Command Line Interface (CLI)</a></h2>
+    <h2>
+        <a href="#using-the-command-line-interface--cli-" id="using-the-command-line-interface--cli-">
+            Using the Command Line Interface (CLI)
+        </a>
+    </h2>
 </div>
 
 <span class="hello_span">Gene-nie</span> is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
@@ -297,7 +301,7 @@ If you are still worried about using the CLI, let us demystify it for you! In fa
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/CLIinterface.png" alt="CLIinterface.png">
-        <figcaption>Figure 6: CLI showcase</figcaption>
+        <figcaption class="img_container_figCaption">Figure 6: Using Gene-nie Command Line Interface</figcaption>
     </figure>
 </div>
 
@@ -320,12 +324,13 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-
 <div class="section_header_h2">
-    <h2><a href="#command-format">Command Format</a></h2>
+    <h2><a href="#command-format" id="command-format">Command Format</a></h2>
 </div>
 
-**Notes about the command format:**
+
+
+<span class="h3_span">Notes about the command format:</span>
 
 * Command keywords are case-insensitive.
   e.g. `addAttribute` can be `addattribute`, `ADDATTRIBUTE`, etc.
@@ -361,7 +366,7 @@ Now that you are familiar with the command format, let us bring you through a sh
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section_header_h2">
-    <h2><a href="#tutorial">Tutorial</a></h2>
+    <h2><a href="#tutorial" id="tutorial">Tutorial</a></h2>
 </div>
 
 We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use <span class="hello_span">Gene-nie</span>!
@@ -374,7 +379,7 @@ You will be greeted with our interface below populated with some sample data rea
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/Gene-nieStartImage.png" alt="Gene-nieStartImage.png">
-        <figcaption>Figure 7: Gene-nie populated with sample data</figcaption>
+        <figcaption class="img_container_figCaption">Figure 7: Gene-nie Starting Page</figcaption>
     </figure>
 </div>
 
@@ -385,21 +390,27 @@ Before we continue, make sure that you understand:
 
 Now, let us start with the basics of <span class="hello_span">Gene-nie</span>!
 
-### Clearing the Sample Data!
+<span class="h3_span">Clearing the Sample Data!</span>
 
 Before we start if you aren't a fan of the imaginary friends we gave you, let us clear the sample data in <span class="hello_span">Gene-nie</span>! We will use the `deleteAllPersons` command to clear all the sample data! This leaves you with a clean slate to start your genealogy journey!
-
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/cleangenie.png" alt="cleangenie.png">
-        <figcaption>Figure 8: Gene-nie cleared of data</figcaption>
+        <figcaption class="img_container_figCaption">Figure 7: Cleared Gene-nie</figcaption>
     </figure>
 </div>
 
-### Adding yourself!
+<span class="h3_span">Adding Yourself!</span>
 
 Now that we have a clean slate, let us add you into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add yourself into <span class="hello_span">Gene-nie</span>! You can add your name, phone number, email, address, or any other details you wish to add! If you want to you are even able to add a person without any attributes!
 Type this command `add /name Your Name /phone Your Number /email youremail@email.com` to add yourself into <span class="hello_span">Gene-nie</span>!
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
+        <figcaption class="img_container_figCaption">Figure 8: Gene-nie After Adding Yourself</figcaption>
+    </figure>
+</div>
+
 
 <div class="img_container">
     <figure>
@@ -410,7 +421,7 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 
 ### Adding your Friend!
 
-Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
+Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="h3_span">Gene-nie</span>!
 
 <div class="img_container">
     <figure>

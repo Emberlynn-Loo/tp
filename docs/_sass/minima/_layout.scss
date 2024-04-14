@@ -200,12 +200,19 @@
     font-weight: 700;
     font-style: Italic;
 }
+.h3_span {
+  text-transform: uppercase;
+  color: #994D1C;
+  font-size: 20px;
+  font-weight: 700;
+  font-style: Italic;
+}
 .img_container {
     padding: 15px 15px 0px 15px;
     border-radius: 10px;
     background-color: #F7DED0;
 
-    & figcaption {
+    &_figCaption {
         text-align: center;
         font-weight: 600;
         font-size: 16px;
