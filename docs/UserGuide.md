@@ -55,7 +55,7 @@ Through the magic of **Gene-nie** you are able to
 * manage your relationship tree and history of friends and family
 * and much more!
 
-**Gene-nie** is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). If you can type fast as fast you can think, **Gene-nie** can help you manage your contacts faster than traditional Graphical User Interface (GUI) apps can!
+**Gene-nie** is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -197,6 +197,36 @@ Be careful when using the deleteAllPersons command with your own data as it will
 The app will resize and expand initially to fit the size of your screen. You can resize the app window to your liking. However, we recommend the app to be fullscreen for the best experience!
 </div>
 
+*Congratulations! You have successfully set up **Gene-nie** and are ready to start managing your contacts! But before we leave you, let us quickly run through the Command Line Interface (CLI).*
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Using the Command Line Interface (CLI)
+
+**Gene-nie** is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
+
+If you are still worried about using the CLI, let us demystify it for you! In fact, this is all there is to it:
+
+![CLIinterface.png](images/CLIinterface.png)
+
+Recall that the image above shows you the CLI interface of **Gene-nie**. 
+It is akin to the magic words Aladdin uses to command the Genie! 
+
+You can key in your commands and **Gene-nie** will respond to your commands *if correct*!
+
+Using CLI offers many advantages, such as:
+* If you can _type as fast you can think_, **Gene-nie** can help you work magic faster!
+* It takes up _lesser memory and resources_ compared to a Graphical User Interface (GUI) app.
+* It is _cool_! You can impress your friends with your command-line skills!
+
+However, to make full use of our CLI interface, you need to: 
+* Familiarise yourself with the commands available in **Gene-nie**.
+* Ensure you key in the correct commands _accurately_ to get the desired results.
+
+Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure that you follow the [Command Formats](#command-format) below and you will be able to use **Gene-nie** with ease!
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -230,7 +260,6 @@ The app will resize and expand initially to fit the size of your screen. You can
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
-
 
 [Back to Table of Contents](#table-of-contents)
 
