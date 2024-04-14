@@ -97,9 +97,9 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 0000`, assuming that `0000` corresponds to a valid Person UUID.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete /0001`, assuming that `0001` corresponds to a valid Person UUID.
 
-<img src="images/ArchitectureSequenceDiagram.png" width="574" />
+<img src="images/DeletePersonSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -271,6 +271,106 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add Person feature
+
+This feature is the `Add` command that allows users to add a person to the address book.
+This feature creates a person with 0 or more attributes, and then adds that person to the address book.
+
+#### Implementation
+
+Adding a person is carried out using `AddCommand` and `AddCommandParser`.
+The `AddCommand` class extends the `Command` class.
+The `AddCommandParser` class extends the `Parser` class.
+
+Given below is an example usage scenario and how adding a person works.
+
+Step 1: The user enters a command to add a person with `Name` attribute to their family tree in Gene-nie.
+For example: `add /Name Bob`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `add` keyword and creates a new `AddCommandParser`.
+
+Step 4: The `AddCommandParser` parses the rest of the command `/Name Bob`.
+It creates a `HashMap` containing the attribute `Name` with value `Bob`.
+It then creates a new `AddCommand` with this `HashMap`.
+In this step, duplicate attribute names are also checked for, as part of the HashMap creation process in ParserUtil.
+
+Step 5: The `AddCommand` is executed.
+
+Step 6: `AddCommand#execute` continues by calling the following method from `Model`:
+* `Model#addPerson(Person)` It adds a given person to the address book.
+
+Step 7: The `AddCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how adding a person works:
+
+![AddPersonSequenceDiagram](images/AddPersonSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram sheds more light on exactly what happens when a user executes the 'add' command:
+
+![AddPersonActivityDiagram](images/AddPersonActivityDiagram.png)
+
+#### Design Considerations
+
+##### Aspect: When to check for duplicate attributes
+* Alternative 1 (current choice): `AddCommand#execute` checks for duplicates before adding the person to the addressbook.
+  * Pros: Makes the command more atomic - if there is an error, no changes are made.
+  * Cons: Less efficient as the program iterates through all attributes twice.
+* Alternative 2: `AddCommand#execute` adds an empty person to the address book and then checks for duplicates while appending attributes to that person.
+  * Pros: Shorter code, less repetition of actions.
+  * Cons: Duplicate attributes would halt command and leave the address book in a partially edited state. Fixing this would result in less readable code.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+### Delete Person feature
+
+This feature is the `Delete` command that allows users to remove a person from the address book.
+
+#### Implementation
+
+Deleting a person is carried out using `DeleteCommand` and `DeleteCommandParser`.
+The `DeleteCommand` class extends the `Command` class.
+The `DeleteCommandParser` class extends the `Parser` class.
+
+Given below is an example usage scenario and how deleting a person works.
+
+Step 1: The user enters a command to delete a person with the UUID `0001`.
+For example: `delete /0001`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `delete` keyword and creates a new `DeleteCommandParser`.
+
+Step 4: The `DeleteCommandParser` parses the rest of the command `/0001`.
+It then creates a new `DeleteCommand` with the UUID `0001`.
+
+Step 5: The `DeleteCommand` is executed.
+
+Step 6: `DeleteCommand#execute` continues by calling the following method from `Model`:
+* `Model#getFullUuid(String)` It takes in the partial 4-character UUID provided by the user and converts it to the `UUID` object representative of the person to delete.
+* `Model#getPersonByUuid(UUID)` It takes the full UUID obtained earlier and returns the corresponding `Person` object.
+* `Model#deletePerson(Person)` It deletes the provided person from the address book.
+* `Model#deleteRelationshipsOfPerson(UUID)` It deletes all relationships associated with the person being deleted.
+
+Step 7: The `DeleteCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a person works:
+
+![DeletePersonSequenceDiagram](images/DeletePersonSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram sheds more light on exactly what happens when a user executes the 'delete' command:
+
+![DeletePersonActivityDiagram](images/DeletePersonActivityDiagram.png)
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ### Add Attribute feature
 
 An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.

@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Person" as person PERSON_COLOR
+Participant ":Attribute" as attribute ATTRIBUTE_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+
+user -[USER_COLOR]> ui : "add /Name Bob"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("add /Name Bob")
+activate logic LOGIC_COLOR
+
+loop all attributes in command
+    logic -[LOGIC_COLOR]> attribute : AttributeUtil.createAttribute(attributeName, attributeValue)
+    activate attribute ATTRIBUTE_COLOR
+
+    attribute --[ATTRIBUTE_COLOR]> logic : return new Attribute
+    deactivate attribute
+end
+
+logic -[LOGIC_COLOR]> person : Person(attributesToAdd)
+activate person PERSON_COLOR
+
+person --[PERSON_COLOR]> logic : return new Person
+deactivate person
+destroy person
+
+logic -[LOGIC_COLOR]> model : addPerson(personToAdd)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : return added Person
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+storage --[STORAGE_COLOR]> storage : file saved
+deactivate storage STORAGE_COLOR_T1
+
+storage --[STORAGE_COLOR]> logic : save complete
+deactivate storage
+destroy storage
+
+logic --[LOGIC_COLOR]> ui : CommandResult("New person added. Details: Name: Bob")
+deactivate logic
+
+ui--[UI_COLOR]> user : display "New person added. Details: Name: Bob"
+deactivate ui
+@enduml

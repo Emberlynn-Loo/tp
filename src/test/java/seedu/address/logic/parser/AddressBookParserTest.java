@@ -44,12 +44,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new Person(new Attribute[0]);
-        person.updateAttribute(new NameAttribute("Name", "Amy Bee"));
+        person.updateAttribute(new NameAttribute("name", "Amy Bee"));
         AddCommand command = (AddCommand) parser.parseCommand(
                 AddCommand.COMMAND_WORD
                         + " /Name Amy Bee");
         HashMap<String, String> attributes = new HashMap<>();
-        attributes.put("Name", "Amy Bee");
+        attributes.put("name", "Amy Bee");
         assertEquals(new AddCommand(attributes), command);
     }
 

@@ -1,0 +1,25 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+skinparam ArrowFontStyle plain
+
+start
+
+:User enters command;
+
+:Parse command for 4-character UUID;
+:Get full UUID;
+
+if (Does full UUID exist?) then (yes)
+:Get the corresponding person from address book;
+:Delete person from address book;
+:Delete person's relationships from address book;
+:Save updated address book with deleted person to storage;
+:Inform user: Deleted Person: Details: ...;
+else (no)
+  :Inform user: The UUID provided is invalid...;
+endif
+
+stop
+@enduml
