@@ -1,0 +1,24 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+skinparam ArrowFontStyle plain
+
+start
+
+:User enters command;
+
+:Parse command for attributes of person to add;
+
+if (Are there duplicate attribute names?) then (no)
+:Create a new person;
+:Add the attributes to the person;
+:Add the person to the model;
+:Save the address book containing the new person to storage;
+:Inform user: New person added. Details: ...;
+else (yes)
+  :Inform user: Duplicate attributes found ...;
+endif
+
+stop
+@enduml

@@ -54,8 +54,8 @@ public class ParserUtilTest {
     public void getAttributeHashMapFromAttributeStrings_validArray_validHashMap() {
         String[] parts = {"Name Rachel", " Phone  123456 "};
         try {
-            assertEquals("Rachel", ParserUtil.getAttributeHashMapFromAttributeStrings(parts).get("Name"));
-            assertEquals("123456", ParserUtil.getAttributeHashMapFromAttributeStrings(parts).get("Phone"));
+            assertEquals("Rachel", ParserUtil.getAttributeHashMapFromAttributeStrings(parts).get("name"));
+            assertEquals("123456", ParserUtil.getAttributeHashMapFromAttributeStrings(parts).get("phone"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

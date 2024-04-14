@@ -11,13 +11,18 @@ skinparam ArrowFontStyle plain
 !define ABPARSER_COLOR #A9DCDF
 !define PREDICATE_COLOR #FAA1A1
 
+box Logic LOGIC_COLOR_T1
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":LogicManager" as logic LOGIC_COLOR
 Participant ":AddressBookParser" as parser ABPARSER_COLOR
 Participant ":FindCommand" as findCommand FINDCOMMAND_COLOR
+end box
+
+box Model MODEL_COLOR_T1
 Participant ":NameContainsKeywordsPredicate" as predicate PREDICATE_COLOR
 Participant ":Model" as model MODEL_COLOR
+end box
 
 user -[USER_COLOR]> ui : enter "find /alice /bob"
 activate ui UI_COLOR
@@ -31,13 +36,13 @@ activate parser ABPARSER_COLOR
 parser -[ABPARSER_COLOR]> findCommand : new FindCommand(keywords)
 activate findCommand FINDCOMMAND_COLOR
 deactivate parser
-destroy parser
 
 findCommand -[FINDCOMMAND_COLOR]> predicate : new NameContainsKeywordsPredicate(keywords)
 activate predicate PREDICATE_COLOR
 
 predicate -[PREDICATE_COLOR]> findCommand : predicate
 deactivate predicate
+predicate --[HIDDEN]> findCommand :
 destroy predicate
 
 findCommand -[FINDCOMMAND_COLOR]> model : updateFilteredPersonList(predicate)
@@ -45,10 +50,10 @@ activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> findCommand : filtered list updated
 deactivate model
-destroy model
 
 findCommand -[FINDCOMMAND_COLOR]> logic : CommandResult("X persons found")
 deactivate findCommand
+findCommand --[HIDDEN]> :
 destroy findCommand
 
 logic -[LOGIC_COLOR]> ui : display "X persons found"

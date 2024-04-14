@@ -24,7 +24,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_singleAttribute_success() {
         HashMap<String, String> expectedAttributeMap = new HashMap<>();
-        expectedAttributeMap.put("Name", VALID_NAME_BOB);
+        expectedAttributeMap.put("name", VALID_NAME_BOB);
 
         // whitespace only preamble
         assertParseSuccess(parser, "add /Name " + VALID_NAME_BOB, new AddCommand(expectedAttributeMap));
@@ -33,10 +33,10 @@ public class AddCommandParserTest {
     @Test
     public void parse_multipleAttributes_success() {
         HashMap<String, String> expectedAttributeMap = new HashMap<>();
-        expectedAttributeMap.put("Name", VALID_NAME_BOB);
-        expectedAttributeMap.put("Phone", VALID_PHONE_BOB);
-        expectedAttributeMap.put("Email", VALID_EMAIL_BOB);
-        expectedAttributeMap.put("Address", VALID_ADDRESS_BOB);
+        expectedAttributeMap.put("name", VALID_NAME_BOB);
+        expectedAttributeMap.put("phone", VALID_PHONE_BOB);
+        expectedAttributeMap.put("email", VALID_EMAIL_BOB);
+        expectedAttributeMap.put("address", VALID_ADDRESS_BOB);
 
 
         assertParseSuccess(parser, "add /Name " + VALID_NAME_BOB + " /Phone " + VALID_PHONE_BOB + " /Email "

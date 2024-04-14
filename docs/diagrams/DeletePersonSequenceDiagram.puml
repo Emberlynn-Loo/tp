@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box logic LOGIC_COLOR_T1
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+end box
+
+box model MODEL_COLOR_T1
+Participant ":Model" as model MODEL_COLOR
+end box
+
+box storage STORAGE_COLOR_T1
+Participant ":Storage" as storage STORAGE_COLOR
+end box
+
+user -[USER_COLOR]> ui : "delete /0001"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("delete /0001")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : getFullUuid("0001")
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : return UUID object
+deactivate model
+
+logic -[LOGIC_COLOR]> model : person.getPersonbyUuid(targetUuid)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic : return matching Person
+deactivate model
+
+logic -[LOGIC_COLOR]> model : deletePerson(personToDelete)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> logic :
+deactivate model
+logic -[LOGIC_COLOR]> model : deleteRelationshipsOfPerson(targetUuid)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> logic :
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+storage --[STORAGE_COLOR]> storage : file saved
+deactivate storage STORAGE_COLOR_T1
+
+storage --[STORAGE_COLOR]> logic : save complete
+deactivate storage
+destroy storage
+
+logic --[LOGIC_COLOR]> ui : CommandResult("Deleted Person: Details: ...")
+deactivate logic
+
+ui--[UI_COLOR]> user : display "Deleted Person: Details: ..."
+deactivate ui
+@enduml
