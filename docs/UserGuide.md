@@ -58,6 +58,7 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
       <li><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship</a></li>
       <li><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship</a></li>
       <li><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities</a></li>
+      <li><a href="#finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities</a></li>
     </ul>
   </li>
   <li>
@@ -67,11 +68,14 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
       <li><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries</a></li>
       <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses</a></li>
       <li><a href="#exiting-the-program--exit-or-e">Exiting the Program</a></li>
+      <li><a href="#saving-the-data">Saving the Data</a></li>
+      <li><a href="#editing-the-data-file">Editing the Data file</a></li>
     </ul>
   </li>
   <li><a href="#faq">FAQ</a></li>
   <li><a href="#known-issues">Known Issues</a></li>
   <li><a href="#coming-soon">Coming Soon</a></li>
+  <li><a href="#glossary">Glossary</a></li>
   <li><a href="#command-summary">Command Summary</a></li>
 </ul>
 </div>
@@ -282,7 +286,9 @@ The app will resize and expand initially to fit the size of your screen. You can
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Using the Command Line Interface (CLI)
+<div class="section_header_h2">
+    <h2><a href="#using-the-command-line-interface--cli-">Using the Command Line Interface (CLI)</a></h2>
+</div>
 
 <span class="hello_span">Gene-nie</span> is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
 
@@ -315,7 +321,9 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command Format
+<div class="section_header_h2">
+    <h2><a href="#command-format">Command Format</a></h2>
+</div>
 
 **Notes about the command format:**
 
@@ -352,7 +360,9 @@ Now that you are familiar with the command format, let us bring you through a sh
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Tutorial
+<div class="section_header_h2">
+    <h2><a href="#tutorial">Tutorial</a></h2>
+</div>
 
 We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use <span class="hello_span">Gene-nie</span>!
 Regardless of your skill level, we will guide you through the basics of using <span class="hello_span">Gene-nie</span>!
@@ -444,7 +454,9 @@ Congratulations! You have successfully completed the tutorial of <span class="he
 Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
 
 --------------------------------------------------------------------------------------------------------------------
-## Features
+<div class="section_header_h2">
+    <h2><a href="#features">Features</a></h2>
+</div>
 
 In the world of genealogy, <span class="hello_span">Gene-nie</span> is your magical assistant that helps you manage your contacts and relationships with ease!
 <span class="hello_span">Gene-nie</span> works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
@@ -457,7 +469,9 @@ It's not just a genie in a bottle, it is a genie in a jar! A jar of magic that h
 
 Let us dive into the magical world of <span class="hello_span">Gene-nie</span>!
 
-### Persons
+<div class="section_header_h3">
+    <h3><a href="#persons">Persons</a></h3>
+</div>
 
 In the world of Gene-nie, we believe that every contact is unique and special! Every friend or family you store in Gene-nie is considered a _Person_.
 
@@ -481,7 +495,9 @@ Have a look at this sample person card. Can you spot where each detail is locate
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
 
-### Attributes
+<div class="section_header_h3">
+    <h3><a href="#attributes">Attributes</a></h3>
+</div>
 
 Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of **Attributes**.
 
@@ -535,7 +551,9 @@ Attribute values:
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
 
-### Relationships
+<div class="section_header_h3">
+    <h3><a href="#relationships">Relationships</a></h3>
+</div>
 
 In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of **Relationships**.
 
@@ -544,15 +562,21 @@ Relationships are what you use to store information about the relationship betwe
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-## Features - Managing Persons
+<div class="section_header_h2">
+    <h2><a href="#features---managing-persons">Features - Managing Person Profiles</a></h2>
+</div>
 
-### Listing all Persons : `list` or `l`
+<div class="section_header_h3">
+    <h3><a href="#listing-all-persons--list-or-l">Listing all Persons</a></h3>
+</div>
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Adding a Person : `add` or `a`
+<div class="section_header_h3">
+    <h3><a href="#adding-a-person--add-or-a">Adding a person</a></h3>
+</div>
 
 Adds a person to the address book.
 
@@ -574,7 +598,9 @@ Examples:
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by details : `find` or `f`
+<div class="section_header_h3">
+    <h3><a href="#locating-persons-by-details--find-or-f">Locating persons by details</a></h3>
+</div>
 
 Finds persons whose details contain any of the given phrases.
 
@@ -608,7 +634,9 @@ Examples:
     </figure>
 </div>
 
-### Deleting a Person : `delete` or `d`
+<div class="section_header_h3">
+    <h3><a href="#deleting-a-person--delete-or-d">Deleting a Person</a></h3>
+</div>
 
 Deletes the specified person from the address book.
 
@@ -627,9 +655,13 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Attributes of Persons
+<div class="section_header_h2">
+    <h2><a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a></h2>
+</div>
 
-### Adding Attributes to a Person: `addAttribute` or `aa`
+<div class="section_header_h3">
+    <h3><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute</a></h3>
+</div>
 
 Adds an attribute to a person in the address book.
 
@@ -649,7 +681,9 @@ Examples:
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
-### Deleting an attribute from a Person: `deleteAttribute` or `da`
+<div class="section_header_h3">
+    <h3><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute</a></h3>
+</div>
 
 Deletes an attribute from a person in the address book.
 
@@ -670,7 +704,9 @@ Examples:
 * `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
 * `deleteAttribute /12db /Pet /Pet` does not delete the attribute Pet from the person with the UUID 12db as the attribute name is duplicated and instead throws an error
 
-### Editing an Attribute of a Person: `editAttribute` or `ea`
+<div class="section_header_h3">
+    <h3><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute</a></h3>
+</div>
 
 Edit attributes of a person in the address book.
 
@@ -697,9 +733,13 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Person Relationships
+<div class="section_header_h2">
+    <h2><a href="#features---managing-person-relationships">Managing Person Relationships</a></h2>
+</div>
 
-### Listing all relationship types : `listRelations` or `lr`
+<div class="section_header_h3">
+    <h3><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types</a></h3>
+</div>
 
 Shows a list of all current relationshipTypes in the address book. This includes:
 * Pre-defined relationships (this is why you may see more relationships than used in the contacts list)
@@ -707,7 +747,9 @@ Shows a list of all current relationshipTypes in the address book. This includes
 
 Format: `listRelations` or `lr`
 
-### Adding a relationship : `addRelation` or `ar`
+<div class="section_header_h3">
+    <h3><a href="#adding-a-relationship--addrelation-or-ar">Adding a Relationship</a></h3>
+</div>
 
 Adds a roleless relationship between two people in the address book.
 
@@ -752,7 +794,9 @@ Examples:
 * Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
 
-### Editing a relationship : `editRelation` or `er`
+<div class="section_header_h3">
+    <h3><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship</a></h3>
+</div>
 
 Edits the relationship between two people in the address book to a roleless relationship.
 
@@ -792,7 +836,9 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 Examples:
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
-### Deleting a relationship : `deleteRelation` or `dr` 
+<div class="section_header_h3">
+    <h3><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship</a></h3>
+</div>
 
 Deletes the relationship between two people in the address book.
 
@@ -821,7 +867,9 @@ Format: `deleteRelation /RELATIONSHIP_TYPE`
 Examples:
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-### Finding All Relationships between Entities: `anySearch` or `as`
+<div class="section_header_h3">
+    <h3><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities</a></h3>
+</div>
 
 Finds the relationship pathway between 2 input entities.
 
@@ -841,7 +889,9 @@ else `No Relationship Pathway Found` will be returned
   * Example: `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
     returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
 
-### Finding Family Relationships between Entities: `familySearch` or `fs`
+<div class="section_header_h3">
+    <h3><a href="#finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities</a></h3>
+</div>
 
 Finds the family relationship pathway between 2 input entities.
 
@@ -866,9 +916,13 @@ else `No Relationship Pathway Found` will be returned
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - General Features
+<div class="section_header_h2">
+    <h2><a href="#features---general-features">General Features</a></h2>
+</div>
 
-### Viewing help : `help` or `h`
+<div class="section_header_h3">
+    <h3><a href="#viewing-help--help-or-h">Viewing Help</a></h3>
+</div>
 
 Shows a message explaning how to access the help page.
 
@@ -881,13 +935,17 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### Clearing all entries : `deleteAllPersons` or `dap`
+<div class="section_header_h3">
+    <h3><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries</a></h3>
+</div>
 
 Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.
 
 Format: `deleteAllPersons`
 
-### Clearing command section of past responses : `clear` or `c`
+<div class="section_header_h3">
+    <h3><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses</a></h3>
+</div>
 
 Clears all of Gene-nie's previous responses from the command section.
 
@@ -904,17 +962,23 @@ Format: `clear`
     </figure>
 </div>
 
-### Exiting the program : `exit` or `e`
+<div class="section_header_h3">
+    <h3><a href="#exiting-the-program--exit-or-e">Exiting the Program</a></h3>
+</div>
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+<div class="section_header_h3">
+    <h3><a href="#saving-the-data">Saving the Data</a></h3>
+</div>
 
 Gene-nie data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+<div class="section_header_h3">
+    <h3><a href="#editing-the-data-file">Editing the Data file</a></h3>
+</div>
 
 Gene-nie data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -927,7 +991,9 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+<div class="section_header_h2">
+    <h2><a href="#faq">FAQ</a></h2>
+</div>
 
 **Q**: How do I install Java 11, the Java version required by Gene-nie?<br>
 **A**: Download Java 11 JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=11).
@@ -943,7 +1009,9 @@ Then, use the "Installers" section of the [installation guide](https://adoptium.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+<div class="section_header_h2">
+    <h2><a href="#known-issues">Known Issues</a></h2>
+</div>
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
@@ -951,7 +1019,9 @@ Then, use the "Installers" section of the [installation guide](https://adoptium.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Coming soon
+<div class="section_header_h2">
+    <h2><a href="#coming-soon">Coming Soon</a></h2>
+</div>
 
 1. **Display results of find command in "Search Results" panel.**
 Currently, the results of the find command are displayed in the "All Contacts" panel.
@@ -970,7 +1040,9 @@ In the future, the Name attribute may be used to provide additional functionalit
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Glossary
+<div class="section_header_h2">
+    <h2><a href="#glossary">Glossary</a></h2>
+</div>
 
 | Term      | Description                                                                                                                                                                                                                                                                                            |
 |-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -987,7 +1059,9 @@ In the future, the Name attribute may be used to provide additional functionalit
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+<div class="section_header_h2">
+    <h2><a href="#command-summary">Command Summary</a></h2>
+</div>
 
 | Action                          | Shorthand | Format, Examples                                                                                                                                    |
 |---------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
