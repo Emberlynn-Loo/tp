@@ -1,0 +1,33 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "addRelation" command;
+
+:Parse command for UUIDs, relationshipDescriptor;
+if (Do persons exist) then (yes)
+  :Execute adding relationship;
+  if (Does relationship already exist) then (yes)
+      :Inform user relationship already exists;
+      stop
+  else (no)
+      if (Is relationship role-based) then (yes)
+        if (Are the gender roles valid) then (yes)
+          :Add new role-based relationship and roles;
+        else (no)
+          :Inform user relationship is invalid;
+          stop
+        endif
+      else (no)
+        :Add new roleless relationship;
+    endif
+  endif
+:Save changes to address book;
+:Inform user of success;
+stop
+else (no)
+  :Inform user persons do not exist;
+  stop
+endif
+@enduml
