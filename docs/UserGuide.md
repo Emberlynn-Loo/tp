@@ -5,9 +5,8 @@ title: User Guide
 
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
-Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you 
-keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
-the relationship tree and history of friends and family.
+Hello my fellow budding genealogists! Welcome to Gene-nie, your personal genealogy assistant!
+We welcome you to this user guide, where we demystify the magic of Gene-nie and help you get started on your genealogy journey!
 </p>
 
 ## Table of Contents
@@ -43,6 +42,118 @@ the relationship tree and history of friends and family.
 - [Coming Soon](#coming-soon)
 - [Command Summary](#command-summary)
 
+--------------------------------------------------------------------------------------------------------------------
+
+## Introduction
+
+Do you face issues trying to keep track of all your friends and family? Do you find it hard to remember who is related to who? Do you face issues trying to add people into your family tree with missing information? Fret not! **Gene-nie** is here to magic away your issues!
+
+Through the magic of **Gene-nie** you are able to
+* manage all your contacts through Gene-nie 
+* keep track of the relationships between not only you but your also your contacts 
+* input and remember small details of each contact
+* manage your relationship tree and history of friends and family
+* and much more!
+
+**Gene-nie** is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). If you can type fast as fast you can think, **Gene-nie** can help you manage your contacts faster than traditional Graphical User Interface (GUI) apps can!
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Using this guide
+
+Whether you are an expert genealogist or a budding enthusiast, this guide will help you get started with **Gene-nie**.
+
+We will walk you through every step, from the basics of adding a person and their relationships to advanced features that will empower you in your journey of genealogy.
+
+Novice Users:
+* If you are new to genealogy, we recommend you start with the [Quick Start](#quick-start) section.
+* This section will guide you through the installation process and provide you with a quick overview of the app's features.
+
+Amateur Users:
+* If you are familiar with genealogy, you can skip the [Quick Start](#quick-start) section and proceed to the [Features](#features) section.
+* This section will provide you with a detailed explanation of the app's features and how to use them.
+
+Advanced Users:
+* If you are an expert genealogist, you can skip the [Features](#features) section and proceed to the [Command Summary](#command-summary) section.
+* This section will provide you with a quick summary of all the commands available in **Gene-nie**.
+
+If you encounter any issues or have any questions, please refer to the [FAQ](#faq) section. You may also refer to the [Known Issues](#known-issues) section for any known bugs or limitations of the app. You are also welcome to contact us at Gene-nie@gmail.com for any further assistance.
+
+Additionally, there will be symbols to help you navigate through this guide:
+
+<div markdown="block" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively.</div>
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls.</div>
+<div markdown="block" class="alert alert-primary">:information_source: **Information:** This symbol will provide you with additional information to help you understand the app better.</div>
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## User Interface
+
+**Gene-nie** has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of **Gene-nie**.
+
+![Gene-nieMainScreen.png](images/Gene-nieMainScreen.png)
+
+1. **Command Box**:
+   * The command box is where you can enter your commands to interact with **Gene-nie**.
+   * Type your command and press Enter to execute it.
+   * You can locate the list of commands to use in the [Command Summary](#command-summary) section.
+2. **Command Result**:
+   * The command result panel displays the result of your command.
+   * If your command is successful, the result will be displayed in a green card.
+   * If your command fails, the result will be displayed in a red card.
+3. **Person List Panel**:
+   * The person list panel displays all the contacts you have added to **Gene-nie**.
+   * Each contact is displayed as a card with their details.
+   * You can scroll through the contacts using the scroll bar on the right.
+4. **Menu Bar**:
+   * The menu bar contains the main menu options for **Gene-nie**.
+   * You can access the help menu and exit the app from the menu bar.
+5. **Panel Switcher**:
+   * The panel switcher allows you to switch between different panels in **Gene-nie**.
+   * You can switch between the "All Contacts", "Search Results".
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can resize the app window to your liking. We recommend the app to be fullscreen for the best experience!</div>
+
+Now that you are familiar with the main screen of **Gene-nie**, let us introduce to you the Search Result Panel of **Gene-nie**!
+
+The Search Result Panel is where you can view the results of your `anySearch` and `familySearch` queries. It displays the contacts that match your search criteria including their relationship pathway. You can view the details of each contact and perform actions on them. Let's take a closer look at the Search Result Panel.
+
+![Gene-nieSearchResultPanel.png](images/geneniesearchresult.png)
+
+1. **Person List Panel**:
+   * The person list panel displays all the contacts that match your search criteria.
+   * Each contact is displayed as a card with their details.
+   * You can scroll through the contacts using the scroll bar on the right.
+2. **Relationship Pathway Display**:
+   * The relationship pathway displays the relationship between the contacts in the search result.
+   * You can view the relationship pathway between the contacts to understand how they are related.
+3. **CLI Output**:
+   * The CLI output displays the results of your search query in the CLI.
+   * You can view the details of the contacts that match your search criteria.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can switch between the "All Contacts" and "Search Results" panels using the panel switcher.</div>
+
+Having a mastery of the panels in **Gene-nie**, now we will introduce to you the individual components of the person card in **Gene-nie**!
+
+The person card is where you can view the details of each contact you have added to **Gene-nie**. It displays the unique identifier, attributes, and relationships of the contact. Let's take a closer look at the person card.
+
+![Gene-niePersonCard.png](images/Gene-niePersonCard.png)
+
+1. **Unique Identifier (UUID)**:
+   * The unique identifier (UUID) is a 4-character code that is used to identify the contact.
+   * You can view the UUID of the contact on the left of the person card.
+2. **Attributes Display**:
+   * The attributes are the details of the contact that you have added to **Gene-nie**.
+   * You can view the attributes of the contact in the right of the person card.
+3. **Relationships Display**:
+   * The relationships are the connections between the contact and other contacts in **Gene-nie**.
+   * You can view the relationships of the contact on the bottom of the person card.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
@@ -51,10 +162,12 @@ the relationship tree and history of friends and family.
 
 3. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
-4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie.<br>
+4. Open a command terminal in the _home folder_ (see OS-specific instructions below), and type `java -jar Gene-nie.jar` to run Gene-nie. An example is shown below.
+
+![terminalExample.png](images/terminalExample.png)
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To ensure a smooth experience, it is recommended to keep the `gene-nie.jar` file in a dedicated folder, with no other files in it.
+To ensure a smooth experience, it is recommended to keep the `Gene-nie.jar` file in a dedicated folder, with no other files in it.
 </div>
 
 <div markdown="span" class="alert alert-primary">:question: **for Linux users:**
@@ -70,32 +183,9 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. If your command succeeds, the command result panel will show a green card. Otherwise, you will see a red card explaining the issue.<br>
-   Some example commands you can try:
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
 
-   * `list` : Lists all contacts.
-
-   * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01` : Adds a contact with the specified attributes to the Address Book.
-
-   * `delete /0001` : Deletes the contact with the `UUID` "0001".
-   
-   * `addAttribute /12db /Pet Dog` : Adds the attribute Pet with the value Dog to the person with the `UUID` "12db".
-   
-   * `deleteAttribute /12db /Pet` : Deletes the attribute Pet from the person with the `UUID` "12db".
-
-   * `addRelation /12db parent /34ab child /bioparents` : Adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
-
-   * `editRelation /12db /34ab /friends /colleagues` : Edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
-
-   * `deleteRelation /12db /34ab /friends` : Deletes the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
-
-   * `clear` : Removes all of Gene-nie's previous responses from the command section, so that you dont have to see them anymore!
-
-   * `deleteAllPersons` : When you are done with experimenting with the sample data, you can delete all the persons in Gene-nie to begin building your own contacts list!
-
-   * `exit` : Exits the app. All your contacts will be saved for when you next return.
-
-2. Refer to the [Features](#features---managing-person-profiles) below for details of each command.
+2. Refer to the [Features](#features) below for details of each command.
 
 3. Refer to the [Command Summary](#command-summary) for a quick summary of all commands.
 
