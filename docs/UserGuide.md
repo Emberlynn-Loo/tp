@@ -301,6 +301,29 @@ Now that you have added yourself, let us add your friend into **Gene-nie**! We w
 
 ![addfriend.png](images/addfriend.png)
 
+### Editing you/your friend's details!
+
+Now that you have added yourself and your friend into **Gene-nie**, you can edit your details or your friend's details using the `editAttribute` command! You can edit any attribute you have added to yourself or your friend! Make sure that you follow the [Attribute format](#attributes) when editing the details!
+Type this command `editAttribute /UUID /AttributeName New Value` to edit the attribute of yourself or your friend!
+
+![editdetails.png](images/editdetails.png)
+
+Well done! You have successfully edited the address of your friend! You can also edit any other details you wish to change **as long as they exist**!
+
+### Adding the Relationship!
+
+Now that you have added yourself and your friend into **Gene-nie**, let us add the relationship between you and your friend! We will use the `addRelation` command to add the relationship between you and your friend! You can add any relationship you wish to add between you and your friend! Make sure that you follow the [Relationship format](#relationships) when adding the relationship!
+Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relationship between you and your friend!
+
+![addrelation.png](images/addrelation.png)
+
+Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
+
+Congratulations! You have successfully completed the tutorial of **Gene-nie**! You are now ready to start your magical genealogy journey with **Gene-nie**!
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** If you are unsure of the commands to use, you can always refer to the [Command Summary](#command-summary) section for a quick summary of all commands available in **Gene-nie**!</div>
+
+Now that you are a master of **Gene-nie**, let us bring you through the [features](#features) of **Gene-nie**!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
