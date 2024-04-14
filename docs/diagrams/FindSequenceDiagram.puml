@@ -45,7 +45,6 @@ activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> findCommand : filtered list updated
 deactivate model
-destroy model
 
 findCommand -[FINDCOMMAND_COLOR]> logic : CommandResult("X persons found")
 deactivate findCommand

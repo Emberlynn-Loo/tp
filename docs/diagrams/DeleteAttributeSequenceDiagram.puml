@@ -20,7 +20,6 @@ activate model MODEL_COLOR
 
 model --[MODEL_COLOR]> logic : return person object
 deactivate model
-destroy model
 
 loop for each attribute
     logic -[LOGIC_COLOR]> person : hasAttribute(attributeName)

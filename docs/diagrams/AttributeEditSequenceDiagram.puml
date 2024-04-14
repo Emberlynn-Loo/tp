@@ -39,7 +39,6 @@ activate model MODEL_COLOR
 
 model --[MODEL_COLOR]> logic : person updated
 deactivate model
-destroy model
 
 logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
 activate storage STORAGE_COLOR
