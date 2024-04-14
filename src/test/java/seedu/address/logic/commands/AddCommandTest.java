@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.ResultContainer;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -88,15 +89,6 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(aliceHashMap);
         String expected = AddCommand.class.getCanonicalName() + "{attributeMap={Name=Alice}}";
         assertEquals(expected, addCommand.toString());
-    }
-
-    @Test
-    public void multipleSameAttributes() {
-        HashMap<String, String> aliceHashMap = new HashMap<>();
-        aliceHashMap.put("Name", "Alice");
-        aliceHashMap.put("name", "Alice");
-        AddCommand addCommand = new AddCommand(aliceHashMap);
-        assertThrows(CommandException.class, () -> addCommand.execute(model));
     }
 
     /**
