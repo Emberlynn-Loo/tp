@@ -272,6 +272,99 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add Person feature
+
+This feature is the `Add` command that allows users to add a person to the address book.
+This feature creates a person with 0 or more attributes, and then adds that person to the address book.
+
+#### Implementation
+
+Adding a person is carried out using `AddCommand` and `AddCommandParser`.
+The `AddCommand` class extends the `Command` class.
+The `AddCommandParser` class extends the `Parser` class.
+
+Given below is an example usage scenario and how adding a person works.
+
+Step 1: The user enters a command to add a person with `Name` attribute to their family tree in Gene-nie.
+For example: `add /Name Bob`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `add` keyword and creates a new `AddCommandParser`.
+
+Step 4: The `AddCommandParser` parses the rest of the command `/Name Bob`.
+It creates a `HashMap` containing the attribute `Name` with value `Bob`.
+It then creates a new `AddCommand` with this `HashMap`.
+
+Step 5: The `AddCommand` is executed.
+
+Step 6: `AddCommand#execute` calls the following method from `Attribute`:
+* `Attribute#getName` It retrieves the name of all the attributes in the HashMap to check for duplicates.
+
+Step 7: If there are no duplicate attributes, `AddCommand#execute` calls the `Person` constructor to create a person with the requested attribute.
+
+Step 8: `AddCommand#execute` continues by calling the following method from `Model`:
+* `Model#addPerson(Person)` It adds a given person to the address book.
+
+Step 9: The `AddCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how adding a person works:
+
+<TODO: Sequence diagram>
+
+The following activity diagram sheds more light on exactly what happens when a user executes the 'add' command:
+
+<TODO: Sequence diagram>
+
+#### Design Considerations
+
+##### Aspect: When to check for duplicate attributes
+* Alternative 1 (current choice): `AddCommand#execute` checks for duplicates before adding the person to the addressbook.
+  * Pros: Makes the command more atomic - if there is an error, no changes are made.
+  * Cons: Less efficient as the program iterates through all attributes twice.
+* Alternative 2: `AddCommand#execute` adds an empty person to the address book and then checks for duplicates while appending attributes to that person.
+  * Pros: Shorter code, less repetition of actions.
+  * Cons: Duplicate attributes would halt command and leave the address book in a partially edited state. Fixing this would result in less readable code.
+
+### Delete Person feature
+
+This feature is the `Delete` command that allows users to remove a person from the address book.
+
+#### Implementation
+
+Deleting a person is carried out using `DeleteCommand` and `DeleteCommandParser`.
+The `DeleteCommand` class extends the `Command` class.
+The `DeleteCommandParser` class extends the `Parser` class.
+
+Given below is an example usage scenario and how deleting a person works.
+
+Step 1: The user enters a command to delete a person with the UUID `0001`.
+For example: `delete /0001`.
+
+Step 2: The `LogicManager` component receives this command as a string and passes it to the `AddressBookParser`.
+
+Step 3: The `AddressBookParser` recognizes the `delete` keyword and creates a new `DeleteCommandParser`.
+
+Step 4: The `DeleteCommandParser` parses the rest of the command `/0001`.
+It then creates a new `DeleteCommand` with the UUID `0001`.
+
+Step 5: The `DeleteCommand` is executed.
+
+Step 6: `DeleteCommand#execute` continues by calling the following method from `Model`:
+* `Model#getFullUuid(String)` It takes in the partial 4-character UUID provided by the user and converts it to the `UUID` object representative of the person to delete.
+* `Model#getPersonByUuid(UUID)` It takes the full UUID obtained earlier and returns the corresponding `Person` object.
+* `Model#deletePerson(Person)` It deletes the provided person from the address book.
+
+Step 7: The `DeleteCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how deleting a person works:
+
+<TODO: Sequence diagram>
+
+The following activity diagram sheds more light on exactly what happens when a user executes the 'delete' command:
+
+<TODO: Sequence diagram>
+
 ### Add Attribute feature
 
 An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.
