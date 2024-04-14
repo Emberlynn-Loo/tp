@@ -47,8 +47,11 @@ public class ParserUtil {
         HashMap<String, String> attributeMap = new HashMap<>();
         for (int i = 0; i < parts.length; i++) {
             String[] attribute = separateAttributeNamesAndValues(parts[i]);
-            String attributeName = attribute[0];
+            String attributeName = attribute[0].toLowerCase();
             String attributeValue = attribute[1];
+            if (attributeMap.containsKey(attributeName.toLowerCase())) {
+                throw new ParseException(Messages.MESSAGE_DUPLICATE_ATTRIBUTES);
+            }
             attributeMap.put(attributeName, attributeValue);
         }
         return attributeMap;
