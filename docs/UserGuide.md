@@ -189,10 +189,6 @@ Navigate to the _home folder_ in Finder, then right-click and select "New Termin
 
 3. Refer to the [Command Summary](#command-summary) for a quick summary of all commands.
 
-<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
-Be careful when using the deleteAllPersons command with your own data as it will delete all your contacts and is irreversible. Use with caution!
-</div>
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 The app will resize and expand initially to fit the size of your screen. You can resize the app window to your liking. However, we recommend the app to be fullscreen for the best experience!
 </div>
@@ -233,23 +229,21 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 
 ## Command Format
 
-<div markdown="block" class="alert alert-info">
+**Notes about the command format:**
 
-**:information_source: Notes about the command format:**<br>
-
-* Command keywords are case-insensitive.<br>
+* Command keywords are case-insensitive.
   e.g. `addAttribute` can be `addattribute`, `ADDATTRIBUTE`, etc.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
   e.g. in `add /Name NAME`, `NAME` is a parameter which can be used as `add /Name John Doe`.
 
-* Items in square brackets are optional.<br>
+* Items in square brackets are optional.
   e.g. `/NAME name [/Phone PHONE]` can be used as `/NAME John Doe /Phone 98765432` or as `/NAME name`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+* Items with `…`​ after them can be used multiple times including zero times.
   e.g. `[/ATTRIBUTENAME ATTRIBUTEVALUE]…​` can be used as ` ` (i.e. 0 times), `/Name John Doe`, `/Name John Doe /Phone 98765432` etc.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * UUID are 4 characters long
@@ -259,31 +253,56 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
 * All relationship commands are case-sensitive (must be in lower-case). It must match the relationship type name exactly.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+<div markdown="span" class="alert alert-primary">:warning::warning::warning: **Warning:**
+Be careful when inputting commands into the CLI interface. Especially when accidentally inputting a space in the command name, the command may result in the wrong execution or error message being thrown!
 </div>
 
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
-## Persons
-
-Every contact you store in Gene-nie is considered a _Person_.
-A person is made up of three pieces of information:
-1. A unique identifier (UUID)
-   1. Each person has a unique UUID that is used to identify them
-   2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
-   3. UUID are 4-characters long
-2. A set of attributes
-3. A set of relationships
-To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
-
-Have a look at this sample person card. Can you spot where each detail is located?
-![Sample Person Card](images/PersonCard.png)
+Now that you are familiar with the command format, let us bring you through a short tutorial of how to use our magical app **Gene-nie**! Happy learning!
 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Tutorial
+
+We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use **Gene-nie**!
+Regardless of your skill level, we will guide you through the basics of using **Gene-nie**!
+
+Firstly, let us open the app! If you have forgotten how to you can refer to the [Quick Start](#quick-start) section above!
+
+You will be greeted with our interface below populated with some sample data ready for you to work your magic!
+
+![Gene-nieStartImage.png](images/Gene-nieStartImage.png)
+
+Before we continue, make sure that you understand:
+* The [Command Format](#command-format) of **Gene-nie**
+* The [User Interface](#user-interface) of **Gene-nie**
+* The [Command Line Interface (CLI)](#using-the-command-line-interface--cli-) of **Gene-nie**
+
+Now, let us start with the basics of **Gene-nie**!
+
+### Clearing the Sample Data!
+
+Before we start if you aren't a fan of the imaginary friends we gave you, let us clear the sample data in **Gene-nie**! We will use the `deleteAllPersons` command to clear all the sample data! This leaves you with a clean slate to start your genealogy journey!
+
+![cleangenie.png](images/cleangenie.png)
+
+### Adding yourself!
+
+Now that we have a clean slate, let us add you into **Gene-nie**! We will use the `add` command to add yourself into **Gene-nie**! You can add your name, phone number, email, address, or any other details you wish to add! If you want to you are even able to add a person without any attributes!
+Type this command `add /name Your Name /phone Your Number /email youremail@email.com` to add yourself into **Gene-nie**!
+
+![addyou.png](images/addyou.png)
+
+### Adding your Friend!
+
+Now that you have added yourself, let us add your friend into **Gene-nie**! We will use the `add` command to add your friend into **Gene-nie**!
+
+![addfriend.png](images/addfriend.png)
+
+
+--------------------------------------------------------------------------------------------------------------------
 ## Features
 
 Gene-nie has 3 main features:
@@ -353,6 +372,24 @@ Relationships are what you use to store information about the relationship betwe
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Persons
+
+Every contact you store in Gene-nie is considered a _Person_.
+A person is made up of three pieces of information:
+1. A unique identifier (UUID)
+    1. Each person has a unique UUID that is used to identify them
+    2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
+    3. UUID are 4-characters long
+2. A set of attributes
+3. A set of relationships
+   To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
+
+Have a look at this sample person card. Can you spot where each detail is located?
+![Sample Person Card](images/PersonCard.png)
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ## Features - Managing Persons
 
 ### Listing all Persons : `list` or `l`
