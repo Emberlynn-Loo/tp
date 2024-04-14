@@ -2,12 +2,20 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box logic LOGIC_COLOR_T1
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
+end box
+
+box model MODEL_COLOR_T1
 Participant ":Model" as model MODEL_COLOR
 Participant ":Person" as person PERSON_COLOR
+end box
+
+box storage STORAGE_COLOR_T1
 Participant ":Storage" as storage STORAGE_COLOR
+end box
 
 user -[USER_COLOR]> ui : "deleteattribute /uuid 1234 /name1 /name2"
 activate ui UI_COLOR
@@ -20,7 +28,6 @@ activate model MODEL_COLOR
 
 model --[MODEL_COLOR]> logic : return person object
 deactivate model
-destroy model
 
 loop for each attribute
     logic -[LOGIC_COLOR]> person : hasAttribute(attributeName)
@@ -34,6 +41,7 @@ loop for each attribute
     person --[PERSON_COLOR]> logic : attribute deleted
     deactivate person
 end
+destroy person
 
 logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
 activate storage STORAGE_COLOR
@@ -45,6 +53,7 @@ deactivate storage STORAGE_COLOR_T1
 
 storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
+storage --[HIDDEN]> storage :
 destroy storage
 
 logic --[LOGIC_COLOR]> ui : CommandResult("Attributes deleted successfully.")

@@ -106,6 +106,8 @@ Through the magic of <span class="hello_span">Gene-nie</span> you are able to
 
 Whether you are an expert genealogist or a budding enthusiast, this guide will help you get started with <span class="hello_span">Gene-nie</span>.
 
+<span class="hello_span">I see that you are eager to start your genealogy journey!</span> Let my friends give you a short introduction...
+
 We will walk you through every step, from the basics of adding a person and their relationships to advanced features that will empower you in your journey of genealogy.
 
 <span class="h3_span">Novice Users:</span>
@@ -137,6 +139,8 @@ Additionally, there will be symbols to help you navigate through this guide:
 <div class="section_header_h2">
     <h2><a href="#user-interface" id="user-interface">User Interface</a></h2>
 </div>
+
+<span class="hello_span">You look lost, let my friends show you the way that I work!</span>
 
 <span class="hello_span">Gene-nie</span> has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of <span class="hello_span">Gene-nie</span>.
 <div class="img_container">
@@ -231,6 +235,8 @@ Now that you are familiar with the user interface of <span class="hello_span">Ge
     <h2><a href="#quick-start" id="quick-start">Quick Start</a></h2>
 </div>
 
+Ah, I see that you are excited to command me... <span class="hello_span">Let me show you how to make me work my magic quickly!!</span>
+
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
 2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases).
@@ -294,6 +300,8 @@ The app will resize and expand initially to fit the size of your screen. You can
     </h2>
 </div>
 
+<span class="hello_span">I see that you are nervous... Don't be!</span> It is as easy as ABC! Let my friends show you the way...
+
 <span class="hello_span">Gene-nie</span> is a desktop app that uses a Command Line Interface (CLI) for users to interact with the app. CLI is a text-based interface that allows users to input commands and receive responses via typing into our command box!
 
 If you are still worried about using the CLI, let us demystify it for you! In fact, this is all there is to it:
@@ -328,7 +336,7 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
     <h2><a href="#command-format" id="command-format">Command Format</a></h2>
 </div>
 
-
+Ah, you wish to command me to do your bidding! Fret not! I will show you the way... But make sure to <span class="hello_span">REMEMBER THESE FORMATS OR ELSE!!!!</span>
 
 <span class="h3_span">Notes about the command format:</span>
 
@@ -369,7 +377,9 @@ Now that you are familiar with the command format, let us bring you through a sh
     <h2><a href="#tutorial" id="tutorial">Tutorial</a></h2>
 </div>
 
-We can show you the world! Shining, shimmering, splendid! Let us take you through a tutorial of how to use <span class="hello_span">Gene-nie</span>!
+<span class="hello_span"> I can show you the world! Shining, shimmering, splendid!</span> You better pay attention to my friends...
+
+To properly make use of <span class="hello_span">Gene-nie</span>, let us take you through a tutorial of how to utilise <span class="hello_span">Gene-nie</span>!
 Regardless of your skill level, we will guide you through the basics of using <span class="hello_span">Gene-nie</span>!
 
 Firstly, let us open the app! If you have forgotten how to you can refer to the [Quick Start](#quick-start) section above!
@@ -458,16 +468,21 @@ Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relati
 
 Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
 
-Congratulations! You have successfully completed the tutorial of <span class="hello_span">Gene-nie</span>! You are now ready to start your magical genealogy journey with <span class="hello_span">Gene-nie</span>!
+<span class="hello_span">HA HA HA...Congratulations! I never doubted you.</span> You have successfully mastered how to use me! You are now ready to start your magical genealogy journey with me! That wasn't so hard, was it?
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** If you are unsure of the commands to use, you can always refer to the [Command Summary](#command-summary) section for a quick summary of all commands available in <span class="hello_span">Gene-nie</span>!</div>
 
 Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
+
 <div class="section_header_h2">
     <h2><a href="#features">Features</a></h2>
 </div>
+
+<span class="hello_span">Ah, you wish to know more about me!</span> Let me show you the magical features I use to help you manage your contacts and relationships!
 
 In the world of genealogy, <span class="hello_span">Gene-nie</span> is your magical assistant that helps you manage your contacts and relationships with ease!
 <span class="hello_span">Gene-nie</span> works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
@@ -483,6 +498,8 @@ Let us dive into the magical world of <span class="hello_span">Gene-nie</span>!
 <div class="section_header_h3">
     <h3><a href="#persons">Persons</a></h3>
 </div>
+
+It seems like you are trying to remember specific details of your friends and family... <span class="hello_span">Let me magic away this issue for you!</span>
 
 In the world of Gene-nie, we believe that every contact is unique and special! Every friend or family you store in Gene-nie is considered a _Person_.
 
@@ -510,6 +527,8 @@ Have a look at this sample person card. Can you spot where each detail is locate
     <h3><a href="#attributes">Attributes</a></h3>
 </div>
 
+<span class="hello_span">Ah...</span> It seems you're trying to remember specific details of your friends and family... <span class="hello_span">Let me help!</span>
+
 Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of **Attributes**.
 
 Attributes are what you use to store any information about a person that is about that particular person.
@@ -518,7 +537,7 @@ Attributes are one of 3 types of information in a person's profile, with the oth
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the specified attributes.
 Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
-However, **duplicate attribute values are  checked** and will not be added to the same person.
+However, **duplicate attribute values are checked** and will not be added to the same person.
 
 1. **Attribute names** are case-insensitive and will be converted to a consistent case. However, we do not restrict the length of your names. So with great power comes great responsibility! Having too long a name will cause the UI to be ugly so do choose wisely! We recommend keeping it short and sweet!
 2. **Attribute values** are case-sensitive and will be stored as is.
@@ -566,6 +585,8 @@ Attribute values:
     <h3><a href="#relationships">Relationships</a></h3>
 </div>
 
+You wish to know more about the relationships between your friends and family... <span class="hello_span">Let me show you the way!</span>
+
 In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of **Relationships**.
 
 Relationships are what you use to store information about the relationship between 2 persons.
@@ -577,30 +598,31 @@ Relationships are what you use to store information about the relationship betwe
     <h2><a href="#features---managing-persons">Features - Managing Person Profiles</a></h2>
 </div>
 
+<span class="hello_span">HO HO HO...</span> it seems that you are trying to manage your contacts! Let me guide you through the magical world of managing person profiles in Gene-nie!
+
 <div class="section_header_h3">
     <h3><a href="#listing-all-persons--list-or-l">Listing all Persons</a></h3>
 </div>
 
-Shows a list of all persons in the address book.
+Use `list` to show all persons in the address book.
 
-Format: `list`
+Format: `list` or `l`
 
 <div class="section_header_h3">
     <h3><a href="#adding-a-person--add-or-a">Adding a person</a></h3>
 </div>
 
-Adds a person to the address book.
+Add a person to the address book.
 
-Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `a [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds a person to the address book with the specified attributes or none at all!
 * You can add multiple attributes in one command!
 * The order of the attributes does not matter.
-* Additionally, duplicate attributes will be parsed and the last entered duplicate attribute will be stored.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 **A person can have any number of attributes (including 0)!**<br>
-Sometimes, you may know that a person exists in your family tree but you don't know anything about them.
+Sometimes, you may know that a person exists in your family tree, but you don't know anything about them.
 Gene-nie comes to the rescue by allowing you to create empty persons with no attributes!
 This way, you can still add them to relationships, and fill in their details later.
 </div>
@@ -613,9 +635,9 @@ Examples:
     <h3><a href="#locating-persons-by-details--find-or-f">Locating persons by details</a></h3>
 </div>
 
-Finds persons whose details contain any of the given phrases.
+Find persons whose details contain any of the given phrases.
 
-Format: `find /PHRASE [/MORE_PHRASES] ...`
+Format: `find /PHRASE [/MORE_PHRASES] ...` or `f /PHRASE [/MORE_PHRASES] ...`
 
 * Between phrases,
   * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
@@ -649,9 +671,9 @@ Examples:
     <h3><a href="#deleting-a-person--delete-or-d">Deleting a Person</a></h3>
 </div>
 
-Deletes the specified person from the address book.
+Delete the specified person from the address book.
 
-Format: `delete /UUID`
+Format: `delete /UUID` or `d /UUID`
 
 * Deletes the person with the specified `UUID`
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
@@ -670,13 +692,15 @@ Examples:
     <h2><a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a></h2>
 </div>
 
+<span class="hello_span">AHHHHH...</span> It seems that you are now trying to manage the attributes of your contacts! Let me guide you through the magical world of managing attributes of persons in Gene-nie!
+
 <div class="section_header_h3">
     <h3><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute</a></h3>
 </div>
 
-Adds an attribute to a person in the address book.
+Add an attribute to a person in the address book.
 
-Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `aa /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
 * You can add multiple attributes in one command!
@@ -696,9 +720,9 @@ Examples:
     <h3><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute</a></h3>
 </div>
 
-Deletes an attribute from a person in the address book.
+Delete an attribute from a person in the address book.
 
-Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
+Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​` or `da /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
 
 * Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
 * You are allowed to delete multiple attributes in one command
@@ -718,10 +742,9 @@ Examples:
 <div class="section_header_h3">
     <h3><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute</a></h3>
 </div>
+Edits the attributes of a person in the address book.
 
-Edit attributes of a person in the address book.
-
-Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `ea /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
 * Multiple attributes are allowed to be edited simultaneously in one command
@@ -747,6 +770,8 @@ Examples:
 <div class="section_header_h2">
     <h2><a href="#features---managing-person-relationships">Managing Person Relationships</a></h2>
 </div>
+
+<span class="hello_span">WOW!!!!</span> It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types</a></h3>
@@ -930,6 +955,8 @@ else `No Relationship Pathway Found` will be returned
 <div class="section_header_h2">
     <h2><a href="#features---general-features">General Features</a></h2>
 </div>
+
+<span class="hello_span">INTERESTING!!!</span> It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!
 
 <div class="section_header_h3">
     <h3><a href="#viewing-help--help-or-h">Viewing Help</a></h3>
