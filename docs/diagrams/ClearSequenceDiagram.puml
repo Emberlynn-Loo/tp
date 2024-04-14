@@ -27,14 +27,17 @@ clearCommand -> model : resetRelationshipDescriptors()
 activate model
 model --> clearCommand : relationships reset
 deactivate model
+model --[HIDDEN]> clearCommand
 destroy model
 
 clearCommand --> logic : CommandResult("Address book has been cleared!")
 deactivate clearCommand
+clearCommand --[hidden]> logic
 destroy clearCommand
 
 logic --> ui : display "Address book has been cleared!"
 deactivate logic
+logic --[hidden]> ui
 destroy logic
 
 ui --> user : show "Address book has been cleared!"

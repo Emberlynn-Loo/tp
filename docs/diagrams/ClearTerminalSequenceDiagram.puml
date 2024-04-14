@@ -21,6 +21,7 @@ controller -> dialogContainer : getChildren().clear()
 activate dialogContainer
 dialogContainer --> controller
 deactivate dialogContainer
+dialogContainer --[hidden]> controller :
 destroy dialogContainer
 
 controller -> imageContainer : setVisible(false)
@@ -32,12 +33,14 @@ controller -> imageContainer : setManaged(false)
 activate imageContainer
 imageContainer --> controller
 deactivate imageContainer
+imageContainer --[hidden]> controller :
 destroy imageContainer
 
 controller -> scrollPane : getHeight()
 activate scrollPane
 scrollPane --> controller : return height
 deactivate scrollPane
+scrollPane --[hidden]> controller :
 destroy scrollPane
 
 alt if height <= 150
@@ -50,6 +53,7 @@ controller -> cliInput : setText("")
 activate cliInput
 cliInput --> controller : input cleared
 deactivate cliInput
+cliInput --[hidden]> controller :
 destroy cliInput
 
 controller --> user : clear complete

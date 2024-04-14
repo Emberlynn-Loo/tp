@@ -27,7 +27,13 @@ model --[MODEL_COLOR]> logic : return matching Person
 deactivate model
 
 logic -[LOGIC_COLOR]> model : deletePerson(personToDelete)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> logic :
+deactivate model
 logic -[LOGIC_COLOR]> model : deleteRelationshipsOfPerson(targetUuid)
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> logic :
+deactivate model
 
 logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
 activate storage STORAGE_COLOR

@@ -26,6 +26,7 @@ activate attribute ATTRIBUTE_COLOR
 
 attribute --[ATTRIBUTE_COLOR]> logic : return attribute
 deactivate attribute
+attribute --[HIDDEN]> attribute : model
 destroy attribute
 
 logic -[LOGIC_COLOR]> model : person.addAttribute(attribute)
@@ -44,6 +45,7 @@ deactivate storage STORAGE_COLOR_T1
 
 storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
+storage --[HIDDEN]> storage : model
 destroy storage
 
 logic --[LOGIC_COLOR]> ui : CommandResult("Attribute added successfully.")

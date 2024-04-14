@@ -33,6 +33,7 @@ loop for each attribute
     person --[PERSON_COLOR]> logic : attribute deleted
     deactivate person
 end
+destroy person
 
 logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
 activate storage STORAGE_COLOR
@@ -44,6 +45,7 @@ deactivate storage STORAGE_COLOR_T1
 
 storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
+storage --[HIDDEN]> storage :
 destroy storage
 
 logic --[LOGIC_COLOR]> ui : CommandResult("Attributes deleted successfully.")
