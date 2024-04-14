@@ -328,8 +328,6 @@ Nevertheless, if you are still unsure about using the CLI, do not worry! Ensure 
     <h2><a href="#command-format" id="command-format">Command Format</a></h2>
 </div>
 
-
-
 <span class="h3_span">Notes about the command format:</span>
 
 * Command keywords are case-insensitive.
@@ -465,6 +463,7 @@ Congratulations! You have successfully completed the tutorial of <span class="he
 Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
 
 --------------------------------------------------------------------------------------------------------------------
+
 <div class="section_header_h2">
     <h2><a href="#features">Features</a></h2>
 </div>
@@ -518,7 +517,7 @@ Attributes are one of 3 types of information in a person's profile, with the oth
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the specified attributes.
 Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
-However, **duplicate attribute values are  checked** and will not be added to the same person.
+However, **duplicate attribute values are checked** and will not be added to the same person.
 
 1. **Attribute names** are case-insensitive and will be converted to a consistent case. However, we do not restrict the length of your names. So with great power comes great responsibility! Having too long a name will cause the UI to be ugly so do choose wisely! We recommend keeping it short and sweet!
 2. **Attribute values** are case-sensitive and will be stored as is.
@@ -577,30 +576,31 @@ Relationships are what you use to store information about the relationship betwe
     <h2><a href="#features---managing-persons">Features - Managing Person Profiles</a></h2>
 </div>
 
+<span class="hello_span">HO HO HO it seems that you are trying to manage your contacts! Let me guide you through the magical world of managing person profiles in Gene-nie!</span>
+
 <div class="section_header_h3">
     <h3><a href="#listing-all-persons--list-or-l">Listing all Persons</a></h3>
 </div>
 
-Shows a list of all persons in the address book.
+Use `list` to show all persons in the address book.
 
-Format: `list`
+Format: `list` or `l`
 
 <div class="section_header_h3">
     <h3><a href="#adding-a-person--add-or-a">Adding a person</a></h3>
 </div>
 
-Adds a person to the address book.
+Add a person to the address book.
 
-Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `a [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds a person to the address book with the specified attributes or none at all!
 * You can add multiple attributes in one command!
 * The order of the attributes does not matter.
-* Additionally, duplicate attributes will be parsed and the last entered duplicate attribute will be stored.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 **A person can have any number of attributes (including 0)!**<br>
-Sometimes, you may know that a person exists in your family tree but you don't know anything about them.
+Sometimes, you may know that a person exists in your family tree, but you don't know anything about them.
 Gene-nie comes to the rescue by allowing you to create empty persons with no attributes!
 This way, you can still add them to relationships, and fill in their details later.
 </div>
@@ -613,9 +613,9 @@ Examples:
     <h3><a href="#locating-persons-by-details--find-or-f">Locating persons by details</a></h3>
 </div>
 
-Finds persons whose details contain any of the given phrases.
+Find persons whose details contain any of the given phrases.
 
-Format: `find /PHRASE [/MORE_PHRASES] ...`
+Format: `find /PHRASE [/MORE_PHRASES] ...` or `f /PHRASE [/MORE_PHRASES] ...`
 
 * Between phrases,
   * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
@@ -649,9 +649,9 @@ Examples:
     <h3><a href="#deleting-a-person--delete-or-d">Deleting a Person</a></h3>
 </div>
 
-Deletes the specified person from the address book.
+Delete the specified person from the address book.
 
-Format: `delete /UUID`
+Format: `delete /UUID` or `d /UUID`
 
 * Deletes the person with the specified `UUID`
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
@@ -670,13 +670,15 @@ Examples:
     <h2><a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a></h2>
 </div>
 
+<span class="hello_span">AHHHHH... It seems that you are now trying to manage the attributes of your contacts! Let me guide you through the magical world of managing attributes of persons in Gene-nie!</span>
+
 <div class="section_header_h3">
     <h3><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute</a></h3>
 </div>
 
-Adds an attribute to a person in the address book.
+Add an attribute to a person in the address book.
 
-Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `aa /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
 * You can add multiple attributes in one command!
@@ -696,9 +698,9 @@ Examples:
     <h3><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute</a></h3>
 </div>
 
-Deletes an attribute from a person in the address book.
+Delete an attribute from a person in the address book.
 
-Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
+Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​` or `da /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
 
 * Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
 * You are allowed to delete multiple attributes in one command
@@ -718,10 +720,9 @@ Examples:
 <div class="section_header_h3">
     <h3><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute</a></h3>
 </div>
+Edits the attributes of a person in the address book.
 
-Edit attributes of a person in the address book.
-
-Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​` or `ea /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
 * Multiple attributes are allowed to be edited simultaneously in one command
@@ -747,6 +748,8 @@ Examples:
 <div class="section_header_h2">
     <h2><a href="#features---managing-person-relationships">Managing Person Relationships</a></h2>
 </div>
+
+<span class="hello_span">WOW!!!! It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!</span>
 
 <div class="section_header_h3">
     <h3><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types</a></h3>
@@ -930,6 +933,8 @@ else `No Relationship Pathway Found` will be returned
 <div class="section_header_h2">
     <h2><a href="#features---general-features">General Features</a></h2>
 </div>
+
+<span class="hello_span">INTERESTING!!! It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!</span>
 
 <div class="section_header_h3">
     <h3><a href="#viewing-help--help-or-h">Viewing Help</a></h3>
