@@ -5,8 +5,9 @@ title_name: User Guide
 ---
 
 <p align="justify" style="margin-top: 20px">
-<span class="hello_span">Hello There my fellow budding genealogists!!</span> It looks like you have found me, <span class="hello_span">The Gene-ie</span>. 
+<span class="hello_span">Hello There my fellow budding genealogists!!</span> It looks like you have found me, <span class="hello_span">The Gene-nie</span>. 
 I bet you are eager to command me around, after all I work magic. OH..., forgive my rudeness, I have not introduced myself. 
+
 I am your personal genealogy assistant, not only am I capable of managing your contacts, I too keep track of the relationships between them. 
 Thank you for choosing me. I will help you manage your relationship tree and your history of friends and family.<br/>
 <br/>
@@ -287,7 +288,12 @@ The app will resize and expand initially to fit the size of your screen. You can
 
 If you are still worried about using the CLI, let us demystify it for you! In fact, this is all there is to it:
 
-![CLIinterface.png](images/CLIinterface.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/CLIinterface.png" alt="CLIinterface.png">
+        <figcaption>Figure 6: CLI showcase</figcaption>
+    </figure>
+</div>
 
 Recall that the image above shows you the CLI interface of <span class="hello_span">Gene-nie</span>. 
 It is akin to the magic words Aladdin uses to command the Genie! 
@@ -355,7 +361,12 @@ Firstly, let us open the app! If you have forgotten how to you can refer to the 
 
 You will be greeted with our interface below populated with some sample data ready for you to work your magic!
 
-![Gene-nieStartImage.png](images/Gene-nieStartImage.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/Gene-nieStartImage.png" alt="Gene-nieStartImage.png">
+        <figcaption>Figure 7: Gene-nie populated with sample data</figcaption>
+    </figure>
+</div>
 
 Before we continue, make sure that you understand:
 * The [Command Format](#command-format) of <span class="hello_span">Gene-nie</span>
@@ -368,27 +379,47 @@ Now, let us start with the basics of <span class="hello_span">Gene-nie</span>!
 
 Before we start if you aren't a fan of the imaginary friends we gave you, let us clear the sample data in <span class="hello_span">Gene-nie</span>! We will use the `deleteAllPersons` command to clear all the sample data! This leaves you with a clean slate to start your genealogy journey!
 
-![cleangenie.png](images/cleangenie.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/cleangenie.png" alt="cleangenie.png">
+        <figcaption>Figure 8: Gene-nie cleared of data</figcaption>
+    </figure>
+</div>
 
 ### Adding yourself!
 
 Now that we have a clean slate, let us add you into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add yourself into <span class="hello_span">Gene-nie</span>! You can add your name, phone number, email, address, or any other details you wish to add! If you want to you are even able to add a person without any attributes!
 Type this command `add /name Your Name /phone Your Number /email youremail@email.com` to add yourself into <span class="hello_span">Gene-nie</span>!
 
-![addyou.png](images/addyou.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
+        <figcaption>Figure 9: Gene-nie adding you</figcaption>
+    </figure>
+</div>
 
 ### Adding your Friend!
 
 Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
 
-![addfriend.png](images/addfriend.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addfriend.png" alt="addfriend.png">
+        <figcaption>Figure 10: Gene-nie adding your friend</figcaption>
+    </figure>
+</div>
 
 ### Editing you/your friend's details!
 
 Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, you can edit your details or your friend's details using the `editAttribute` command! You can edit any attribute you have added to yourself or your friend! Make sure that you follow the [Attribute format](#attributes) when editing the details!
 Type this command `editAttribute /UUID /AttributeName New Value` to edit the attribute of yourself or your friend!
 
-![editdetails.png](images/editdetails.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/editdetails.png" alt="editdetails.png">
+        <figcaption>Figure 11: Gene-nie editing your friends data</figcaption>
+    </figure>
+</div>
 
 Well done! You have successfully edited the address of your friend! You can also edit any other details you wish to change **as long as they exist**!
 
@@ -397,7 +428,12 @@ Well done! You have successfully edited the address of your friend! You can also
 Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, let us add the relationship between you and your friend! We will use the `addRelation` command to add the relationship between you and your friend! You can add any relationship you wish to add between you and your friend! Make sure that you follow the [Relationship format](#relationships) when adding the relationship!
 Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relationship between you and your friend!
 
-![addrelation.png](images/addrelation.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addrelation.png" alt="addrelation.png">
+        <figcaption>Figure 12: Gene-nie adding your relationship</figcaption>
+    </figure>
+</div>
 
 Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
 
@@ -435,7 +471,13 @@ A person is made up of three pieces of information:
    To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
 
 Have a look at this sample person card. Can you spot where each detail is located?
-![Sample Person Card](images/PersonCard.png)
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/PersonCard.png" alt="PersonCard.png">
+        <figcaption>Figure 13: Sample Person Card</figcaption>
+    </figure>
+</div>
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
 
@@ -558,7 +600,13 @@ Examples:
 * `find /John` returns anyone with `john` and `John Doe` in their details
 * `find /alex david` returns only someone with `Alex David` as a substring of their detials<br>
 * `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
-  ![result for 'find /alex /david'](images/findAlexDavidResult.png)
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
+        <figcaption>Figure 14: Result for 'find /alex /david'</figcaption>
+    </figure>
+</div>
 
 ### Deleting a Person : `delete` or `d`
 
@@ -824,7 +872,12 @@ else `No Relationship Pathway Found` will be returned
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/helpMessage.png" alt="helpMessage.png">
+        <figcaption>Figure 15: Help message</figcaption>
+    </figure>
+</div>
 
 Format: `help`
 
@@ -844,7 +897,12 @@ However, if you want to clear all previous responses, simply use this command!
 
 Format: `clear`
 
-![clear command](images/ClearCommandIllustration.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/ClearCommandIllustration.png" alt="ClearCommandIllustration.png">
+        <figcaption>Figure 16: Clear command</figcaption>
+    </figure>
+</div>
 
 ### Exiting the program : `exit` or `e`
 
