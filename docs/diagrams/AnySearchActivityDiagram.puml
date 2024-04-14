@@ -1,0 +1,19 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "anySearch" command;
+
+:Parse command for UUIDs;
+:Execute anySearchCommand;
+if (Do persons exist) then (yes)
+    :Search for relationship pathway;
+    :Update FilteredPersonList;
+    :Update FilteredRelationshipList;
+    :Show relationship pathway in UI;
+    stop
+else (no)
+    :Inform user: "Persons not found";
+    stop
+@enduml

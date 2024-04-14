@@ -5,8 +5,10 @@ title: User Guide
 
 <h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
 <p align="center">
+
 Hello my fellow budding genealogists! Welcome to Gene-nie, your personal genealogy assistant!
 We welcome you to this user guide, where we demystify the magic of Gene-nie and help you get started on your genealogy journey!
+
 </p>
 
 ## Table of Contents
@@ -623,7 +625,7 @@ Examples:
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. 
+* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
 * Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
@@ -668,7 +670,7 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 Examples:
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
-### Deleting a relationship : `deleteRelation` or `dr`
+### Deleting a relationship : `deleteRelation` or `dr` 
 
 Deletes the relationship between two people in the address book.
 
@@ -708,7 +710,7 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 </div>
 
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
-* If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned, 
+* If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned,
 else `No Relationship Pathway Found` will be returned
     - Example: `anySearch /10cb /980c` suppose 980c is the friend of 10cb mother, `anySearch` will then return the descriptor
 `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c`
@@ -729,7 +731,7 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 
 * Unlike `anySearch`, `familySearch` only recognises family relationships, which are `bioparents`, `siblings` and `spouses`
 * The search is case-sensitive, '10cb' and '10CB' are considered different UUID
-* If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned, 
+* If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned,
 else `No Relationship Pathway Found` will be returned
     - Example: `familySearch /10cb /980c` suppose 980c is the grandfather of 10cb, `familySearch` will then return the descriptor
 `10cb -> (bioParents) child of --> 5964 --> (bioParents) child of --> 980c`

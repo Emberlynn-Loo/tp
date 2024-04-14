@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+actor User as user USER_COLOR
+participant ":UI" as ui UI_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditRelationshipCommandParser" as EditRelationshipCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "e:EditRelationshipCommand" as EditRelationshipCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+participant "toEditOff:Relationship" as ToEditOff MODEL_COLOR
+participant "toEditIn:Relationship" as ToEditIn MODEL_COLOR
+end box
+
+box model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+user -[USER_COLOR]> ui : "editRelation /1234 husband /5678 wife /partners /spouses"
+activate ui
+ui -> LogicManager : execute("editRelation /1234 husband /5678 wife /partners /spouses")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("editRelation /1234 husband /5678 wife /partners /spouses")
+activate AddressBookParser
+create EditRelationshipCommandParser
+AddressBookParser -> EditRelationshipCommandParser ++
+return
+AddressBookParser -> EditRelationshipCommandParser ++: parse("/1234 husband /5678 wife /partners /spouses")
+EditRelationshipCommandParser -> ParserUtil ++: getRelationshipHashMapEdit(parts)
+return
+EditRelationshipCommandParser --> ParserUtil ++ :relationKeysAndValues(relationshipMap, index, boolean)
+return
+
+create EditRelationshipCommand
+EditRelationshipCommandParser -> EditRelationshipCommand ++
+return e
+return e
+return e
+
+destroy EditRelationshipCommandParser
+
+LogicManager --> EditRelationshipCommand ++: execute()
+EditRelationshipCommand --> Model ++: getFullUuid(originUuid)
+return
+EditRelationshipCommand --> Model ++: getFullUuid(targetUuid)
+return
+create ToEditOff
+EditRelationshipCommand --> ToEditOff ++
+return
+create ToEditIn
+EditRelationshipCommand --> ToEditIn ++
+return
+EditRelationshipCommand --> Model ++: hasRelationshipWithDescriptor(toEditOff)
+return
+EditRelationshipCommand --> Model ++: hasRelationshipWithDescriptor(toEditIn)
+return
+EditRelationshipCommand --> Model ++: isRelationRoleBased(newRelationshipDescriptor)
+return
+EditRelationshipCommand --> Model ++: addRelationship(toEditIn)
+return
+EditRelationshipCommand --> Model ++: addRolelessDescriptor(newRelationshipDescriptor)
+return
+EditRelationshipCommand --> Model ++: deleteRelationship(toEditOff)
+return
+
+create CommandResult
+EditRelationshipCommand --> CommandResult ++
+return r
+
+return r
+
+LogicManager --> ui : r
+deactivate LogicManager
+return display "Edit successful."
+deactivate ui
+@enduml

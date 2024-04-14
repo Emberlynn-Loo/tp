@@ -1,0 +1,34 @@
+@startuml
+skin rose
+skinparam ArrowFontStyle plain
+
+start
+:User issues "deleteRelation" command;
+
+:Parse command for UUIDs and relationship descriptor;
+if (user input contains UUIDs?) then (yes)
+  :Execute deleting of relationship;
+  if (Do persons exist?) then (yes)
+    :Find persons associated with UUIDs;
+    if (Does relationship exist between the two persons) then (yes)
+      :Delete relationship;
+      :Save changes to address book;
+      :Inform user of success;
+    else (no)
+      :Inform user relationship does not exist;
+      stop
+    endif
+  else (no)
+    :Inform user persons do not exist;
+    stop
+   endif
+else (no)
+  :Execute deleting of relationship descriptor;
+  if (Does relationship descriptor exist?) then (yes)
+    :Delete relationship descriptor;
+    :Save changes to address book;
+    :Inform user of success;
+  else (no)
+    :Inform user relationship descriptor does not exist;
+stop
+@enduml

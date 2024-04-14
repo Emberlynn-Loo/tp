@@ -8,8 +8,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.relationship.Relationship;
 import seedu.address.model.person.relationship.RoleBasedRelationship;
-import seedu.address.model.person.relationship.SiblingRelationship;
-import seedu.address.model.person.relationship.SpousesRelationship;
 
 /**
  * This class is responsible for parsing and executing commands to add relationships between persons.
@@ -92,76 +90,11 @@ public class EditRelationshipCommand extends Command {
                             + "if the new relationship is the same as the old one.");
                 }
             }
-            if (model.hasRelationshipWithDescriptor(toEditIn)
-                    && !((role1 != null && role2 != null)
-                    && oldRelationshipDescriptor.equals(newRelationshipDescriptor))) {
-                String existing = model.getExistingRelationship(toEditIn);
-                throw new CommandException(String.format("Sorry, %s", existing));
-            }
-            if (role1 != null && role2 != null) {
-                RoleBasedRelationship toAdd;
-                if (newRelationshipDescriptor.equalsIgnoreCase("Bioparents")) {
-                    toAdd = model.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
-                } else if (newRelationshipDescriptor.equalsIgnoreCase("Siblings")) {
-                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
-                        model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
-                    }
-                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
-                        model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
-                    }
-                    toAdd = new SiblingRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
-                } else if (newRelationshipDescriptor.equalsIgnoreCase("Spouses")) {
-                    if (model.hasAttribute(fullOriginUuid.toString(), "Sex")) {
-                        model.genderMatch(role1, fullOriginUuid.toString(), originUuid);
-                    }
-                    if (model.hasAttribute(fullTargetUuid.toString(), "Sex")) {
-                        model.genderMatch(role2, fullTargetUuid.toString(), targetUuid);
-                    }
-                    toAdd = new SpousesRelationship(fullOriginUuid, fullTargetUuid, role1, role2);
-                } else if (newRelationshipDescriptor.equalsIgnoreCase("Friends")) {
-                    throw new CommandException("Sorry, friends cannot have roles");
-                } else {
-                    toAdd = new RoleBasedRelationship(fullOriginUuid, fullTargetUuid,
-                            newRelationshipDescriptor, role1, role2);
-                }
-                if (!model.isRelationRoleBased(newRelationshipDescriptor) && role1 != null && role2 != null) {
-                    throw new CommandException(String.format("Sorry, you did not add %s as a "
-                            + "role based relationship."
-                            + "\nIf you want to use it, please delete the roles"
-                            + "\nIf you want to make it a role based relationship, please delete the "
-                            + "relationtype and add it again.", newRelationshipDescriptor));
-                }
-                if (model.isRelationRoleBased(newRelationshipDescriptor)) {
-                    if (!(role1.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            || role1.equals(model.getRoles(newRelationshipDescriptor).get(1)))
-                            || !(role2.equals(model.getRoles(newRelationshipDescriptor).get(0))
-                            || role2.equals(model.getRoles(newRelationshipDescriptor).get(1)))) {
-                        throw new CommandException(String.format("Please use the roles you added: [%s, %s]"
-                                        + "\nIf you want to change the roles, please delete the"
-                                        + "\nrelationtype and add it again.",
-                                model.getRoles(newRelationshipDescriptor).get(0),
-                                model.getRoles(newRelationshipDescriptor).get(1)));
-                    }
-                }
-                model.addRelationship(toAdd);
-                model.addRolebasedDescriptor(newRelationshipDescriptor, role1, role2);
-            } else {
-                if (model.isRelationRoleBased(newRelationshipDescriptor) && role1 == null && role2 == null) {
-                    throw new CommandException(String.format("Sorry, you added %s as a role based relationship."
-                                    + "\nIf you want to use it, please use the roles you added: [%s, %s]"
-                                    + "\nIf you want to make it a role based relationship, please delete the"
-                                    + "\nrelationtype and add it again.", newRelationshipDescriptor,
-                            model.getRoles(newRelationshipDescriptor).get(0),
-                            model.getRoles(newRelationshipDescriptor).get(1)));
-                }
-                model.addRelationship(toEditIn);
-                model.addRolelessDescriptor(newRelationshipDescriptor);
-            }
+            model.relationshipChecks(toEditIn, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, role1, role2,
+                    model, oldRelationshipDescriptor, newRelationshipDescriptor, false);
             model.deleteRelationship(toEditOff);
             return new CommandResult(MESSAGE_EDIT_RELATIONSHIP_SUCCESS);
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(String.format(e.getMessage()));
-        } catch (ParseException e) {
+        } catch (IllegalArgumentException | ParseException e) {
             throw new CommandException(e.getMessage());
         }
     }
