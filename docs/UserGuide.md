@@ -38,7 +38,7 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
     <ul>
       <li><a href="#listing-all-persons--list-or-l">Listing all Persons</a></li>
       <li><a href="#adding-a-person--add-or-a">Adding a person</a></li>
-      <li><a href="#locating-persons-by-details--find-or-f">Locating persons by details</a></li>
+      <li><a href="#locating-persons-by-details--find-or-f">Finding persons by details</a></li>
       <li><a href="#deleting-a-person--delete-or-d">Deleting a Person</a></li>
     </ul>
   </li>
@@ -512,6 +512,7 @@ Have a look at this sample person card. Can you spot where each detail is locate
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
 
+[Back to Table of Contents](#table-of-contents)
 <div class="section_header_h2">
     <h2><a href="#attributes" id="attributes">Attributes</a></h2>
 </div>
@@ -570,6 +571,8 @@ Attribute values:
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
 <div class="section_header_h2">
     <h2><a href="#relationships" id="relationships">Relationships</a></h2>
 </div>
@@ -591,6 +594,8 @@ Relationships are what you use to store information about the relationship betwe
 </div>
 
 <span class="hello_span">Format:</span> `list` or `l`
+
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -614,6 +619,8 @@ This way, you can still add them to relationships, and fill in their details lat
 <span class="hello_span">Examples:</span>
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
+
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -649,6 +656,8 @@ This way, you can still add them to relationships, and fill in their details lat
         <figcaption class="img_container_figCaption">Figure 14: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
     </figure>
 </div>
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -697,6 +706,8 @@ This way, you can still add them to relationships, and fill in their details lat
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
+[Back to Table of Contents](#table-of-contents)
+
 ----
 
 <span class="h3_span" id="deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an attribute from a Person: `deleteAttribute` or `da`</span>
@@ -721,6 +732,8 @@ This way, you can still add them to relationships, and fill in their details lat
 * `deleteAttribute /12db /Pet /Nickname` deletes the attribute Pet and Nickname from the person with the UUID 12db
 * `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
 * `deleteAttribute /12db /Pet /Pet` does not delete the attribute Pet from the person with the UUID 12db as the attribute name is duplicated and instead throws an error
+
+[Back to Table of Contents](#table-of-contents)
 
 ----
 
@@ -765,6 +778,8 @@ This way, you can still add them to relationships, and fill in their details lat
     </ul>
 </div>
 <span class="hello_span">Format:</span> `listRelations` or `lr`
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -813,6 +828,8 @@ This way, you can still add them to relationships, and fill in their details lat
 * Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="editing-a-relationship--editrelation-or-er">Editing a relationship : `editRelation` or `er`</span>
@@ -855,6 +872,8 @@ This way, you can still add them to relationships, and fill in their details lat
 <span class="hello_span">Examples:</span>
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="deleting-a-relationship--deleterelation-or-dr">Deleting a relationship : `deleteRelation` or `dr`</span>
@@ -886,6 +905,8 @@ This way, you can still add them to relationships, and fill in their details lat
 <span class="hello_span">Examples:</span>
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationships between Entities: `anySearch` or `as`</span>
@@ -913,6 +934,8 @@ else `No Relationship Pathway Found` will be returned
 * * * `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
 * * * `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
     returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -963,6 +986,8 @@ else `No Relationship Pathway Found` will be returned
     </figure>
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="clearing-all-entries--deleteallpersons-or-dap">Clearing all entries : `deleteAllPersons` or `dap`</span>
@@ -970,6 +995,8 @@ else `No Relationship Pathway Found` will be returned
 <span style="font-style: italic;">Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.</span>
 
 <span class="hello_span">Format:</span> `deleteAllPersons`
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -988,6 +1015,8 @@ else `No Relationship Pathway Found` will be returned
     </figure>
 </div>
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="exiting-the-program--exit-or-e">Exiting the program : `exit` or `e`</span>
@@ -995,11 +1024,15 @@ else `No Relationship Pathway Found` will be returned
 <p style="font-style: italic;">Exits the program.</p>
 <span class="hello_span">Format:</span> `exit`
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 <span class="h3_span" id="saving_the_data">Saving the data</span>
 
 <p style="font-style: italic;">Gene-nie data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.</p>
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
