@@ -2,13 +2,18 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box Logic LOGIC_COLOR_T1
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
+end box
+
+box model MODEL_COLOR_T1
 Participant ":Model" as model MODEL_COLOR
 Participant ":Person" as person PERSON_COLOR
 Participant ":Attribute" as attribute ATTRIBUTE_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
+end box
 
 user -[USER_COLOR]> ui : "add /Name Bob"
 activate ui UI_COLOR
@@ -50,6 +55,7 @@ storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
 storage --[Hidden]> storage : model
 destroy storage
+
 
 logic --[LOGIC_COLOR]> ui : CommandResult("New person added. Details: Name: Bob")
 deactivate logic

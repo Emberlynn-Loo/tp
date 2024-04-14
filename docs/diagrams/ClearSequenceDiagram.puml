@@ -3,11 +3,16 @@
 skinparam ArrowFontStyle plain
 !define CLEARCOMMAND_COLOR #FF7700
 
+box Logic LOGIC_COLOR_T1
 actor User as user USER_COLOR
 participant ":UI" as ui UI_COLOR
 participant ":LogicManager" as logic LOGIC_COLOR
 participant ":ClearCommand" as clearCommand CLEARCOMMAND_COLOR
+end box
+
+box Model MODEL_COLOR_T1
 participant ":Model" as model MODEL_COLOR
+end box
 
 user -> ui : deleteallpersons
 activate ui
