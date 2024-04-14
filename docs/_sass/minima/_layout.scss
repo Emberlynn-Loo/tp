@@ -166,9 +166,21 @@
   align-content: center;
 }
 .table_of_contents {
-    background-color: #F7DED0;
-    padding: 5px 10px;
-    border-radius: 5px;
+    background-color: #F7DED0; // Light peach background color
+    padding: 5px 10px; // Padding around the content
+    border-radius: 5px; // Rounded corners
+
+    & h2 {
+        font-style: italic; // Italicized font for headings
+        font-weight: 700; // Bold font weight
+        text-decoration: underline; // Underline text decoration
+
+        & a:link,  // Styling for unvisited links
+        & a:visited { // Styling for visited links
+            color: #5e291b;
+            text-decoration: none; // No underline for links
+        }
+    }
 }
 .hello_span {
     text-transform: uppercase;
@@ -200,9 +212,12 @@
 
 .post-content {
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 
   h1, h2, h3 { margin-top: 10px; }
-  h4, h5, h6 { margin-top: $spacing-unit }
+  h4, h5, h6 { margin-top: 10px }
 
   h2 {
     @include relative-font-size(1.75);
