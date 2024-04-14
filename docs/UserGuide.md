@@ -57,6 +57,7 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
       <li><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship</a></li>
       <li><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship</a></li>
       <li><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities</a></li>
+      <li><a href="#family_search">Finding Family Relationship between Entities</a></li>
     </ul>
   </li>
   <li>
@@ -66,11 +67,14 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
       <li><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries</a></li>
       <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses</a></li>
       <li><a href="#exiting-the-program--exit-or-e">Exiting the Program</a></li>
+      <li><a href="#saving_the_data">Saving the Data</a></li>
+      <li><a href="#editing_the_data">Editing the Data File</a></li>
     </ul>
   </li>
   <li><a href="#faq">FAQ</a></li>
   <li><a href="#known-issues">Known Issues</a></li>
   <li><a href="#coming-soon">Coming Soon</a></li>
+  <li><a href="#glossary">Glossary</a></li>
   <li><a href="#command-summary">Command Summary</a></li>
 </ul>
 </div>
@@ -401,27 +405,41 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 </div>
 
 
-### Adding your Friend!
+<span class="h3_span">Adding Your Friend!</span>
 
-Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="h3_span">Gene-nie</span>!
+Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
 
-![addfriend.png](images/addfriend.png)
-
-### Editing you/your friend's details!
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addfriend.png" alt="addfriend.png">
+        <figcaption class="img_container_figCaption">Figure 9: Gene-nie After Adding Your Friend</figcaption>
+    </figure>
+</div>
+<span class="h3_span">Editing you/your friend's details</span>
 
 Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, you can edit your details or your friend's details using the `editAttribute` command! You can edit any attribute you have added to yourself or your friend! Make sure that you follow the [Attribute format](#attributes) when editing the details!
 Type this command `editAttribute /UUID /AttributeName New Value` to edit the attribute of yourself or your friend!
 
-![editdetails.png](images/editdetails.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/editdetails.png" alt="editdetails.png">
+        <figcaption class="img_container_figCaption">Figure 10: Gene-nie After Editing Contact Details</figcaption>
+    </figure>
+</div>
 
 Well done! You have successfully edited the address of your friend! You can also edit any other details you wish to change **as long as they exist**!
 
-### Adding the Relationship!
+<span class="h3_span">Adding the Relationship!</span>
 
 Now that you have added yourself and your friend into <span class="hello_span">Gene-nie</span>, let us add the relationship between you and your friend! We will use the `addRelation` command to add the relationship between you and your friend! You can add any relationship you wish to add between you and your friend! Make sure that you follow the [Relationship format](#relationships) when adding the relationship!
 Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relationship between you and your friend!
 
-![addrelation.png](images/addrelation.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addrelation.png" alt="addrelation.png">
+        <figcaption class="img_container_figCaption">Figure 11: Gene-nie After Adding Relationship</figcaption>
+    </figure>
+</div>
 
 Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
 
@@ -432,7 +450,9 @@ Congratulations! You have successfully completed the tutorial of <span class="he
 Now that you are a master of <span class="hello_span">Gene-nie</span>, let us bring you through the [features](#features) of <span class="hello_span">Gene-nie</span>!
 
 --------------------------------------------------------------------------------------------------------------------
-## Features
+<div class="section_header_h2">
+    <h2><a href="#features" id="features">Features</a></h2>
+</div>
 
 In the world of genealogy, <span class="hello_span">Gene-nie</span> is your magical assistant that helps you manage your contacts and relationships with ease!
 <span class="hello_span">Gene-nie</span> works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
@@ -445,7 +465,9 @@ It's not just a genie in a bottle, it is a genie in a jar! A jar of magic that h
 
 Let us dive into the magical world of <span class="hello_span">Gene-nie</span>!
 
-### Persons
+<div class="section_header_h2">
+    <h2><a href="#persons" id="persons">Persons</a></h2>
+</div>
 
 In the world of Gene-nie, we believe that every contact is unique and special! Every friend or family you store in Gene-nie is considered a _Person_.
 
@@ -459,25 +481,33 @@ A person is made up of three pieces of information:
    To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
 
 Have a look at this sample person card. Can you spot where each detail is located?
-![Sample Person Card](images/PersonCard.png)
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/PersonCard.png" alt="PersonCard.png">
+        <figcaption class="img_container_figCaption">Figure 12: Gene-nie Sample Person Card</figcaption>
+    </figure>
+</div>
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:** You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
 
-### Attributes
+<div class="section_header_h2">
+    <h2><a href="#attributes" id="attributes">Attributes</a></h2>
+</div>
 
-Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of **Attributes**.
+Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of <span class="hello_span">Attributes</span>.
 
 Attributes are what you use to store any information about a person that is about that particular person.
 Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
 
 Each attribute has a name and a value. They can be added, edited or deleted.
 You can create any attribute with your own name and value, as long as they satisfy the constraints of the specified attributes.
-Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
-However, **duplicate attribute values are  checked** and will not be added to the same person.
+Generally, the <span class="hello_span">value of attributes are not policed</span>, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
+However, <span class="hello_span">duplicate attribute values are  checked</span> and will not be added to the same person.
 
-1. **Attribute names** are case-insensitive and will be converted to a consistent case. However, we do not restrict the length of your names. So with great power comes great responsibility! Having too long a name will cause the UI to be ugly so do choose wisely! We recommend keeping it short and sweet!
-2. **Attribute values** are case-sensitive and will be stored as is.
-3. You will be able to define your own **Attribute name!** and it will be of **Attribute value** type String, other than the predefined attributes listed below.
+1. <span class="hello_span">Attribute names</span> are case-insensitive and will be converted to a consistent case. However, we do not restrict the length of your names. So with great power comes great responsibility! Having too long a name will cause the UI to be ugly so do choose wisely! We recommend keeping it short and sweet!
+2. <span class="hello_span">Attribute Values</span> are case-sensitive and will be stored as is.
+3. You will be able to define your own <span class="hello_span">Attribute Names!</span> and it will be of <span class="hello_span">Attribute Value</span> type String, other than the predefined attributes listed below.
 
 For your convenience, Gene-nie has some predefined attributes that you can use, with stricter checks when creating or editing them. These are:
 
@@ -517,28 +547,34 @@ Attribute values:
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
 </div>
 
-### Relationships
+<div class="section_header_h2">
+    <h2><a href="#relationships" id="relationships">Relationships</a></h2>
+</div>
 
-In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of **Relationships**.
+In this magical world of <span class="hello_span">Gene-nie</span>, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, <span class="hello_span">Gene-nie</span> remembers stored information about each person in the form of <span class="hello_span">Relationships</span>.
 
 Relationships are what you use to store information about the relationship between 2 persons.
 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-## Features - Managing Persons
+<div class="section_header_h2">
+    <h2><a href="#features---managing-persons" id="features---managing-persons">Features - Managing Persons</a></h2>
+</div>
 
-### Listing all Persons : `list` or `l`
+
+<span class="h3_span" id="listing-all-persons--list-or-l">Listing all Persons : `list` or `l`</span>
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+<span class="hello_span">Format:</span>: `list`
 
-### Adding a Person : `add` or `a`
+--------------------------------------------------------------------------------------------------------------------
 
+<span class="h3_span" id="adding-a-person--add-or-a">Adding a Person : `add` or `a`</span>
 Adds a person to the address book.
 
-Format: `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+<span class="hello_span">Format:</span> `add [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds a person to the address book with the specified attributes or none at all!
 * You can add multiple attributes in one command!
@@ -552,15 +588,17 @@ Gene-nie comes to the rescue by allowing you to create empty persons with no att
 This way, you can still add them to relationships, and fill in their details later.
 </div>
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
 
-### Locating persons by details : `find` or `f`
+--------------------------------------------------------------------------------------------------------------------
+
+<span class="h3_span" id="locating-persons-by-details--find-or-f">Locating persons by details : `find` or `f`</span>
 
 Finds persons whose details contain any of the given phrases.
 
-Format: `find /PHRASE [/MORE_PHRASES] ...`
+<span class="hello_span">Format:</span> `find /PHRASE [/MORE_PHRASES] ...`
 
 * Between phrases,
   * Persons with details matching at least one phrase will be returned (i.e. `OR` search)
@@ -578,24 +616,32 @@ Format: `find /PHRASE [/MORE_PHRASES] ...`
     * e.g. `/ans Grub` will return any person with `Hans Gruber` in their details
   * The search is case-insensitive. e.g. `hans` will match `Hans`
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `find /John` returns anyone with `john` and `John Doe` in their details
 * `find /alex david` returns only someone with `Alex David` as a substring of their detials<br>
 * `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
-  ![result for 'find /alex /david'](images/findAlexDavidResult.png)
 
-### Deleting a Person : `delete` or `d`
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
+        <figcaption class="img_container_figCaption">Figure 13: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
+    </figure>
+</div>
+
+-----
+
+<span class="h3_span" id="deleting-a-person--delete-or-d">Deleting a Person : `delete` or `d`</span>
 
 Deletes the specified person from the address book.
 
-Format: `delete /UUID`
+<span class="hello_span">Format:</span> `delete /UUID`
 
 * Deletes the person with the specified `UUID`
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
 * The `UUID` **must be a valid UUID**
 * If the `UUID` does not exist, the command will not have any effect
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `delete /12db` deletes the person with the `UUID` "12db"
 * `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
@@ -603,13 +649,14 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Attributes of Persons
-
-### Adding Attributes to a Person: `addAttribute` or `aa`
+<div class="section_header_h2">
+    <h2><a href="#features---managing-attributes-of-persons" id="features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a></h2>
+</div>
+<span class="h3_span" id="adding-attributes-to-a-person--addattribute-or-aa">Adding Attributes to a Person: `addAttribute` or `aa`</span>
 
 Adds an attribute to a person in the address book.
 
-Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+<span class="hello_span">Format:</span> `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Adds the attribute with the specified `ATTRIBUTE_NAME` and `ATTRIBUTE_VALUE` to the person with the specified `UUID`
 * You can add multiple attributes in one command!
@@ -619,17 +666,19 @@ Format: `addAttribute /UUID /ATTRIBUTE_NAME ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTR
 * The first space after the attribute name is marks the start of the attribute value
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `addAttribute /12db /Pet Dog /Nickname Klien` adds the attribute Pet with the value Dog and the attribute Nickname with the value Klien to the person with the UUID 12db
 * `addAttribute /12db /Pet Cat /Pet Dog` does not add the attribute to the person with UUID 12db as the attribute name is duplicated and instead throws an error
 * `addAttribute /12db /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 12db
 * `addAttribute /12db /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 12db
 
-### Deleting an attribute from a Person: `deleteAttribute` or `da`
+----
+
+<span class="h3_span" id="deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an attribute from a Person: `deleteAttribute` or `da`</span>
 
 Deletes an attribute from a person in the address book.
 
-Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
+<span class="hello_span">Format:</span> `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
 
 * Deletes the attribute with the specified `ATTRIBUTE_NAME` from the person with the specified `UUID`
 * You are allowed to delete multiple attributes in one command
@@ -641,16 +690,18 @@ Format: `deleteAttribute /UUID /ATTRIBUTE_NAME [/ATTRIBUTENAME]…​`
 * If the attribute does not exist, the command will not have any effect
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `deleteAttribute /12db /Pet /Nickname` deletes the attribute Pet and Nickname from the person with the UUID 12db
 * `deleteAttribute /12db /pet` does not delete the attribute Pet from the person with the UUID 12db but will delete the attribute pet
 * `deleteAttribute /12db /Pet /Pet` does not delete the attribute Pet from the person with the UUID 12db as the attribute name is duplicated and instead throws an error
 
-### Editing an Attribute of a Person: `editAttribute` or `ea`
+----
+
+<span class="h3_span" id="editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute of a Person: `editAttribute` or `ea`</span>
 
 Edit attributes of a person in the address book.
 
-Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
+<span class="hello_span">Format:</span> `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME ATTRIBUTEVALUE]…​`
 
 * Edits the attribute with the specified `ATTRIBUTE_NAME` to have the `NEW_ATTRIBUTE_VALUE` for the person with the specified `UUID`
 * Multiple attributes are allowed to be edited simultaneously in one command
@@ -665,7 +716,7 @@ Format: `editAttribute /UUID /ATTRIBUTE_NAME NEW_ATTRIBUTE_VALUE [/ATTRIBUTENAME
 * The first space after the attribute name is marks the start of the attribute value
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `editAttribute /12db /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 12db
 * `editAttribute /12db /Pet Cat /Nickname Elvis` edits the attribute Pet to have the value Cat and the attribute Nickname to have the value Elvis for the person with the UUID 12db
 
@@ -673,21 +724,24 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - Managing Person Relationships
-
-### Listing all relationship types : `listRelations` or `lr`
+<div class="section_header_h2">
+    <h2><a href="#features---managing-person-relationships" id="features---managing-person-relationships">Features - Managing Person Relationships</a></h2>
+</div>
+<span class="h3_span" id="listing-all-relationship-types--listrelations-or-lr">Listing all relationship types : `listRelations` or `lr`</span>
 
 Shows a list of all current relationshipTypes in the address book. This includes:
 * Pre-defined relationships (this is why you may see more relationships than used in the contacts list)
 * User-defined relationships
 
-Format: `listRelations` or `lr`
+<span class="hello_span">Format:</span> `listRelations` or `lr`
 
-### Adding a relationship : `addRelation` or `ar`
+---
 
-Adds a roleless relationship between two people in the address book.
+<span class="h3_span" id="adding-a-relationship--addrelation-or-ar">Adding a relationship : `addRelation` or `ar`</span>
 
-Format: `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
+<span style="font-style: italic;">Adds a roleless relationship between two people in the address book.</span>
+
+<span class="hello_span">Format:</span> `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 
 * The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Adds the roleless relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
@@ -698,12 +752,12 @@ Format: `addRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 * If either persons do not exist, the command will not have any effect.
 * If the `RELATIONSHIP_TYPE` does not exist and is valid, it will be added to the existing list of relationTypes.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `addRelation /12db /34ab /friends` adds the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
-Adds a role-based relationship between two people in the address book.
+<span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
 
-Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
+<span class="hello_span">Format:</span> `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 
 * The command word, `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
 * Adds the role-based relationship between the person with the specified `UUID1` and the person with the specified `UUID2` with roles `ROLE1` and `ROLE2` respectively.
@@ -717,7 +771,7 @@ Format: `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
 * If the `ROLE1` or `ROLE2` does not exist for the `RELATIONSHIP_TYPE`, the command will not have any effect.
 * If the `RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `addRelation /12db parent /34ab child /bioparents` adds the relation bioparents between the person with the `UUID` "12db" and the person with the `UUID` "34ab" with the roles parent and child respectively.
 
 <div markdown="block" class="alert alert-warning">
@@ -728,11 +782,13 @@ Examples:
 * Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
 </div>
 
-### Editing a relationship : `editRelation` or `er`
+---
 
-Edits the relationship between two people in the address book to a roleless relationship.
+<span class="h3_span" id="editing-a-relationship--editrelation-or-er">Editing a relationship : `editRelation` or `er`</span>
 
-Format: `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
+<span style="font-style: italic;">Edits the relationship between two people in the address book to a roleless relationship.</span>
+
+<span class="hello_span">Format:</span> `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
 
 * The command word, `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` are not case-sensitive.
 * Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2` to the new relationship type.
@@ -745,12 +801,12 @@ Format: `editRelation /UUID1 /UUID2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYP
 * If either relationship types do not exist, the command will not have any effect.
 * If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `editRelation /12db /34ab /friends /colleagues` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to colleagues.
 
-Edits the relationship between two people in the address book to a role-based relationship.
+<span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
 
-Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
+<span class="hello_span">Format:</span> `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
 
 * The command word, `OLD_RELATIONSHIP_TYPE`, `NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
 * Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
@@ -765,14 +821,16 @@ Format: `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELA
 * If either relationship types do not exist, the command will not have any effect.
 * If the `NEW_RELATIONSHIP_TYPE` does not exist, it will be added to the existing list of relationTypes.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `editRelation /12db parent /34ab child /friends /bioparents` edits the relation between the person with the `UUID` "12db" and the person with the `UUID` "34ab" from friends to bioparents with the roles parent and child respectively.
 
-### Deleting a relationship : `deleteRelation` or `dr` 
+---
 
-Deletes the relationship between two people in the address book.
+<span class="h3_span" id="deleting-a-relationship--deleterelation-or-dr">Deleting a relationship : `deleteRelation` or `dr`</span>
 
-Format: `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
+<span style="font-style: italic;">Deletes the relationship between two people in the address book.</span>
+
+<span class="hello_span">Format:</span> `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 
 * The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Deletes the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
@@ -782,26 +840,28 @@ Format: `deleteRelation /UUID1 /UUID2 /RELATIONSHIP_TYPE`
 * If the specified relationship to be deleted does not exist, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `deleteRelation /12db /34ab friends` deletes the relation friends between the person with the `UUID` "12db" and the person with the `UUID` "34ab".
 
-Deletes the relationType from the list of existing relationTypes.
+<span style="font-style: italic;">Deletes the relationType from the list of existing relationTypes.</span>
 
-Format: `deleteRelation /RELATIONSHIP_TYPE`
+<span class="hello_span">Format:</span> `deleteRelation /RELATIONSHIP_TYPE`
 
 * Deletes the specific `RELATIONSHIP_TYPE` from the list of existing relationTypes.
 * The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified `RELATIONSHIP_TYPE` does not exist, the command will not have any effect.
 * If an existing relationship uses the specified `RELATIONSHIP_TYPE`, the command will not have any effect.
 
-Examples:
+<span class="hello_span">Examples:</span>
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-### Finding All Relationships between Entities: `anySearch` or `as`
+---
+
+<span class="h3_span" id="finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationships between Entities: `anySearch` or `as`</span>
 
 Finds the relationship pathway between 2 input entities.
 
-Format: `anySearch /ORIGINUUID /TARGETUUID`
+<span class="hello_span">Format:</span> `anySearch /ORIGINUUID /TARGETUUID`
 
 <div markdown="span" class="alert alert-primary">:warning: **Important:**
 UUIDs are 4 characters long, containing only alphanumeric characters
@@ -817,11 +877,13 @@ else `No Relationship Pathway Found` will be returned
   * Example: `anySearch 10cb 980c` suppose the search above returns `10cb -> (bioParents) child of --> 5964 --> friends of --> 980c` then `anySearch /867d /10cb`
     returns `980c -> friends of --> 5964 --> (bioParents) mother of --> 10cb` since relationships are bidirectional
 
-### Finding Family Relationships between Entities: `familySearch` or `fs`
+---
+
+<span class="h3_span" id="family_search">Finding Family Relationships between Entities: `familySearch` or`fs`</span>
 
 Finds the family relationship pathway between 2 input entities.
 
-Format: `familySearch /ORIGINUUID /TARGETUUID`
+<span class="hello_span">Format:</span> `familySearch /ORIGINUUID /TARGETUUID`
 
 <div markdown="span" class="alert alert-primary">:warning: **Important:**
 UUIDs are 4 characters long, containing only alphanumeric characters
@@ -842,23 +904,34 @@ else `No Relationship Pathway Found` will be returned
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features - General Features
+<div class="section_header_h2">
+    <h2><a href="#features---general-features" id="features---general-features">Features - General Features</a></h2>
+</div>
 
-### Viewing help : `help` or `h`
+<span class="h3_span" id="viewing-help--help-or-h">Viewing help : `help` or `h`</span>
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+<span class="hello_span">Format:</span> `help`
 
-Format: `help`
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/helpMessage.png" alt="helpMessage.png">
+        <figcaption class="img_container_figCaption">Figure 14: Gene-nie Help Message</figcaption>
+    </figure>
+</div>
 
-### Clearing all entries : `deleteAllPersons` or `dap`
+---
+
+<span class="h3_span" id="clearing-all-entries--deleteallpersons-or-dap">Clearing all entries : `deleteAllPersons` or `dap`</span>
 
 Clears all entries from the address book. This includes all Persons along with their Attributes, Relationships and created RelationTypes.
 
-Format: `deleteAllPersons`
+<span class="hello_span">Format:</span> `deleteAllPersons`
 
-### Clearing command section of past responses : `clear` or `c`
+---
+
+<span class="h3_span" id="clearing-command-section-of-past-responses--clear-or-c">Clearing command section of past responses : `clear` or `c`</span>
 
 Clears all of Gene-nie's previous responses from the command section.
 
@@ -866,21 +939,30 @@ Gene-nie keeps track of your previous commands and Gene-nie's own responses to t
 This way, you can easily refer to what changes you have made!
 However, if you want to clear all previous responses, simply use this command!
 
-Format: `clear`
+<span class="hello_span">Format:</span> `clear`
 
-![clear command](images/ClearCommandIllustration.png)
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/ClearCommandIllustration.png" alt="ClearCommandIllustration.png">
+        <figcaption class="img_container_figCaption">Figure 15: Before VS After Gene-nie Clear Command</figcaption>
+    </figure>
+</div>
 
-### Exiting the program : `exit` or `e`
+---
+
+<span class="h3_span" id="exiting-the-program--exit-or-e">Exiting the program : `exit` or `e`</span>
 
 Exits the program.
 
-Format: `exit`
+<span class="hello_span">Format:</span> `exit`
 
-### Saving the data
+---
+
+<span class="h3_span" id="saving_the_data">Saving the data</span>
 
 Gene-nie data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+<span class="h3_span" id="editing_the_data">Editing the Data File</span>
 
 Gene-nie data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -893,7 +975,7 @@ Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+<span class="h3_span" id="faq">FAQ</span>
 
 **Q**: How do I install Java 11, the Java version required by Gene-nie?<br>
 **A**: Download Java 11 JRE from [here](https://adoptium.net/temurin/releases/?package=jre&version=11).
@@ -909,7 +991,7 @@ Then, use the "Installers" section of the [installation guide](https://adoptium.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+<span class="h3_span" id="known-issues">Known issues</span>
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
@@ -917,7 +999,7 @@ Then, use the "Installers" section of the [installation guide](https://adoptium.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Coming soon
+<span class="h3_span" id="coming-soon">Coming soon</span>
 
 1. **Display results of find command in "Search Results" panel.**
 Currently, the results of the find command are displayed in the "All Contacts" panel.
@@ -936,7 +1018,7 @@ In the future, the Name attribute may be used to provide additional functionalit
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Glossary
+<span class="h3_span" id="glossary">Glossary</span>
 
 | Term      | Description                                                                                                                                                                                                                                                                                            |
 |-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -953,7 +1035,7 @@ In the future, the Name attribute may be used to provide additional functionalit
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+<span class="h3_span" id="command-summary">Command summary</span>
 
 | Action                          | Shorthand | Format, Examples                                                                                                                                    |
 |---------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
