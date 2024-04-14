@@ -23,6 +23,11 @@ h2, h3, h4, h5, h6 {
 .alert-link {
   font-weight: $alert-link-font-weight;
 }
+.highlighter-rouge {
+    background-color: #F0EBE3;
+    padding: 2px 4px 2px 4px;
+    border: none;
+}
 
 // Generate contextual modifier classes for colorizing the alert.
 

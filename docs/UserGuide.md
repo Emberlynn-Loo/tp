@@ -4,14 +4,16 @@ title: GENE-NIE USER GUIDE
 title_name: User Guide
 ---
 
-<p align="justify">
-<span class="hello_span">Hello There!!</span> It looks like you have found me, <span class="hello_span">The Gene-ie</span>. 
-I bet you are eager to command me around, after all I work magic. OH..., forgive my rudeness, I have not introduced myself. I am a desktop app, not only
-am I capable of managing your contacts, I too keep track of the relationships between them. Thank you for choosing me as
-your personal autobiographer. I will help you manage your relationship tree and your history of friends and family
-Hello my fellow budding genealogists! Welcome to Gene-nie, your personal genealogy assistant!
+<p align="justify" style="margin-top: 20px">
+<span class="hello_span">Hello There my fellow budding genealogists!!</span> It looks like you have found me, <span class="hello_span">The Gene-ie</span>. 
+I bet you are eager to command me around, after all I work magic. OH..., forgive my rudeness, I have not introduced myself. 
+I am your personal genealogy assistant, not only am I capable of managing your contacts, I too keep track of the relationships between them. 
+Thank you for choosing me. I will help you manage your relationship tree and your history of friends and family.<br/>
+<br/>
+<span class="hello_span">HMMMMMMMMMMMM...</span> "How do I command you??" must be on your mind.  
 We welcome you to this user guide, where we demystify the magic of Gene-nie and help you get started on your genealogy journey!
 </p>
+
 <div class="table_of_contents">
     <h2><a href="#table-of-contents" id="table-of-contents">Table of Contents</a></h2>
 <ul>
@@ -73,40 +75,45 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
 </ul>
 </div>
 
-## Introduction
+<div class="section_header_h2">
+    <h2><a href="#introduction" id="introduction">Introduction</a></h2>
+</div>
 
-Do you face issues trying to keep track of all your friends and family? Do you find it hard to remember who is related to who? Do you face issues trying to add people into your family tree with missing information? Fret not! **Gene-nie** is here to magic away your issues!
+Do you face issues trying to keep track of all your friends and family? Do you find it hard to remember who is related to who? Do you face issues trying to add people into your family tree with missing information? Fret not! 
+<span class="hello_span">Gene-nie</span> is here to magic away your issues!
 
-Through the magic of **Gene-nie** you are able to
+Through the magic of <span class="hello_span">Gene-nie</span> you are able to
 * manage all your contacts through Gene-nie 
 * keep track of the relationships between not only you but your also your contacts 
 * input and remember small details of each contact
 * manage your relationship tree and history of friends and family
 * and much more!
 
-**Gene-nie** is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). 
+<span class="hello_span">Gene-nie</span> is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). 
 
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Using this guide
+<div class="section_header_h2">
+    <h2><a href="#using-this-guide" id="using-this-guide">Using This Guide</a></h2>
+</div>
 
-Whether you are an expert genealogist or a budding enthusiast, this guide will help you get started with **Gene-nie**.
+Whether you are an expert genealogist or a budding enthusiast, this guide will help you get started with <span class="hello_span">Gene-nie</span>.
 
 We will walk you through every step, from the basics of adding a person and their relationships to advanced features that will empower you in your journey of genealogy.
 
-Novice Users:
+<span class="hello_span">Novice Users:</span>
 * If you are new to genealogy, we recommend you start with the [Quick Start](#quick-start) section.
 * This section will guide you through the installation process and provide you with a quick overview of the app's features.
 
-Amateur Users:
+<span class="hello_span">Amateur Users:</span>
 * If you are familiar with genealogy, you can skip the [Quick Start](#quick-start) section and proceed to the [Features](#features) section.
 * This section will provide you with a detailed explanation of the app's features and how to use them.
 
-Advanced Users:
+<span class="hello_span">Advanced Users:</span>
 * If you are an expert genealogist, you can skip the [Features](#features) section and proceed to the [Command Summary](#command-summary) section.
-* This section will provide you with a quick summary of all the commands available in **Gene-nie**.
+* This section will provide you with a quick summary of all the commands available in <span class="hello_span">Gene-nie</span>.
 
 If you encounter any issues or have any questions, please refer to the [FAQ](#faq) section. You may also refer to the [Known Issues](#known-issues) section for any known bugs or limitations of the app. You are also welcome to contact us at Gene-nie@gmail.com for any further assistance.
 
@@ -122,38 +129,48 @@ Additionally, there will be symbols to help you navigate through this guide:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## User Interface
+<div class="section_header_h2">
+    <h2><a href="#user-interface" id="user-interface">User Interface</a></h2>
+</div>
 
-**Gene-nie** has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of **Gene-nie**.
+<span class="hello_span">Gene-nie</span> has a simple and intuitive user interface that is designed to help you manage your contacts with ease. Let's first take a closer look into at the main screen of <span class="hello_span">Gene-nie</span>.
 
-![Gene-nieMainScreen.png](images/Gene-nieMainScreen.png)
+<div class="img_container">
+    <img src="/images/Gene-nieMainScreen.png" alt="Gene-nieMainScreen.png">
+</div>
 
-1. **Command Box**:
+1. <span class="hello_span">Command Box</span>:
+
    * The command box is where you can enter your commands to interact with **Gene-nie**.
    * Type your command and press Enter to execute it.
    * You can locate the list of commands to use in the [Command Summary](#command-summary) section.
-2. **Command Result**:
+2. <span class="hello_span">Command Result</span>:
+
    * The command result panel displays the result of your command.
    * If your command is successful, the result will be displayed in a green card.
    * If your command fails, the result will be displayed in a red card.
-3. **Person List Panel**:
+3. <span class="hello_span">Person List Panel</span>:
+
    * The person list panel displays all the contacts you have added to **Gene-nie**.
    * Each contact is displayed as a card with their details.
    * You can scroll through the contacts using the scroll bar on the right.
-4. **Menu Bar**:
+4. <span class="hello_span">Menu Bar</span>:
+
    * The menu bar contains the main menu options for **Gene-nie**.
    * You can access the help menu and exit the app from the menu bar.
-5. **Panel Switcher**:
+5. <span class="hello_span">Panel Switcher</span>:
+
    * The panel switcher allows you to switch between different panels in **Gene-nie**.
    * You can switch between the "All Contacts", "Search Results".
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can resize the app window to your liking. We recommend the app to be fullscreen for the best experience!</div>
 
-Now that you are familiar with the main screen of **Gene-nie**, let us introduce to you the _Search Result Panel_ of **Gene-nie**!
+Now that you are familiar with the main screen of <span class="hello_span">Gene-nie</span>, let us introduce to you the _Search Result Panel_ of <span class="hello_span">Gene-nie</span>!
 
 The Search Result Panel is where you can view the results of your `anySearch` and `familySearch` queries. It displays the contacts that match your search criteria including their relationship pathway. You can view the details of each contact and perform actions on them. Let's take a closer look at the Search Result Panel.
 
-![Gene-nieSearchResultPanel.png](images/geneniesearchresult.png)
+<div class="img_container">
+    <img src="/images/geneniesearchresult.png" alt="Gene-nieMainScreen.png">
+</div>
 
 1. **Person List Panel**:
    * The person list panel displays all the contacts that match your search criteria.
