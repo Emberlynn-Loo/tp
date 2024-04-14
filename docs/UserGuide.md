@@ -11,10 +11,16 @@ We welcome you to this user guide, where we demystify the magic of Gene-nie and 
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Using this guide](#using-this-guide)
+- [User Interface](#user-interface)
 - [Quick Start](#quick-start)
+- [Using the Command Line Interface (CLI)](#using-the-command-line-interface--cli-)
 - [Command Format](#command-format)
-- [Persons](#persons)
+- [Tutorial](#tutorial)
 - [Features](#features)
+  - [Persons](#persons)
   - [Attributes](#attributes)
   - [Relationships](#relationships)
 - [Features - Managing Person Profiles](#features---managing-persons)
@@ -328,19 +334,44 @@ Now that you are a master of **Gene-nie**, let us bring you through the [feature
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
-Gene-nie has 3 main features:
+In the world of genealogy, **Gene-nie** is your magical assistant that helps you manage your contacts and relationships with ease!
+**Gene-nie** works magic, making your life easier and taking your mind away from the mundane tasks of remembering specific details of your contacts and even their relationships!
+It's not just a genie in a bottle, it is a genie in a jar! A jar of magic that helps you manage your contacts and relationships with ease!
+
+**Gene-nie** has 3 main features:
 1. Managing Persons
 2. Managing Attributes of Persons
 3. Managing Person Relationships
 
+Let us dive into the magical world of **Gene-nie**!
+
+### Persons
+
+In the world of Gene-nie, we believe that every contact is unique and special!Every friend or family you store in Gene-nie is considered a _Person_.
+
+A person is made up of three pieces of information:
+1. A unique identifier (UUID)
+    1. Each person has a unique UUID that is used to identify them
+    2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
+    3. UUID are 4-characters long
+2. A set of attributes
+3. A set of relationships
+   To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
+
+Have a look at this sample person card. Can you spot where each detail is located?
+![Sample Person Card](images/PersonCard.png)
+
+<div markdown="block" class="alert alert-info"> You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
+
 ### Attributes
 
-Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
+Gene-nie believes that every person is unique and special! To help you remember the details of each person, Gene-nie remembers stored information about each person in the form of **Attributes**.
+
 Attributes are what you use to store any information about a person that is about that particular person.
-To store information about the relationship between 2 persons, see the relationship feature instead.
+Attributes are one of 3 types of information in a person's profile, with the other 2 being the UUID and relationships.
 
 Each attribute has a name and a value. They can be added, edited or deleted.
-You can create any attribute with your own name and value, as long as they satisfy the constraints of the command format.
+You can create any attribute with your own name and value, as long as they satisfy the constraints of the specified attributes.
 Generally, the **value of attributes are not policed**, as we are inclusive to people who have family members with exotic details, like symbols in names (subject to limitations due to command format, see below)!
 However, **duplicate attribute values are  checked** and will not be added to the same person.
 
@@ -388,27 +419,9 @@ Attribute values:
 
 ### Relationships
 
-Relationships are one of 3 types of information in a person's profile, with the other 2 being the UUID and attributes.
+In this magical world of **Gene-nie**, we like to believe that every person is connected to someone else! To help you remember the relationships between each person, **Gene-nie** remembers stored information about each person in the form of **Relationships**.
+
 Relationships are what you use to store information about the relationship between 2 persons.
-
-[Back to Table of Contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
-## Persons
-
-Every contact you store in Gene-nie is considered a _Person_.
-A person is made up of three pieces of information:
-1. A unique identifier (UUID)
-    1. Each person has a unique UUID that is used to identify them
-    2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
-    3. UUID are 4-characters long
-2. A set of attributes
-3. A set of relationships
-   To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
-
-Have a look at this sample person card. Can you spot where each detail is located?
-![Sample Person Card](images/PersonCard.png)
 
 [Back to Table of Contents](#table-of-contents)
 
