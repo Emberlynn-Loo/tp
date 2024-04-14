@@ -89,9 +89,11 @@ If you encounter any issues or have any questions, please refer to the [FAQ](#fa
 
 Additionally, there will be symbols to help you navigate through this guide:
 
-<div markdown="block" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively.</div>
-<div markdown="block" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls.</div>
-<div markdown="block" class="alert alert-primary">:information_source: **Information:** This symbol will provide you with additional information to help you understand the app better.</div>
+<div markdown="block" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively./div>
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls./div>
+
+<div markdown="block" class="alert alert-primary">:information_source: **Information:** This symbol will provide you with additional information to help you understand the app better./div>
 
 [Back to Table of Contents](#table-of-contents)
 
