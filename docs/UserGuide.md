@@ -86,6 +86,7 @@ Through the magic of **Gene-nie** you are able to
 
 **Gene-nie** is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). 
 
+[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -111,9 +112,11 @@ If you encounter any issues or have any questions, please refer to the [FAQ](#fa
 
 Additionally, there will be symbols to help you navigate through this guide:
 
-<div markdown="block" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively.</div>
-<div markdown="block" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls.</div>
-<div markdown="block" class="alert alert-primary">:information_source: **Information:** This symbol will provide you with additional information to help you understand the app better.</div>
+<div markdown="span" class="alert alert-info">:bulb: **Tip:** This symbol will provide you with tips and tricks to help you use **Gene-nie** more effectively. </div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** This symbol will provide you with warnings and cautionary notes to help you avoid common pitfalls. </div>
+
+<div markdown="span" class="alert alert-primary">:information_source: **Information:** This symbol will provide you with additional information to help you understand the app better. </div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -146,7 +149,7 @@ Additionally, there will be symbols to help you navigate through this guide:
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can resize the app window to your liking. We recommend the app to be fullscreen for the best experience!</div>
 
-Now that you are familiar with the main screen of **Gene-nie**, let us introduce to you the Search Result Panel of **Gene-nie**!
+Now that you are familiar with the main screen of **Gene-nie**, let us introduce to you the _Search Result Panel_ of **Gene-nie**!
 
 The Search Result Panel is where you can view the results of your `anySearch` and `familySearch` queries. It displays the contacts that match your search criteria including their relationship pathway. You can view the details of each contact and perform actions on them. Let's take a closer look at the Search Result Panel.
 
@@ -165,7 +168,7 @@ The Search Result Panel is where you can view the results of your `anySearch` an
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** You can switch between the "All Contacts" and "Search Results" panels using the panel switcher.</div>
 
-Having a mastery of the panels in **Gene-nie**, now we will introduce to you the individual components of the person card in **Gene-nie**!
+Having a mastery of the panels in **Gene-nie**, now we will introduce to you the individual components of the _person card_ in **Gene-nie**!
 
 The person card is where you can view the details of each contact you have added to **Gene-nie**. It displays the unique identifier, attributes, and relationships of the contact. Let's take a closer look at the person card.
 
@@ -180,6 +183,8 @@ The person card is where you can view the details of each contact you have added
 3. **Relationships Display**:
    * The relationships are the connections between the contact and other contacts in **Gene-nie**.
    * You can view the relationships of the contact on the bottom of the person card.
+
+Now that you are familiar with the user interface of **Gene-nie**, let us quickly start you on the magical world of **Gene-nie**!
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -371,7 +376,7 @@ Let us dive into the magical world of **Gene-nie**!
 
 ### Persons
 
-In the world of Gene-nie, we believe that every contact is unique and special!Every friend or family you store in Gene-nie is considered a _Person_.
+In the world of Gene-nie, we believe that every contact is unique and special! Every friend or family you store in Gene-nie is considered a _Person_.
 
 A person is made up of three pieces of information:
 1. A unique identifier (UUID)
@@ -385,7 +390,7 @@ A person is made up of three pieces of information:
 Have a look at this sample person card. Can you spot where each detail is located?
 ![Sample Person Card](images/PersonCard.png)
 
-<div markdown="block" class="alert alert-info"> You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
+<div markdown="span" class="alert alert-info">:bulb: **Tip:** You are able to have add a person with no attributes or relationships! This allows you to add a person into your family tree without any details and fill them in later! </div>
 
 ### Attributes
 
