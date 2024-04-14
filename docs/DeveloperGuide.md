@@ -295,26 +295,22 @@ Step 3: The `AddressBookParser` recognizes the `add` keyword and creates a new `
 Step 4: The `AddCommandParser` parses the rest of the command `/Name Bob`.
 It creates a `HashMap` containing the attribute `Name` with value `Bob`.
 It then creates a new `AddCommand` with this `HashMap`.
+In this step, duplicate attribute names are also checked for, as part of the HashMap creation process in ParserUtil.
 
 Step 5: The `AddCommand` is executed.
 
-Step 6: `AddCommand#execute` calls the following method from `Attribute`:
-* `Attribute#getName` It retrieves the name of all the attributes in the HashMap to check for duplicates.
-
-Step 7: If there are no duplicate attributes, `AddCommand#execute` calls the `Person` constructor to create a person with the requested attribute.
-
-Step 8: `AddCommand#execute` continues by calling the following method from `Model`:
+Step 6: `AddCommand#execute` continues by calling the following method from `Model`:
 * `Model#addPerson(Person)` It adds a given person to the address book.
 
-Step 9: The `AddCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
+Step 7: The `AddCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
 
 The following sequence diagram shows how adding a person works:
 
-<TODO: Sequence diagram>
+![AddPersonSequenceDiagram](images/AddPersonSequenceDiagram.png)
 
 The following activity diagram sheds more light on exactly what happens when a user executes the 'add' command:
 
-<TODO: Sequence diagram>
+![AddPersonActivityDiagram](images/AddPersonActivityDiagram.png)
 
 #### Design Considerations
 
@@ -354,16 +350,17 @@ Step 6: `DeleteCommand#execute` continues by calling the following method from `
 * `Model#getFullUuid(String)` It takes in the partial 4-character UUID provided by the user and converts it to the `UUID` object representative of the person to delete.
 * `Model#getPersonByUuid(UUID)` It takes the full UUID obtained earlier and returns the corresponding `Person` object.
 * `Model#deletePerson(Person)` It deletes the provided person from the address book.
+* `Model#deleteRelationshipsOfPerson(UUID)` It deletes all relationships associated with the person being deleted.
 
 Step 7: The `DeleteCommand#execute` method returns the `CommandResult` object to the `LogicManager` component.
 
 The following sequence diagram shows how deleting a person works:
 
-<TODO: Sequence diagram>
+![DeletePersonSequenceDiagram](images/DeletePersonSequenceDiagram.png)
 
 The following activity diagram sheds more light on exactly what happens when a user executes the 'delete' command:
 
-<TODO: Sequence diagram>
+![DeletePersonActivityDiagram](images/DeletePersonActivityDiagram.png)
 
 ### Add Attribute feature
 
