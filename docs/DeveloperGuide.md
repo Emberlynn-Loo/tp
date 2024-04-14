@@ -324,6 +324,9 @@ The following activity diagram sheds more light on exactly what happens when a u
   * Pros: Shorter code, less repetition of actions.
   * Cons: Duplicate attributes would halt command and leave the address book in a partially edited state. Fixing this would result in less readable code.
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ### Delete Person feature
 
 This feature is the `Delete` command that allows users to remove a person from the address book.
@@ -366,6 +369,9 @@ The following activity diagram sheds more light on exactly what happens when a u
 
 ![DeletePersonActivityDiagram](images/DeletePersonActivityDiagram.png)
 
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 ### Add Attribute feature
 
 An `AddAttribute` feature that allows users to add attributes to a person in the address book. This feature ensures that only unique attributes are added to a person, maintaining data integrity.
