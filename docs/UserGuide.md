@@ -5,7 +5,7 @@ title_name: User Guide
 ---
 
 <p align="justify" style="margin-top: 20px">
-<span class="hello_span">Hello There my fellow budding genealogists!!</span> It looks like you have found me, <span class="hello_span">The Gene-ie</span>. 
+<span class="hello_span">Hello There my fellow budding genealogists!!</span> It looks like you have found me, <span class="hello_span">The Gene-nie</span>. 
 I bet you are eager to command me around, after all I work magic. OH..., forgive my rudeness, I have not introduced myself. 
 I am your personal genealogy assistant, not only am I capable of managing your contacts, I too keep track of the relationships between them. 
 Thank you for choosing me. I will help you manage your relationship tree and your history of friends and family.<br/>
@@ -137,7 +137,7 @@ Additionally, there will be symbols to help you navigate through this guide:
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/Gene-nieMainScreen.png" alt="Gene-nieMainScreen.png">
-        <figcaption>Figure 1: Genie Main Figure</figcaption>
+        <figcaption class="img_container_figcaption">Figure 1: Gene-nie Main Figure</figcaption>
     </figure>
 </div>
 
@@ -173,7 +173,7 @@ The Search Result Panel is where you can view the results of your `anySearch` an
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/geneniesearchresult.png" alt="picture showing a search result section">
-        <figcaption>Figure 2: Genie Search Result</figcaption>
+        <figcaption>Figure 2: Gene-nie Search Result</figcaption>
     </figure>
 </div>
 
@@ -199,7 +199,7 @@ The person card is where you can view the details of each contact you have added
 <div class="img_container">
     <figure>
         <img src="images/Gene-niePersonCard.png" alt="Gene-niePersonCard.png">
-        <figcaption>Figure 3: Gene-ie Person Card</figcaption>
+        <figcaption>Figure 3: Gene-nie Person Card</figcaption>
     </figure>
 </div>
 
