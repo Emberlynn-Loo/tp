@@ -98,9 +98,9 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 0000`, assuming that `0000` corresponds to a valid Person UUID.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete /0001`, assuming that `0001` corresponds to a valid Person UUID.
 
-<img src="images/ArchitectureSequenceDiagram.png" width="574" />
+<img src="images/DeletePersonSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
