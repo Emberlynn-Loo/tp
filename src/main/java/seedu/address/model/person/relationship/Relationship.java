@@ -107,8 +107,6 @@ public class Relationship {
      */
     public String getRelativeRelationshipDescriptorWithoutUuid(UUID origin) {
         UUID target = origin.equals(this.person1) ? this.person2 : this.person1;
-        String originString = origin.toString();
-        String targetString = target.toString();
         return String.format("%s of", relationshipDescriptor);
     }
 

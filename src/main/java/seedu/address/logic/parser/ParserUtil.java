@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -128,52 +131,74 @@ public class ParserUtil {
 
         for (int i = 0; i < parts.length; i++) {
             if (i == 0) {
-                String[] uuidAndValue = separateUuidAndValues(parts[i]);
-                String uuid = uuidAndValue[0];
-                String value;
-                if (uuidAndValue[0].equals("")) {
-                    throw new ParseException("UUIDs cannot be empty.");
-                }
-                if (uuidAndValue.length == 1) {
-                    value = null;
-                } else {
-                    value = uuidAndValue[1];
-                }
-                relationshipMap.put(uuid, value);
+                LinkedHashMap<String, String> map = zeroKeyAdd(parts);
+                relationshipMap.putAll(map);
             } else if (i == 1) {
-                String[] uuidAndValue = separateUuidAndValues(parts[i]);
-                String value = relationshipMap.keySet().toArray(new String[0])[0];
-                if (uuidAndValue[0].equals("")) {
-                    throw new ParseException("UUIDs cannot be empty.");
-                }
-                if (uuidAndValue[0].equals(value)) {
-                    throw new ParseException("Relationships must be between 2 different people");
-                }
-                String uuid = uuidAndValue[0];
-                String value2;
-                if (uuidAndValue.length == 1) {
-                    value2 = null;
-                } else {
-                    if (uuidAndValue[1].equals(relationshipMap.values().toArray(new String[0])[0])
-                            && !separateRelationshipTypes(parts[2])[0].equalsIgnoreCase("siblings")
-                            && !separateRelationshipTypes(parts[2])[0].equalsIgnoreCase("spouses")) {
-                        throw new ParseException("Roles must be different for each person in a relationship.");
-                    }
-                    value2 = uuidAndValue[1];
-                }
-                relationshipMap.put(uuid, value2);
+                LinkedHashMap<String, String> map = firstKeyAdd(relationshipMap, parts);
+                relationshipMap.putAll(map);
             } else if (i == 2) {
-                String[] relationshipType = separateRelationshipTypes(parts[i]);
-                String relationshipTypeKey = relationshipType[0];
-                if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0]) || relationshipTypeKey.equals(
-                        separateUuidAndValues(parts[1])[0])) {
-                    relationshipMap.put(null, relationshipTypeKey);
-                } else {
-                    relationshipMap.put(relationshipTypeKey, null);
-                }
+                LinkedHashMap<String, String> map = secondKeyAdd(parts);
+                relationshipMap.putAll(map);
             }
         }
         return relationshipMap;
+    }
+
+    private static LinkedHashMap<String, String> zeroKeyAdd(String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] uuidAndValue = separateUuidAndValues(parts[0]);
+        String uuid = uuidAndValue[0];
+        String value;
+        if (uuidAndValue[0].equals("")) {
+            throw new ParseException("UUIDs cannot be empty.");
+        }
+        if (uuidAndValue.length == 1) {
+            value = null;
+        } else {
+            value = uuidAndValue[1];
+        }
+        map.put(uuid, value);
+        return map;
+    }
+
+    private static LinkedHashMap<String, String> firstKeyAdd(LinkedHashMap<String, String> relationshipMap,
+                                                             String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] uuidAndValue = separateUuidAndValues(parts[1]);
+        String value = relationshipMap.keySet().toArray(new String[0])[0];
+        if (uuidAndValue[0].equals("")) {
+            throw new ParseException("UUIDs cannot be empty.");
+        }
+        if (uuidAndValue[0].equals(value)) {
+            throw new ParseException("Relationships must be between 2 different people");
+        }
+        String uuid = uuidAndValue[0];
+        String value2;
+        if (uuidAndValue.length == 1) {
+            value2 = null;
+        } else {
+            if (uuidAndValue[1].equals(relationshipMap.values().toArray(new String[0])[0])
+                    && !separateRelationshipTypes(parts[2])[0].equalsIgnoreCase("siblings")
+                    && !separateRelationshipTypes(parts[2])[0].equalsIgnoreCase("spouses")) {
+                throw new ParseException("Roles must be different for each person in a relationship.");
+            }
+            value2 = uuidAndValue[1];
+        }
+        map.put(uuid, value2);
+        return map;
+    }
+
+    private static LinkedHashMap<String, String> secondKeyAdd(String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] relationshipType = separateRelationshipTypes(parts[2]);
+        String relationshipTypeKey = relationshipType[0];
+        if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0]) || relationshipTypeKey.equals(
+                separateUuidAndValues(parts[1])[0])) {
+            map.put(null, relationshipTypeKey);
+        } else {
+            map.put(relationshipTypeKey, null);
+        }
+        return map;
     }
 
     /**
@@ -185,31 +210,45 @@ public class ParserUtil {
     public static LinkedHashMap<String, String> getRelationshipHashMapDelete(String[] parts, boolean hasUuids)
             throws ParseException, CommandException {
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
-
-        if (hasUuids) {
-            for (int i = 0; i < parts.length; i++) {
-                if (i == 0) {
-                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
-                    relationshipMap.put(uuidAndValue[0], null);
-                } else if (i == 1) {
-                    String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
-                    String value = relationshipMap.keySet().toArray(new String[0])[0];
-                    if (uuidAndValue[0].equals(value)) {
-                        throw new CommandException("Relationships must be between 2 different people");
-                    }
-                    relationshipMap.put(uuidAndValue[0], null);
-                } else if (i == 2) {
-                    String[] relationshipType = separateRelationshipTypes(parts[i]);
-                    String relationshipTypeKey = relationshipType[0];
-                    relationshipMap.put(relationshipTypeKey, null);
-                }
-            }
-        } else {
+        if (!hasUuids) {
             String[] relationshipType = separateRelationshipTypes(parts[0]);
             String relationshipTypeKey = relationshipType[0];
             relationshipMap.put(relationshipTypeKey, null);
         }
+        for (int i = 0; i < parts.length; i++) {
+            if (i == 0) {
+                String[] uuidAndValue = separateUuidAndValuesDelete(parts[i]);
+                relationshipMap.put(uuidAndValue[0], null);
+            } else if (i == 1) {
+                LinkedHashMap<String, String> map = firstKeyDelete(relationshipMap, parts);
+                relationshipMap.putAll(map);
+            } else if (i == 2) {
+                String[] relationshipType = separateRelationshipTypes(parts[i]);
+                String relationshipTypeKey = relationshipType[0];
+                checkSecondKey(relationshipType);
+                relationshipMap.put(relationshipTypeKey, null);
+            }
+        }
         return relationshipMap;
+    }
+
+    private static void checkSecondKey(String[] relationshipType) throws ParseException {
+        if (relationshipType[0].equals("")) {
+            throw new ParseException("Relationship Descriptor cannot be empty");
+        }
+    }
+
+    private static LinkedHashMap<String, String> firstKeyDelete(LinkedHashMap<String, String> relationshipMap,
+                                                                 String[] parts) throws CommandException,
+            ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] uuidAndValue = separateUuidAndValuesDelete(parts[1]);
+        String value = relationshipMap.keySet().toArray(new String[0])[0];
+        if (uuidAndValue[0].equals(value)) {
+            throw new CommandException("Relationships must be between 2 different people");
+        }
+        map.put(uuidAndValue[0], null);
+        return map;
     }
 
     /**
@@ -239,77 +278,109 @@ public class ParserUtil {
         LinkedHashMap<String, String> relationshipMap = new LinkedHashMap<>();
 
         for (int i = 0; i < parts.length; i++) {
-            String value;
             if (i == 0) {
-                if (separateUuidAndValues(parts[i])[0].equals("")) {
-                    throw new ParseException("UUIDs cannot be empty.");
-                }
-                if (separateUuidAndValues(parts[i]).length == 1) {
-                    value = null;
-                } else {
-                    value = separateUuidAndValues(parts[i])[1];
-                }
-                relationshipMap.put(separateUuidAndValues(parts[i])[0], value);
+                LinkedHashMap<String, String> map = zeroKey(parts);
+                relationshipMap.putAll(map);
             } else if (i == 1) {
-                if (separateUuidAndValues(parts[i])[0].equals("")) {
-                    throw new ParseException("UUIDs cannot be empty.");
-                }
-                if (separateUuidAndValues(parts[i])[0].equalsIgnoreCase(
-                        relationshipMap.keySet().toArray(new String[0])[0])) {
-                    throw new ParseException("Relationships must be between 2 different people");
-                }
-                String uuid = separateUuidAndValues(parts[i])[0];
-                if (separateUuidAndValues(parts[i]).length == 1) {
-                    value = null;
-                } else {
-                    if (separateUuidAndValues(parts[i])[1].equals(relationshipMap.values().toArray(new String[0])[0])
-                            && !separateRelationshipTypes(parts[3])[0].equalsIgnoreCase("siblings")
-                            && !separateRelationshipTypes(parts[3])[0].equalsIgnoreCase("spouses")) {
-                        throw new ParseException("Roles must be different for each person in a relationship.");
-                    }
-                    value = separateUuidAndValues(parts[i])[1];
-                }
-                relationshipMap.put(uuid, value);
+                LinkedHashMap<String, String> map = firstKey(relationshipMap, parts);
+                relationshipMap.putAll(map);
             } else if (i == 2) {
-                String[] relationshipType = separateRelationshipTypes(parts[i]);
-                String relationshipTypeKey = relationshipType[0];
-                if (relationshipType[0].equals("")) {
-                    throw new ParseException("Relationship Descriptor cannot be empty");
-                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[3])[0])) {
-                    relationshipMap.put(null, relationshipTypeKey);
-                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
-                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[1])[0]))
-                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
-                        && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[0])[0]))) {
-                    relationshipMap.put(null, relationshipTypeKey);
-                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
-                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
-                    relationshipMap.put(null, relationshipTypeKey);
-                } else {
-                    relationshipMap.put(relationshipTypeKey, null);
-                }
+                LinkedHashMap<String, String> map = secondKey(parts);
+                relationshipMap.putAll(map);
             } else if (i == 3) {
-                String[] relationshipType = separateRelationshipTypes(parts[i]);
-                String relationshipTypeKey = relationshipType[0];
-                if (relationshipType[0].equals("")) {
-                    throw new ParseException("Relationship Descriptor cannot be empty");
-                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[2])[0])) {
-                    break;
-                } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
-                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[1])[0]))
-                        || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
-                        && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[0])[0]))) {
-                    relationshipMap.put("4", relationshipTypeKey);
-                    relationshipMap.put("5", null);
-                } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
-                        || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
-                    relationshipMap.put(null, relationshipTypeKey);
-                } else {
-                    relationshipMap.put(relationshipTypeKey, null);
-                }
+                LinkedHashMap<String, String> map = thirdKey(parts);
+                relationshipMap.putAll(map.size() != 3 ? map : Collections.emptyMap());
             }
         }
         return relationshipMap;
+    }
+
+    private static LinkedHashMap<String, String> zeroKey(String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String value;
+        if (separateUuidAndValues(parts[0])[0].equals("")) {
+            throw new ParseException("UUIDs cannot be empty.");
+        }
+        if (separateUuidAndValues(parts[0]).length == 1) {
+            value = null;
+        } else {
+            value = separateUuidAndValues(parts[0])[1];
+        }
+        map.put(separateUuidAndValues(parts[0])[0], value);
+        return map;
+    }
+
+    private static LinkedHashMap<String, String> firstKey(LinkedHashMap<String, String> relationshipMap,
+                                                          String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String value;
+        if (separateUuidAndValues(parts[1])[0].equals("")) {
+            throw new ParseException("UUIDs cannot be empty.");
+        }
+        if (separateUuidAndValues(parts[1])[0].equalsIgnoreCase(
+                relationshipMap.keySet().toArray(new String[0])[0])) {
+            throw new ParseException("Relationships must be between 2 different people");
+        }
+        String uuid = separateUuidAndValues(parts[1])[0];
+        if (separateUuidAndValues(parts[1]).length == 1) {
+            value = null;
+        } else {
+            if (separateUuidAndValues(parts[1])[1].equals(relationshipMap.values().toArray(new String[0])[0])
+                    && !separateRelationshipTypes(parts[3])[0].equalsIgnoreCase("siblings")
+                    && !separateRelationshipTypes(parts[3])[0].equalsIgnoreCase("spouses")) {
+                throw new ParseException("Roles must be different for each person in a relationship.");
+            }
+            value = separateUuidAndValues(parts[1])[1];
+        }
+        map.put(uuid, value);
+        return map;
+    }
+
+    private static LinkedHashMap<String, String> secondKey(String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] relationshipType = separateRelationshipTypes(parts[2]);
+        String relationshipTypeKey = relationshipType[0];
+        if (relationshipType[0].equals("")) {
+            throw new ParseException("Relationship Descriptor cannot be empty");
+        } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[3])[0])) {
+            map.put(null, relationshipTypeKey);
+        } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[1])[0]))
+                || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                && separateUuidAndValues(parts[3])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+            map.put(null, relationshipTypeKey);
+        } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+            map.put(null, relationshipTypeKey);
+        } else {
+            map.put(relationshipTypeKey, null);
+        }
+        return map;
+    }
+
+    private static LinkedHashMap<String, String> thirdKey(String[] parts) throws ParseException {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String[] relationshipType = separateRelationshipTypes(parts[3]);
+        String relationshipTypeKey = relationshipType[0];
+        if (relationshipType[0].equals("")) {
+            throw new ParseException("Relationship Descriptor cannot be empty");
+        } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[2])[0])) {
+            map.put("4", relationshipTypeKey);
+            map.put("5", null);
+            map.put("6", null);
+        } else if ((relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[1])[0]))
+                || (relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])
+                && separateUuidAndValues(parts[2])[0].equals(separateUuidAndValues(parts[0])[0]))) {
+            map.put("4", relationshipTypeKey);
+            map.put("5", null);
+        } else if (relationshipTypeKey.equals(separateUuidAndValues(parts[0])[0])
+                || relationshipTypeKey.equals(separateUuidAndValues(parts[1])[0])) {
+            map.put(null, relationshipTypeKey);
+        } else {
+            map.put(relationshipTypeKey, null);
+        }
+        return map;
     }
 
     /**
@@ -349,34 +420,76 @@ public class ParserUtil {
         }
         String role1 = ParserUtil.relationKeysAndValues(relationshipMap, 0, true).toLowerCase();
         String role2 = ParserUtil.relationKeysAndValues(relationshipMap, 1, true).toLowerCase();
+        checkDescriptors(relationshipDescriptor, role1, role2);
+    }
 
-        switch (relationshipDescriptor) {
+    private static void checkDescriptors(String descriptor, String role1, String role2) throws ParseException {
+        switch (descriptor) {
         case "bioparents":
-            if (!role1.equalsIgnoreCase("parent") && !role1.equalsIgnoreCase("child")
-                    && !role2.equalsIgnoreCase("parent")
-                    && !role2.equalsIgnoreCase("child")) {
+            if ((!role1.equalsIgnoreCase("parent") && !role1.equalsIgnoreCase("child"))
+                    || (!role2.equalsIgnoreCase("parent")
+                    && !role2.equalsIgnoreCase("child"))) {
                 throw new ParseException("BioParents relationship requires the roles to be "
                         + "specified as either 'parent' or 'child'.");
             }
             break;
         case "siblings":
-            if (!role1.equalsIgnoreCase("brother") && !role1.equalsIgnoreCase("sister")
-                    && !role2.equalsIgnoreCase("brother")
-                    && !role2.equalsIgnoreCase("sister")) {
+            if ((!role1.equalsIgnoreCase("brother") && !role1.equalsIgnoreCase("sister"))
+                    || (!role2.equalsIgnoreCase("brother")
+                    && !role2.equalsIgnoreCase("sister"))) {
                 throw new ParseException("Siblings relationship requires the roles to be "
                         + "specified as either 'brother' or 'sister'.");
             }
             break;
         case "spouses":
-            if (!role1.equalsIgnoreCase("husband") && !role1.equalsIgnoreCase("wife")
-                    && !role2.equalsIgnoreCase("husband")
-                    && !role2.equalsIgnoreCase("wife")) {
+            if ((!role1.equalsIgnoreCase("husband") && !role1.equalsIgnoreCase("wife"))
+                    || (!role2.equalsIgnoreCase("husband")
+                    && !role2.equalsIgnoreCase("wife"))) {
                 throw new ParseException("Spouses relationship requires the roles to be "
                         + "specified as either 'husband' or 'wife'.");
             }
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + relationshipDescriptor);
+            throw new IllegalStateException("Unexpected value: " + descriptor);
         }
+    }
+
+    /**
+     * Parses a string into a LinkedHashMap representing the pairs of UUIDs and values
+     *
+     * @param userInput The user input to parse
+     * @param isAdd A boolean indicating whether the command is an add command
+     * @return A LinkedHashMap containing the pairs of UUIDs and values
+     * @throws ParseException If the user input is invalid
+     */
+    public static LinkedHashMap<String, String> getRelationshipHash(String userInput,
+                                                                    Boolean isAdd) throws ParseException {
+        requireNonNull(userInput);
+        String[] parts = userInput.split("/", -1);
+        if (isAdd) {
+            if (parts.length != 4) {
+                throw new ParseException(Messages.MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT);
+            }
+        } else {
+            if (parts.length != 5) {
+                throw new ParseException(Messages.MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT);
+            }
+        }
+        parts = removeFirstItemFromStringList(parts);
+        LinkedHashMap<String, String> relationshipMap;
+        if (isAdd) {
+            relationshipMap = getRelationshipHashMapFromRelationshipStrings(parts);
+        } else {
+            relationshipMap = getRelationshipHashMapEdit(parts);
+        }
+
+        if ((relationKeysAndValues(relationshipMap, 0, true) == null
+                && relationKeysAndValues(relationshipMap, 1, true) != null)
+                || (relationKeysAndValues(relationshipMap, 0, true) != null
+                && relationKeysAndValues(relationshipMap, 1, true) == null)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT);
+        }
+
+        return relationshipMap;
     }
 }

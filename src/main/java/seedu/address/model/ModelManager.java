@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -145,11 +144,6 @@ public class ModelManager implements Model {
         addressBook.deleteRelationType(relationType);
     }
 
-    @Override
-    public boolean isRelationRoleBased(String descriptor) {
-        return addressBook.isRelationRoleBased(descriptor);
-    }
-
     public String getExistingRelationship(Relationship toGet) {
         return addressBook.getExistingRelationship(toGet);
     }
@@ -157,11 +151,6 @@ public class ModelManager implements Model {
     @Override
     public void deleteRelationshipsOfPerson(UUID personUuid) {
         addressBook.deleteRelationshipsOfPerson(personUuid);
-    }
-
-    @Override
-    public List<String> getRoles(String descriptor) {
-        return addressBook.getRoles(descriptor);
     }
 
     @Override
@@ -262,17 +251,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isRelationRoleless(String descriptor) {
-        return addressBook.isRelationRoleless(descriptor);
-    }
-
-    @Override
-    public RoleBasedRelationship getBioparentsCount(Model model, String originUuid, String targetUuid,
-                                                    String role1, String role2) throws CommandException {
-        return addressBook.getBioparentsCount(model, originUuid, targetUuid, role1, role2);
-    }
-
-    @Override
     public RoleBasedRelationship checkSiblingsSpousesGender(Model model, String originUuid,
                                                             String targetUuid, String rolePerson1, String rolePerson2,
                                                             Boolean isSiblings) throws CommandException {
@@ -288,5 +266,34 @@ public class ModelManager implements Model {
     @Override
     public void genderMatch(String rolePerson1, String uuid, String uuidShort) {
         addressBook.genderMatch(rolePerson1, uuid, uuidShort);
+    }
+
+    @Override
+    public RoleBasedRelationship getRelationshipRoleBased(UUID fullOriginUuid, UUID fullTargetUuid, Model model,
+                                                          String originUuid, String targetUuid, String rolePerson1,
+                                                          String rolePerson2,
+                                                          String relationshipDescriptor) throws CommandException {
+        return addressBook.getRelationshipRoleBased(fullOriginUuid, fullTargetUuid, model, originUuid, targetUuid,
+                rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    @Override
+    public void validateRoleBasedRelation(String rolePerson1, String rolePerson2,
+                                          String relationshipDescriptor) throws CommandException {
+        addressBook.validateRoleBasedRelation(rolePerson1, rolePerson2, relationshipDescriptor);
+    }
+
+    @Override
+    public void validateRoleless(String role1, String role2, String newRelationshipDescriptor) throws CommandException {
+        addressBook.validateRoleless(role1, role2, newRelationshipDescriptor);
+    }
+
+    @Override
+    public void relationshipChecks(Relationship toEditIn, UUID fullOriginUuid, UUID fullTargetUuid, String originUuid,
+                                   String targetUuid, String role1, String role2, Model model,
+                                   String oldRelationshipDescriptor, String newRelationshipDescriptor,
+                                   boolean b) throws CommandException {
+        addressBook.relationshipChecks(toEditIn, fullOriginUuid, fullTargetUuid, originUuid, targetUuid, role1,
+                role2, model, oldRelationshipDescriptor, newRelationshipDescriptor, b);
     }
 }

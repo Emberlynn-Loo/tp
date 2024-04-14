@@ -535,6 +535,110 @@ The following activity diagram provides a more detailed view of what happens whe
 
 --------------------------------------------------------------------------------------------------------------------
 
+### Add relationship feature
+
+#### Implementation
+
+The Add relationship mechanism is facilitated by the `AddRelationshipCommand` and `AddRelationshipCommandParser`.
+The `AddRelationshipCommand` class extends the `Command` class and implements the following operation:
+* `AddRelationshipCommand#execute()` — Adds a relationship between two persons.
+
+#### Scenario 1 - Adding a roleless relationship
+
+Given below is an example usage scenario and how adding a roleless relationship behaves at each step.
+
+Step 1: The user executes `addRelation /1234 /5678 /friends` to add a roleless relationship.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `addRelation` keyword and creates a new `AddRelationshipCommandParser`. The `AddRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 /5678 /friends`.
+
+Step 4: `ParserUtil#getRelationshipHashMapFromRelationshipStrings(details)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key/value of the relationship details. This method is called multiple times to extract the `originUuid`, `targetUuid` and `relationshipDescriptor`.
+
+Step 6: `AddRelationshipCommandParser#parse` then returns a new `AddRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `AddRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AddRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#isRelationRoleBased(relationshipDescriptor)` It checks whether the `relationshipDescriptor` is a existing role-based relationshipDescriptor. If it is, an exception is thrown stating that the `relationshipDescriptor` is already added as a role-based relationshipDescriptor, and can't be added as a roleless relationshipDescriptor.
+* `Model#hasRelationshipWithDescriptor(toAdd)` It checks whether the relationship to be added between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#addRelationship(toAdd)` It communicates with the `Model` to add the relationship.
+* `Model#addRolelessDescriptor(relationshipDescriptor)` It communicates with the `Model` to add the `relationshipDescriptor`.
+
+Step 8: `AddRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how adding a roleless relationship works:
+
+![RolelessRelationshipAddingSequenceDiagram](images/RolelessRelationshipAddingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for AddRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+#### Scenario 2 - Adding a role-based relationship
+
+Given below is an example usage scenario and how adding a role-based relationship behaves at each step.
+
+Step 1: The user executes `addRelation /1234 husband /5678 wife /spouses` to add a relationship with roles.
+
+Step 2: When `LogicManager` is called upon to execute this command, it will pass it to an `AddressBookParser` object.
+
+Step 3: The `AddressBookParser` recognizes the `addRelation` keyword and creates a new `AddRelationshipCommandParser`. The `AddRelationshipCommandParser#parse` method is then called on the object to parse the rest of the command `/1234 husband /5678 wife /spouses`.
+
+Step 4: `ParserUtil#getRelationshipHashMapFromRelationshipStrings(details)`is then called to parse the relationship details. This method checks that the relationship details are provided in the correct format and that the UUIDs and relationship descriptors are valid. It then returns a `LinkedHashMap<String, String>` containing the relationship details.
+
+Step 5: `ParserUtil#relationKeysAndValues(linkedHashmap, index, boolean)` is then called to extract the keys and values from the `LinkedHashMap<String, String>` at the specified index and boolean according to the provided relationship details. It then returns a `String` containing the key/value of the relationship details. This method is called multiple times to extract the `originUuid`, `role1`, `targetUuid`, `role2` and `relationshipDescriptor`.
+
+Step 6: `AddRelationshipCommandParser#parse` then returns a new `AddRelationshipCommand` object with the parsed relationship details.
+
+Step 7: `AddRelationshipCommand#execute` calls the following methods from `Model`:
+
+* `Model#getFullUuid(String)` It retrieves the full UUID of the person passed into the `AddRelationship` command. This is called twice to get the full UUIDs of both persons in the relationship.
+* `Model#hasAttribute(Uuid)` It checks whether the attribute `Sex` exists for the person with the given Uuid.
+* `Model#genderMatch(role, UuidString, Uuid)` It checks whether the role gender matches with the gender of the "Sex" attribute of the person with the given Uuid. This method is only called if the "Sex" attribute exists for the person.
+* `Model#checkSiblingsSpousesGender(model, originUuid, targetUuid, role1, role2, isSiblings)` It checks whether the roles of the relationship for each person are valid according to the other existing relationships of the person.
+* `Model#isRelationRoleless(relationshipDescriptor)` It checks whether the `relationshipDescriptor` is a existing roleless relationshipDescriptor. If it is, an exception is thrown stating that the `relationshipDescriptor` is already added as a roleless relationshipDescriptor, and can't be added as a role-based relationshipDescriptor.
+* `Model#hasRelationshipWithDescriptor(toAdd)` It checks whether the relationship to be added between the two persons already exists. If it does, an exception is thrown stating that the relationship already exists.
+* `Model#addRelationship(toAdd)` It communicates with the `Model` to add the relationship.
+* `Model#addRoleBasedDescriptor(relationshipDescriptor, role1, role2)` It communicates with the `Model` to add the relationship descriptor with the provided roles.
+
+Step 8: `AddRelationshipCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
+
+The following sequence diagram shows how adding a role-based relationship works:
+
+![RoleBasedRelationshipAddingSequenceDiagram](images/RoleBasedRelationshipAddingSequenceDiagram.png)
+
+<div markdown="block" class="alert alert-info">
+
+:information_source: **Note:**
+* The lifeline for AddRelationshipCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram sheds more light on exactly what happens a user executes the `addrelation` command:
+
+![RelationshipAddingActivityDiagram](images/RelationshipAddingActivityDiagram.png)
+
+#### Design considerations
+
+**Aspect: How different types of relationships are added:**
+
+* **Alternative 1 (current choice):** The `AddRelationshipCommand` supports both adding a role-based and roleless relationship.
+  * Pros: Simple and straightforward implementation.
+  * Cons: May lead to a more complex implementation as more relationship types are added.
+* **Alternative 2:** The `AddRelationshipCommand` is split into two separate commands, `AddRolelessRelationshipCommand` and `AddRoleBasedRelationshipCommand`.
+  * Pros: More modular and easier to maintain.
+  * Cons: More classes to manage.
+
+[Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Edit Relationship feature
 
 #### Implementation
