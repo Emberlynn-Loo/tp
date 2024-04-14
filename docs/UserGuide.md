@@ -1,47 +1,69 @@
 ---
 layout: page
-title: User Guide
+title: GENE-NIE USER GUIDE
+title_name: User Guide
 ---
-
-<h1 align="center"><i>GENE-NIE USER GUIDE</i></h1>
-<p align="center">
-Gene-nie works magic. It is a desktop app able to not only manage your contacts, but also to help you
-keep track of the relationships between them. Gene-nie acts as your personal autobiographer, helping you manage your
-the relationship tree and history of friends and family.
+<p align="justify">
+<span class="hello_span">Hello There!!</span> It looks like you have found me, <span class="hello_span">The Gene-ie</span>. 
+I bet you are eager to command me around, after all I work magic. OH..., forgive my rudeness, I have not introduced myself. I am a desktop app, not only
+am I capable of managing your contacts, I too keep track of the relationships between them. Thank you for choosing me as
+your personal autobiographer. I will help you manage your relationship tree and your history of friends and family
 </p>
-
-## Table of Contents
-
-- [Quick Start](#quick-start)
-- [Command Format](#command-format)
-- [Persons](#persons)
-- [Features](#features)
-  - [Attributes](#attributes)
-  - [Relationships](#relationships)
-- [Features - Managing Person Profiles](#features---managing-persons)
-    - [Listing all Persons](#listing-all-persons--list-or-l)
-    - [Adding a person](#adding-a-person--add-or-a)
-    - [Locating persons by details](#locating-persons-by-details--find-or-f)
-    - [Deleting a Person](#deleting-a-person--delete-or-d)
-- [Features - Managing Attributes of Persons](#features---managing-attributes-of-persons)
-    - [Adding an Attribute](#adding-attributes-to-a-person--addattribute-or-aa)
-    - [Deleting an Attribute](#deleting-an-attribute-from-a-person--deleteattribute-or-da)
-    - [Editing an Attribute](#editing-an-attribute-of-a-person--editattribute-or-ea)
-- [Managing Person Relationships](#features---managing-person-relationships)
-    - [Listing all relationship types](#listing-all-relationship-types--listrelations-or-lr)
-    - [Adding a Relationship](#adding-a-relationship--addrelation-or-ar)
-    - [Editing a Relationship](#editing-a-relationship--editrelation-or-er)
-    - [Deleting a Relationship](#deleting-a-relationship--deleterelation-or-dr)
-    - [Finding All Relationship between Entities](#finding-all-relationships-between-entities--anysearch-or-as)
-- [General Features](#features---general-features)
-    - [Viewing Help](#viewing-help--help-or-h)
-    - [Clearing all Entries](#clearing-all-entries--deleteallpersons-or-dap)
-    - [Clearing Command Responses](#clearing-command-section-of-past-responses--clear-or-c)
-    - [Exiting the Program](#exiting-the-program--exit-or-e)
-- [FAQ](#faq)
-- [Known Issues](#known-issues)
-- [Coming Soon](#coming-soon)
-- [Command Summary](#command-summary)
+<div class="table_of_contents">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#quick-start">Quick Start</a></li>
+      <li><a href="#command-format">Command Format</a></li>
+      <li><a href="#persons">Persons</a></li>
+      <li>
+    <a href="#features">Features</a>
+        <ul>
+          <li><a href="#attributes">Attributes</a></li>
+          <li><a href="#relationships">Relationships</a></li>
+        </ul>
+      </li>
+      <li>
+    <a href="#features---managing-persons">Features - Managing Person Profiles</a>
+        <ul>
+          <li><a href="#listing-all-persons--list-or-l">Listing all Persons</a></li>
+          <li><a href="#adding-a-person--add-or-a">Adding a person</a></li>
+          <li><a href="#locating-persons-by-details--find-or-f">Locating persons by details</a></li>
+          <li><a href="#deleting-a-person--delete-or-d">Deleting a Person</a></li>
+        </ul>
+      </li>
+      <li>
+    <a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a>
+        <ul>
+          <li><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute</a></li>
+          <li><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute</a></li>
+          <li><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute</a></li>
+        </ul>
+      </li>
+      <li>
+    <a href="#features---managing-person-relationships">Managing Person Relationships</a>
+        <ul>
+          <li><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types</a></li>
+          <li><a href="#adding-a-relationship--addrelation-or-ar">Adding a Relationship</a></li>
+          <li><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship</a></li>
+          <li><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship</a></li>
+          <li><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities</a></li>
+        </ul>
+      </li>
+      <li>
+    <a href="#features---general-features">General Features</a>
+        <ul>
+          <li><a href="#viewing-help--help-or-h">Viewing Help</a></li>
+          <li><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries</a></li>
+          <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses</a></li>
+          <li><a href="#exiting-the-program--exit-or-e">Exiting the Program</a></li>
+        </ul>
+      </li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#known-issues">Known Issues</a></li>
+      <li><a href="#coming-soon">Coming Soon</a></li>
+      <li><a href="#command-summary">Command Summary</a></li>
+    </ul>
+</div>
 
 ## Quick start
 

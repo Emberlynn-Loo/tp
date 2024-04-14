@@ -1,0 +1,7 @@
+.nav-button-section {
+    -fx-padding: 0;
+    -fx-spacing: 20;
+}
+.nav-buttons-deco {
+    -fx-fill: -black;
+}

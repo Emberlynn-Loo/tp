@@ -1,10 +1,8 @@
 ---
 layout: page
 title: About Us
+title_name: About Us
 ---
-
-<h1 align=center><i>ABOUT US</i></h1>
-
 <p align="center">
 We are a team based in the [School of Computing, National University of Singapore] (http://www.comp.nus.edu.sg).
 You can reach us at the email <code>seer[at]comp.nus.edu.sg</code>
