@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+actor User as user USER_COLOR
+participant ":UI" as ui UI_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddRelationshipCommandParser" as AddRelationshipCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "a:AddRelationshipCommand" as AddRelationshipCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+participant "toAdd:Relationship" as ToAdd MODEL_COLOR
+end box
+
+box model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+user -[USER_COLOR]> ui : "addRelation /1234 husband /5678 wife /spouses"
+activate ui
+ui -> LogicManager : execute("addRelation /1234 husband /5678 wife /spouses")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addRelation /1234 husband /5678 wife /spouses")
+activate AddressBookParser
+create AddRelationshipCommandParser
+AddressBookParser -> AddRelationshipCommandParser ++
+return
+AddressBookParser -> AddRelationshipCommandParser ++: parse("/1234 husband /5678 wife /spouses")
+AddRelationshipCommandParser -> ParserUtil ++: getRelationshipHashMapFromRelationshipStrings(parts)
+return
+AddRelationshipCommandParser --> ParserUtil ++ :relationKeysAndValues(relationshipMap, index, boolean)
+return
+
+create AddRelationshipCommand
+AddRelationshipCommandParser -> AddRelationshipCommand ++
+return a
+return a
+return a
+
+destroy AddRelationshipCommandParser
+
+LogicManager --> AddRelationshipCommand ++: execute()
+AddRelationshipCommand --> Model ++: getFullUuid(originUuid)
+return
+AddRelationshipCommand --> Model ++: getFullUuid(targetUuid)
+return
+AddRelationshipCommand --> Model ++: hasAttribute(Uuid)
+return
+AddRelationshipCommand --> Model ++: genderMatch(role, UuidString, Uuid)
+return
+AddRelationshipCommand --> Model ++: checkSiblingsSpousesGender(model, originUuid, targetUuid, role1, role2, isSiblings)
+return
+create ToAdd
+AddRelationshipCommand --> ToAdd ++
+return
+AddRelationshipCommand --> Model ++: isRelationRoleless(relationshipDescriptor)
+return
+AddRelationshipCommand --> Model ++: hasRelationshipWithDescriptor(toAdd)
+return
+AddRelationshipCommand --> Model ++: addRelationship(toAdd)
+return
+AddRelationshipCommand --> Model ++: addRoleBasedDescriptor(relationshipDescriptor)
+return
+
+create CommandResult
+AddRelationshipCommand --> CommandResult ++
+return r
+
+return r
+
+LogicManager --> ui : r
+deactivate LogicManager
+return display "Add successful."
+deactivate ui
+@enduml
