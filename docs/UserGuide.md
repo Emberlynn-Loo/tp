@@ -566,26 +566,23 @@ Gene-nie is our comprehensive family storage device. We acknowledge historical a
 Be careful with custom attribute names and values! We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-attributes-of-persons).
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+<div markdown="block" class="alert alert-warning">:exclamation: **Warning:**
 
 Attribute names:
-
 * are case-insensitive
 * will automatically be converted to a consistent case
-    * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
+  * This case is first letter capitalised, lowercase thereafter. e.g. `/pEt` will be stored as `Pet`
 * cannot be empty
 * cannot contain `/` or ` ` (space)
-    * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value and throw the relevant error
-    * if you forget to add the space to the attribute name, the attribute name will be stored as the whole string without spaces
+  * if the attribute name contains a space, the portion after the space will erroneously be treated as part of the attribute value and throw the relevant error
+  * if you forget to add the space to the attribute name, the attribute name will be stored as the whole string without spaces
 
 Attribute values:
-
 * are case-sensitive
 * cannot be empty
 * cannot contain `/`
 * will be of type String, other than the predefined attributes listed above
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
-
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -623,7 +620,7 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 **Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships) Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+<div markdown="block" class="alert alert-warning">:exclamation: **Warning:**
 
 Relation types:
 
@@ -682,7 +679,7 @@ Roles:
 * You can add multiple attributes in one command, how enchanting!
 * The order of the attributes does not matter.
 
-<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+<div markdown="block" class="alert alert-info">:bulb: **Tip:**
 **A person can have any number of attributes (yes, even zero)!**<br>
 Sometimes, you may stumble upon a person in your family tree, but their details are shrouded in mystery.
 Gene-nie comes to the rescue by allowing you to create empty persons with no attributes!
@@ -895,7 +892,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div class="section_header_h2">
     <h2><a href="#features---managing-person-relationships" id="features---managing-person-relationships">Features - Managing Person Relationships</a></h2>
 </div>
-<span class="hello_span">WOW!!!!</span> It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!
+<div style="font-style: italic;">
+    <span class="hello_span">WOW!!!!</span> It seems that you are now trying to manage the relationships of your contacts! Let me guide you through the magical world of managing person relationships in Gene-nie!
+</div>
 
 <span class="h3_span" id="listing-all-relationship-types--listrelations-or-lr">Listing all relationship types : `listRelations` or `lr`</span>
 <div style="font-style: italic;">
@@ -910,7 +909,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/ListRelationsCommand.png" alt="ListRelationsCommand.png">
-        <figcaption>Figure 26: Gene-nie lists all relationTypes</figcaption>
+        <figcaption class="img_container_figCaption">Figure 26: Gene-nie lists all relationTypes</figcaption>
     </figure>
 </div>
 
@@ -973,7 +972,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
 **:exclamation: Caution:** <br>
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
@@ -1183,7 +1182,9 @@ else `No Relationship Pathway Found` will be returned.
 <div class="section_header_h2">
     <h2><a href="#features---general-features" id="features---general-features">Features - General Features</a></h2>
 </div>
-<span style="font-style: italic;" class="hello_span">INTERESTING!!!</span> It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!
+<div style="font-style: italic;">
+    <span style="font-style: italic;" class="hello_span">INTERESTING!!!</span> It seems that you are now trying to explore the general features of Gene-nie! Let me guide you through the magical world of Gene-nie!
+</div>
 
 <span class="h3_span" id="viewing-help--help-or-h">Viewing help : `help` or `h`</span>
 
