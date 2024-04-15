@@ -566,7 +566,7 @@ Gene-nie is our comprehensive family storage device. We acknowledge historical a
 Be careful with custom attribute names and values! We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-attributes-of-persons).
 </div>
 
-<div markdown="block" class="alert alert-warning">:exclamation: **Warning:**
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 
 Attribute names:
 * are case-insensitive
@@ -620,7 +620,7 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 **Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
 
-<div markdown="block" class="alert alert-warning">:exclamation: **Warning:**
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 
 Relation types:
 
@@ -640,6 +640,34 @@ Roles:
 * can be empty for roleless relationships, must not be empty for role-based relationships
 * cannot contain any special characters or numbers
 * cannot be more than one word
+
+Custom relations:
+* There is a possibility that similar family relation types can be added as custom relation types, even though they are part of the pre-defined relation types. For example, you can add `parent` as a custom relation type even though a pre-defined relation type `bioparents` exists.
+* This may cause unexpected bugs when adding these custom relation types as roleless relations. Hence, we have included checks to ensure that certain custom relation types cannot be added as roleless relations.
+* Please refer to the table below for the complete list of banned roleless relation types.
+
+<div class="section_header_h2">
+    <h2><a href="#banned-roleless-relation-types" id="banned-roleless-relation-types">Banned Roleless relation types</a></h2>
+</div>
+
+| No  | Relation type |
+|-----|---------------|
+| 1   | parent        |
+| 2   | father        |
+| 3   | mother        |
+| 4   | dad           |            
+| 5   | mom           |
+| 6   | mum           |
+| 7   | son           |
+| 8   | daughter      |     
+| 9   | child         |         
+| 10  | offspring     |     
+| 11  | kin           |
+| 12  | kid           |
+| 13  | bro           |
+| 14  | sis           |
+| 15  | husband       |
+| 16  | wife          |
 
 </div>
 
@@ -947,6 +975,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 **:exclamation: Caution:** <br>
 * Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
 * Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with roles. <br>
+* Note that some [relation types](#banned-roleless-relation-types) are banned from being used as roleless relationships. To use these relation types, you must add them as role-based relationships. <br>
 </div>
 
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
@@ -1034,6 +1063,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * Editing a roleless relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new roleless relationship will apply here. For your convenience, the constraints will be emphasized again below. <br>
 * Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
 * Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it without roles. <br>
+* Note that some [relation types](#banned-roleless-relation-types) are banned from being used as roleless relationships. To use these relation types, you must add them as role-based relationships. <br>
 </div>
 
 <span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
@@ -1146,10 +1176,8 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation: Caution:** <br>
-* Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`. <br>
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`. <br>
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1190,9 +1218,8 @@ else `No Relationship Pathway Found` will be returned.
 * `anySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003` then `anySearch /0003 /0001`
    returns `0003 -> friends of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional
 
-<div markdown="block" class="alert alert-info">:bulb: **Tip:**
-
-* Note that anySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, anySearch will return the shortest possible path.
+<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+Note that anySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, anySearch will return the shortest possible path.
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1234,15 +1261,12 @@ else `No Relationship Pathway Found` will be returned.
 <span class="hello_span">Examples:</span>
 * `familySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003` then `familySearch /0003 /0001` returns `0003 -> (bioParents) parent of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional.
 
-<div markdown="block" class="alert alert-warning">
-
-**:exclamation: Caution:** <br>
-* familySearch will only work for the pre-defined familial relations (`bioparents`, `siblings` and `spouses`). If you have added a custom familial relation(e.g. `cousins`), familySearch will not be able to take that into account when finding the family relationship path.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+familySearch will only work for the pre-defined familial relations (`bioparents`, `siblings` and `spouses`). If you have added a custom familial relation(e.g. `cousins`), familySearch will not be able to take that into account when finding the family relationship path.
 </div>
 
-<div markdown="block" class="alert alert-info">:bulb: **Tip:**
-
-* Note that familySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, familySearch will return the shortest possible path.
+<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+Note that familySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, familySearch will return the shortest possible path.
 </div>
 
 [Back to Table of Contents](#table-of-contents)
