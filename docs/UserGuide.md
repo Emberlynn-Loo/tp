@@ -981,6 +981,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeAddRolelessRelationCommand.png" alt="BeforeAddRolelessRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 27: Before Add Roleless Relation Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterAddRolelessRelationCommand.png" alt="AfterAddRolelessRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 28: After Add Roleless Relation Command</figcaption>
@@ -1073,6 +1076,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeEditRolelessRelationCommand.png" alt="BeforeEditRolelessRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 31: Before Edit Roleless Relation Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterEditRolelessRelationCommand.png" alt="AfterEditRolelessRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 32: After Edit Roleless Relation Command</figcaption>
@@ -1201,6 +1207,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeDeleteRelationTypeCommand.png" alt="BeforeDeleteRelationTypeCommand.png">
         <figcaption class="img_container_figCaption">Figure 37: Before Delete Relation Type Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterDeleteRelationTypeCommand.png" alt="AfterDeleteRelationTypeCommand.png">
         <figcaption class="img_container_figCaption">Figure 38: After Delete Relation Type Command</figcaption>
@@ -1237,6 +1246,9 @@ else `No Relationship Pathway Found` will be returned.
         <img src="{{site.baseurl}}/images/BeforeAnySearchCommand.png" alt="BeforeAnySearchCommand.png">
         <figcaption class="img_container_figCaption">Figure 39: Before Any Search Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterAnySearchCommand.png" alt="AfterAnySearchCommand.png">
         <figcaption class="img_container_figCaption">Figure 40: After Any Search Command</figcaption>
