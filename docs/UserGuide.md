@@ -791,6 +791,10 @@ This way, you can still add them to relationships, and fill in their details lat
 * `addAttribute /0001 /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 0001
 * `addAttribute /0001 /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 0001
 
+| Before    | ![Figure 18: BeforeAddAttribute](images/BeforeAddAttribute.png) |
+|-----------|-----------------------------------------------------------------|
+| **After** | ![Figure 19: AfterAddAttribute](images/AfterAddAttribute.png)   |
+
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If the person you are adding the sex attribute to already has a siblings' or a spouses' relationship, the gender of the sex attribute must match the gender of the specified person's role in the relationship. It's all about keeping the mystical balance in our enchanted world of GENE-NIE!
 </div>
