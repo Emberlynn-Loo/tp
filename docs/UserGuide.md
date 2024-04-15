@@ -942,10 +942,11 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="block" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
-* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`.
-* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with roles.
+* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with roles. <br>
 </div>
 
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
@@ -982,13 +983,13 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div markdown="block" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
-* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
-* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`).
+* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. <br>
+* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`. <br>
+* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`). <br>
 * If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE! 
-* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`.
-* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`.
-* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles.
+* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`. <br>
+* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles. <br>
 * Once you add a role-based relationship, you are then unable to add a roleless relationship with the same `RELATIONSHIP_TYPE`. To do this, you must follow the same steps above to remove the `RELATIONSHIP_TYPE` and all relationships associated with it from the database.
 </div>
 
@@ -1030,9 +1031,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div markdown="span" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* Editing a roleless relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new roleless relationship will apply here. For your convenience, the constraints will be emphasized again below.
-* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`.
-* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it without roles.
+* Editing a roleless relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new roleless relationship will apply here. For your convenience, the constraints will be emphasized again below. <br>
+* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it without roles. <br>
 </div>
 
 <span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
@@ -1070,24 +1071,24 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div markdown="span" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* Editing a role-based relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new role-based relationship will apply here. For your convenience, the constraints will be emphasized again below.
-* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
-* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
-* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`).
-* If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE! 
-* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`.
-* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`.
-* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles.
+* Editing a role-based relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new role-based relationship will apply here. For your convenience, the constraints will be emphasized again below. <br>
+* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. <br>
+* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`. <br>
+* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`). <br>
+* If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE!  <br>
+* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`. <br>
+* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`. <br>
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles. <br>
 * Once you add a role-based relationship, you are then unable to add a roleless relationship with the same `RELATIONSHIP_TYPE`. To do this, you must follow the same steps above to remove the `RELATIONSHIP_TYPE` and all relationships associated with it from the database.
 </div>
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:**
 
-* With a wave of Gene-nie's magical wand, you can perform any kind of enchanting edits to your relationships! Here are the amazing possibilities:
-  * Edit a roleless relationship to another roleless relationship
-  * Edit a roleless relationship to a role-based relationship
-  * Edit a role-based relationship to another role-based relationship
-  * Edit a role-based relationship to a roleless relationship
+* With a wave of Gene-nie's magical wand, you can perform any kind of enchanting edits to your relationships! Here are the amazing possibilities: <br>
+  * Edit a roleless relationship to another roleless relationship <br>
+  * Edit a roleless relationship to a role-based relationship <br>
+  * Edit a role-based relationship to another role-based relationship <br>
+  * Edit a role-based relationship to a roleless relationship <br>
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1148,7 +1149,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div markdown="span" class="alert alert-warning">
 
 **:exclamation: Caution:** <br>
-* Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`.
+* Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`. <br>
 </div>
 
 [Back to Table of Contents](#table-of-contents)
