@@ -832,7 +832,9 @@ This way, you can still add them to relationships, and fill in their details lat
         <img src="{{site.baseurl}}/images/BeforeAddAttribute.png" alt="BeforeAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 20: Before Add Attribute Command</figcaption>
     </figure>
+</div>
 <div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterAddAttribute.png" alt="AfterAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 21: After Add Attribute Command</figcaption>
@@ -875,6 +877,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeDeleteAttribute.png" alt="BeforeDeleteAttribute.png">
         <figcaption class="img_container_figCaption">Figure 22: Before Delete Attribute Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterDeleteAttribute.png" alt="AfterDeleteAttribute.png">
         <figcaption class="img_container_figCaption">Figure 23: After Delete Attribute Command</figcaption>
@@ -913,6 +918,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeEditAttribute.png" alt="BeforeEditAttribute.png">
         <figcaption class="img_container_figCaption">Figure 24: Before Edit Attribute Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterEditAttribute.png" alt="AfterEditAttribute.png">
         <figcaption class="img_container_figCaption">Figure 25: After Edit Attribute Command</figcaption>
@@ -1103,6 +1111,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeEditRoleBasedRelationCommand.png" alt="BeforeEditRoleBasedRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 33: Before Edit RoleBased Relation Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterEditRoleBasedRelationCommand.png" alt="AfterEditRoleBasedRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 34: After Edit RoleBased Relation Command</figcaption>
@@ -1163,6 +1174,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/BeforeDeleteRelationCommand.png" alt="BeforeDeleteRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 35: Before Delete Relation Command</figcaption>
     </figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterDeleteRelationCommand.png" alt="AfterDeleteRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 36: After Delete Relation Command</figcaption>
