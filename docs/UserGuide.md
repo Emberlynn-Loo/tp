@@ -617,7 +617,7 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
     1. This relationship type is used to denote a friendship relationship.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-**Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships) Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
+**Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Warning:**
