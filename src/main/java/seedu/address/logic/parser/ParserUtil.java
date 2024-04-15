@@ -475,7 +475,7 @@ public class ParserUtil {
             }
         } else {
             if (parts.length != 5) {
-                throw new ParseException(Messages.MESSAGE_INVALID_RELATIONSHIP_COMMAND_FORMAT);
+                throw new ParseException(Messages.MESSAGE_INVALID_EDIT_RELATIONSHIP_COMMAND_FORMAT);
             }
         }
         parts = removeFirstItemFromStringList(parts);
