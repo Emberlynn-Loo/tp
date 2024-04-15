@@ -425,7 +425,7 @@ An `AddAttribute` feature that allows users to add attributes to a person in the
 The Add Attribute mechanism is facilitated by the `AddAttributeCommand` and `AddAttributeParser`.
 The `AddAttributeCommand` class extends the `Command` class.
 
-Given below is an example usage scenario and how adding attributes to a person works by.
+Given below is an example usage scenario and how adding attributes to a person works.
 
 Step 1: The user enters a command to add an attribute to a person, for example: `addattribute /1234 /Phone 12345678`.
 
@@ -448,7 +448,7 @@ Step 7: If the person does not have the attribute, the `AddAttributeCommand` add
 
 Step 8: `AddAttributeCommand#execute` returns the `CommandResult` object to the `LogicManager` component.
 
-The following sequence diagram shows how the `AddAttribute` shows how the `AddAttribute` command works:
+The following sequence diagram shows how the `AddAttribute` command works:
 
 ![AttributeAdditionSequenceDiagram](images/AttributeAdditionSequenceDiagram.png)
 
