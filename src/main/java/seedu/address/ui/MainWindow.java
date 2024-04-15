@@ -203,6 +203,10 @@ public class MainWindow extends UiPart<Stage> {
         navBar.selectAllContactButton();
         displaySection.displayAllContactsSection();
     }
+
+    /**
+     * reset SearchResultSection after every change to Model
+     */
     public void resetSearchResultSection() {
         displaySection.resetSearchResultSection();
     }

@@ -83,6 +83,10 @@ public class DisplaySection extends UiPart<Region> {
         searchResultSection.update(persons, relationships);
         renderSection(searchResultSection.getRoot());
     }
+
+    /**
+     * resets searchResultSection
+     */
     public void resetSearchResultSection() {
         searchResultSection.init();
     }

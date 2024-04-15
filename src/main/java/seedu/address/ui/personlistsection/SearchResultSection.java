@@ -44,6 +44,10 @@ public class SearchResultSection extends UiPart<Region> {
             this.treeMapFlowPane.updateFlowPane(personList, relationships);
         }
     }
+
+    /**
+     * initialise searchResultSection
+     */
     public void init() {
         this.personListPlaceHolder.getChildren().clear();
         this.treeMapPlaceHolder.getChildren().clear();
