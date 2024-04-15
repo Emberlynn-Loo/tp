@@ -257,19 +257,17 @@ table {
   border-collapse: collapse;
   border: 1px solid $table-border-color;
   tr {
-    &:nth-child(even) {
-      background-color: $table-zebra-color;
-    }
+    background-color: #fff8f5;
   }
   th, td {
     padding: ($spacing-unit / 3) ($spacing-unit / 2);
   }
   th {
-    background-color: $table-header-bg-color;
-    border: 1px solid $table-header-border;
+    background-color: #F7DED0;
+    border: 1px solid black;
   }
   td {
-    border: 1px solid $table-border-color;
+    border: 1px solid black;
   }
 
   @include media-query($on-laptop) {
