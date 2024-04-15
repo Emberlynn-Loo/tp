@@ -757,6 +757,11 @@ This way, you can still add them to relationships, and fill in their details lat
 * `delete /0001` deletes the person with the `UUID` "0001"
 * `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
+
+| Before    | ![Figure 18: BeforeDeletePerson](images/BeforeDeletePerson.png) |
+|-----------|-----------------------------------------------------------------|
+| **After** | ![Figure 19: AfterDeletePerson](images/AfterDeletePerson.png)   |
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
