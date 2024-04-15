@@ -881,7 +881,6 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <figcaption class="img_container_figCaption">Figure 22: Before Delete Attribute Command</figcaption>
     </figure>
 </div>
-<div style="page-break-after: always;"></div>
 <div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterDeleteAttribute.png" alt="AfterDeleteAttribute.png">
