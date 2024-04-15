@@ -34,40 +34,40 @@ Well then, we welcome you to this user guide, where we demystify the magic of Ge
   <li>
 <a href="#features---managing-persons">Features - Managing Person Profiles</a>
     <ul>
-      <li><a href="#listing-all-persons--list-or-l">Listing all Persons: `LIST`/`L`</a></li>
-      <li><a href="#adding-a-person--add-or-a">Adding a person: `ADD`/`A`</a></li>
-      <li><a href="#locating-persons-by-details--find-or-f">Locating persons by details: `FIND`/`F`</a></li>
-      <li><a href="#deleting-a-person--delete-or-d">Deleting a Person: `DELETE`/`D`</a></li>
+      <li><a href="#listing-all-persons--list-or-l">Listing all Persons: <code class="language-plaintext highlighter-rouge">list</code>/<code class="language-plaintext highlighter-rouge">l</code></a></li>
+      <li><a href="#adding-a-person--add-or-a">Adding a person: <code class="language-plaintext highlighter-rouge">add</code>/<code class="language-plaintext highlighter-rouge">a</code></a></li>
+      <li><a href="#locating-persons-by-details--find-or-f">Locating persons by details: <code class="language-plaintext highlighter-rouge">find</code>/<code class="language-plaintext highlighter-rouge">f</code></a></li>
+      <li><a href="#deleting-a-person--delete-or-d">Deleting a Person: <code class="language-plaintext highlighter-rouge">delete</code>/<code class="language-plaintext highlighter-rouge">d</code></a></li>
     </ul>
   </li>
   <li>
 <a href="#features---managing-attributes-of-persons">Features - Managing Attributes of Persons</a>
     <ul>
-      <li><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute: `ADDATTRIBUTE`/`AA`</a></li>
-      <li><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute: `DELETEATTRIBUTE`/`DA`</a></li>
-      <li><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute: `EDITATTRIBUTE`/`EA`</a></li>
+      <li><a href="#adding-attributes-to-a-person--addattribute-or-aa">Adding an Attribute: <code class="language-plaintext highlighter-rouge">addAttribute</code>/<code class="language-plaintext highlighter-rouge">aa</code></a></li>
+      <li><a href="#deleting-an-attribute-from-a-person--deleteattribute-or-da">Deleting an Attribute: <code class="language-plaintext highlighter-rouge">deleteAttribute</code>/<code class="language-plaintext highlighter-rouge">da</code></a></li>
+      <li><a href="#editing-an-attribute-of-a-person--editattribute-or-ea">Editing an Attribute: <code class="language-plaintext highlighter-rouge">editAttribute</code>/<code class="language-plaintext highlighter-rouge">ea</code></a></li>
     </ul>
   </li>
   <li>
 <a href="#features---managing-person-relationships">Managing Person Relationships</a>
     <ul>
-      <li><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types: `LISTRELATIONS`/`LR`</a></li>
-      <li><a href="#adding-a-relationship--addrelation-or-ar">Adding a Relationship: `ADDRELATION`/`AR`</a></li>
-      <li><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship: `EDITRELATION`/`ER`</a></li>
-      <li><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship: `DELETERELATION`/`DR`</a></li>
-      <li><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities: `ANYSEARCH`/`AS`</a></li>
-      <li><a href="#finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities: `FAMILYSEARCH`/`FS`</a></li>
+      <li><a href="#listing-all-relationship-types--listrelations-or-lr">Listing all relationship types: <code class="language-plaintext highlighter-rouge">listRelations</code>/<code class="language-plaintext highlighter-rouge">lr</code></a></li>
+      <li><a href="#adding-a-relationship--addrelation-or-ar">Adding a Relationship: <code class="language-plaintext highlighter-rouge">addRelation</code>/<code class="language-plaintext highlighter-rouge">ar</code></a></li>
+      <li><a href="#editing-a-relationship--editrelation-or-er">Editing a Relationship: <code class="language-plaintext highlighter-rouge">editRelation</code>/<code class="language-plaintext highlighter-rouge">er</code></a></li>
+      <li><a href="#deleting-a-relationship--deleterelation-or-dr">Deleting a Relationship: <code class="language-plaintext highlighter-rouge">deleteRelation</code>/<code class="language-plaintext highlighter-rouge">dr</code></a></li>
+      <li><a href="#finding-all-relationships-between-entities--anysearch-or-as">Finding All Relationship between Entities: <code class="language-plaintext highlighter-rouge">anySearch</code>/<code class="language-plaintext highlighter-rouge">as</code></a></li>
+      <li><a href="#finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities: <code class="language-plaintext highlighter-rouge">familySearch</code>/<code class="language-plaintext highlighter-rouge">fs</code></a></li>
     </ul>
   </li>
   <li>
 <a href="#features---general-features">General Features</a>
     <ul>
-      <li><a href="#viewing-help--help-or-h">Viewing Help: `HELP`/`H`</a></li>
-      <li><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries: `DELETEALLPERSONS`/`DAP`</a></li>
-      <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses: `CLEAR`/`C`</a></li>
-      <li><a href="#exiting-the-program--exit-or-e">Exiting the Program: `EXIT`/`E`</a></li>
-      <li><a href="#saving-the-data">Saving the Data</a></li>
-      <li><a href="#editing-the-data-file">Editing the Data file</a></li>
+      <li><a href="#viewing-help--help-or-h">Viewing Help: <code class="language-plaintext highlighter-rouge">help</code>/<code class="language-plaintext highlighter-rouge">h</code></a></li>
+      <li><a href="#clearing-all-entries--deleteallpersons-or-dap">Clearing all Entries: <code class="language-plaintext highlighter-rouge">deleteAllPersons</code>/<code class="language-plaintext highlighter-rouge">dap</code></a></li>
+      <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses: <code class="language-plaintext highlighter-rouge">clear</code>/<code class="language-plaintext highlighter-rouge">c</code></a></li>
+      <li><a href="#exiting-the-program--exit-or-e">Exiting the Program: <code class="language-plaintext highlighter-rouge">exit</code>/<code class="language-plaintext highlighter-rouge">e</code></a></li>
+      <li><a href="#saving_the_data">Saving the Data</a></li>
+      <li><a href="#editing_the_data_file">Editing the Data file</a></li>
     </ul>
   </li>
   <li><a href="#faq">FAQ</a></li>
@@ -93,7 +93,7 @@ Through the magic of <span class="hello_span">Gene-nie</span> you are able to
 * and much more!
 You absolutely won't regret choosing me. I am here to help you with all your genealogy needs!
 
-<span class="hello_span">Gene-nie</span> is a desktop app for managing your contacts, built for use via a Command Line Interface (CLI). 
+<span class="hello_span">Gene-nie</span> is a desktop app for managing your contacts, built for use via a Command Line Interface ([CLI](#glossary)). 
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -147,7 +147,7 @@ Ah, I see that you are excited to command me... <span class="hello_span">Let me 
 
 1. Ensure you have Java `11` or above installed in your Computer. If not, see [FAQ](#faq) for instructions on how to install Java.
 
-2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases). The file can be found under the “Assets” section of the page as seen in the image below.
+2. Download the latest [JAR](#glossary) file `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases). The file can be found under the “Assets” section of the page as seen in the image below.
 
     <div class="img_container">
         <figure>
@@ -283,7 +283,7 @@ The person card is where you can view the details of each contact you have added
     </figure>
 </div>
 
-1. <span class="h3_span">Unique Identifier (UUID):</span>
+1. <span class="h3_span">Unique Identifier ([UUID](#glossary)):</span>
 
    * The unique identifier (UUID) is a 4-character code that is used to identify the contact.
    * You can view the UUID of the contact on the left of the person card.
@@ -330,7 +330,7 @@ You can key in your commands and <span class="hello_span">Gene-nie</span> will r
 
 Using CLI offers many advantages, such as:
 * If you can _type as fast you can think_, <span class="hello_span">Gene-nie</span> can help you work magic faster!
-* It takes up _lesser memory and resources_ compared to a Graphical User Interface (GUI) app.
+* It takes up _lesser memory and resources_ compared to a Graphical User Interface ([GUI](#glossary)) app.
 * It is _cool_! You can impress your friends with your command-line skills!
 
 However, to make full use of our CLI interface, you need to: 
@@ -356,7 +356,7 @@ Ah, you wish to command me to do your bidding! Fret not! I will show you the way
 * Command keywords are have shortcuts that are case-insensitive. Shortcuts can be found in the description of each specific feature below.
   e.g. `addAttribute` can be `aa`, `aA`, etc.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Words in `UPPER_CASE` are the [parameters](#glossary) to be supplied by the user.
   e.g. in `add /Name NAME`, `NAME` is a parameter which can be used as `add /Name John Doe`.
 
 * Items in square brackets are optional.
@@ -548,7 +548,7 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 
 1. `Name` attribute with String value, and can be any string supported by the command format (see [attribute commands below](#features---managing-attributes-of-persons))
     1. It is a predefined attribute for the purposes of future features.
-2. `Phone` attribute with Integer value, limited to 9 numeric digits (no spaces or symbols), for we keep our magic pure and precise.
+2. `Phone` attribute with [Integer](#glossary) value, limited to 9 numeric digits (no spaces or symbols), for we keep our magic pure and precise.
 3. `Birthday` attribute with Date value, with the format `yyyy-mm-dd`, for example `2024-01-01`
     1. Our application supports a wide range of date inputs to accommodate various historical and genealogical data. You can enter dates using the following format: YYYY-MM-DD.
     2. Year (YYYY): The year can range from -9999 to today's date! This lets you represent of historical dates and more easily track your family history! This range is dictated by the limits of the DateTime object used in our application. Negative years are used to denote years BCE (Before the Common Era).
@@ -898,9 +898,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 
 <span class="h3_span" id="listing-all-relationship-types--listrelations-or-lr">Listing all relationship types : `listRelations` or `lr`</span>
 <div style="font-style: italic;">
-    Shows a list of all current relationshipTypes in the address book. This includes:
+    Shows a list of all current valid relationshipTypes in the address book. This includes:
     <ul>
-        <li>Pre-defined relationships (this is why you may see more relationships than used in the contacts list)</li>
+        <li>Pre-defined relationships (bioparents, spouses, siblings)</li>
         <li>User-defined relationships</li>
     </ul>
 </div>
@@ -942,6 +942,12 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
+<div markdown="span" class="alert alert-warning">
+**:exclamation: Caution:** <br>
+* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`.
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with roles.
+</div>
+
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
 
 <span class="hello_span">Format:</span> `addRelation /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE` or `ar /UUID1 ROLE1 /UUID2 ROLE2 /RELATIONSHIP_TYPE`
@@ -953,6 +959,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
 * The `RELATIONSHIP_TYPE` can be more than one word.
 * The `ROLE1` and `ROLE2` can only be one word.
+* The `ROLE1` and `ROLE2` must be different. (except for the predefined relationTypes `siblings`(where both roles can be `brother`/`sister`) and `spouses`(where both roles can be `husband`/`wife`))
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
 * If the `ROLE1` or `ROLE2` does not exist for the `RELATIONSHIP_TYPE`, the command will not have any effect.
@@ -976,7 +983,12 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 **:exclamation: Caution:** <br>
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
-* Adding more than 2 bioParents relationships with the role child to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role child.
+* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`).
+* If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE! 
+* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`.
+* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`.
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles.
+* Once you add a role-based relationship, you are then unable to add a roleless relationship with the same `RELATIONSHIP_TYPE`. To do this, you must follow the same steps above to remove the `RELATIONSHIP_TYPE` and all relationships associated with it from the database.
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1014,6 +1026,13 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
+<div markdown="span" class="alert alert-warning">
+**:exclamation: Caution:** <br>
+* Editing a roleless relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new roleless relationship will apply here. For your convenience, the constraints will be emphasized again below.
+* Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`.
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it without roles.
+</div>
+
 <span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
 
 <span class="hello_span">Format:</span> `editRelation /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE` or `er /UUID1 ROLE1 /UUID2 ROLE2 /OLD_RELATIONSHIP_TYPE /NEW_RELATIONSHIP_TYPE`
@@ -1025,6 +1044,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
 * The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` can be more than one word.
 * The `ROLE1` and `ROLE2` can only be one word.
+* The `ROLE1` and `ROLE2` must be different. (except for the predefined relationTypes `siblings`(where both roles can be `brother`/`sister`) and `spouses`(where both roles can be `husband`/`wife`))
 * If the relationship to be edited from does not exist, the command will not have any effect.
 * If the relationship to be edited to already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
@@ -1043,6 +1063,27 @@ If the person you are adding the sex attribute to already has a siblings' or a s
         <img src="{{site.baseurl}}/images/AfterEditRoleBasedRelationCommand.png" alt="AfterEditRoleBasedRelationCommand.png">
         <figcaption class="img_container_figCaption">Figure 34: After Edit RoleBased Relation Command</figcaption>
     </figure>
+</div>
+
+<div markdown="span" class="alert alert-warning">
+**:exclamation: Caution:** <br>
+* Editing a role-based relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new role-based relationship will apply here. For your convenience, the constraints will be emphasized again below.
+* The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
+* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
+* When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`).
+* If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE! 
+* Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`.
+* Once you add a custom role-based `RELATIONSHIP_TYPE` with the defined roles, you cannot add another relationship with the same `RELATIONSHIP_TYPE` but different roles. To do this, you must first delete all relationships with the `RELATIONSHIP_TYPE`.
+* Next, even if no relationships are using the `RELATIONSHIP_TYPE`, it will still be stored in the database with the defined roles. Hence, you will have to delete it from the database using `deleteRelation /RELATIONSHIP_TYPE` before you can add a new relationship for it with new roles.
+* Once you add a role-based relationship, you are then unable to add a roleless relationship with the same `RELATIONSHIP_TYPE`. To do this, you must follow the same steps above to remove the `RELATIONSHIP_TYPE` and all relationships associated with it from the database.
+</div>
+
+<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+* With a wave of Gene-nie's magical wand, you can perform any kind of enchanting edits to your relationships! Here are the amazing possibilities:
+  * Edit a roleless relationship to another roleless relationship
+  * Edit a roleless relationship to a role-based relationship
+  * Edit a role-based relationship to another role-based relationship
+  * Edit a role-based relationship to a roleless relationship
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1100,6 +1141,11 @@ If the person you are adding the sex attribute to already has a siblings' or a s
     </figure>
 </div>
 
+<div markdown="span" class="alert alert-warning">
+**:exclamation: Caution:** <br>
+* Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`.
+</div>
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -1137,6 +1183,10 @@ else `No Relationship Pathway Found` will be returned.
 * The command is order-sensitive: `anySearch /0001 /0003` can potentially return a different result from `anySearch /0003 /0001`
 * `anySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003` then `anySearch /0003 /0001`
    returns `0003 -> friends of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional
+
+<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+* Note that anySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, anySearch will return the shortest possible path.
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1176,6 +1226,15 @@ else `No Relationship Pathway Found` will be returned.
 
 <span class="hello_span">Examples:</span>
 * `familySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003` then `familySearch /0003 /0001` returns `0003 -> (bioParents) parent of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional.
+
+<div markdown="span" class="alert alert-warning">
+**:exclamation: Caution:** <br>
+* familySearch will only work for the pre-defined familial relations (`bioparents`, `siblings` and `spouses`). If you have added a custom familial relation(e.g. `cousins`), familySearch will not be able to take that into account when finding the family relationship path.
+</div>
+
+<div markdown="span" class="alert alert-info">:bulb: **Tip:**
+* Note that familySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, familySearch will return the shortest possible path.
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1252,7 +1311,7 @@ else `No Relationship Pathway Found` will be returned.
 ---
 
 <span class="h3_span" id="editing_the_data">Editing the Data File</span>
-<p style="font-style: italic;">Gene-nie data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.</p>
+<p style="font-style: italic;">Gene-nie data is saved automatically as a [JSON](#glossary) file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.</p>
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -1307,6 +1366,18 @@ In the future, the Name attribute may be used to provide additional functionalit
 
 4. **Maximise UI elements automatically.** Currently, UI elements resize when the user types in the command box. This may distract some users.
 
+5. **Improve saving of duplicate relationshipDescriptors.** Currently, relationshipDescriptors can be saved multiple times in the same data file. This may lead to inconsistencies in the data.
+In the future, the application may be updated to prevent the saving of duplicate relationshipDescriptors.
+
+6. **Improve error handling of duplicate relationship types.** Currently, the application allows for users to add any relationTypes with no limitations unless the exact relationType already exists. This may result in confusion for users.
+In the future, the application may be updated to improve the checking for similar relationTypes.
+
+7. **Improve display results for UUIDs in certain error messages.** Currently, when displaying errors for duplicate relationships, the application shows the full UUIDs of the Persons involved in the relationship in the error message. This can be confusing for users as the UUIDs are long and not easily readable.
+In the future, the application may be updated to display only the first few characters of the UUIDs in such error messages.
+
+8. **Add support for extendable roles in relationships.** Currently, the application allows for users to add any relationTypes with little limitation in regard to spelling. Thus, users are able to add any roles and relation types that they want to for custom relationships, including roles and relation types that are not valid words (e.g. aaa).
+In the future, the application may be updated to restrict the roles and relation types that can be added to only valid words.
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1315,16 +1386,15 @@ In the future, the Name attribute may be used to provide additional functionalit
     <h2><a href="#glossary" id="glossary">Glossary</a></h2>
 </div>
 
-| Term      | Description                                                                                                                                                                                                                                                                                            |
-|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| UUID      | **Universally Unique Identifier:** A code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                            |
-| CLI       | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
-| Field     | **Field:** In the context of data, a field refers to a specific piece of information within a record or data structure. Fields are used to organise and store data in a structured manner, and they are often associated with a particular type or attribute.                                          |
-| GUI       | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
-| Integer   | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
-| JAR       | **JAR (Java ARchive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
-| JSON      | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
-| Parameter | **Parameter:** In the context of software, a parameter is a variable or value that is passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                            |
+| Term       | Description                                                                                                                                                                                                                                                                                            |
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| UUID       | **Universally Unique Identifier:** A code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                            |
+| CLI        | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
+| GUI        | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
+| Integer    | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
+| JAR        | **JAR (Java Archive):** A file format used for aggregating multiple files (typically Java class files, metadata, and resources) into a single compressed archive. JAR files are commonly used to package and distribute Java applications or libraries.                                                |
+| JSON       | **JSON (JavaScript Object Notation):** A lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. JSON is commonly used for data storage and exchange in web applications. It consists of key-value pairs enclosed in curly braces. |
+| Parameters | **Parameters:** In the context of software, parameters are variables or values that are passed into a function, method, or command. Parameters are used to customise the behavior of the function or command.                                                                                          |
 
 [Back to Table of Contents](#table-of-contents)
 

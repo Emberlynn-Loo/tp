@@ -1913,7 +1913,7 @@ Currently, the application allows for users to add any relationTypes with no lim
 
 ### C.5 - Improve display result for UUIDs in certain error messages
 
-Currently, when displaying errors for duplicate UUIDs, the application shows the full UUIDs in the error message. This can be confusing for users as the UUIDs are long and not easily readable. This enhancement aims to improve the display of UUIDs in error messages to make them more user-friendly.
+Currently, when displaying errors for duplicate relationships, the application shows the full UUIDs of the Persons involved in the relationship in the error message. This can be confusing for users as the UUIDs are long and not easily readable. This enhancement aims to improve the display of UUIDs in error messages to make them more user-friendly.
 
 * Proposed Enhancement:
   * Improve the display of UUIDs in error messages by showing only the first few characters of the UUID.
