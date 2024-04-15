@@ -83,6 +83,13 @@ public class DisplaySection extends UiPart<Region> {
         searchResultSection.update(persons, relationships);
         renderSection(searchResultSection.getRoot());
     }
+
+    /**
+     * resets searchResultSection
+     */
+    public void resetSearchResultSection() {
+        searchResultSection.init();
+    }
     /**
      * Renders the given UI part within the body of the display section.
      * This method clears any existing content in the body and displays the new content.

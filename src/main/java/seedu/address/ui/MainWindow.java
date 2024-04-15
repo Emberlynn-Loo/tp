@@ -203,6 +203,13 @@ public class MainWindow extends UiPart<Stage> {
         navBar.selectAllContactButton();
         displaySection.displayAllContactsSection();
     }
+
+    /**
+     * reset SearchResultSection after every change to Model
+     */
+    public void resetSearchResultSection() {
+        displaySection.resetSearchResultSection();
+    }
     /**
      * Displays a custom list section named "Any List".
      * This method allows for displaying any user-defined list of contacts, setting the appropriate title.
@@ -235,6 +242,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isAnySearch()) {
                 displayUpdatedSearchResultSection(logic.getFilteredPersonList(), logic.getRelationshipList());
             } else {
+                resetSearchResultSection();
                 displayAllContactsSection(logic.getFilteredPersonList(), logic.getRelationshipList());
             }
             if (commandResult.isShowHelp()) {

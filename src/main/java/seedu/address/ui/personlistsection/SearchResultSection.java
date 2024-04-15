@@ -26,12 +26,7 @@ public class SearchResultSection extends UiPart<Region> {
      */
     public SearchResultSection() {
         super(FXML);
-        this.personList = new PersonList("You Have To Use AnySearch First");
-        this.treeMapFlowPane = new TreeMapFlowPane();
-        personListPlaceHolder.getChildren().add(this.personList.getRoot());
-        treeMapPlaceHolder.getChildren().add(this.treeMapFlowPane.getRoot());
-        treeMapPlaceHolder.setVisible(false);
-        treeMapPlaceHolder.setManaged(false);
+        init();
     }
     /**
      * Updates the sorted modules in the ModuleListSection.
@@ -48,6 +43,20 @@ public class SearchResultSection extends UiPart<Region> {
             treeMapPlaceHolder.setManaged(true);
             this.treeMapFlowPane.updateFlowPane(personList, relationships);
         }
+    }
+
+    /**
+     * initialise searchResultSection
+     */
+    public void init() {
+        this.personListPlaceHolder.getChildren().clear();
+        this.treeMapPlaceHolder.getChildren().clear();
+        this.personList = new PersonList("You Have To Use AnySearch First");
+        this.treeMapFlowPane = new TreeMapFlowPane();
+        personListPlaceHolder.getChildren().add(this.personList.getRoot());
+        treeMapPlaceHolder.getChildren().add(this.treeMapFlowPane.getRoot());
+        treeMapPlaceHolder.setVisible(false);
+        treeMapPlaceHolder.setManaged(false);
     }
 }
 
