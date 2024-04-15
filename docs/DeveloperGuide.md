@@ -1980,7 +1980,7 @@ Currently, when the user uses a filtering command e.g. `find`, `anysearch` and `
 
 ### C.10 - Improve error message for editrelation and deleterelation
 
-Currently, when the user enters an invalid UUID, the error message given is (The UUID you entered was:)and does not quote the UUID to the user.
+Currently, when the user enters an invalid UUID, the error message given is (The UUID you entered was: ) and does not quote the UUID to the user.
 
 * Proposed Enhancement:
     * Quote the UUID that the user inputs.
