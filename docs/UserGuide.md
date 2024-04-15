@@ -285,7 +285,7 @@ The person card is where you can view the details of each contact you have added
 
 1. <span class="h3_span">Unique Identifier ([UUID](#glossary)):</span>
 
-   * The unique identifier (UUID) is a 4-character code that is used to identify the contact.
+   * The unique identifier (UUID) is a 4-character code that is used to identify the contact (case-sensitive).
    * You can view the UUID of the contact on the left of the person card.
 2. <span class="h3_span">Attribute Display:</span>
 
@@ -371,7 +371,7 @@ Ah, you wish to command me to do your bidding! Fret not! I will show you the way
 * Extraneous characters before the specificed paramters for commands that take in parameters will be ignored.
   e.g. if the command specifies `addAttribute aaa /1234 /Name John`, it will be interpreted as `addAttribute /1234 /Name John`.
 
-* UUID are 4 characters long
+* UUID are 4 characters long and is case-sensitive.
 
 * Attribute names are not case-sensitive.
 
