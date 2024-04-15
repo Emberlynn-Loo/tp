@@ -72,6 +72,7 @@ title_name: Developer Guide
   - [Add support for extendable roles for relationships](#c6---add-support-for-extendable-roles-for-relationships)
   - [Improve changing of roles for a specific relationship type](#c7---improve-changing-of-roles-for-a-specific-relationship-type)
   - [Improve the checking of valid roles with respect to the relationType](#c8---improve-the-checking-of-valid-roles-with-respect-to-the-relationtype)
+  - [Improve UI handling of filtering commands](#c9---improve-ui-handling-of-filtering-commands)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
