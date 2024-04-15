@@ -73,6 +73,7 @@ title_name: Developer Guide
   - [Improve changing of roles for a specific relationship type](#c7---improve-changing-of-roles-for-a-specific-relationship-type)
   - [Improve the checking of valid roles with respect to the relationType](#c8---improve-the-checking-of-valid-roles-with-respect-to-the-relationtype)
   - [Improve UI handling of filtering commands](#c9---improve-ui-handling-of-filtering-commands)
+  - [Improve error message for editrelation and deleterelation](#c10---improve-error-message-for-editrelation-and-deleterelation)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -1976,3 +1977,13 @@ Currently, when the user uses a filtering command e.g. `find`, `anysearch` and `
     * Update the list component after every successful `find`, `anysearch` and `familysearch` commands to automatically clear the filter after displaying the results.
     * Ensure that the filter is cleared when the user executes a new command or closes the application.
     * Display a confirmation message to the user indicating that the filter has been cleared.
+
+### C.10 - Improve error message for editrelation and deleterelation
+
+Currently, when the user enters an invalid UUID, the error message given is (The UUID you entered was:)and does not quote the UUID to the user.
+
+* Proposed Enhancement:
+    * Quote the UUID that the user inputs.
+
+* Implementation Details:
+    * Add the UUID strings to the end of the error message.   
