@@ -981,6 +981,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 </div>
 
 <div markdown="span" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
 * The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`.
@@ -1028,6 +1029,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 </div>
 
 <div markdown="span" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
 * Editing a roleless relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new roleless relationship will apply here. For your convenience, the constraints will be emphasized again below.
 * Once you add a roleless relationship, you are then unable to add a role-based relationship with the same `RELATIONSHIP_TYPE`. you must first delete all relationships with the `RELATIONSHIP_TYPE`.
@@ -1067,6 +1069,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 </div>
 
 <div markdown="span" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
 * Editing a role-based relationship to a different one works like deleting the old relationship and adding a new one. Hence, the same constraints apply for adding a new role-based relationship will apply here. For your convenience, the constraints will be emphasized again below.
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation.
@@ -1080,6 +1083,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 </div>
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:**
+
 * With a wave of Gene-nie's magical wand, you can perform any kind of enchanting edits to your relationships! Here are the amazing possibilities:
   * Edit a roleless relationship to another roleless relationship
   * Edit a roleless relationship to a role-based relationship
@@ -1143,6 +1147,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 </div>
 
 <div markdown="span" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
 * Before you delete a `RELATIONSHIP_TYPE` from the database, you need to make sure that there are no relationships using the `RELATIONSHIP_TYPE`. If there are, you must first delete all of these relationships before you can successfully delete the `RELATIONSHIP_TYPE`.
 </div>
@@ -1186,6 +1191,7 @@ else `No Relationship Pathway Found` will be returned.
     returns `0003 -> friends of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:**
+
 * Note that anySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, anySearch will return the shortest possible path.
 </div>
 
@@ -1227,11 +1233,13 @@ else `No Relationship Pathway Found` will be returned.
 - - - `familySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003` then `familySearch /0003 /0001` returns `0003 -> (bioParents) parent of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional.
 
 <div markdown="span" class="alert alert-warning">
+
 **:exclamation: Caution:** <br>
 * familySearch will only work for the pre-defined familial relations (`bioparents`, `siblings` and `spouses`). If you have added a custom familial relation(e.g. `cousins`), familySearch will not be able to take that into account when finding the family relationship path.
 </div>
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:**
+
 * Note that familySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, familySearch will return the shortest possible path.
 </div>
 
