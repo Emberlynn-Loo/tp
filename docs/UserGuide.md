@@ -149,12 +149,12 @@ Ah, I see that you are excited to command me... <span class="hello_span">Let me 
 
 2. Download the latest `Gene-nie.jar` from [here](https://github.com/AY2324S2-CS2103T-T11-1/tp/releases). The file can be found under the “Assets” section of the page as seen in the image below.
 
-<div class="img_container">
-    <figure>
-        <img src="{{site.baseurl}}/images/DownloadLocation.png" alt="DownloadLocation.png">
-        <figcaption class="img_container_figCaption">Figure 1: Download Location</figcaption>
-    </figure>
-</div>
+    <div class="img_container">
+        <figure>
+            <img src="{{site.baseurl}}/images/DownloadLocation.png" alt="DownloadLocation.png">
+            <figcaption class="img_container_figCaption">Figure 1: Download Location</figcaption>
+        </figure>
+    </div>
 
 3. Copy `Gene-nie.jar` to a convenient folder on your computer, using your file explorer. This will be referred to as Gene-nie's _home folder_.
 
@@ -442,7 +442,7 @@ Now that you have added yourself, let us add your friend into <span class="hello
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addfriend.png" alt="addfriend.png">
-        <figcaption class="img_container_figCaption">Figure 12: Gene-nie After Adding Your Friend</figcaption>
+        <figcaption class="img_container_figCaption">Figure 11: Gene-nie After Adding Your Friend</figcaption>
     </figure>
 </div>
 
@@ -454,7 +454,7 @@ Type this command `editAttribute /UUID /AttributeName New Value` to edit the att
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/editdetails.png" alt="editdetails.png">
-        <figcaption class="img_container_figCaption">Figure 13: Gene-nie After Editing Contact Details</figcaption>
+        <figcaption class="img_container_figCaption">Figure 12: Gene-nie After Editing Contact Details</figcaption>
     </figure>
 </div>
 
@@ -468,7 +468,7 @@ Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relati
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addrelation.png" alt="addrelation.png">
-        <figcaption class="img_container_figCaption">Figure 14: Gene-nie After Adding Relationship</figcaption>
+        <figcaption class="img_container_figCaption">Figure 13: Gene-nie After Adding Relationship</figcaption>
     </figure>
 </div>
 
@@ -517,7 +517,7 @@ In <span class="hello_span">Gene-nie</span>, a person's profile is defined as a 
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/PersonCard.png" alt="PersonCard.png">
-        <figcaption class="img_container_figCaption">Figure 15: Gene-nie Sample Person Card</figcaption>
+        <figcaption class="img_container_figCaption">Figure 14: Gene-nie Sample Person Card</figcaption>
     </figure>
 </div>
 
@@ -696,7 +696,7 @@ This way, you can still add them to relationships, and fill in their details lat
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addPersonCommand.png" alt="addPersonCommand.png">
-        <figcaption class="img_container_figCaption">Figure 15: Gene-nie adding a person</figcaption>
+        <figcaption class="img_container_figCaption">Figure 16: Gene-nie adding a person</figcaption>
     </figure>
 </div>
 
@@ -733,7 +733,7 @@ This way, you can still add them to relationships, and fill in their details lat
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
-        <figcaption class="img_container_figCaption">Figure 16: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
+        <figcaption class="img_container_figCaption">Figure 17: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
     </figure>
 </div>
 
@@ -757,10 +757,16 @@ This way, you can still add them to relationships, and fill in their details lat
 * `delete /0001` deletes the person with the `UUID` "0001"
 * `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
-
-| Before    | ![Figure 18: BeforeDeletePerson](images/BeforeDeletePerson.png) |
-|-----------|-----------------------------------------------------------------|
-| **After** | ![Figure 19: AfterDeletePerson](images/AfterDeletePerson.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeDeletePerson.png" alt="BeforeDeletePerson.png">
+        <figcaption class="img_container_figCaption">Figure 18: Before Delete Person Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterDeletePerson.png" alt="AfterDeletePerson.png">
+        <figcaption class="img_container_figCaption">Figure 19: After Delete Person Command</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -791,9 +797,16 @@ This way, you can still add them to relationships, and fill in their details lat
 * `addAttribute /0001 /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 0001
 * `addAttribute /0001 /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 0001
 
-| Before    | ![Figure 18: BeforeAddAttribute](images/BeforeAddAttribute.png) |
-|-----------|-----------------------------------------------------------------|
-| **After** | ![Figure 19: AfterAddAttribute](images/AfterAddAttribute.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeAddAttribute.png" alt="BeforeAddAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 20: Before Add Attribute Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterAddAttribute.png" alt="AfterAddAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 21: After Add Attribute Command</figcaption>
+    </figure>
+</div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If the person you are adding the sex attribute to already has a siblings' or a spouses' relationship, the gender of the sex attribute must match the gender of the specified person's role in the relationship. It's all about keeping the mystical balance in our enchanted world of GENE-NIE!
@@ -826,9 +839,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * `deleteAttribute /0001 /pet` does not delete the attribute Pet from the person with the UUID 0001 but will delete the attribute pet
 * `deleteAttribute /0001 /Pet /Pet` does not delete the attribute Pet from the person with the UUID 0001 as the attribute name is duplicated and instead throws an error
 
-| Before    | ![Figure 18: BeforeDeleteAttribute](images/BeforeDeleteAttribute.png) |
-|-----------|-----------------------------------------------------------------------|
-| **After** | ![Figure 19: AfterDeleteAttribute](images/AfterDeleteAttribute.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeDeleteAttribute.png" alt="BeforeDeleteAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 22: Before Delete Attribute Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterDeleteAttribute.png" alt="AfterDeleteAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 23: After Delete Attribute Command</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -857,9 +877,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * `editAttribute /0001 /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 0001
 * `editAttribute /0001 /Pet Cat /Nickname Elvis` edits the attribute Pet to have the value Cat and the attribute Nickname to have the value Elvis for the person with the UUID 0001
 
-| Before    | ![Figure 18: BeforeEditAttribute](images/BeforeEditAttribute.png) |
-|-----------|-------------------------------------------------------------------|
-| **After** | ![Figure 19: AfterEditAttribute](images/AfterEditAttribute.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeEditAttribute.png" alt="BeforeEditAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 24: Before Edit Attribute Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterEditAttribute.png" alt="AfterEditAttribute.png">
+        <figcaption class="img_container_figCaption">Figure 25: After Edit Attribute Command</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -883,7 +910,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/ListRelationsCommand.png" alt="ListRelationsCommand.png">
-        <figcaption>Figure 17: Gene-nie lists all relationTypes</figcaption>
+        <figcaption>Figure 26: Gene-nie lists all relationTypes</figcaption>
     </figure>
 </div>
 
@@ -905,18 +932,14 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `addRelation /0001 /0002 /colleagues` adds the relation colleagues between the person with the `UUID` "0001" and the person with the `UUID` "0002".
 
-| Before    | ![Figure 18: BeforeAddRolelessRelationCommand](images/BeforeAddRolelessRelationCommand.png) |
-|-----------|---------------------------------------------------------------------------------------------|
-| **After** | ![Figure 19: AfterAddRolelessRelationCommand](images/AfterAddRolelessRelationCommand.png)   |
-
 <div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/BeforeAddRolelessRelationCommand.png" alt="BeforeAddRolelessRelationCommand.png">
-        <figcaption class="img_container_figCaption">Figure 18: Before Add Roleless Relation Command</figcaption>
+        <figcaption class="img_container_figCaption">Figure 27: Before Add Roleless Relation Command</figcaption>
     </figure>
     <figure>
         <img src="{{site.baseurl}}/images/AfterAddRolelessRelationCommand.png" alt="AfterAddRolelessRelationCommand.png">
-        <figcaption class="img_container_figCaption">Figure 19: After Add Roleless Relation Command</figcaption>
+        <figcaption class="img_container_figCaption">Figure 28: After Add Roleless Relation Command</figcaption>
     </figure>
 </div>
 
@@ -939,9 +962,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `addRelation /0001 parent /0002 child /bioparents` adds the relation bioparents between the person with the `UUID` "0001" and the person with the `UUID` "0002" with the roles parent and child respectively.
 
-| Before    | ![Figure 20: BeforeAddRoleBasedRelationCommand](images/BeforeAddRoleBasedRelationCommand.png) |
-|-----------|-----------------------------------------------------------------------------------------------|
-| **After** | ![Figure 21: AfterAddRoleBasedRelationCommand](images/AfterAddRoleBasedRelationCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeAddRoleBasedRelationCommand.png" alt="BeforeAddRoleBasedRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 29: Before Add RoleBased Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterAddRoleBasedRelationCommand.png" alt="AfterAddRoleBasedRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 30: After Add RoleBased Relation Command</figcaption>
+    </figure>
+</div>
 
 <div markdown="span" class="alert alert-warning">
 **:exclamation: Caution:** <br>
@@ -974,9 +1004,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `editRelation /0001 /0002 /friends /colleagues` edits the relation between the person with the `UUID` "0001" and the person with the `UUID` "0002" from friends to colleagues.
 
-| Before    | ![Figure 22: BeforeEditRolelessRelationCommand](images/BeforeEditRolelessRelationCommand.png) |
-|-----------|-----------------------------------------------------------------------------------------------|
-| **After** | ![Figure 23: AfterEditRolelessRelationCommand](images/AfterEditRolelessRelationCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeEditRolelessRelationCommand.png" alt="BeforeEditRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 31: Before Edit Roleless Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterEditRolelessRelationCommand.png" alt="AfterEditRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 32: After Edit Roleless Relation Command</figcaption>
+    </figure>
+</div>
 
 <span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
 
@@ -998,9 +1035,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `editRelation /0001 parent /0002 child /friends /bioparents` edits the relation between the person with the `UUID` "0001" and the person with the `UUID` "0002" from friends to bioparents with the roles parent and child respectively.
 
-| Before    | ![Figure 24: BeforeEditRoleBasedRelationCommand](images/BeforeEditRoleBasedRelationCommand.png) |
-|-----------|-------------------------------------------------------------------------------------------------|
-| **After** | ![Figure 25: AfterEditRoleBasedRelationCommand](images/AfterEditRoleBasedRelationCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeEditRoleBasedRelationCommand.png" alt="BeforeEditRoleBasedRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 33: Before Edit RoleBased Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterEditRoleBasedRelationCommand.png" alt="AfterEditRoleBasedRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 34: After Edit RoleBased Relation Command</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1023,9 +1067,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `deleteRelation /0001 /0002 friends` deletes the relation friends between the person with the `UUID` "0001" and the person with the `UUID` "0002".
 
-| Before    | ![Figure 26: BeforeDeleteRelationCommand](images/BeforeDeleteRelationCommand.png) |
-|-----------|-----------------------------------------------------------------------------------|
-| **After** | ![Figure 27: AfterDeleteRelationCommand](images/AfterDeleteRelationCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeDeleteRelationCommand.png" alt="BeforeDeleteRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 35: Before Delete Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterDeleteRelationCommand.png" alt="AfterDeleteRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 36: After Delete Relation Command</figcaption>
+    </figure>
+</div>
 
 <span style="font-style: italic;">Deletes the relationType from the list of existing relationTypes.</span>
 
@@ -1039,9 +1090,16 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-| Before    | ![Figure 28: BeforeDeleteRelationTypeCommand](images/BeforeDeleteRelationTypeCommand.png) |
-|-----------|-------------------------------------------------------------------------------------------|
-| **After** | ![Figure 29: AfterDeleteRelationTypeCommand](images/AfterDeleteRelationTypeCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeDeleteRelationTypeCommand.png" alt="BeforeDeleteRelationTypeCommand.png">
+        <figcaption class="img_container_figCaption">Figure 37: Before Delete Relation Type Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterDeleteRelationTypeCommand.png" alt="AfterDeleteRelationTypeCommand.png">
+        <figcaption class="img_container_figCaption">Figure 38: After Delete Relation Type Command</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1064,9 +1122,16 @@ else `No Relationship Pathway Found` will be returned.
 * * <span class="hello_span">Examples:</span>
 * * * Example: `anySearch /0001 /0003` suppose 0003 is the friend of 0001 parent, `anySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003`.
 
-| Before    | ![Figure 30: BeforeAnySearchCommand](images/BeforeAnySearchCommand.png) |
-|-----------|-------------------------------------------------------------------------|
-| **After** | ![Figure 31: AfterAnySearchCommand](images/AfterAnySearchCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeAnySearchCommand.png" alt="BeforeAnySearchCommand.png">
+        <figcaption class="img_container_figCaption">Figure 39: Before Any Search Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterAnySearchCommand.png" alt="AfterAnySearchCommand.png">
+        <figcaption class="img_container_figCaption">Figure 40: After Any Search Command</figcaption>
+    </figure>
+</div>
 
 * * <span class="hello_span">Examples:</span>
 * * * `anySearch /0001 /0004` suppose 0004 is not related to 0001 at all, then `anySearch` returns `No Relationship Pathway Found`
@@ -1094,9 +1159,16 @@ else `No Relationship Pathway Found` will be returned.
 * * <span class="hello_span">Examples:</span>
 - - - `familySearch /0001 /0003` suppose 0003 is the grandparent of 0001, `familySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003`.
 
-| Before    | ![Figure 32: BeforeFamilySearchCommand](images/BeforeFamilySearchCommand.png) |
-|-----------|-------------------------------------------------------------------------------|
-| **After** | ![Figure 33: AfterFamilySearchCommand](images/AfterFamilySearchCommand.png)   |
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeFamilySearchCommand.png" alt="BeforeFamilySearchCommand.png">
+        <figcaption class="img_container_figCaption">Figure 41: Before Family Search Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterFamilySearchCommand.png" alt="AfterFamilySearchCommand.png">
+        <figcaption class="img_container_figCaption">Figure 42: After Family Search Command</figcaption>
+    </figure>
+</div>
 
 - - - `familySearch /0001 /0004` suppose 0004 has no family relation to 0001, then `familySearch` returns `No Relationship Pathway Found`
 * The command is order-sensitive `familySearch /0001 /0003` can potentially return a different result from `familySearch /0003 /0001`
@@ -1122,7 +1194,7 @@ else `No Relationship Pathway Found` will be returned.
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/helpMessage.png" alt="helpMessage.png">
-        <figcaption class="img_container_figCaption">Figure 34: Gene-nie Help Message</figcaption>
+        <figcaption class="img_container_figCaption">Figure 43: Gene-nie Help Message</figcaption>
     </figure>
 </div>
 
@@ -1151,7 +1223,7 @@ else `No Relationship Pathway Found` will be returned.
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/ClearCommandIllustration.png" alt="ClearCommandIllustration.png">
-        <figcaption class="img_container_figCaption">Figure 35: Before VS After Gene-nie Clear Command</figcaption>
+        <figcaption class="img_container_figCaption">Figure 44: Before VS After Gene-nie Clear Command</figcaption>
     </figure>
 </div>
 
