@@ -826,6 +826,10 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * `deleteAttribute /0001 /pet` does not delete the attribute Pet from the person with the UUID 0001 but will delete the attribute pet
 * `deleteAttribute /0001 /Pet /Pet` does not delete the attribute Pet from the person with the UUID 0001 as the attribute name is duplicated and instead throws an error
 
+| Before    | ![Figure 18: BeforeDeleteAttribute](images/BeforeDeleteAttribute.png) |
+|-----------|-----------------------------------------------------------------------|
+| **After** | ![Figure 19: AfterDeleteAttribute](images/AfterDeleteAttribute.png)   |
+
 [Back to Table of Contents](#table-of-contents)
 
 ----
