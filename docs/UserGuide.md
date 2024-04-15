@@ -1118,8 +1118,8 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 * If there exists at least one relationship between `ORIGINUUID` and `TARGETUUID` the relationship pathway will be returned,
 else `No Relationship Pathway Found` will be returned.
 
-* * <span class="hello_span">Examples:</span>
-* * * Example: `anySearch /0001 /0003` suppose 0003 is the friend of 0001 parent, `anySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003`.
+* <span class="hello_span">Examples:</span>
+* Example: `anySearch /0001 /0003` suppose 0003 is the friend of 0001 parent, `anySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003`.
 
 <div class="img_container" align="center">
     <figure>
@@ -1132,15 +1132,17 @@ else `No Relationship Pathway Found` will be returned.
     </figure>
 </div>
 
-* * <span class="hello_span">Examples:</span>
-* * * `anySearch /0001 /0004` suppose 0004 is not related to 0001 at all, then `anySearch` returns `No Relationship Pathway Found`
+* <span class="hello_span">Examples:</span>
+* `anySearch /0001 /0004` suppose 0004 is not related to 0001 at all, then `anySearch` returns `No Relationship Pathway Found`
 * The command is order-sensitive: `anySearch /0001 /0003` can potentially return a different result from `anySearch /0003 /0001`
-* * * `anySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003` then `anySearch /0003 /0001`
-    returns `0003 -> friends of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional
+* `anySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003` then `anySearch /0003 /0001`
+   returns `0003 -> friends of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional
 
 [Back to Table of Contents](#table-of-contents)
 
 ---
+
+<span class="h3_span" id="finding-family-relationships-between-entities--familysearch-or-ds">Finding Family Relationships between Entities: `familySearch` or `fs`</span>
 
 <span style="font-style: italic;">Finds the family relationship pathway between 2 input entities.</span>
 
@@ -1155,8 +1157,8 @@ UUIDs are 4 characters long, containing only alphanumeric characters
 * If there exists a family relationship between `ORIGINUUID` and `TARGETUUID` the relationship descriptor will be returned,
 else `No Relationship Pathway Found` will be returned.
 
-* * <span class="hello_span">Examples:</span>
-- - - `familySearch /0001 /0003` suppose 0003 is the grandparent of 0001, `familySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003`.
+* <span class="hello_span">Examples:</span>
+* `familySearch /0001 /0003` suppose 0003 is the grandparent of 0001, `familySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003`.
 
 <div class="img_container" align="center">
     <figure>
@@ -1169,11 +1171,11 @@ else `No Relationship Pathway Found` will be returned.
     </figure>
 </div>
 
-- - - `familySearch /0001 /0004` suppose 0004 has no family relation to 0001, then `familySearch` returns `No Relationship Pathway Found`
+* `familySearch /0001 /0004` suppose 0004 has no family relation to 0001, then `familySearch` returns `No Relationship Pathway Found`
 * The command is order-sensitive `familySearch /0001 /0003` can potentially return a different result from `familySearch /0003 /0001`
 
-* * <span class="hello_span">Examples:</span>
-- - - `familySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003` then `familySearch /0003 /0001` returns `0003 -> (bioParents) parent of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional.
+* <span class="hello_span">Examples:</span>
+* `familySearch /0001 /0003` suppose the search above returns `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003` then `familySearch /0003 /0001` returns `0003 -> (bioParents) parent of --> 0002 --> (bioParents) parent of --> 0001` since relationships are bidirectional.
 
 [Back to Table of Contents](#table-of-contents)
 
