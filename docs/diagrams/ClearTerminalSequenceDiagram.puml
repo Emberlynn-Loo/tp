@@ -24,8 +24,7 @@ controller -> dialogContainer : getChildren().clear()
 activate dialogContainer
 dialogContainer --> controller
 deactivate dialogContainer
-dialogContainer --[hidden]> controller :
-destroy dialogContainer
+
 
 controller -> imageContainer : setVisible(false)
 activate imageContainer
@@ -43,8 +42,7 @@ controller -> scrollPane : getHeight()
 activate scrollPane
 scrollPane --> controller : return height
 deactivate scrollPane
-scrollPane --[hidden]> controller :
-destroy scrollPane
+
 
 alt if height <= 150
     controller -> controller : addWelcomeDialogNoText()
@@ -56,8 +54,6 @@ controller -> cliInput : setText("")
 activate cliInput
 cliInput --> controller : input cleared
 deactivate cliInput
-cliInput --[hidden]> controller :
-destroy cliInput
 
 controller --> user : clear complete
 deactivate controller
