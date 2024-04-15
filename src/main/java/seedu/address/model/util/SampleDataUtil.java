@@ -93,7 +93,7 @@ public class SampleDataUtil {
         for (Relationship sampleRelationship : getSampleRelationships()) {
             sampleAb.addRelationship(sampleRelationship);
         }
-        sampleAb.setRelationshipDescriptors(new Pair<>(getSampleRolelessDescriptors(), 
+        sampleAb.setRelationshipDescriptors(new Pair<>(getSampleRolelessDescriptors(),
                                                        getSampleRoleBasedDescriptors()));
         return sampleAb;
     }
