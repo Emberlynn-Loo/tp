@@ -663,8 +663,8 @@ Roles:
 
 <div class="img_container">
     <figure>
-        <img src="{{site.baseurl}}/images/.png" alt="PersonCard.png">
-        <figcaption class="img_container_figCaption">Figure 15: Gene-nie Sample Person Card</figcaption>
+        <img src="{{site.baseurl}}/images/ListCommandImage.png" alt="ListCommandImage.png">
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie listing all persons</figcaption>
     </figure>
 </div>
 
@@ -692,6 +692,13 @@ This way, you can still add them to relationships, and fill in their details lat
 <span class="hello_span">Examples:</span>
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addPersonCommand.png" alt="addPersonCommand.png">
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie adding a person</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
