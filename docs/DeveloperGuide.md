@@ -42,11 +42,36 @@ title_name: Developer Guide
 - [Appendix: Requirements](#appendix-requirements)
   - [Product Scope](#product-scope)
   - [User Stories](#user-stories)
-  - [Non-Functional Requirements](#non-functional-requirements)
   - [Use Cases](#use-cases)
+  - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
 - [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  - [Launch and shutdown](#launch-and-shutdown)
+  - [Listing all persons](#listing-all-persons)
+  - [Help](#help)
+  - [Adding a person](#adding-a-person)
+  - [Deleting a person](#deleting-a-person)
+  - [Adding attributes to existing persons](#adding-attributes-to-existing-persons)
+  - [Editing attributes of existing persons](#editing-attributes-of-existing-persons)
+  - [Deleting attributes of existing persons](#deleting-attributes-of-existing-persons)
+  - [Finding persons](#finding-persons)
+  - [Listing all valid relationship types](#listing-all-valid-relationship-types)
+  - [Adding relationships between persons](#adding-relationships-between-persons)
+  - [Editing relationships between persons](#editing-relationships-between-persons)
+  - [Deleting relationships between persons](#deleting-relationships-between-persons)
+  - [Finding the relationship path between two persons](#finding-the-relationship-path-between-two-persons)
+  - [Deleting all persons](#deleting-all-persons)
+  - [Clearing command responses](#clearing-command-responses)
+  - [Issues with saving data](#issues-with-saving-data)
 - [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+  - [Display results of find commands in "Search Results" tab](#c1---display-results-of-find-command-in--search-results--tab)
+  - [Improve error handling for invalid commands](#c2---improve-error-handling-for-invalid-commands)
+  - [Improve saving of valid relationship descriptors](#c3---improve-saving-of-valid-relationship-descriptors)
+  - [Improve error handling for duplicate relationship types](#c4---improve-error-handling-for-duplicate-relationship-types)
+  - [Improve display result for UUIDs in certain error messages](#c5---improve-display-result-for-uuids-in-certain-error-messages)
+  - [Add support for extendable roles for relationships](#c6---add-support-for-extendable-roles-for-relationships)
+  - [Improve changing of roles for a specific relationship type](#c7---improve-changing-of-roles-for-a-specific-relationship-type)
+  - [Improve the checking of valid roles with respect to the relationType](#c8---improve-the-checking-of-valid-roles-with-respect-to-the-relationtype)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Introduction
@@ -519,7 +544,7 @@ The following activity diagram provides a more detailed view of what happens whe
   * Pros: Ensures that the user can only edit existing attributes and prevents the creation of new attributes.
   * Cons: Might cause performance issues if the person has a large number of attributes.
 * **Alternative 2:** The `Model` class does not check if the person already has the attribute before editing it and creates a new attribute.
-  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Pros: Straightforward implementation where the user adds the attribute regardless if it exists or not.
   * Cons: Might cause confusion for the user when editing an attribute that does not exist.
 
 [Back to Table of Contents](#table-of-contents)
@@ -562,7 +587,7 @@ The following sequence diagram illustrates how the `DeleteAttribute` command fun
 
 ![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Person` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -623,7 +648,7 @@ The following sequence diagram illustrates how the `Find` command functions:
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `FindCommand` and `NameContainsKeywordsPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommand` and `NameContainsKeywordsPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -1108,7 +1133,7 @@ The following sequence diagram shows how the AnySearch feature works:
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Note:**
-* The lifeline for AnySearchCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* The lifeline for `AnySearchCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -1858,7 +1883,7 @@ Currently, the application displays a generic error message when an invalid comm
   * Improve error handling for invalid commands by ensuring the correct error message is returned.
 
 * Implementation Details:
-  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Change the command words for all commands to be more than one word. For example, `add` will become `addperson`.
   * Update the error handling logic to check for the specific command entered by the user.
   * Return a specific error message based on the invalid command entered by the user.
 

@@ -2,8 +2,8 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-box Logic LOGIC_COLOR_T1
 actor User as user USER_COLOR
+box Logic LOGIC_COLOR_T1
 participant ":UI" as ui UI_COLOR
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR

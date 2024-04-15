@@ -2,13 +2,14 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 !define GUI_CONTROLLER_COLOR #E65100
+!define GUI_BOX_COLOR #FF6D41
 !define DIALOG_CONTAINER_COLOR #FF8F00
 !define IMAGE_CONTAINER_COLOR #F57F17
 !define SCROLLPANE_COLOR #E65100
 !define CLIINPUT_COLOR #FF6F00
 
-box ui GUI_CONTROLLER_COLOR
 actor User as user USER_COLOR
+box ui GUI_BOX_COLOR
 participant "GUI Controller" as controller GUI_CONTROLLER_COLOR
 participant "CommandSectionDialogContainer" as dialogContainer DIALOG_CONTAINER_COLOR
 participant "CommandBoxImageContainer" as imageContainer IMAGE_CONTAINER_COLOR
@@ -23,8 +24,7 @@ controller -> dialogContainer : getChildren().clear()
 activate dialogContainer
 dialogContainer --> controller
 deactivate dialogContainer
-dialogContainer --[hidden]> controller :
-destroy dialogContainer
+
 
 controller -> imageContainer : setVisible(false)
 activate imageContainer
@@ -42,8 +42,7 @@ controller -> scrollPane : getHeight()
 activate scrollPane
 scrollPane --> controller : return height
 deactivate scrollPane
-scrollPane --[hidden]> controller :
-destroy scrollPane
+
 
 alt if height <= 150
     controller -> controller : addWelcomeDialogNoText()
@@ -55,8 +54,6 @@ controller -> cliInput : setText("")
 activate cliInput
 cliInput --> controller : input cleared
 deactivate cliInput
-cliInput --[hidden]> controller :
-destroy cliInput
 
 controller --> user : clear complete
 deactivate controller

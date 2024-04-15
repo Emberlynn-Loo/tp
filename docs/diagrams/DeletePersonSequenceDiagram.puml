@@ -2,8 +2,8 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-box logic LOGIC_COLOR_T1
 Actor User as user USER_COLOR
+box Logic LOGIC_COLOR_T1
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 end box
@@ -53,6 +53,7 @@ deactivate storage STORAGE_COLOR_T1
 
 storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
+storage --[HIDDEN]> storage :
 destroy storage
 
 logic --[LOGIC_COLOR]> ui : CommandResult("Deleted Person: Details: ...")
