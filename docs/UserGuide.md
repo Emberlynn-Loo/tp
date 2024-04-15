@@ -437,15 +437,6 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 
 <span class="h3_span">Adding Your Friend!</span>
 
-<div class="img_container">
-    <figure>
-        <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
-        <figcaption>Figure 11: Gene-nie adding you</figcaption>
-    </figure>
-</div>
-
-### Adding your Friend!
-
 Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
 
 <div class="img_container">
@@ -575,7 +566,8 @@ Gene-nie is our comprehensive family storage device. We acknowledge historical a
 Be careful with custom attribute names and values! We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-attributes-of-persons).
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+
 Attribute names:
 
 * are case-insensitive
@@ -593,6 +585,7 @@ Attribute values:
 * cannot contain `/`
 * will be of type String, other than the predefined attributes listed above
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -630,7 +623,8 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 **Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships) Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+
 Relation types:
 
 * are case-insensitive
@@ -649,6 +643,7 @@ Roles:
 * can be empty for roleless relationships, must not be empty for role-based relationships
 * cannot contain any special characters or numbers
 * cannot be more than one word
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -665,6 +660,13 @@ Roles:
 </div>
 
 <span class="hello_span">Format:</span> `list` or `l`
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/ListCommandImage.png" alt="ListCommandImage.png">
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie listing all persons</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -690,6 +692,13 @@ This way, you can still add them to relationships, and fill in their details lat
 <span class="hello_span">Examples:</span>
 * `add /Name John Doe /Phone 98765432 /Email johnd@example.com /Address John street, block 123, #01-01`
 * `add /Name Betsy Crowe /Email betsycrowe@example.com /Address Newgate Prison /Phone 1234567 /Occupation criminal`
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/addPersonCommand.png" alt="addPersonCommand.png">
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie adding a person</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -748,6 +757,11 @@ This way, you can still add them to relationships, and fill in their details lat
 * `delete /0001` deletes the person with the `UUID` "0001"
 * `delete /1` does not delete the person with the `UUID` "5964" as the `UUID` is not valid
 
+
+| Before    | ![Figure 18: BeforeDeletePerson](images/BeforeDeletePerson.png) |
+|-----------|-----------------------------------------------------------------|
+| **After** | ![Figure 19: AfterDeletePerson](images/AfterDeletePerson.png)   |
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -776,6 +790,10 @@ This way, you can still add them to relationships, and fill in their details lat
 * `addAttribute /0001 /Pet Cat /Pet Dog` does not add the attribute to the person with UUID 0001 as the attribute name is duplicated and instead throws an error
 * `addAttribute /0001 /pet Dog` adds the attribute pet with the value Dog to the person with the UUID 0001
 * `addAttribute /0001 /Pet dog` adds the attribute Pet with the value dog to the person with the UUID 0001
+
+| Before    | ![Figure 18: BeforeAddAttribute](images/BeforeAddAttribute.png) |
+|-----------|-----------------------------------------------------------------|
+| **After** | ![Figure 19: AfterAddAttribute](images/AfterAddAttribute.png)   |
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If the person you are adding the sex attribute to already has a siblings' or a spouses' relationship, the gender of the sex attribute must match the gender of the specified person's role in the relationship. It's all about keeping the mystical balance in our enchanted world of GENE-NIE!
@@ -808,6 +826,10 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * `deleteAttribute /0001 /pet` does not delete the attribute Pet from the person with the UUID 0001 but will delete the attribute pet
 * `deleteAttribute /0001 /Pet /Pet` does not delete the attribute Pet from the person with the UUID 0001 as the attribute name is duplicated and instead throws an error
 
+| Before    | ![Figure 18: BeforeDeleteAttribute](images/BeforeDeleteAttribute.png) |
+|-----------|-----------------------------------------------------------------------|
+| **After** | ![Figure 19: AfterDeleteAttribute](images/AfterDeleteAttribute.png)   |
+
 [Back to Table of Contents](#table-of-contents)
 
 ----
@@ -834,6 +856,10 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `editAttribute /0001 /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 0001
 * `editAttribute /0001 /Pet Cat /Nickname Elvis` edits the attribute Pet to have the value Cat and the attribute Nickname to have the value Elvis for the person with the UUID 0001
+
+| Before    | ![Figure 18: BeforeEditAttribute](images/BeforeEditAttribute.png) |
+|-----------|-------------------------------------------------------------------|
+| **After** | ![Figure 19: AfterEditAttribute](images/AfterEditAttribute.png)   |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -882,6 +908,17 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 | Before    | ![Figure 18: BeforeAddRolelessRelationCommand](images/BeforeAddRolelessRelationCommand.png) |
 |-----------|---------------------------------------------------------------------------------------------|
 | **After** | ![Figure 19: AfterAddRolelessRelationCommand](images/AfterAddRolelessRelationCommand.png)   |
+
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeAddRolelessRelationCommand.png" alt="BeforeAddRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 18: Before Add Roleless Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterAddRolelessRelationCommand.png" alt="AfterAddRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 19: After Add Roleless Relation Command</figcaption>
+    </figure>
+</div>
 
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
 
