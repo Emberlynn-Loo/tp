@@ -124,16 +124,27 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g. `StatusBarFooter`, `HelpWindow`, `DisplaySection`, `FooterButtonSection` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`]
+(https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified
+in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandSection`, `StatusBarFooter`, `HelpWindow`, `DisplaySection`, 
+`NavBar`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which 
+captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component,
-
-* executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` and `Relationship` objects residing in the `Model`.
+Let's briefly dive into each component in `UI` and their respective functions:
+1. The `CommandSection` receives user commands and the `UI` then executes user commands using the  `Logic` component,
+explaining the dependency between  `CommandSection` and the `Logic` components. The string output of the commands
+will then be displayed on the CommandSection.
+2. For All Person Contacts Information will be displayed in the `AllContactsSection` which is composed of a `PersonList`
+which is in turn composed of 0 or more `PersonCard` where the Person's information will be rendered explaining the dependency
+on the `Model` component.
+3. For SearchResults from `anySearch` and `familySearch` commands will be rendered on the `SearchResultSection` composed 
+of a `PersonList` similar to `AllContactsSection` explained above, however with the addition of a `TreeMapFlowPane` 
+which renders the relationship pathway between 2 Persons explaing the dependency on the `Model` component.
+4. Lastly, `NavBar` is solely a `UI` component, does not depend on other components, and it is composed of 0 or more
+`NavBarButtons` which serves the sole purpose of navigating between pages on the `UI`.
 
 [Back to Table of Contents](#table-of-contents)
 

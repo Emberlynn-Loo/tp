@@ -171,27 +171,9 @@ public class RelationshipUtil {
         requireAllNonNull(relationships);
         relationshipsTracker.setAll(relationships);
     }
-
-    /**
-     * Performs a breadth-first search (BFS) through the relationships tracker to find a path
-     * of relationship descriptors between two UUIDs, representing the origin and target entities.
-     * This method considers all types of relationships in the search.
-     *
-     * @param origin The UUID of the origin entity from which the search begins.
-     * @param target The UUID of the target entity the search aims to find a path to.
-     * @return a list containing the relationship descriptors in the order
-     *     encountered from the origin to the target. If no path exists, returns an empty list.
-     */
-    public ResultContainer anySearchForTreeMap(UUID origin, UUID target) {
-        ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
-        ArrayList<Relationship> relationships = new ArrayList<>();
-        ArrayList<String> relationshipPathwayBuilder = new ArrayList<>();
-        HashSet<UUID> visited = new HashSet<>();
-        Pair[] parent = new Pair[relationshipsTracker.size()];
-        ArrayList<Pair> frontier = new ArrayList<>();
-        frontier.add(new Pair(origin, -1));
-        visited.add(origin);
-
+    private ResultContainer search(ArrayList<UUID> relatedPersonsUuid, ArrayList<Relationship> relationships,
+                                   ArrayList<String> relationshipPathwayBuilder, HashSet<UUID> visited,
+                                   Pair[] parent, ArrayList<Pair> frontier, UUID target) {
         while (!frontier.isEmpty()) {
             ArrayList<Pair> nextFrontier = new ArrayList<>();
             for (Pair currentNode : frontier) {
@@ -230,7 +212,6 @@ public class RelationshipUtil {
         }
         return null;
     }
-
     private ResultContainer container(ArrayList<UUID> relatedPersonsUuid, ArrayList<Relationship> relationships,
                                       ArrayList<String> relationshipPathwayBuilder) {
         Collections.reverse(relatedPersonsUuid);
@@ -252,18 +233,17 @@ public class RelationshipUtil {
         return new ResultContainer(relatedPersonsUuid, relationships,
                 relationshipPathwayCompactor.toString());
     }
-
     /**
-     * Searches for a path of family relationships between two entities identified by their UUIDs,
-     * specifically considering only those relationships that are instances of FamilyRelationship.
-     * Utilizes a breadth-first search (BFS) strategy to navigate through the relationships tracker.
+     * Performs a breadth-first search (BFS) through the relationships tracker to find a path
+     * of relationship descriptors between two UUIDs, representing the origin and target entities.
+     * This method considers all types of relationships in the search.
      *
-     * @param origin The UUID of the entity from which to start the search.
-     * @param target The UUID of the entity to find a path to, using only family relationships.
-     * @return A ResultContainer listing the family relationship descriptors from the origin
-     *     to the target, in order encountered. Returns null if no such path exists.
+     * @param origin The UUID of the origin entity from which the search begins.
+     * @param target The UUID of the target entity the search aims to find a path to.
+     * @return a list containing the relationship descriptors in the order
+     *     encountered from the origin to the target. If no path exists, returns an empty list.
      */
-    public ResultContainer familySearchForTreeMap(UUID origin, UUID target) {
+    public ResultContainer anySearchForTreeMap(UUID origin, UUID target) {
         ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
         ArrayList<Relationship> relationships = new ArrayList<>();
         ArrayList<String> relationshipPathwayBuilder = new ArrayList<>();
@@ -272,7 +252,11 @@ public class RelationshipUtil {
         ArrayList<Pair> frontier = new ArrayList<>();
         frontier.add(new Pair(origin, -1));
         visited.add(origin);
-
+        return search(relatedPersonsUuid, relationships, relationshipPathwayBuilder, visited, parent, frontier, target);
+    }
+    private ResultContainer searchForFamily(ArrayList<UUID> relatedPersonsUuid, ArrayList<Relationship> relationships,
+                                   ArrayList<String> relationshipPathwayBuilder, HashSet<UUID> visited,
+                                   Pair[] parent, ArrayList<Pair> frontier, UUID target) {
         while (!frontier.isEmpty()) {
             ArrayList<Pair> nextFrontier = new ArrayList<>();
             for (Pair currentNode : frontier) {
@@ -313,6 +297,29 @@ public class RelationshipUtil {
             frontier = nextFrontier;
         }
         return null;
+    }
+
+    /**
+     * Searches for a path of family relationships between two entities identified by their UUIDs,
+     * specifically considering only those relationships that are instances of FamilyRelationship.
+     * Utilizes a breadth-first search (BFS) strategy to navigate through the relationships tracker.
+     *
+     * @param origin The UUID of the entity from which to start the search.
+     * @param target The UUID of the entity to find a path to, using only family relationships.
+     * @return A ResultContainer listing the family relationship descriptors from the origin
+     *     to the target, in order encountered. Returns null if no such path exists.
+     */
+    public ResultContainer familySearchForTreeMap(UUID origin, UUID target) {
+        ArrayList<UUID> relatedPersonsUuid = new ArrayList<>();
+        ArrayList<Relationship> relationships = new ArrayList<>();
+        ArrayList<String> relationshipPathwayBuilder = new ArrayList<>();
+        HashSet<UUID> visited = new HashSet<>();
+        Pair[] parent = new Pair[relationshipsTracker.size()];
+        ArrayList<Pair> frontier = new ArrayList<>();
+        frontier.add(new Pair(origin, -1));
+        visited.add(origin);
+        return searchForFamily(relatedPersonsUuid, relationships, relationshipPathwayBuilder, visited,
+                parent, frontier, target);
     }
 
     @Override
