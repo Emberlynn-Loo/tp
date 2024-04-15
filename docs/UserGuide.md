@@ -1226,7 +1226,7 @@ Note that anySearch will prioritize the shortest relationship path between the t
 
 ---
 
-<span class="h3_span" id="finding-family-relationships-between-entities--familysearch-or-ds">Finding Family Relationships between Entities: `familySearch` or `fs`</span>
+<span class="h3_span" id="finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities: `familySearch` or `fs`</span>
 
 <span style="font-style: italic;">Finds the family relationship pathway between 2 input entities.</span>
 
@@ -1343,11 +1343,14 @@ Note that familySearch will prioritize the shortest relationship path between th
 
 ---
 
-<span class="h3_span" id="editing_the_data">Editing the Data File</span>
+<span class="h3_span" id="editing_the_data_file">Editing the Data File</span>
+
 <p style="font-style: italic;">Gene-nie data is saved automatically as a [JSON](#glossary) file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.</p>
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next successful command except for the clear command. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
