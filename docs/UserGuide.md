@@ -67,7 +67,7 @@ Well then, we welcome you to this user guide, where we demystify the magic of Ge
       <li><a href="#clearing-command-section-of-past-responses--clear-or-c">Clearing Command Responses: <code class="language-plaintext highlighter-rouge">clear</code>/<code class="language-plaintext highlighter-rouge">c</code></a></li>
       <li><a href="#exiting-the-program--exit-or-e">Exiting the Program: <code class="language-plaintext highlighter-rouge">exit</code>/<code class="language-plaintext highlighter-rouge">e</code></a></li>
       <li><a href="#saving_the_data">Saving the Data</a></li>
-      <li><a href="#editing_the_data_file">Editing the Data file</a></li>
+      <li><a href="#editing_the_data">Editing the Data file</a></li>
     </ul>
   </li>
   <li><a href="#faq">FAQ</a></li>
@@ -458,7 +458,7 @@ Type this command `editAttribute /UUID /AttributeName New Value` to edit the att
     </figure>
 </div>
 
-Well done! You have successfully edited the address of your friend! You can also edit any other details you wish to change **as long as they exist**!
+Well done! You have successfully edited the address of your friend! You can also edit any other details you wish to change <span class="hello_span">as long as they exist!</span>
 
 <span class="h3_span">Adding the Relationship!</span>
 
@@ -472,7 +472,7 @@ Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relati
     </figure>
 </div>
 
-Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add **as long as they are valid**!
+Wow! Wasn't that easy? You have successfully added the relationship between you and your friend! You can also add any other relationships you wish to add <span class="hello_span">as long as they are valid!</span>
 
 <span class="hello_span">HA HA HA...Congratulations! I never doubted you.</span> You have successfully mastered how to use me! You are now ready to start your magical genealogy journey with me! That wasn't so hard, was it?
 
@@ -1344,7 +1344,13 @@ Note that familySearch will prioritize the shortest relationship path between th
 ---
 
 <span class="h3_span" id="editing_the_data">Editing the Data File</span>
-<p style="font-style: italic;">Gene-nie data is saved automatically as a [JSON](#glossary) file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.</p>
+
+<p style="font-style: italic;" align="justify">
+   Gene-nie data is saved automatically as a <a href="#glossary">JSON</a> file at filepath 
+   <code class="language-plaintext highlighter-rouge">[JAR file location]/data/addressbook.json</code> 
+   Advanced users are welcome to update data directly by editing that data file.
+</p>
+
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
