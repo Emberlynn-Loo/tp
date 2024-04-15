@@ -1958,3 +1958,16 @@ Currently, the application only supports a few pre-defined relationships with fi
     * Use an external library or dictionary to define a set of valid roles for each relationType.
     * Ensure that the roles provided by the user match the valid roles for that relationType.
     * Display an error message to the user if the roles are not appropriate for the relationType.
+
+
+### C.9 - Improve UI handling of filtering commands
+
+Currently, when the user uses a filtering command e.g. `find`, `anysearch` and `familysearch` the subsequent results will remain filtered and other commands will not act as expected.
+
+* Proposed Enhancement:
+    * Improve the backend handling of filtering commands by automatically clearing the filter after each successful call of the filtering functions.
+
+* Implementation Details:
+    * Update the list component after every successful `find`, `anysearch` and `familysearch` commands to automatically clear the filter after displaying the results.
+    * Ensure that the filter is cleared when the user executes a new command or closes the application.
+    * Display a confirmation message to the user indicating that the filter has been cleared.
