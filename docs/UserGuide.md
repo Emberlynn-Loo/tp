@@ -768,7 +768,7 @@ This way, you can still add them to relationships, and fill in their details lat
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to not function as the user expects (see more [below](#coming-soon)).
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1257,7 +1257,7 @@ Note that anySearch will prioritize the shortest relationship path between the t
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to not function as the user expects (see more [below](#coming-soon)).
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1308,7 +1308,7 @@ Note that familySearch will prioritize the shortest relationship path between th
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to not function as the user expects (see more [below](#coming-soon)).
 </div>
 
 [Back to Table of Contents](#table-of-contents)
