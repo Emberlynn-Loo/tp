@@ -114,7 +114,7 @@ public class AddRelationshipCommand extends Command {
                 || relationshipDescriptor.equals("son") || relationshipDescriptor.equals("daughter")
                 || relationshipDescriptor.equals("child") || relationshipDescriptor.equals("offspring")
                 || relationshipDescriptor.equals("kin") || relationshipDescriptor.equals("kid")
-                || relationshipDescriptor.equals("bro") || relationshipDescriptor.equals("sis")
+                || relationshipDescriptor.equals("brother") || relationshipDescriptor.equals("sister")
                 || relationshipDescriptor.equals("husband") || relationshipDescriptor.equals("wife");
     }
 
