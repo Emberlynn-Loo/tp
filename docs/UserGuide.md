@@ -563,7 +563,7 @@ Gene-nie is our comprehensive family storage device. We acknowledge historical a
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Be careful with custom attribute names and values! We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-attributes-of-persons).
+Be careful with custom attribute names and values! Your defined relations might cause the application to not work as you expect, other than the constraints we have [defined below](#features---managing-attributes-of-persons).
 </div>
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
@@ -618,7 +618,7 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 
 Custom relations:
 * There is a possibility that similar family relation types can be added as custom relation types, even though they are part of the pre-defined relation types. For example, you can add `parent` as a custom relation type even though a pre-defined relation type `bioparents` exists.
-* This may cause unexpected bugs when adding these custom relation types as roleless relations. Hence, we have included checks to ensure that certain custom relation types cannot be added as roleless relations.
+* This may cause unexpected issues when adding these custom relation types as roleless relations. Hence, we have included checks to ensure that certain custom relation types cannot be added as roleless relations.
 * Please refer to the table below for the complete list of banned roleless relation types.
 
 <div class="section_header_h2">
@@ -645,7 +645,7 @@ Custom relations:
 | 16  | wife          |
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
-**Be careful with custom relation types and roles!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember:
+**Be careful with custom relation types and roles!** Your defined relations might cause the application to not work as you expect, other than the constraints we have [defined below](#features---managing-attributes-of-persons). Alas, we cannot wave our wands to fix these just yet. Remember:
 
 *  Adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of the predefined relation type siblings)! 
 *  Any relation types that do not match the banned relation types mentioned above **exactly** are also considered custom relation types (eg. sis instead of the banned relatino type 'sister')!
@@ -765,6 +765,10 @@ This way, you can still add them to relationships, and fill in their details lat
         <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
         <figcaption class="img_container_figCaption">Figure 17: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
     </figure>
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1252,6 +1256,10 @@ else `No Relationship Pathway Found` will be returned.
 Note that anySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, anySearch will return the shortest possible path.
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
+</div>
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -1297,6 +1305,10 @@ familySearch will only work for the pre-defined familial relations (`bioparents`
 
 <div markdown="span" class="alert alert-info">:bulb: **Tip:**
 Note that familySearch will prioritize the shortest relationship path between the two Persons. If there are multiple paths between the two entities, familySearch will return the shortest possible path.
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+After using this command, you must enter command `list` to restore your list of contacts. Entering any other commands will cause the application to function as the user expects (see more [below](#coming-soon)).
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1448,6 +1460,9 @@ In the future, the application may be updated to display only the first few char
 
 8. **Add support for extendable roles in relationships.** Currently, the application allows for users to add any relationTypes with little limitation in regard to spelling. Thus, users are able to add any roles and relation types that they want to for custom relationships, including roles and relation types that are not valid words (e.g. aaa).
 In the future, the application may be updated to restrict the roles and relation types that can be added to only valid words.
+
+9. **Improve UI handling of filtering commands.** Currently, when the user uses a filtering command (e.g. `find`, `anysearch` and `familysearch`) the subsequent results will remain filtered and other commands will not act as expected.
+In the future, the application may be updated to automatically update the list component after every successful `find`, `anysearch` and `familysearch` commands to automatically clear the filter after displaying the results.
 
 [Back to Table of Contents](#table-of-contents)
 
