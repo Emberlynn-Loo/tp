@@ -1,7 +1,10 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
+import javafx.util.Pair;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -67,6 +70,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static ArrayList<String> getSampleRolelessDescriptors() {
+        return new ArrayList<>(Arrays.asList(
+                "friends",
+                "colleagues"
+        ));
+    }
+
+    public static ArrayList<ArrayList<String>> getSampleRoleBasedDescriptors() {
+        return new ArrayList<>(Arrays.asList(
+                new ArrayList<>(Arrays.asList("siblings", "brother", "sister")),
+                new ArrayList<>(Arrays.asList("spouses", "husband", "wife")),
+                new ArrayList<>(Arrays.asList("bioparents", "parent", "child"))
+        ));
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -75,6 +93,8 @@ public class SampleDataUtil {
         for (Relationship sampleRelationship : getSampleRelationships()) {
             sampleAb.addRelationship(sampleRelationship);
         }
+        sampleAb.setRelationshipDescriptors(new Pair<>(getSampleRolelessDescriptors(),
+                                                       getSampleRoleBasedDescriptors()));
         return sampleAb;
     }
 
