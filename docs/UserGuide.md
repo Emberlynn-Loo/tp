@@ -1032,7 +1032,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 
 **:exclamation: Caution:** <br>
 * The `RELATIONSHIP_TYPE` "family" is not allowed. The address book will throw an error asking the user to be more specific about the family relation. <br>
-* The correct way to do this is to enter the exact family relation (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`. <br>
+* The correct way to do this is to enter the exact family relation type (bioparents, siblings or spouses) as the `RELATIONSHIP_TYPE`. <br>
 * When adding a pre-defined familial relation (bioparents, siblings or spouses), the roles entered must be the ones predefined for them (e.g. adding a bioParents relationship with `father` as one of the roles will result in an error as the predefined roles are `parent` and `child`). <br>
 * If you are adding a `siblings` or a `spouses` relationship, the gender of the specified person's role in the relationship must match the gender of the person's `Sex` attribute. It's all about keeping the mystical balance in our enchanted world of GENE-NIE! 
 * Adding more than 2 bioParents relationships with the role `child` to a Person is not allowed. One person can only have a maximum of 2 bioParents relationships with the role `child`. <br>
