@@ -760,6 +760,9 @@ This way, you can still add them to relationships, and fill in their details lat
 * `find /John` returns anyone with `john` and `John Doe` in their details
 * `find /alex david` returns only someone with `Alex David` as a substring of their details<br>
 * `find /alex /david` returns `Alex Yeoh`, `David Li` (see image below)<br>
+
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
