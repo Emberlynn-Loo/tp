@@ -53,6 +53,7 @@ deactivate storage STORAGE_COLOR_T1
 
 storage --[STORAGE_COLOR]> logic : save complete
 deactivate storage
+storage --[HIDDEN]> storage :
 destroy storage
 
 logic --[LOGIC_COLOR]> ui : CommandResult("Deleted Person: Details: ...")

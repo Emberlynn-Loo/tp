@@ -519,7 +519,7 @@ The following activity diagram provides a more detailed view of what happens whe
   * Pros: Ensures that the user can only edit existing attributes and prevents the creation of new attributes.
   * Cons: Might cause performance issues if the person has a large number of attributes.
 * **Alternative 2:** The `Model` class does not check if the person already has the attribute before editing it and creates a new attribute.
-  * Pros: Straightforward implementation where the attribute rewrites over all existing data.
+  * Pros: Straightforward implementation where the user adds the attribute regardless if it exists or not.
   * Cons: Might cause confusion for the user when editing an attribute that does not exist.
 
 [Back to Table of Contents](#table-of-contents)
@@ -562,7 +562,7 @@ The following sequence diagram illustrates how the `DeleteAttribute` command fun
 
 ![AttributeDeleteSequenceDiagram](images/DeleteAttributeSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Attribute` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `Person` and `Storage` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -623,7 +623,7 @@ The following sequence diagram illustrates how the `Find` command functions:
 
 ![FindSequenceDiagram](images/FindSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddressBookParser`, `FindCommand` and `NameContainsKeywordsPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommand` and `NameContainsKeywordsPredicate` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -1108,7 +1108,7 @@ The following sequence diagram shows how the AnySearch feature works:
 <div markdown="block" class="alert alert-info">
 
 :information_source: **Note:**
-* The lifeline for AnySearchCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* The lifeline for `AnySearchCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 </div>
 
@@ -1858,7 +1858,7 @@ Currently, the application displays a generic error message when an invalid comm
   * Improve error handling for invalid commands by ensuring the correct error message is returned.
 
 * Implementation Details:
-  * Change the command words for all commands to be more than one word. For example, `add` will become `add person`.
+  * Change the command words for all commands to be more than one word. For example, `add` will become `addperson`.
   * Update the error handling logic to check for the specific command entered by the user.
   * Return a specific error message based on the invalid command entered by the user.
 
