@@ -437,15 +437,6 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 
 <span class="h3_span">Adding Your Friend!</span>
 
-<div class="img_container">
-    <figure>
-        <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
-        <figcaption>Figure 11: Gene-nie adding you</figcaption>
-    </figure>
-</div>
-
-### Adding your Friend!
-
 Now that you have added yourself, let us add your friend into <span class="hello_span">Gene-nie</span>! We will use the `add` command to add your friend into <span class="hello_span">Gene-nie</span>!
 
 <div class="img_container">
@@ -575,7 +566,8 @@ Gene-nie is our comprehensive family storage device. We acknowledge historical a
 Be careful with custom attribute names and values! We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-attributes-of-persons).
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+
 Attribute names:
 
 * are case-insensitive
@@ -593,6 +585,7 @@ Attribute values:
 * cannot contain `/`
 * will be of type String, other than the predefined attributes listed above
 * cannot be converted to another type. e.g. if the attribute is of type Integer, the edit command must be used with an integer value
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -630,7 +623,8 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 **Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships) Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
 
-<div markdown="span" class="alert alert-warning">
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+
 Relation types:
 
 * are case-insensitive
@@ -649,6 +643,7 @@ Roles:
 * can be empty for roleless relationships, must not be empty for role-based relationships
 * cannot contain any special characters or numbers
 * cannot be more than one word
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -665,6 +660,13 @@ Roles:
 </div>
 
 <span class="hello_span">Format:</span> `list` or `l`
+
+<div class="img_container">
+    <figure>
+        <img src="{{site.baseurl}}/images/.png" alt="PersonCard.png">
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie Sample Person Card</figcaption>
+    </figure>
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
