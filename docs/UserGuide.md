@@ -403,7 +403,7 @@ You will be greeted with our interface below populated with some sample data rea
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/Gene-nieStartImage.png" alt="Gene-nieStartImage.png">
-        <figcaption class="img_container_figCaption">Figure 7: Gene-nie Starting Page</figcaption>
+        <figcaption class="img_container_figCaption">Figure 8: Gene-nie Starting Page</figcaption>
     </figure>
 </div>
 
@@ -420,7 +420,7 @@ Before we start if you aren't a fan of the imaginary friends we gave you, let us
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/cleangenie.png" alt="cleangenie.png">
-        <figcaption class="img_container_figCaption">Figure 8: Cleared Gene-nie</figcaption>
+        <figcaption class="img_container_figCaption">Figure 9: Cleared Gene-nie</figcaption>
     </figure>
 </div>
 
@@ -431,7 +431,7 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
-        <figcaption class="img_container_figCaption">Figure 9: Gene-nie After Adding Yourself</figcaption>
+        <figcaption class="img_container_figCaption">Figure 10: Gene-nie After Adding Yourself</figcaption>
     </figure>
 </div>
 
@@ -440,7 +440,7 @@ Type this command `add /name Your Name /phone Your Number /email youremail@email
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addyou.png" alt="addyou.png">
-        <figcaption>Figure 10: Gene-nie adding you</figcaption>
+        <figcaption>Figure 11: Gene-nie adding you</figcaption>
     </figure>
 </div>
 
@@ -451,7 +451,7 @@ Now that you have added yourself, let us add your friend into <span class="hello
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addfriend.png" alt="addfriend.png">
-        <figcaption class="img_container_figCaption">Figure 11: Gene-nie After Adding Your Friend</figcaption>
+        <figcaption class="img_container_figCaption">Figure 12: Gene-nie After Adding Your Friend</figcaption>
     </figure>
 </div>
 
@@ -463,7 +463,7 @@ Type this command `editAttribute /UUID /AttributeName New Value` to edit the att
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/editdetails.png" alt="editdetails.png">
-        <figcaption class="img_container_figCaption">Figure 12: Gene-nie After Editing Contact Details</figcaption>
+        <figcaption class="img_container_figCaption">Figure 13: Gene-nie After Editing Contact Details</figcaption>
     </figure>
 </div>
 
@@ -477,7 +477,7 @@ Type this command `addRelation /UUID1 /UUID2 RelationshipType` to add the relati
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/addrelation.png" alt="addrelation.png">
-        <figcaption class="img_container_figCaption">Figure 13: Gene-nie After Adding Relationship</figcaption>
+        <figcaption class="img_container_figCaption">Figure 14: Gene-nie After Adding Relationship</figcaption>
     </figure>
 </div>
 
@@ -526,7 +526,7 @@ In <span class="hello_span">Gene-nie</span>, a person's profile is defined as a 
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/PersonCard.png" alt="PersonCard.png">
-        <figcaption class="img_container_figCaption">Figure 14: Gene-nie Sample Person Card</figcaption>
+        <figcaption class="img_container_figCaption">Figure 15: Gene-nie Sample Person Card</figcaption>
     </figure>
 </div>
 
@@ -724,7 +724,7 @@ This way, you can still add them to relationships, and fill in their details lat
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/findAlexDavidResult.png" alt="findAlexDavidResult.png">
-        <figcaption class="img_container_figCaption">Figure 15: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
+        <figcaption class="img_container_figCaption">Figure 16: Result For <code class="language-plaintext highlighter-rouge">find /alex /david</code></figcaption>
     </figure>
 </div>
 
@@ -857,7 +857,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/ListRelationsCommand.png" alt="ListRelationsCommand.png">
-        <figcaption>Figure 15: Gene-nie lists all relationTypes</figcaption>
+        <figcaption>Figure 17: Gene-nie lists all relationTypes</figcaption>
     </figure>
 </div>
 
@@ -879,9 +879,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `addRelation /0001 /0002 /colleagues` adds the relation colleagues between the person with the `UUID` "0001" and the person with the `UUID` "0002".
 
-| Before    | ![Figure 16: BeforeAddRolelessRelationCommand](images/BeforeAddRolelessRelationCommand.png) |
+| Before    | ![Figure 18: BeforeAddRolelessRelationCommand](images/BeforeAddRolelessRelationCommand.png) |
 |-----------|---------------------------------------------------------------------------------------------|
-| **After** | ![Figure 17: AfterAddRolelessRelationCommand](images/AfterAddRolelessRelationCommand.png)   |
+| **After** | ![Figure 19: AfterAddRolelessRelationCommand](images/AfterAddRolelessRelationCommand.png)   |
 
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
 
@@ -902,9 +902,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `addRelation /0001 parent /0002 child /bioparents` adds the relation bioparents between the person with the `UUID` "0001" and the person with the `UUID` "0002" with the roles parent and child respectively.
 
-| Before    | ![Figure 18: BeforeAddRoleBasedRelationCommand](images/BeforeAddRoleBasedRelationCommand.png) |
+| Before    | ![Figure 20: BeforeAddRoleBasedRelationCommand](images/BeforeAddRoleBasedRelationCommand.png) |
 |-----------|-----------------------------------------------------------------------------------------------|
-| **After** | ![Figure 19: AfterAddRoleBasedRelationCommand](images/AfterAddRoleBasedRelationCommand.png)   |
+| **After** | ![Figure 21: AfterAddRoleBasedRelationCommand](images/AfterAddRoleBasedRelationCommand.png)   |
 
 <div markdown="span" class="alert alert-warning">
 **:exclamation: Caution:** <br>
@@ -937,9 +937,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `editRelation /0001 /0002 /friends /colleagues` edits the relation between the person with the `UUID` "0001" and the person with the `UUID` "0002" from friends to colleagues.
 
-| Before    | ![Figure 20: BeforeEditRolelessRelationCommand](images/BeforeEditRolelessRelationCommand.png) |
+| Before    | ![Figure 22: BeforeEditRolelessRelationCommand](images/BeforeEditRolelessRelationCommand.png) |
 |-----------|-----------------------------------------------------------------------------------------------|
-| **After** | ![Figure 21: AfterEditRolelessRelationCommand](images/AfterEditRolelessRelationCommand.png)   |
+| **After** | ![Figure 23: AfterEditRolelessRelationCommand](images/AfterEditRolelessRelationCommand.png)   |
 
 <span style="font-style: italic;">Edits the relationship between two people in the address book to a role-based relationship.</span>
 
@@ -961,9 +961,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `editRelation /0001 parent /0002 child /friends /bioparents` edits the relation between the person with the `UUID` "0001" and the person with the `UUID` "0002" from friends to bioparents with the roles parent and child respectively.
 
-| Before    | ![Figure 22: BeforeEditRoleBasedRelationCommand](images/BeforeEditRoleBasedRelationCommand.png) |
+| Before    | ![Figure 24: BeforeEditRoleBasedRelationCommand](images/BeforeEditRoleBasedRelationCommand.png) |
 |-----------|-------------------------------------------------------------------------------------------------|
-| **After** | ![Figure 23: AfterEditRoleBasedRelationCommand](images/AfterEditRoleBasedRelationCommand.png)   |
+| **After** | ![Figure 25: AfterEditRoleBasedRelationCommand](images/AfterEditRoleBasedRelationCommand.png)   |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -986,9 +986,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `deleteRelation /0001 /0002 friends` deletes the relation friends between the person with the `UUID` "0001" and the person with the `UUID` "0002".
 
-| Before    | ![Figure 24: BeforeDeleteRelationCommand](images/BeforeDeleteRelationCommand.png) |
+| Before    | ![Figure 26: BeforeDeleteRelationCommand](images/BeforeDeleteRelationCommand.png) |
 |-----------|-----------------------------------------------------------------------------------|
-| **After** | ![Figure 25: AfterDeleteRelationCommand](images/AfterDeleteRelationCommand.png)   |
+| **After** | ![Figure 27: AfterDeleteRelationCommand](images/AfterDeleteRelationCommand.png)   |
 
 <span style="font-style: italic;">Deletes the relationType from the list of existing relationTypes.</span>
 
@@ -1002,9 +1002,9 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 <span class="hello_span">Examples:</span>
 * `deleteRelation /workmates` deletes the relationType workmates from the list of existing relationTypes.
 
-| Before    | ![Figure 26: BeforeDeleteRelationTypeCommand](images/BeforeDeleteRelationTypeCommand.png) |
+| Before    | ![Figure 28: BeforeDeleteRelationTypeCommand](images/BeforeDeleteRelationTypeCommand.png) |
 |-----------|-------------------------------------------------------------------------------------------|
-| **After** | ![Figure 27: AfterDeleteRelationTypeCommand](images/AfterDeleteRelationTypeCommand.png)   |
+| **After** | ![Figure 29: AfterDeleteRelationTypeCommand](images/AfterDeleteRelationTypeCommand.png)   |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1027,9 +1027,9 @@ else `No Relationship Pathway Found` will be returned.
 * * <span class="hello_span">Examples:</span>
 * * * Example: `anySearch /0001 /0003` suppose 0003 is the friend of 0001 parent, `anySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> friends of --> 0003`.
 
-| Before    | ![Figure 28: BeforeAnySearchCommand](images/BeforeAnySearchCommand.png) |
+| Before    | ![Figure 30: BeforeAnySearchCommand](images/BeforeAnySearchCommand.png) |
 |-----------|-------------------------------------------------------------------------|
-| **After** | ![Figure 29: AfterAnySearchCommand](images/AfterAnySearchCommand.png)   |
+| **After** | ![Figure 31: AfterAnySearchCommand](images/AfterAnySearchCommand.png)   |
 
 * * <span class="hello_span">Examples:</span>
 * * * `anySearch /0001 /0004` suppose 0004 is not related to 0001 at all, then `anySearch` returns `No Relationship Pathway Found`
@@ -1057,9 +1057,9 @@ else `No Relationship Pathway Found` will be returned.
 * * <span class="hello_span">Examples:</span>
 - - - `familySearch /0001 /0003` suppose 0003 is the grandparent of 0001, `familySearch` will then return the descriptor `0001 -> (bioParents) child of --> 0002 --> (bioParents) child of --> 0003`.
 
-| Before    | ![Figure 30: BeforeFamilySearchCommand](images/BeforeFamilySearchCommand.png) |
+| Before    | ![Figure 32: BeforeFamilySearchCommand](images/BeforeFamilySearchCommand.png) |
 |-----------|-------------------------------------------------------------------------------|
-| **After** | ![Figure 31: AfterFamilySearchCommand](images/AfterFamilySearchCommand.png)   |
+| **After** | ![Figure 33: AfterFamilySearchCommand](images/AfterFamilySearchCommand.png)   |
 
 - - - `familySearch /0001 /0004` suppose 0004 has no family relation to 0001, then `familySearch` returns `No Relationship Pathway Found`
 * The command is order-sensitive `familySearch /0001 /0003` can potentially return a different result from `familySearch /0003 /0001`
@@ -1085,7 +1085,7 @@ else `No Relationship Pathway Found` will be returned.
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/helpMessage.png" alt="helpMessage.png">
-        <figcaption class="img_container_figCaption">Figure 15: Gene-nie Help Message</figcaption>
+        <figcaption class="img_container_figCaption">Figure 34: Gene-nie Help Message</figcaption>
     </figure>
 </div>
 
@@ -1114,7 +1114,7 @@ else `No Relationship Pathway Found` will be returned.
 <div class="img_container">
     <figure>
         <img src="{{site.baseurl}}/images/ClearCommandIllustration.png" alt="ClearCommandIllustration.png">
-        <figcaption class="img_container_figCaption">Figure 16: Before VS After Gene-nie Clear Command</figcaption>
+        <figcaption class="img_container_figCaption">Figure 35: Before VS After Gene-nie Clear Command</figcaption>
     </figure>
 </div>
 
