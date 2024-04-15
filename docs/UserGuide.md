@@ -836,9 +836,6 @@ After using this command, you must enter command `list` to restore your list of 
         <img src="{{site.baseurl}}/images/BeforeAddAttribute.png" alt="BeforeAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 20: Before Add Attribute Command</figcaption>
     </figure>
-</div>
-<div style="page-break-after: always;"></div>
-<div class="img_container" align="center">
     <figure>
         <img src="{{site.baseurl}}/images/AfterAddAttribute.png" alt="AfterAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 21: After Add Attribute Command</figcaption>
