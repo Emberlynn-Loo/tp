@@ -928,7 +928,8 @@ Step 8: `DeleteRelationshipCommand#execute` returns the `CommandResult` object t
 
 The following sequence diagram shows how deleting a relationship works:
 
-![RelationshipDeletingSequenceDiagram](images/RelationshipDeletingSequenceDiagram.png)
+![RelationshipDeletingMainDiagram](images/RelationshipDeletingMainDiagram.png)
+![RelatinshipDeletingRefFrame](images/RelationshipDeletingRefFrame.png)
 
 <div markdown="block" class="alert alert-info">
 

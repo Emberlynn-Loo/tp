@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+actor User as user USER_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":UI" as ui UI_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteRelationshipCommandParser" as DeleteRelationshipCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "d:DeleteRelationshipCommand" as DeleteRelationshipCommand LOGIC_COLOR
+end box
+
+box model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+user -[USER_COLOR]> ui : "deleteRelation /1234 /5678 /friends"
+activate ui
+ui -> LogicManager : execute("deleteRelation /1234 /5678 /friends")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deleteRelation /1234 /5678 /friends")
+activate AddressBookParser
+create DeleteRelationshipCommandParser
+AddressBookParser -> DeleteRelationshipCommandParser ++
+return
+AddressBookParser -> DeleteRelationshipCommandParser ++: parse("/1234 /5678 /friends")
+DeleteRelationshipCommandParser -> ParserUtil ++: getRelationshipHashMapDelete(parts)
+return
+DeleteRelationshipCommandParser --> ParserUtil ++ :relationKeysAndValues(relationshipMap, index, boolean)
+return
+create DeleteRelationshipCommand
+DeleteRelationshipCommandParser -> DeleteRelationshipCommand ++
+return d
+return d
+return d
+
+destroy DeleteRelationshipCommandParser
+
+ref over DeleteRelationshipCommand, Model : Execute Delete Relationship Command \n see Command Execution Diagram
+
+LogicManager --> ui : r
+deactivate LogicManager
+
+ui --> user : display "Delete successful."
+deactivate ui
+@enduml
