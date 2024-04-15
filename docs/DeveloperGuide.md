@@ -64,7 +64,7 @@ title_name: Developer Guide
   - [Clearing command responses](#clearing-command-responses)
   - [Issues with saving data](#issues-with-saving-data)
 - [Appendix: Planned Enhancements](#appendix-planned-enhancements)
-  - [Display results of find commands in "Search Results" tab](#c1---display-results-of-find-command-in--search-results--tab)
+  - [Display results of find commands in Search Results tab](#c1---display-results-of-find-command-in-search-results-tab)
   - [Improve error handling for invalid commands](#c2---improve-error-handling-for-invalid-commands)
   - [Improve saving of valid relationship descriptors](#c3---improve-saving-of-valid-relationship-descriptors)
   - [Improve error handling for duplicate relationship types](#c4---improve-error-handling-for-duplicate-relationship-types)
@@ -1498,6 +1498,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Architecture**: In the realm of software, architecture illustrates the systematic organization of the entire system.
 * **Framework**: Comprises pre-written code with predefined classes and functions, aiding developers in constructing software.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -1859,11 +1861,13 @@ testers are expected to do more *exploratory* testing.
     4. Relaunch Gene-nie. <br>
        **Expected Outcome:** The left panel is now empty. No person records are shown in the application.
 
+[Back to Table of Contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**
 
-### C.1 - Display results of find command in "Search Results" tab
+### C.1 - Display results of find command in Search Results tab
 
 Currently, the results of the `find` command are displayed in the left panel of the application. This enhancement aims to display the results in the separate already implemented tab called "Search Results" to improve the user experience. This will allow users to view the search results without losing sight of the main list of persons.
 
