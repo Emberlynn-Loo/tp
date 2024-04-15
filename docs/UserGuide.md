@@ -1476,12 +1476,11 @@ In the future, the application may be updated to automatically update the list c
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-
-<div class="section_header_h2">
-    <h2><a href="#glossary" id="glossary">Glossary</a></h2>
-</div>
 <div style="page-break-after: always;"></div>
 <div class="img_container" align="center">
+</div>
+<div class="section_header_h2">
+    <h2><a href="#glossary" id="glossary">Glossary</a></h2>
 </div>
 
 | Term       | Description                                                                                                                                                                                                                                                                                            |
