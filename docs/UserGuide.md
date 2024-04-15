@@ -857,6 +857,10 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * `editAttribute /0001 /Pet Cat` edits the attribute Pet to have the value Cat for the person with the UUID 0001
 * `editAttribute /0001 /Pet Cat /Nickname Elvis` edits the attribute Pet to have the value Cat and the attribute Nickname to have the value Elvis for the person with the UUID 0001
 
+| Before    | ![Figure 18: BeforeEditAttribute](images/BeforeEditAttribute.png) |
+|-----------|-------------------------------------------------------------------|
+| **After** | ![Figure 19: AfterEditAttribute](images/AfterEditAttribute.png)   |
+
 [Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -904,6 +908,17 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 | Before    | ![Figure 18: BeforeAddRolelessRelationCommand](images/BeforeAddRolelessRelationCommand.png) |
 |-----------|---------------------------------------------------------------------------------------------|
 | **After** | ![Figure 19: AfterAddRolelessRelationCommand](images/AfterAddRolelessRelationCommand.png)   |
+
+<div class="img_container" align="center">
+    <figure>
+        <img src="{{site.baseurl}}/images/BeforeAddRolelessRelationCommand.png" alt="BeforeAddRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 18: Before Add Roleless Relation Command</figcaption>
+    </figure>
+    <figure>
+        <img src="{{site.baseurl}}/images/AfterAddRolelessRelationCommand.png" alt="AfterAddRolelessRelationCommand.png">
+        <figcaption class="img_container_figCaption">Figure 19: After Add Roleless Relation Command</figcaption>
+    </figure>
+</div>
 
 <span style="font-style: italic;">Adds a role-based relationship between two people in the address book.</span>
 
