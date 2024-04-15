@@ -504,9 +504,10 @@ In the world of <span class="hello_span">Gene-nie</span>, we believe that every 
 
 A person's profile in <span class="hello_span">Gene-nie</span> is made up of three pieces of information:
 1. A unique identifier (UUID)
-    1. Each person has a unique UUID that is used to identify them
-    2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
-    3. UUID are 4-characters long
+   1. Each person has a unique UUID that is used to identify them
+   2. You may view the UUID of a person on the left of their details on each person card, shown in the "All Contacts" and "Search Results" panels
+   3. UUID are 4-characters long
+   4. UUID are case-sensitive
 2. A set of attributes
 3. A set of relationships
    To learn more about attributes and relationships, find their descriptions in [Relationships](#relationships).
@@ -647,7 +648,7 @@ Custom relations:
 **Be careful with custom relation types and roles!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember:
 
 *  Adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of the predefined relation type siblings)! 
-*  Any relation types that do match the banned relation types mentioned above **exactly** are also considered custom relation types (eg. sis instead of the banned relatino type 'sister')!
+*  Any relation types that do not match the banned relation types mentioned above **exactly** are also considered custom relation types (eg. sis instead of the banned relatino type 'sister')!
 
 To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
 </div>
@@ -816,7 +817,7 @@ This way, you can still add them to relationships, and fill in their details lat
 * Prepared to be dazzled as you can add multiple attributes in one command!
 * Duplicate attribute names are checked and will not be allowed for the command to be parsed
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
+* The `UUID` **must be a valid UUID (case-sensitive)**
 * The first space after the attribute name is marks the start of the attribute value
 * See the [Attributes](#attributes) section for more information on what are valid attribute names and values, and how they are processed
 
@@ -831,6 +832,7 @@ This way, you can still add them to relationships, and fill in their details lat
         <img src="{{site.baseurl}}/images/BeforeAddAttribute.png" alt="BeforeAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 20: Before Add Attribute Command</figcaption>
     </figure>
+<div style="page-break-after: always;"></div>
     <figure>
         <img src="{{site.baseurl}}/images/AfterAddAttribute.png" alt="AfterAddAttribute.png">
         <figcaption class="img_container_figCaption">Figure 21: After Add Attribute Command</figcaption>
@@ -857,7 +859,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * You have the delightful privilege of deleting multiple attributes in one command
 * However, duplicate attribute names are checked and will not be allowed for the command to be parsed
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
+* The `UUID` **must be a valid UUID (case-sensitive)**
 * If the person does not have the specified attribute, the command will not have any effect
 * If the person does not exist, the command will not have any effect
 * If the attribute does not exist, the command will not have any effect
@@ -893,7 +895,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * Multiple attributes are allowed to be edited simultaneously in one command
 * Duplicate attribute names are checked and will not be allowed for the command to be parsed
 * The `UUID` refers to the unique identifier of the person shown in the displayed person list
-* The `UUID` **must be a valid UUID**
+* The `UUID` **must be a valid UUID (case-sensitive)**
 * If the person does not have the specified attribute, the command will not have any effect and will throw an error
   * If you have used an incorrect attribute name, and wish to edit the attribute name, you must delete the attribute (using the 'incorrect' name) and add a new one instead
 * If the person does not exist, the command will not have any effect and will throw an error
@@ -954,7 +956,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Adds the roleless relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
-* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `UUID1` and `UUID2` **must be valid UUIDs (case-sensitive)**.
 * The `RELATIONSHIP_TYPE` **must be a String** but can be more than one word.
 * If the relationship already exists, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
@@ -989,7 +991,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The command word, `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
 * Adds the role-based relationship between the person with the specified `UUID1` and the person with the specified `UUID2` with roles `ROLE1` and `ROLE2` respectively.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
-* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `UUID1` and `UUID2` **must be valid UUIDs (case-sensitive)**.
 * The `RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
 * The `RELATIONSHIP_TYPE` can be more than one word.
 * The `ROLE1` and `ROLE2` can only be one word.
@@ -1044,7 +1046,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The command word, `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` are not case-sensitive.
 * Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2` to the new relationship type.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
-* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `UUID1` and `UUID2` **must be valid UUIDs (case-sensitive)**.
 * The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` **must be Strings**, but can be more than one word.
 * If the relationship to be edited from does not exist, the command will not have any effect.
 * If the relationship to be edited to already exists, the command will not have any effect.
@@ -1082,7 +1084,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The command word, `OLD_RELATIONSHIP_TYPE`, `NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` are not case-sensitive.
 * Edits the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
-* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `UUID1` and `UUID2` **must be valid UUIDs (case-sensitive)**.
 * The `OLD_RELATIONSHIP_TYPE`,`NEW_RELATIONSHIP_TYPE`, `ROLE1` and `ROLE2` **must be Strings**.
 * The `OLD_RELATIONSHIP_TYPE` and `NEW_RELATIONSHIP_TYPE` can be more than one word.
 * The `ROLE1` and `ROLE2` can only be one word.
@@ -1148,7 +1150,7 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * The command word and `RELATIONSHIP_TYPE` are not case-sensitive.
 * Deletes the relationship between the person with the specified `UUID1` and the person with the specified `UUID2`.
 * The `UUID1` and `UUID2` refer to the unique identifiers of the persons shown in the displayed person list.
-* The `UUID1` and `UUID2` **must be valid UUIDs**.
+* The `UUID1` and `UUID2` **must be valid UUIDs (case-sensitive)**.
 * The `RELATIONSHIP_TYPE` **must be a String**, but can be more than one word.
 * If the specified relationship to be deleted does not exist, the command will not have any effect.
 * If either persons do not exist, the command will not have any effect.
@@ -1247,7 +1249,7 @@ Note that anySearch will prioritize the shortest relationship path between the t
 <span class="hello_span">Format:</span> `familySearch /ORIGINUUID /TARGETUUID` or `fs /ORIGINUUID /TARGETUUID`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Important:**
-UUIDs are 4 characters long, containing only alphanumeric characters
+UUIDs are 4 characters long, containing only alphanumeric characters (case-sensitive)
 </div>
 
 * Unlike `anySearch`, `familySearch` only recognises family relationships, which are `bioparents`, `siblings` and `spouses`
@@ -1443,7 +1445,7 @@ In the future, the application may be updated to restrict the roles and relation
 
 | Term       | Description                                                                                                                                                                                                                                                                                            |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| UUID       | **Universally Unique Identifier:** A four-digit code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                 |
+| UUID       | **Universally Unique Identifier:** A four-digit code used to represent a person. Every person in your contacts list has a unique UUID (case-sensitive).                                                                                                                                                |
 | CLI        | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
 | GUI        | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
 | Integer    | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
