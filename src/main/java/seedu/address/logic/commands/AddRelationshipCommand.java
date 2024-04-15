@@ -108,14 +108,14 @@ public class AddRelationshipCommand extends Command {
      * @return A boolean indicating whether the relationship descriptor contains illegal descriptors
      */
     public static boolean containsIllegalDescriptors(String relationshipDescriptor) {
-        return relationshipDescriptor.contains("parent") || relationshipDescriptor.contains("father")
-                || relationshipDescriptor.contains("mother") || relationshipDescriptor.contains("dad")
-                || relationshipDescriptor.contains("mom") || relationshipDescriptor.contains("mum")
-                || relationshipDescriptor.contains("son") || relationshipDescriptor.contains("daughter")
-                || relationshipDescriptor.contains("child") || relationshipDescriptor.contains("offspring")
-                || relationshipDescriptor.contains("kin") || relationshipDescriptor.contains("kid")
-                || relationshipDescriptor.contains("bro") || relationshipDescriptor.contains("sis")
-                || relationshipDescriptor.contains("husband") || relationshipDescriptor.contains("wife");
+        return relationshipDescriptor.equals("parent") || relationshipDescriptor.equals("father")
+                || relationshipDescriptor.equals("mother") || relationshipDescriptor.equals("dad")
+                || relationshipDescriptor.equals("mom") || relationshipDescriptor.equals("mum")
+                || relationshipDescriptor.equals("son") || relationshipDescriptor.equals("daughter")
+                || relationshipDescriptor.equals("child") || relationshipDescriptor.equals("offspring")
+                || relationshipDescriptor.equals("kin") || relationshipDescriptor.equals("kid")
+                || relationshipDescriptor.equals("bro") || relationshipDescriptor.equals("sis")
+                || relationshipDescriptor.equals("husband") || relationshipDescriptor.equals("wife");
     }
 
     /**
