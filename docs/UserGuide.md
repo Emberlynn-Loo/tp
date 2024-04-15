@@ -1480,6 +1480,8 @@ In the future, the application may be updated to automatically update the list c
 <div class="section_header_h2">
     <h2><a href="#glossary" id="glossary">Glossary</a></h2>
 </div>
+<div style="page-break-after: always;"></div>
+<div class="img_container" align="center">
 
 | Term       | Description                                                                                                                                                                                                                                                                                            |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
