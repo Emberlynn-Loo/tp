@@ -133,7 +133,6 @@ Additionally, there will be symbols to help you navigate through this guide:
 |:----------------------------------------:|---------------------------------------------------------------|
 | [Hyperlink to Header](#using-this-guide) | Clickable hyperlink to navigate to another section            |
 |              `command text`              | Text relevant to Gene-nie's user commands and executable file |
-|             <kbd>Enter</kbd>             | A keyboard key                                                |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -224,7 +223,7 @@ The app will resize and expand initially to fit the size of your screen. You can
 1. <span class="h3_span">Command Box</span>:
 
    * The command box is where you can enter your commands to interact with <span class="hello_span">Gene-nie</span>.
-   * Type your command and press <kbd>Enter</kbd> to execute it.
+   * Type your command and press enter to execute it.
    * You can locate the list of commands to use in the [Command Summary](#command-summary) section.
 2. <span class="h3_span">Command Result</span>:
 
@@ -616,31 +615,6 @@ For your convenience, <span class="hello_span">Gene-nie</span> has some predefin
 4. `friends` roleless relationship type
     1. This relationship type is used to denote a friendship relationship.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-**Be careful with custom attribute names and values!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember, even adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of siblings)! To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
-</div>
-
-<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
-
-Relation types:
-
-* are case-insensitive
-* will automatically be converted to lower case
-    * e.g. `/HouSemAtes` will be stored as `/housemates`
-* cannot be empty
-* cannot contain any special characters or numbers
-* can be more than one word
-* cannot be converted to a role-based relationship type if it has been defined as a roleless, and vice-versa (see more details [below](#features---managing-person-relationships))
-
-Roles:
-
-* are case-insensitive
-* will automatically be converted to lower case
-    * e.g. `SISter` will be stored as `sister`
-* can be empty for roleless relationships, must not be empty for role-based relationships
-* cannot contain any special characters or numbers
-* cannot be more than one word
-
 Custom relations:
 * There is a possibility that similar family relation types can be added as custom relation types, even though they are part of the pre-defined relation types. For example, you can add `parent` as a custom relation type even though a pre-defined relation type `bioparents` exists.
 * This may cause unexpected bugs when adding these custom relation types as roleless relations. Hence, we have included checks to ensure that certain custom relation types cannot be added as roleless relations.
@@ -668,6 +642,36 @@ Custom relations:
 | 14  | sis           |
 | 15  | husband       |
 | 16  | wife          |
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+**Be careful with custom relation types and roles!** We are unable to handle any unexpected bugs that might occur due to the user's defined relations other than the constraints we have [defined below](#features---managing-person-relationships). Alas, we cannot wave our wands to fix these just yet. Remember:
+
+*  Adding predefined relation types without an 's' still counts as a custom relation type (eg. sibling instead of the predefined relation type siblings)! 
+*  Any relation types that do match the banned relation types mentioned above **exactly** are also considered custom relation types (eg. sis instead of the banned relatino type 'sister')!
+
+To harness the power of our predefined relation types mentioned above, be sure to match the characters exactly.
+</div>
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+
+Relation types:
+
+* are case-insensitive
+* will automatically be converted to lower case
+    * e.g. `/HouSemAtes` will be stored as `/housemates`
+* cannot be empty
+* cannot contain any special characters or numbers
+* can be more than one word
+* cannot be converted to a role-based relationship type if it has been defined as a roleless, and vice-versa (see more details [below](#features---managing-person-relationships))
+
+Roles:
+
+* are case-insensitive
+* will automatically be converted to lower case
+    * e.g. `SISter` will be stored as `sister`
+* can be empty for roleless relationships, must not be empty for role-based relationships
+* cannot contain any special characters or numbers
+* cannot be more than one word
 
 </div>
 
@@ -1022,6 +1026,11 @@ If the person you are adding the sex attribute to already has a siblings' or a s
 * Once you add a role-based relationship, you are then unable to add a roleless relationship with the same `RELATIONSHIP_TYPE`. To do this, you must follow the same steps above to remove the `RELATIONSHIP_TYPE` and all relationships associated with it from the database.
 </div>
 
+<div markdown="span" class="alert alert-primary">:information_source: **Tip:**
+
+* The error message displayed when adding a relationship that already exists will show the full UUID of the persons in the existing relationship. This might confuse you as it can be hard to read, but fret not! This is something that we are actively working to fix in the future of this magical system.
+</div>
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -1119,6 +1128,11 @@ If the person you are adding the sex attribute to already has a siblings' or a s
   * Edit a roleless relationship to a role-based relationship <br>
   * Edit a role-based relationship to another role-based relationship <br>
   * Edit a role-based relationship to a roleless relationship <br>
+</div>
+
+<div markdown="span" class="alert alert-primary">:information_source: **Tip:**
+
+* The error message displayed when editing to a relationship that already exists will show the full UUID of the persons in the existing relationship. This might confuse you as it can be hard to read, but fret not! This is something that we are actively working to fix in the future of this magical system.
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1226,7 +1240,7 @@ Note that anySearch will prioritize the shortest relationship path between the t
 
 ---
 
-<span class="h3_span" id="finding-family-relationships-between-entities--familysearch-or-ds">Finding Family Relationships between Entities: `familySearch` or `fs`</span>
+<span class="h3_span" id="finding-family-relationships-between-entities--familysearch-or-fs">Finding Family Relationships between Entities: `familySearch` or `fs`</span>
 
 <span style="font-style: italic;">Finds the family relationship pathway between 2 input entities.</span>
 
@@ -1352,8 +1366,10 @@ Note that familySearch will prioritize the shortest relationship path between th
 </p>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+If your changes to the data file makes its format invalid, Gene-nie will discard all data and start with an empty data file at the next successful command except for the clear command. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause Gene-nie to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -1427,7 +1443,7 @@ In the future, the application may be updated to restrict the roles and relation
 
 | Term       | Description                                                                                                                                                                                                                                                                                            |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| UUID       | **Universally Unique Identifier:** A code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                            |
+| UUID       | **Universally Unique Identifier:** A four-digit code used to represent a person. Every person in your contacts list has a unique UUID.                                                                                                                                                                 |
 | CLI        | **Command Line Interface (CLI):** A text-based interface that allows users to interact with a computer or software by entering text commands. It's often preferred by power users and developers for its efficiency and scriptability.                                                                 |
 | GUI        | **Graphical User Interface (GUI):** A user interface that utilises graphical elements such as icons, buttons, windows, and menus to allow users to interact with software or applications. GUIs are known for their visual appeal and user-friendliness.                                               |
 | Integer    | **Integer:** In computer programming, an integer is a whole number without a fractional or decimal component. Integers are used to represent whole quantities in mathematics and computer science. They can be positive, negative, or zero.                                                            |
